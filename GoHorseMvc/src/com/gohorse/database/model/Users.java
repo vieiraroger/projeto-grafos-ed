@@ -1,5 +1,5 @@
 package com.gohorse.database.model;
 
-public class Cidades {
+public class Users {
 
 }

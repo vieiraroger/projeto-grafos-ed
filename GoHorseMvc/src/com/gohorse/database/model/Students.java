@@ -1,5 +1,7 @@
 package com.gohorse.database.model;
 
-public class Usuarios {
+public class Students {
+	
+	
 
 }

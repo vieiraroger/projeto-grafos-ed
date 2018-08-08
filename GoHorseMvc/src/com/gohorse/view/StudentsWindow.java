@@ -1,5 +1,5 @@
 package com.gohorse.view;
 
-public class AlunosWindow {
+public class StudentsWindow {
 
 }

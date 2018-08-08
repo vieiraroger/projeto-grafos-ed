@@ -1,5 +1,5 @@
 package com.gohorse.database.dao;
 
-public class UsuariosDAO {
+public class StudentsDAO {
 
 }
