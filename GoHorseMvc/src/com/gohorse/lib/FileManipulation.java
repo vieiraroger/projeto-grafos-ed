@@ -51,7 +51,7 @@ public class FileManipulation {
     }
  
     public static boolean write(String filename,Users obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
         line = obj.getuser();
