@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
@@ -6,20 +7,23 @@ import com.gohorse.lib.FileManipulation;
 public class Tester {
 
 	public static void main(String[] args) throws IOException {
-		FileManipulation fm = new FileManipulation();
+		ArrayList<Object> users = FileManipulation.read("Users.txt");
 		
-		fm.read("Users.txt");
+		for(int i=0;i<users.size();i++) {
+			System.out.println(((Users) users.get(i)).getpassword());
+		}
 		
+		
+		/*
 		Users roger = new Users();
 		
-		roger.setpassword("123456");
-		roger.setperfil("perfil");
-		roger.setuser("roger");
+		roger.setpassword("romuloviado");
+		roger.setperfil("truco");
+		roger.setuser("hello");
 		
-		System.out.println(roger.getpassword());
-		fm.write("Users.txt", roger);
-		
-		fm.read("Users.txt");
+		FileManipulation.write("Users.txt", roger);
+		*/
+	
 		
 	}
 

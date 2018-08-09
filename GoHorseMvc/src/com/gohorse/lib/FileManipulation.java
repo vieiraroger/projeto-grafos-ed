@@ -11,16 +11,26 @@ import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Users;
 
+/**
+ * @author Roger Vieira
+ */
 public class FileManipulation {
 	
 	
-	
-	private Object createObject(String s,String filename) {
+	/**
+	 * @param file name and a string get from some file.txt
+	 * @return ArrayList of some specify object 
+	 */
+	private static Object createObject(String filename,String s) {
 		Object obj;
-		
+		String[] data = s.split("@");
 		switch(filename.charAt(0)) {
 			case 'U':
-				obj = new Users();
+				obj = new Users(); //create constructor
+				
+				((Users) obj).setpassword(data[1]);
+				((Users) obj).setperfil(data[2]);
+				((Users) obj).setuser(data[0]);
 				break;
 			default:
 				return null;
@@ -29,14 +39,18 @@ public class FileManipulation {
 		return obj;
 	}
 	
+	/**
+	 * @param file name where you want to read
+	 * @return ArrayList of some specify object 
+	 */
 	public static ArrayList<Object> read(String filename) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(filename));
-        
+        ArrayList<Object> list = new ArrayList<Object>();
         String line = "";
+        line = buffRead.readLine();
         while (true) {
             if (line != null) {
-                System.out.println(line);
- 
+            	list.add(createObject(filename,line));
             } 
             else {
                 break;
@@ -44,29 +58,48 @@ public class FileManipulation {
             line = buffRead.readLine();
         }
         
-        ArrayList<Object> list = new ArrayList<Object>();
+        
         buffRead.close();
         
         return list;
     }
- 
-    public static boolean write(String filename,Users obj) throws IOException {
+	
+	/** 
+	 * @param file name 
+	 * @param Users object
+	 */
+    public static void write(String filename,Users obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
-        line = obj.getuser();
-        line += '@';
-        line += obj.getpassword(); //make md5 hash
-        line += '@';
-        line += obj.getperfil();
+        line = obj.getuser() + "@" + obj.getpassword() + "@" + obj.getperfil();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
         
-        return true;
+        return;
     }
     
-    public static boolean write(String filename,Cities obj) throws IOException {
+    /** 
+	 * @param file name 
+	 * @param Cities object
+	 */
+    public static void write(String filename,Cities obj) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+        String line = "";
+        
+        
+        buffWrite.append(line + "\n");
+        buffWrite.close();
+        
+        return;
+    }
+    
+    /** 
+	 * @param file name 
+	 * @param Students object
+	 */
+    public static void write(String filename,Students obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
         String line = "";
         
@@ -75,19 +108,7 @@ public class FileManipulation {
         buffWrite.append(line + "\n");
         buffWrite.close();
         
-        return true;
-    }
-    
-    public static boolean write(String filename,Students obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
-        String line = "";
-        
-        
-        
-        buffWrite.append(line + "\n");
-        buffWrite.close();
-        
-        return true;
+        return;
     }
 	
 }
