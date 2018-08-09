@@ -10,12 +10,16 @@ public class Users {
 	
 	private String perfil;
 
+	public Users() {
+		
+	}
+	
 	public String getuser() {
 		return user;
 	}
 
 	public void setuser(String user) {
-		user = user;
+		this.user = user;
 	}
 
 	public String getpassword() {
@@ -23,7 +27,7 @@ public class Users {
 	}
 
 	public void setpassword(String password) {
-		password = password;
+		this.password = password;
 	}
 
 	public String getperfil() {
@@ -31,11 +35,7 @@ public class Users {
 	}
 
 	public void setperfil(String perfil) {
-		perfil = perfil;
+		this.perfil = perfil;
 	}
-
-	public users() {
 	
-	}
-
 }
