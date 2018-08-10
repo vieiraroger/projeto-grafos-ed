@@ -32,6 +32,11 @@ public class FileManipulation {
 				((Users) obj).setperfil(data[2]);
 				((Users) obj).setuser(data[0]);
 				break;
+			case 'C':
+				obj = new Cities();
+				((Cities) obj).setcity(data[0]);
+				((Cities) obj).setstate(data[1]);
+				((Cities) obj).setcountry(data[2]);
 			default:
 				return null;
 		}
@@ -85,9 +90,10 @@ public class FileManipulation {
 	 * @param Cities object
 	 */
     public static void write(String filename,Cities obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
+        line = obj.getcity() + "@" + obj.getstate() + "@" + obj.getcountry();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
@@ -100,7 +106,7 @@ public class FileManipulation {
 	 * @param Students object
 	 */
     public static void write(String filename,Students obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
         

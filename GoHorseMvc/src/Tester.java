@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
 
@@ -23,8 +24,14 @@ public class Tester {
 		
 		FileManipulation.write("Users.txt", roger);
 		*/
-	
-		
+		/*
+		Cities t = new Cities();
+		t.setcity("Criciuma");
+		t.setcountry("Brasil");
+		t.setstate("SC");
+		System.out.println();
+		FileManipulation.write("Cities.txt", t);
+		*/
 	}
 
 }

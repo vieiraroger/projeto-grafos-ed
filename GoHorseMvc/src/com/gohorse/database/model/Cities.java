@@ -15,7 +15,7 @@ public class Cities {
 	}
 
 	public void setcity(String city) {
-		city = city;
+		this.city = city;
 	}
 
 	public String getstate() {
@@ -23,7 +23,7 @@ public class Cities {
 	}
 
 	public void setstate(String state) {
-		state = state;
+		this.state = state;
 	}
 
 	public String getcountry() {
@@ -31,7 +31,7 @@ public class Cities {
 	}
 
 	public void setcountry(String country) {
-		country = country;
+		this.country = country;
 	}
 
 	public Cities() {
