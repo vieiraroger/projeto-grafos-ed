@@ -13,7 +13,6 @@ public class Users {
 	public Users() {
 		
 	}
-	Users
 	
 	public String getUser() {
 		return user;
