@@ -10,27 +10,27 @@ public class Cities {
 	
 	private String country;
 
-	public String getcity() {
+	public String getCity() {
 		return city;
 	}
 
-	public void setcity(String city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 
-	public String getstate() {
+	public String getState() {
 		return state;
 	}
 
-	public void setstate(String state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
-	public String getcountry() {
+	public String getCountry() {
 		return country;
 	}
 
-	public void setcountry(String country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
