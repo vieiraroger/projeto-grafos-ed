@@ -18,7 +18,8 @@ public class FileManipulation {
 	
 	
 	/**
-	 * @param file name and a string get from some file.txt
+	 * @param file name and a string 
+	 from some file.txt
 	 * @return ArrayList of some specify object 
 	 */
 	private static Object createObject(String filename,String s) {
@@ -28,15 +29,15 @@ public class FileManipulation {
 			case 'U':
 				obj = new Users(); //create constructor
 				
-				((Users) obj).setpassword(data[1]);
-				((Users) obj).setperfil(data[2]);
-				((Users) obj).setuser(data[0]);
+				((Users) obj).setPassword(data[1]);
+				((Users) obj).setPerfil(data[2]);
+				((Users) obj).setUser(data[0]);
 				break;
 			case 'C':
 				obj = new Cities();
-				((Cities) obj).setcity(data[0]);
-				((Cities) obj).setstate(data[1]);
-				((Cities) obj).setcountry(data[2]);
+				((Cities) obj).setCity(data[0]);
+				((Cities) obj).setState(data[1]);
+				((Cities) obj).setCountry(data[2]);
 			default:
 				return null;
 		}
@@ -77,7 +78,7 @@ public class FileManipulation {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
-        line = obj.getuser() + "@" + obj.getpassword() + "@" + obj.getperfil();
+        line = obj.getUser() + "@" + obj.getPassword() + "@" + obj.getPerfil();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
@@ -93,7 +94,7 @@ public class FileManipulation {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
         String line = "";
         
-        line = obj.getcity() + "@" + obj.getstate() + "@" + obj.getcountry();
+        line = obj.getCity() + "@" + obj.getState() + "@" + obj.getCountry();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
