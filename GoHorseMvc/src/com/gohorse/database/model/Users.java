@@ -2,7 +2,7 @@ package com.gohorse.database.model;
 
 public class Users {
 	
-	private static long userID;
+	private long userID;
 	
 	private String user;
 	
@@ -13,29 +13,31 @@ public class Users {
 	public Users() {
 		
 	}
+	Users
 	
-	public String getuser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setuser(String user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
-	public String getpassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setpassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String getperfil() {
+	public String getPerfil() {
 		return perfil;
 	}
 
-	public void setperfil(String perfil) {
+	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
+	
 	
 }
