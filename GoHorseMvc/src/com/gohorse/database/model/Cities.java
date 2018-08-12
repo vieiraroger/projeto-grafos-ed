@@ -2,7 +2,7 @@ package com.gohorse.database.model;
 
 public class Cities {
 	
-	private static long cityID;
+	private long cityID;
 	
 	private String city;
 	
@@ -31,6 +31,14 @@ public class Cities {
 	}
 
 	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Cities(long cityID, String city, String state, String country) {
+		super();
+		this.cityID = cityID;
+		this.city = city;
+		this.state = state;
 		this.country = country;
 	}
 

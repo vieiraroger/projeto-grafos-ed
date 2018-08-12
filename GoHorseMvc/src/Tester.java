@@ -11,7 +11,7 @@ public class Tester {
 		ArrayList<Object> users = FileManipulation.read("Users.txt");
 		
 		for(int i=0;i<users.size();i++) {
-			System.out.println(((Users) users.get(i)).getpassword());
+			System.out.println(((Users) users.get(i)).getPassword());
 		}
 		
 		

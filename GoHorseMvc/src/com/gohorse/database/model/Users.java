@@ -34,6 +34,14 @@ public class Users {
 		return perfil;
 	}
 
+	public Users(long userID, String user, String password, String perfil) {
+		super();
+		this.userID = userID;
+		this.user = user;
+		this.password = password;
+		this.perfil = perfil;
+	}
+
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
