@@ -27,17 +27,11 @@ public class FileManipulation {
 		String[] data = s.split("@");
 		switch(filename.charAt(0)) {
 			case 'U':
-				obj = new Users(); //create constructor
+				obj = new Users(data[0],data[1],data[2]); //create constructor
 				
-				((Users) obj).setPassword(data[1]);
-				((Users) obj).setPerfil(data[2]);
-				((Users) obj).setUser(data[0]);
 				break;
 			case 'C':
-				obj = new Cities();
-				((Cities) obj).setCity(data[0]);
-				((Cities) obj).setState(data[1]);
-				((Cities) obj).setCountry(data[2]);
+				obj = new Cities(data[0],data[1],data[2]);
 			default:
 				return null;
 		}
@@ -46,12 +40,22 @@ public class FileManipulation {
 	}
 	
 	/**
+     * @param primary key of an object
+     * @return one object
+     */
+    public static Object select(String filename,String primaryKey) {
+    	
+    	return null;
+    }
+    
+	/**
 	 * @param file name where you want to read
 	 * @return ArrayList of some specify object 
 	 */
-	public static ArrayList<Object> read(String filename) throws IOException {
+	public static ArrayList<Object> selectAll(String filename) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(filename));
         ArrayList<Object> list = new ArrayList<Object>();
+        
         String line = "";
         line = buffRead.readLine();
         while (true) {
@@ -64,18 +68,15 @@ public class FileManipulation {
             line = buffRead.readLine();
         }
         
-        
         buffRead.close();
-        
         return list;
     }
 	
 	/** 
-	 * @param file name 
 	 * @param Users object
 	 */
-    public static void write(String filename,Users obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
+    public static void insert(Users obj) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users",true));
         String line = "";
         
         line = obj.getUser() + "@" + obj.getPassword() + "@" + obj.getPerfil();
@@ -87,11 +88,10 @@ public class FileManipulation {
     }
     
     /** 
-	 * @param file name 
 	 * @param Cities object
 	 */
-    public static void write(String filename,Cities obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
+    public static void insert(Cities obj) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Cities",true));
         String line = "";
         
         line = obj.getCity() + "@" + obj.getState() + "@" + obj.getCountry();
@@ -103,11 +103,10 @@ public class FileManipulation {
     }
     
     /** 
-	 * @param file name 
 	 * @param Students object
 	 */
-    public static void write(String filename,Students obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename,true));
+    public static void insert(Students obj) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students",true));
         String line = "";
         
         
@@ -118,4 +117,13 @@ public class FileManipulation {
         return;
     }
 	
+    /**
+     * @param primary key of an object
+     * @return boolean
+     */
+    public static boolean update(String filename,String primaryKey) {
+    	
+    	return true;
+    }
+    
 }

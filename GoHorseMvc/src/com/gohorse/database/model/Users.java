@@ -2,16 +2,14 @@ package com.gohorse.database.model;
 
 public class Users {
 	
-	private long userID;
-	
 	private String user;
-	
 	private String password;
-	
 	private String perfil;
 
-	public Users() {
-		
+	public Users(String user, String password, String perfil) {
+		this.user = user;
+		this.password = password;
+		this.perfil = perfil;
 	}
 	
 	public String getUser() {
@@ -32,14 +30,6 @@ public class Users {
 
 	public String getPerfil() {
 		return perfil;
-	}
-
-	public Users(long userID, String user, String password, String perfil) {
-		super();
-		this.userID = userID;
-		this.user = user;
-		this.password = password;
-		this.perfil = perfil;
 	}
 
 	public void setPerfil(String perfil) {
