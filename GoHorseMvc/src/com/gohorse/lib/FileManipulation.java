@@ -2,7 +2,6 @@ package com.gohorse.lib;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -94,6 +93,47 @@ public class FileManipulation {
         return list;
     }
 	
+	/**
+     * @param filename
+     * @param primary key of an object
+     * @throws IOException 
+     */
+    public static void delete(String filename,String primaryKey) throws IOException {
+    	
+    	ArrayList<Object> list = selectAll(filename); //save the lines
+    	
+    	//clean the file
+    	BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+    	buffWrite.write("");
+    	buffWrite.close();
+    	
+    	//re-write the lines
+    	switch(filename.charAt(0)) {
+	    	case 'U':
+	    		for(int i=0;i<list.size();i++) {
+	    			if(!(((Users) list.get(i)).getUser().equals(primaryKey))) {
+	    				insert((Users) list.get(i));
+	    			}
+	        	}
+	    		break;
+	    	case 'S':
+	    		for(int i=0;i<list.size();i++) {
+	    			/*if(!(((Students) list.get(i)).getId.equals(primaryKey))) {
+	    				insert((Students) list.get(i));
+	    			}*/
+	        	}
+	    		break;
+	    	case 'C':
+	    		for(int i=0;i<list.size();i++) {
+	    			if(!(((Cities) list.get(i)).getCity().equals(primaryKey))) {
+	    				insert((Cities) list.get(i));
+	    			}
+	        	}
+	    		break;
+    	}
+    	   
+    }
+	
 	/** 
 	 * @param Users object
 	 * @throws IOException 
@@ -133,9 +173,7 @@ public class FileManipulation {
     public static void insert(Students obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students.txt",true));
         String line = "";
-        
-        
-        
+
         buffWrite.append(line + "\n");
         buffWrite.close();
         
@@ -143,46 +181,34 @@ public class FileManipulation {
     }
 	
     /**
-     * @param filename
-     * @param primary key of an object
+     * @param User object
      * @throws IOException 
+     * 
      */
-    public static void delete(String filename,String primaryKey) throws IOException {
-    	
-    	ArrayList<Object> list = selectAll(filename); //save the lines
-    	
-    	//clean the file
-    	BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
-    	buffWrite.write("");
-    	buffWrite.close();
-    	
-    	//re-write the lines
-    	switch(filename.charAt(0)) {
-	    	case 'U':
-	    		for(int i=0;i<list.size();i++) {
-	    			if(!(((Users) list.get(i)).getUser().equals(primaryKey))) {
-	    				insert((Users) list.get(i));
-	    			}
-	        	}
-	    		break;
-	    	case 'S':
-	    		for(int i=0;i<list.size();i++) {
-	    			/*if(!(((Students) list.get(i)).getId.equals(primaryKey))) {
-	    				insert((Students) list.get(i));
-	    			}*/
-	        	}
-	    		break;
-	    	case 'C':
-	    		for(int i=0;i<list.size();i++) {
-	    			if(!(((Cities) list.get(i)).getCity().equals(primaryKey))) {
-	    				insert((Cities) list.get(i));
-	    			}
-	        	}
-	    		break;
-    	}
-    	
-        
-        
+    public static void update(Users obj) throws IOException {
+    	delete("Users.txt",obj.getUser());
+    	insert(obj);
     }
+    
+    /**
+     * @param Citie object
+     * @throws IOException 
+     * 
+     */
+    public static void update(Cities obj) throws IOException {
+    	delete("Cities.txt",obj.getCity());
+    	insert(obj);
+    }
+    
+    /**
+     * @param Student object
+     * @throws IOException 
+     * 
+     */
+    public static void update(Students obj) throws IOException {
+    	//delete("Students.txt",obj.Id);
+    	insert(obj);
+    }
+    
 
 }
