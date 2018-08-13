@@ -2,6 +2,7 @@ package com.gohorse.lib;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,8 +19,7 @@ public class FileManipulation {
 	
 	
 	/**
-	 * @param file name and a string 
-	 from some file.txt
+	 * @param file name and a string from some file.txt
 	 * @return ArrayList of some specify object 
 	 */
 	private static Object createObject(String filename,String s) {
@@ -40,17 +40,39 @@ public class FileManipulation {
 	}
 	
 	/**
+	 * @param filename
      * @param primary key of an object
      * @return one object
+     * @throws IOException 
      */
-    public static Object select(String filename,String primaryKey) {
-    	
+    public static Object select(String filename,String primaryKey) throws IOException  {
+    	BufferedReader buffRead = new BufferedReader(new FileReader(filename));
+
+        String line = "";
+        line = buffRead.readLine();
+        while (true) {
+            if (line != null) {
+            	String[] aux = line.split("@");
+            	
+            	if(aux[0].equals(primaryKey)) {
+            		buffRead.close();
+            		return createObject(filename, line);
+            	}
+            } 
+            else {
+                break;
+            }
+            line = buffRead.readLine();
+        }
+        
+        buffRead.close();
     	return null;
     }
     
 	/**
 	 * @param file name where you want to read
 	 * @return ArrayList of some specify object 
+	 * @throws IOException 
 	 */
 	public static ArrayList<Object> selectAll(String filename) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(filename));
@@ -74,9 +96,10 @@ public class FileManipulation {
 	
 	/** 
 	 * @param Users object
+	 * @throws IOException 
 	 */
     public static void insert(Users obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users",true));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users.txt",true));
         String line = "";
         
         line = obj.getUser() + "@" + obj.getPassword() + "@" + obj.getPerfil();
@@ -89,6 +112,7 @@ public class FileManipulation {
     
     /** 
 	 * @param Cities object
+	 * @throws IOException 
 	 */
     public static void insert(Cities obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Cities",true));
@@ -104,9 +128,10 @@ public class FileManipulation {
     
     /** 
 	 * @param Students object
+	 * @throws IOException 
 	 */
     public static void insert(Students obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students",true));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students.txt",true));
         String line = "";
         
         
@@ -118,12 +143,46 @@ public class FileManipulation {
     }
 	
     /**
+     * @param filename
      * @param primary key of an object
-     * @return boolean
+     * @throws IOException 
      */
-    public static boolean update(String filename,String primaryKey) {
+    public static void delete(String filename,String primaryKey) throws IOException {
     	
-    	return true;
+    	ArrayList<Object> list = selectAll(filename); //save the lines
+    	
+    	//clean the file
+    	BufferedWriter buffWrite = new BufferedWriter(new FileWriter(filename));
+    	buffWrite.write("");
+    	buffWrite.close();
+    	
+    	//re-write the lines
+    	switch(filename.charAt(0)) {
+	    	case 'U':
+	    		for(int i=0;i<list.size();i++) {
+	    			if(!(((Users) list.get(i)).getUser().equals(primaryKey))) {
+	    				insert((Users) list.get(i));
+	    			}
+	        	}
+	    		break;
+	    	case 'S':
+	    		for(int i=0;i<list.size();i++) {
+	    			/*if(!(((Students) list.get(i)).getId.equals(primaryKey))) {
+	    				insert((Students) list.get(i));
+	    			}*/
+	        	}
+	    		break;
+	    	case 'C':
+	    		for(int i=0;i<list.size();i++) {
+	    			if(!(((Cities) list.get(i)).getCity().equals(primaryKey))) {
+	    				insert((Cities) list.get(i));
+	    			}
+	        	}
+	    		break;
+    	}
+    	
+        
+        
     }
-    
+
 }
