@@ -41,7 +41,7 @@ public class FileManipulation {
 	/**
 	 * @param filename
      * @param primary key of an object
-     * @return one object
+     * @return one object or null
      * @throws IOException 
      */
     public static Object select(String filename,String primaryKey) throws IOException  {
@@ -49,18 +49,15 @@ public class FileManipulation {
 
         String line = "";
         line = buffRead.readLine();
-        while (true) {
-            if (line != null) {
-            	String[] aux = line.split("@");
-            	
-            	if(aux[0].equals(primaryKey)) {
-            		buffRead.close();
-            		return createObject(filename, line);
-            	}
-            } 
-            else {
-                break;
-            }
+        while (line != null) {
+            
+        	String[] aux = line.split("@");
+        	
+        	if(aux[0].equals(primaryKey)) {
+        		buffRead.close();
+        		return createObject(filename, line);
+        	}
+            
             line = buffRead.readLine();
         }
         
@@ -79,14 +76,11 @@ public class FileManipulation {
         
         String line = "";
         line = buffRead.readLine();
-        while (true) {
-            if (line != null) {
-            	list.add(createObject(filename,line));
-            } 
-            else {
-                break;
-            }
+        while (line != null) {
+        	
+        	list.add(createObject(filename,line));         
             line = buffRead.readLine();
+            
         }
         
         buffRead.close();
