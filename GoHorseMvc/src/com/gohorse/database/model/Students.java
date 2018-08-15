@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Students {
 	
-	private int student_id;
+	private Integer student_id;
 	private String student;
 	private Date birthdate;
 	private char sex;
@@ -43,7 +43,7 @@ public class Students {
 	}
 	
 	
-	public int getStudent_id() {
+	public Integer getStudent_id() {
 		return student_id;
 	}
 

@@ -16,7 +16,7 @@ import com.gohorse.database.model.Users;
  */
 public class FileManipulation {
 	
-	private static String DIVISOR = DIVISOR;
+	private static String DIVISOR = "@";
 	
 	/**
 	 * @param file name and a string from some file.txt
@@ -113,9 +113,11 @@ public class FileManipulation {
 	    		break;
 	    	case 'S':
 	    		for(int i=0;i<list.size();i++) {
-	    			/*if(!(((Students) list.get(i)).getId.equals(primaryKey))) {
+	    			Students stu = (Students) list.get(i);
+	    			Integer id = stu.getStudent_id();
+	    			if(id.toString().equals(primaryKey)) {
 	    				insert((Students) list.get(i));
-	    			}*/
+	    			}
 	        	}
 	    		break;
 	    	case 'C':
