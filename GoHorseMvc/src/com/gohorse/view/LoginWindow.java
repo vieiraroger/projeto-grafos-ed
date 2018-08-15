@@ -10,6 +10,7 @@ public class LoginWindow extends JDialog {
     
     private JTextField txfUser;
     private JTextField txfSenha;
-	private JButton btnConfirm;
+    private JButton btnConfirm;
+    private JButton btnSair;
 
 }
