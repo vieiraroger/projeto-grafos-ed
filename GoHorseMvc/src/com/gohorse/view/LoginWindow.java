@@ -1,5 +1,7 @@
 package com.gohorse.view;
 
-public class LoginWindow {
+import javax.swing.JDialog;
+
+public class LoginWindow extends JDialog {
 
 }
