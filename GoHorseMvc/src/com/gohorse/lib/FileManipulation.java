@@ -16,6 +16,7 @@ import com.gohorse.database.model.Users;
  */
 public class FileManipulation {
 	
+	private static String DIVISOR = DIVISOR;
 	
 	/**
 	 * @param file name and a string from some file.txt
@@ -23,7 +24,7 @@ public class FileManipulation {
 	 */
 	private static Object createObject(String filename,String s) {
 		Object obj;
-		String[] data = s.split("@");
+		String[] data = s.split(DIVISOR);
 		switch(filename.charAt(0)) {
 			case 'U':
 				obj = new Users(data[0],data[1],data[2]); //create constructor
@@ -51,7 +52,7 @@ public class FileManipulation {
         line = buffRead.readLine();
         while (line != null) {
             
-        	String[] aux = line.split("@");
+        	String[] aux = line.split(DIVISOR);
         	
         	if(aux[0].equals(primaryKey)) {
         		buffRead.close();
@@ -136,7 +137,7 @@ public class FileManipulation {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users.txt",true));
         String line = "";
         
-        line = obj.getUser() + "@" + obj.getPassword() + "@" + obj.getPerfil();
+        line = obj.getUser() + DIVISOR + obj.getPassword() + DIVISOR + obj.getPerfil();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
@@ -152,7 +153,7 @@ public class FileManipulation {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Cities",true));
         String line = "";
         
-        line = obj.getCity() + "@" + obj.getState() + "@" + obj.getCountry();
+        line = obj.getCity() + DIVISOR + obj.getState() + DIVISOR + obj.getCountry();
         
         buffWrite.append(line + "\n");
         buffWrite.close();
