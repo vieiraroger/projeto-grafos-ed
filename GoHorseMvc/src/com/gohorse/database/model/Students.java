@@ -20,13 +20,33 @@ public class Students {
 	private char[] estado;
 	private String cep;
 	
+	
+	public Students(int student_id, String student, Date birthdate, char sex, String phone, String cellphone,
+			String email, String observacao, String endereco, String numero, String complemento, String bairro,
+			String cidade, char[] estado, String cep) {
+		super();
+		this.student_id = student_id;
+		this.student = student;
+		this.birthdate = birthdate;
+		this.sex = sex;
+		this.phone = phone;
+		this.cellphone = cellphone;
+		this.email = email;
+		this.observacao = observacao;
+		this.endereco = endereco;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+	}
+	
+	
 	public int getStudent_id() {
 		return student_id;
 	}
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
-	}
-	
+
 	
 	public String getStudent() {
 		return student;
