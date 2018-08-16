@@ -1,12 +1,10 @@
 package com.gohorse.database.model;
 
-import java.util.Date;
-
 public class Students {
 	
 	private Integer student_id;
 	private String student;
-	private Date birthdate;
+	private String birthdate;
 	private char sex;
 	private String phone;
 	private String cellphone;
@@ -17,13 +15,13 @@ public class Students {
 	private String complemento;
 	private String bairro;
 	private String cidade;
-	private char[] estado;
+	private String estado;
 	private String cep;
 	
 	
-	public Students(String student, Date birthdate, char sex, String phone, String cellphone,
+	public Students(String student, String birthdate, char sex, String phone, String cellphone,
 			String email, String observacao, String endereco, String numero, String complemento, String bairro,
-			String cidade, char[] estado, String cep) {
+			String cidade, String estado, String cep) {
 		super();
 		this.student = student;
 		this.birthdate = birthdate;
@@ -58,10 +56,10 @@ public class Students {
 	}
 	
 	
-	public Date getBirthdate() {
+	public String getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
 	
@@ -146,10 +144,10 @@ public class Students {
 	}
 	
 	
-	public char[] getEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(char[] estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	
