@@ -21,11 +21,10 @@ public class Students {
 	private String cep;
 	
 	
-	public Students(int student_id, String student, Date birthdate, char sex, String phone, String cellphone,
+	public Students(String student, Date birthdate, char sex, String phone, String cellphone,
 			String email, String observacao, String endereco, String numero, String complemento, String bairro,
 			String cidade, char[] estado, String cep) {
 		super();
-		this.student_id = student_id;
 		this.student = student;
 		this.birthdate = birthdate;
 		this.sex = sex;
