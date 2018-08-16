@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Students;
@@ -28,10 +29,17 @@ public class FileManipulation {
 		switch(filename.charAt(0)) {
 			case 'U':
 				obj = new Users(data[0],data[1],data[2]); //create constructor
-				
 				break;
 			case 'C':
 				obj = new Cities(data[0],data[1],data[2]);
+				break;
+			case 'S':
+				obj = new Students(data[0],new Date(0),data[3].charAt(0),
+									data[4],
+									data[5],data[6],data[7],data[8],
+									data[9],data[10],data[11],data[12],
+									null,data[14]);
+				break;
 			default:
 				return null;
 		}
@@ -81,7 +89,6 @@ public class FileManipulation {
         	
         	list.add(createObject(filename,line));         
             line = buffRead.readLine();
-            
         }
         
         buffRead.close();
