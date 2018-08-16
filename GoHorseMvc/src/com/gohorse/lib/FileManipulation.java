@@ -193,7 +193,7 @@ public class FileManipulation {
         }
         
         buffRead.close();
-         
+        id++;
         line = id + DIVISOR
         	+ obj.getStudent() + DIVISOR
         	+ obj.getBirthdate() + DIVISOR
