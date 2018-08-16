@@ -46,6 +46,9 @@ public class Students {
 		return student_id;
 	}
 
+	public void setStudent_id(Integer id) {
+		this.student_id = id;
+	}
 	
 	public String getStudent() {
 		return student;

@@ -167,14 +167,45 @@ public class FileManipulation {
 	 * @param Students object
 	 * @throws IOException 
 	 */
-    public static void insert(Students obj) throws IOException {
+    public static Integer insert(Students obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students.txt",true));
         String line = "";
+        Integer id = 0;
+        
+        /* get last id */
+        BufferedReader buffRead = new BufferedReader(new FileReader("Students.txt"));
+
+        line = buffRead.readLine();
+        while (line != null) {
+            
+        	String[] aux = line.split(DIVISOR);
+        	
+        	id = Integer.parseInt(aux[0]);
+            
+            line = buffRead.readLine();
+        }
+        
+        buffRead.close();
+         
+        line = id + DIVISOR
+        	+ obj.getStudent() + DIVISOR
+        	+ obj.getBirthdate() + DIVISOR
+        	+ obj.getSex()  + DIVISOR
+        	+ obj.getPhone()  + DIVISOR
+        	+ obj.getCellphone()  + DIVISOR
+        	+ obj.getEmail() + DIVISOR
+        	+ obj.getObservacao()  + DIVISOR
+        	+ obj.getEndereco()  + DIVISOR
+        	+ obj.getNumero()  + DIVISOR
+        	+ obj.getBairro() + DIVISOR
+        	+ obj.getCidade() + DIVISOR
+        	+ obj.getEstado()  + DIVISOR
+        	+ obj.getCep();
 
         buffWrite.append(line + "\n");
         buffWrite.close();
         
-        return;
+        return id;
     }
 	
     /**
@@ -192,10 +223,12 @@ public class FileManipulation {
      * @throws IOException 
      * 
      */
+    /* We cant update a city
     public static void update(Cities obj) throws IOException {
     	delete("Cities.txt",obj.getCity());
     	insert(obj);
     }
+    */
     
     /**
      * @param Student object
@@ -203,7 +236,8 @@ public class FileManipulation {
      * 
      */
     public static void update(Students obj) throws IOException {
-    	//delete("Students.txt",obj.Id);
+    	
+    	delete("Students.txt",obj.getStudent_id().toString());
     	insert(obj);
     }
     
