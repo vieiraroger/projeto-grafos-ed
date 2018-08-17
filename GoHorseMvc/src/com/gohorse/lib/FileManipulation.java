@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Students;
@@ -34,11 +33,12 @@ public class FileManipulation {
 				obj = new Cities(data[0],data[1],data[2]);
 				break;
 			case 'S':
-				obj = new Students(data[0],new Date(0),data[3].charAt(0),
+				obj = new Students(data[1],data[2],data[3].charAt(0),
 									data[4],
 									data[5],data[6],data[7],data[8],
 									data[9],data[10],data[11],data[12],
-									null,data[14]);
+									data[13],data[14]);
+				((Students) obj).setStudent_id(Integer.parseInt(data[0]));
 				break;
 			default:
 				return null;
@@ -204,6 +204,7 @@ public class FileManipulation {
         	+ obj.getObservacao()  + DIVISOR
         	+ obj.getEndereco()  + DIVISOR
         	+ obj.getNumero()  + DIVISOR
+        	+ obj.getComplemento() + DIVISOR
         	+ obj.getBairro() + DIVISOR
         	+ obj.getCidade() + DIVISOR
         	+ obj.getEstado()  + DIVISOR
