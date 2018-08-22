@@ -9,13 +9,14 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class LoginWindow extends JDialog {
     
     private JTextField txfUser;
-    private JTextField txfPassword;
+    private JPasswordField txfPassword;
     private JButton btnConfirm;
     private JButton btnSair;
     private JLabel lbUser;
@@ -49,7 +50,7 @@ public class LoginWindow extends JDialog {
     	lbPassword.setText("Senha");
     	getContentPane().add(lbPassword);
     	
-    	txfPassword = new JTextField();
+    	txfPassword = new JPasswordField();
     	txfPassword.setBounds(40, 80, 125, 20);
     	getContentPane().add(txfPassword);
     	
