@@ -2,6 +2,7 @@ package com.gohorse.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -13,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import com.gohorse.database.model.Users;
+import com.gohorse.lib.FileManipulation;
 
 public class LoginWindow extends JFrame {
     
@@ -60,7 +64,21 @@ public class LoginWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				JOptionPane.showMessageDialog(null, "vai tomar no cu roger", "Massa", 0);
+				try {
+					Users user = (Users) FileManipulation.select("Users.txt", txfUser.getText());
+					
+					if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
+						
+						
+					}
+					
+					
+					
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 				
 			}
 		});
