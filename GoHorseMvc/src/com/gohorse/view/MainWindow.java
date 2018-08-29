@@ -19,12 +19,13 @@ public class MainWindow extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setJMenuBar(menu);
         CreateMenucomponents();
 	}
 	public void  CreateMenucomponents() {
-		 mAlunos = new JMenu("Cadastros");
-		 mCidades = new JMenu("Sair");
+		 menu = new  JMenuBar();
+		 setJMenuBar(menu);
+		 mAlunos = new JMenu("Alunos");
+		 mCidades = new JMenu("Cidades");
 		 
 		 menu.add(mAlunos);
 		 menu.add(mCidades);
