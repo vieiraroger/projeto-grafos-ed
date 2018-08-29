@@ -201,13 +201,13 @@ public class FileManipulation {
         	+ obj.getPhone()  + DIVISOR
         	+ obj.getCellphone()  + DIVISOR
         	+ obj.getEmail() + DIVISOR
-        	+ obj.getObservacao()  + DIVISOR
-        	+ obj.getEndereco()  + DIVISOR
-        	+ obj.getNumero()  + DIVISOR
-        	+ obj.getComplemento() + DIVISOR
-        	+ obj.getBairro() + DIVISOR
-        	+ obj.getCidade() + DIVISOR
-        	+ obj.getEstado()  + DIVISOR
+        	+ obj.getNote()  + DIVISOR
+        	+ obj.getAddress()  + DIVISOR
+        	+ obj.getNumber()  + DIVISOR
+        	+ obj.getComplement() + DIVISOR
+        	+ obj.getSuburb() + DIVISOR
+        	+ obj.getCity() + DIVISOR
+        	+ obj.getEstate()  + DIVISOR
         	+ obj.getCep();
 
         buffWrite.append(line + "\n");

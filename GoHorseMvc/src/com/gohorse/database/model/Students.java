@@ -9,19 +9,19 @@ public class Students {
 	private String phone;
 	private String cellphone;
 	private String email;
-	private String observacao;
-	private String endereco;
-	private String numero;
-	private String complemento;
-	private String bairro;
-	private String cidade;
-	private String estado;
+	private String note;
+	private String address;
+	private String number;
+	private String complement;
+	private String suburb;
+	private String city;
+	private String estate;
 	private String cep;
 	
 	
 	public Students(String student, String birthdate, char sex, String phone, String cellphone,
-			String email, String observacao, String endereco, String numero, String complemento, String bairro,
-			String cidade, String estado, String cep) {
+			String email, String note, String address, String number, String complement, String suburb,
+			String city, String estate, String cep) {
 		super();
 		this.student = student;
 		this.birthdate = birthdate;
@@ -29,13 +29,13 @@ public class Students {
 		this.phone = phone;
 		this.cellphone = cellphone;
 		this.email = email;
-		this.observacao = observacao;
-		this.endereco = endereco;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
+		this.note = note;
+		this.address = address;
+		this.number = number;
+		this.complement = complement;
+		this.suburb = suburb;
+		this.city = city;
+		this.estate = estate;
 		this.cep = cep;
 	}
 	
@@ -96,59 +96,59 @@ public class Students {
 	}
 	
 	
-	public String getObservacao() {
-		return observacao;
+	public String getNote() {
+		return note;
 	}
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-	
-	
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 	
-	public String getNumero() {
-		return numero;
+	public String getAddress() {
+		return address;
 	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-	
-	
-	public String getComplemento() {
-		return complemento;
-	}
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
-	public String getBairro() {
-		return bairro;
+	public String getNumber() {
+		return number;
 	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-	
-	
-	public String getCidade() {
-		return cidade;
-	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 	
 	
-	public String getEstado() {
-		return estado;
+	public String getComplement() {
+		return complement;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setComplement(String complement) {
+		this.complement = complement;
+	}
+	
+	
+	public String getSuburb() {
+		return suburb;
+	}
+	public void setSuburb(String suburb) {
+		this.suburb = suburb;
+	}
+	
+	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	
+	public String getEstate() {
+		return estate;
+	}
+	public void setEstate(String estate) {
+		this.estate = estate;
 	}
 	
 	
