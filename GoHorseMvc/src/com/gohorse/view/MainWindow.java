@@ -6,6 +6,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.gohorse.database.model.Users;
+
 public class MainWindow extends JFrame {
 		
 	private JMenuBar menu ;
@@ -16,7 +18,7 @@ public class MainWindow extends JFrame {
 	private JMenuItem smListarAluno;
 	private JMenuItem smListarCidade;
 	
-	public MainWindow () {
+	public MainWindow (Users user) {
 		setSize(500,500);
 		setTitle("Menu");
         setLayout(null);
