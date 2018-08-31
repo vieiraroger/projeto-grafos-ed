@@ -70,7 +70,7 @@ public class LoginWindow extends JFrame {
 					if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
 						new LoginWindow().dispose();
 						
-						MainWindow mw = new MainWindow();
+						MainWindow mw = new MainWindow(user);
 						mw.setVisible(true);
 						
 					}
