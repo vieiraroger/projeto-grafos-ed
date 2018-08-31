@@ -30,7 +30,7 @@ public class LoginWindow extends JFrame {
     public LoginWindow() {
 
         setSize(210,200);
-        setTitle("Sistemão bom da porra");
+        setTitle("Sistema");
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
