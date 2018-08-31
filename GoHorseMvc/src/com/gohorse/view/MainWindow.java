@@ -1,5 +1,6 @@
 package com.gohorse.view;
 
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.gohorse.database.model.Cities;
@@ -18,8 +20,9 @@ import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
 	
-	private JTable Grid;
-
+	private JTable Table;
+	private JScrollPane Grid;
+	
 	private JMenuBar menu ;
 	private JMenu mAlunos;
 	private JMenu mCidades;
@@ -51,7 +54,7 @@ public class MainWindow extends JFrame {
         CreateStudentsComponents();
         CreateUsersComponents();
         CreateMenucomponents();
-        
+
 	}
 	
 	
@@ -267,6 +270,7 @@ public class MainWindow extends JFrame {
 		
 	}
 
+	
 	
 	public void CitiesWindow() {
 		

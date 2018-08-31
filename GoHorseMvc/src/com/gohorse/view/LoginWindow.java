@@ -39,6 +39,7 @@ public class LoginWindow extends JFrame {
         
     }
     
+    
     public void createLoginComponents() {
     	
     	lbUser = new JLabel();
@@ -92,7 +93,6 @@ public class LoginWindow extends JFrame {
     }
     
     
- 
     public static void main(String[] args) {
         
     	new LoginWindow().setVisible(true);
