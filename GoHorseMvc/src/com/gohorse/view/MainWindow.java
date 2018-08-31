@@ -8,11 +8,14 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Users;
@@ -41,6 +44,13 @@ public class MainWindow extends JFrame {
 	private JButton btnDeletarAluno;
 	private JButton btnDeletarUsuario;
 	
+	private JPanel jpCadastroCidade;
+	private JLabel lbCity;
+	private JTextField txfCity; 
+	private JLabel lbState;
+	private JTextField txfState;
+	private JLabel lbCountry;
+	private JTextField txfCountry;
 	
 	public MainWindow (Users user) {
 		
@@ -121,7 +131,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente um cadastro");
+				registerWindow();
 				
 			}
 			
@@ -270,7 +280,21 @@ public class MainWindow extends JFrame {
 		
 	}
 
-	
+	public void registerWindow() {
+		
+		jpCadastroCidade = new JPanel();
+		jpCadastroCidade.setBounds(5, 20, 600, 200);
+		jpCadastroCidade.setOpaque(false);
+		jpCadastroCidade.add(lbCity, null);
+		getContentPane();
+		
+		
+		
+		jpCadastroCidade.setVisible(true);
+		
+		
+		
+	}
 	
 	public void CitiesWindow() {
 		
