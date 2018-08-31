@@ -22,7 +22,7 @@ public class Tester {
 		for(int i=0;i<stu.size();i++) {
 			Students local = (Students) stu.get(i);
 			System.out.println(local.getStudent_id());
-			System.out.println(local.getBairro());
+			/*System.out.println(local.getBairro());*/
 		}
 		
 	}
