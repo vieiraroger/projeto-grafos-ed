@@ -180,13 +180,21 @@ public class FileManipulation {
 	 * @throws IOException 
 	 */
     public static void insert(Users obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users.txt",true));
-        String line = "";
         
-        line = obj.getUser() + DIVISOR + obj.getPassword() + DIVISOR + obj.getPerfil();
+        if(select("Users.txt",obj.getUser()) == null) {
+        	BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Users.txt",true));
+            String line = "";
+            
+        	line = obj.getUser() + DIVISOR + obj.getPassword() + DIVISOR + obj.getPerfil();
         
-        buffWrite.append(line + "\n");
-        buffWrite.close();
+        	buffWrite.append(line + "\n");
+            buffWrite.close();
+        }
+        else {
+        	System.out.println("Usuario ja existe");
+        }
+        
+        
         
         return;
     }
