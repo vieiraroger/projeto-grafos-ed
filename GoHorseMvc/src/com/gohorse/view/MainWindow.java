@@ -10,13 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTable;
 
+import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
 	
- 
+	private JTable grdCidade;
+	private JTable grdAluno;
+	private JTable grdUsuario;
+	
 	private JMenuBar menu ;
 	private JMenu mAlunos;
 	private JMenu mCidades;
@@ -24,11 +29,12 @@ public class MainWindow extends JFrame {
 	private JMenuItem smListarCidade;
 	private JMenuItem smListarAluno;
 	private JMenuItem smListarUsuario;
+	
 	private JButton btnCadastroCidade;
 	private JButton btnCadastroAluno;
 	
 	public MainWindow (Users user) {
-		setSize(500,500);
+		setSize(600,700);
 		setTitle("Menu");
         setLayout(null);
         setResizable(false);
@@ -38,6 +44,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void CreateMenucomponents() {
+		
 		 menu = new  JMenuBar();
 		 
 		 setJMenuBar(menu);
@@ -45,37 +52,75 @@ public class MainWindow extends JFrame {
 		 mAlunos 			= new JMenu("Alunos");
 		 mCidades			= new JMenu("Cidades");
 		 mUsuarios			= new JMenu("Usuarios");
-		 smListarAluno	    = new JMenuItem("Listar");
-		 smListarCidade     = new JMenuItem("Listar");
-		 smListarUsuario    = new JMenuItem("Listar");
+		 
+		 //db screens acesses
+		 smListarAluno = new JMenuItem(new AbstractAction("Listar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				StudentsWindow();
+				
+			}
+			
+		 });
+		 
+		 smListarCidade= new JMenuItem(new AbstractAction("Listar") {
+				
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				CitiesWindow();
+				
+			}
+			
+		 });
+		 
+		 smListarUsuario= new JMenuItem(new AbstractAction("Listar") {
+				
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				UsersWindow();
+				
+			}
+		 });
 		 
 		 menu.add(mAlunos);
 		 menu.add(mCidades);
+		 menu.add(mUsuarios);
+	
 		 
 		 mAlunos.add(smListarAluno);
 		 mCidades.add(smListarCidade);
+		 mUsuarios.add(smListarUsuario);
 		 
 	}
 	
 	public void CitiesWindow() {
 		
-		
 		//GRID DE CIDADES
+		
+		String[] columnCidades = {"Cidade",
+                "Estado",
+                "País"};
+		
+		grdCidade = new JTable(FileManipulation.selectAll(), columnCidades);
+		
 		//CADASTRO CIDADES
 		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Cidade") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				System.out.println("futuramente um cadastro");
 				
 			}
 			
 		});
-		
-		btnCadastroCidade.setBounds(40, 150, 124, 20);    	
+		btnCadastroCidade.setBounds(30, 140, 124, 20);    	
     	getContentPane().add(btnCadastroCidade);
-		
-		
+    	
 	}
 
 	public void StudentsWindow() {
@@ -101,6 +146,9 @@ public class MainWindow extends JFrame {
 	public void UsersWindow() {
 		
 		// GRID DE USUARIOS
+		
+		
+		
 		// CADASTRO USUARIOS
 		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Usuário") {
 
