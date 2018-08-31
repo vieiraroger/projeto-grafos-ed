@@ -18,10 +18,8 @@ import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
 	
-	private JTable grdCidade;
-	private JTable grdAluno;
-	private JTable grdUsuario;
-	
+	private JTable Grid;
+
 	private JMenuBar menu ;
 	private JMenu mAlunos;
 	private JMenu mCidades;
@@ -32,11 +30,18 @@ public class MainWindow extends JFrame {
 	
 	private JButton btnCadastroCidade;
 	private JButton btnCadastroAluno;
+	private JButton btnCadastroUsuario;
+	private JButton btnEditarCidade;
+	private JButton btnEditarAluno;
+	private JButton btnEditarUsuario;
+	private JButton btnDeletarCidade;
+	private JButton btnDeletarAluno;
+	private JButton btnDeletarUsuario;
+	
 	
 	public MainWindow (Users user) {
-		setSize(600,700);
+		setSize(600,500);
 		setTitle("Menu");
-        setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -52,6 +57,10 @@ public class MainWindow extends JFrame {
 		 mAlunos 			= new JMenu("Alunos");
 		 mCidades			= new JMenu("Cidades");
 		 mUsuarios			= new JMenu("Usuarios");
+		 
+		 menu.add(mAlunos);
+		 menu.add(mCidades);
+		 menu.add(mUsuarios);
 		 
 		 //db screens acesses
 		 smListarAluno = new JMenuItem(new AbstractAction("Listar") {
@@ -70,6 +79,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				
 				CitiesWindow();
 				
 			}
@@ -86,10 +96,6 @@ public class MainWindow extends JFrame {
 			}
 		 });
 		 
-		 menu.add(mAlunos);
-		 menu.add(mCidades);
-		 menu.add(mUsuarios);
-	
 		 
 		 mAlunos.add(smListarAluno);
 		 mCidades.add(smListarCidade);
@@ -97,17 +103,9 @@ public class MainWindow extends JFrame {
 		 
 	}
 	
-	public void CitiesWindow() {
+	public void CreateCitiesComponents() {
 		
-		//GRID DE CIDADES
-		
-		String[] columnCidades = {"Cidade",
-                "Estado",
-                "País"};
-		
-		grdCidade = new JTable(FileManipulation.selectAll(), columnCidades);
-		
-		//CADASTRO CIDADES
+		//cities add
 		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Cidade") {
 
 			@Override
@@ -118,8 +116,84 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		btnCadastroCidade.setBounds(30, 140, 124, 20);    	
-    	getContentPane().add(btnCadastroCidade);
+		btnCadastroCidade.setBounds(30, 20, 140, 30);    	
+		getContentPane().add(btnCadastroCidade);
+		
+		//cities edit
+    	btnEditarCidade = new JButton(new AbstractAction("Editar Cidade") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma edição");
+				
+			}
+			
+		});
+    	btnEditarCidade.setBounds(230, 20, 140, 30);    	
+    	getContentPane().add(btnEditarCidade);
+    	
+		//cities delete
+    	btnDeletarCidade = new JButton(new AbstractAction("Deletar Cidade") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma exclusão");
+				
+			}
+			
+		});
+    	btnDeletarCidade.setBounds(430, 20, 140, 30);    	
+    	getContentPane().add(btnDeletarCidade);
+		
+	}
+
+	public void CitiesWindow() {
+		
+		//cities add
+		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Cidade") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente um cadastro");
+				
+			}
+			
+		});
+		btnCadastroCidade.setBounds(30, 20, 140, 30);    	
+		getContentPane().add(btnCadastroCidade);
+		
+		
+		//cities edit
+    	btnEditarCidade = new JButton(new AbstractAction("Editar Cidade") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma edição");
+				
+			}
+			
+		});
+    	btnEditarCidade.setBounds(230, 20, 140, 30);    	
+    	getContentPane().add(btnEditarCidade);
+    	
+    	
+		//cities delete
+    	btnDeletarCidade = new JButton(new AbstractAction("Deletar Cidade") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma exclusão");
+				
+			}
+			
+		});
+    	btnDeletarCidade.setBounds(430, 20, 140, 30);    	
+    	getContentPane().add(btnDeletarCidade);
     	
 	}
 
@@ -142,6 +216,7 @@ public class MainWindow extends JFrame {
     	getContentPane().add(btnCadastroAluno);
 		
 	}
+	
 
 	public void UsersWindow() {
 		
@@ -150,7 +225,7 @@ public class MainWindow extends JFrame {
 		
 		
 		// CADASTRO USUARIOS
-		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Usuário") {
+		btnCadastroUsuario = new JButton(new AbstractAction("Cadastrar Usuário") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -160,8 +235,8 @@ public class MainWindow extends JFrame {
 			
 		});
 		
-		btnCadastroCidade.setBounds(40, 115, 124, 20);    	
-    	getContentPane().add(btnCadastroCidade);
+		btnCadastroUsuario.setBounds(40, 115, 124, 20);    	
+    	getContentPane().add(btnCadastroUsuario);
 		
 	}
 
