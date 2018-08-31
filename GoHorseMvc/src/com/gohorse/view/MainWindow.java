@@ -40,13 +40,20 @@ public class MainWindow extends JFrame {
 	
 	
 	public MainWindow (Users user) {
+		
 		setSize(600,500);
 		setTitle("Menu");
+		setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        CreateCitiesComponents();
+        CreateStudentsComponents();
+        CreateUsersComponents();
         CreateMenucomponents();
+        
 	}
+	
 	
 	public void CreateMenucomponents() {
 		
@@ -119,6 +126,7 @@ public class MainWindow extends JFrame {
 		btnCadastroCidade.setBounds(30, 20, 140, 30);    	
 		getContentPane().add(btnCadastroCidade);
 		
+		
 		//cities edit
     	btnEditarCidade = new JButton(new AbstractAction("Editar Cidade") {
 
@@ -133,6 +141,7 @@ public class MainWindow extends JFrame {
     	btnEditarCidade.setBounds(230, 20, 140, 30);    	
     	getContentPane().add(btnEditarCidade);
     	
+    	
 		//cities delete
     	btnDeletarCidade = new JButton(new AbstractAction("Deletar Cidade") {
 
@@ -144,15 +153,20 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnDeletarCidade.setBounds(430, 20, 140, 30);    	
+    	btnDeletarCidade.setBounds(430, 20, 140, 30); 	
     	getContentPane().add(btnDeletarCidade);
 		
+    	//hide button after initializing
+		btnCadastroCidade.setVisible(false);
+    	btnEditarCidade.setVisible(false);
+    	btnDeletarCidade.setVisible(false);
+    	
 	}
-
-	public void CitiesWindow() {
+	
+	public void CreateStudentsComponents() {
 		
-		//cities add
-		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Cidade") {
+		//students add
+		btnCadastroAluno = new JButton(new AbstractAction("Cadastrar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -162,12 +176,12 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-		btnCadastroCidade.setBounds(30, 20, 140, 30);    	
-		getContentPane().add(btnCadastroCidade);
+		btnCadastroAluno.setBounds(30, 20, 140, 30);    	
+		getContentPane().add(btnCadastroAluno);
 		
 		
-		//cities edit
-    	btnEditarCidade = new JButton(new AbstractAction("Editar Cidade") {
+		//students edit
+    	btnEditarAluno = new JButton(new AbstractAction("Editar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -177,12 +191,12 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnEditarCidade.setBounds(230, 20, 140, 30);    	
-    	getContentPane().add(btnEditarCidade);
+    	btnEditarAluno.setBounds(230, 20, 140, 30);    	
+    	getContentPane().add(btnEditarAluno);
     	
     	
-		//cities delete
-    	btnDeletarCidade = new JButton(new AbstractAction("Deletar Cidade") {
+		//students delete
+    	btnDeletarAluno = new JButton(new AbstractAction("Deletar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -192,51 +206,113 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnDeletarCidade.setBounds(430, 20, 140, 30);    	
-    	getContentPane().add(btnDeletarCidade);
-    	
-	}
-
-	public void StudentsWindow() {
+    	btnDeletarAluno.setBounds(430, 20, 140, 30); 	
+    	getContentPane().add(btnDeletarAluno);
 		
-		//GRID DE ALUNOS
-		
-		// CADASTRO ALUNOS
-		btnCadastroAluno = new JButton(new AbstractAction("Cadastrar Aluno") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		
-		btnCadastroAluno.setBounds(40, 115, 124, 20);    	
-    	getContentPane().add(btnCadastroAluno);
+		btnCadastroAluno.setVisible(false);
+		btnEditarAluno.setVisible(false);
+    	btnDeletarAluno.setVisible(false);
 		
 	}
 	
-
-	public void UsersWindow() {
+	public void CreateUsersComponents() {
 		
-		// GRID DE USUARIOS
-		
-		
-		
-		// CADASTRO USUARIOS
-		btnCadastroUsuario = new JButton(new AbstractAction("Cadastrar Usuário") {
+		//user add
+		btnCadastroUsuario = new JButton(new AbstractAction("Cadastrar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				System.out.println("futuramente um cadastro");
 				
 			}
 			
 		});
+		btnCadastroUsuario.setBounds(30, 20, 140, 30);    	
+		getContentPane().add(btnCadastroUsuario);
 		
-		btnCadastroUsuario.setBounds(40, 115, 124, 20);    	
-    	getContentPane().add(btnCadastroUsuario);
+		
+		//user edit
+    	btnEditarUsuario = new JButton(new AbstractAction("Editar Usuario") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma edição");
+				
+			}
+			
+		});
+    	btnEditarUsuario.setBounds(230, 20, 140, 30);    	
+    	getContentPane().add(btnEditarUsuario);
+    	
+    	
+		//user delete
+    	btnDeletarUsuario = new JButton(new AbstractAction("Deletar Usuario") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("futuramente uma exclusão");
+				
+			}
+			
+		});
+    	btnDeletarUsuario.setBounds(430, 20, 140, 30); 	
+    	getContentPane().add(btnDeletarUsuario);
+		
+    	btnCadastroUsuario.setVisible(false);
+    	btnEditarUsuario.setVisible(false);
+    	btnDeletarUsuario.setVisible(false);
+		
+	}
+
+	
+	public void CitiesWindow() {
+		
+		btnCadastroUsuario.setVisible(false);
+		btnCadastroAluno.setVisible(false);
+		btnCadastroCidade.setVisible(true);
+		
+		btnEditarUsuario.setVisible(false);
+		btnEditarAluno.setVisible(false);
+		btnEditarCidade.setVisible(true);
+		
+		btnDeletarUsuario.setVisible(false);
+		btnDeletarAluno.setVisible(false);
+		btnDeletarCidade.setVisible(true);
+		
+	}
+
+	public void StudentsWindow() {
+
+		btnCadastroUsuario.setVisible(false);
+		btnCadastroCidade.setVisible(false);
+		btnCadastroAluno.setVisible(true);
+		
+		btnEditarUsuario.setVisible(false);
+		btnEditarCidade.setVisible(false);
+		btnEditarAluno.setVisible(true);
+		
+		btnDeletarUsuario.setVisible(false);
+		btnDeletarCidade.setVisible(false);
+		btnDeletarAluno.setVisible(true);
+		
+	}
+	
+	public void UsersWindow() {
+		
+		btnCadastroCidade.setVisible(false);
+		btnCadastroAluno.setVisible(false);
+		btnCadastroUsuario.setVisible(true);
+		
+		btnEditarCidade.setVisible(false);
+		btnEditarAluno.setVisible(false);
+		btnEditarUsuario.setVisible(true);
+		
+		btnDeletarCidade.setVisible(false);
+		btnDeletarAluno.setVisible(false);
+		btnDeletarUsuario.setVisible(true);
 		
 	}
 
