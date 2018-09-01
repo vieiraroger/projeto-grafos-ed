@@ -66,20 +66,21 @@ public class LoginWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					
 					Users user = (Users) FileManipulation.select("Users.txt", txfUser.getText());
 					
 					if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
-						new LoginWindow().dispose();
 						
 						MainWindow mw = new MainWindow(user);
 						mw.setVisible(true);
 						
+						LoginWindow.this.dispose();
+						
 					}
 					
 					
-					
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				} catch ( Exception e1) {
+					JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class RegisterFormWindow extends JP{
+public class RegisterFormWindow extends JFrame{
 
 	// CADASTRO CIDADE
 	private JLabel lbCity;
@@ -28,7 +28,6 @@ public class RegisterFormWindow extends JP{
 		
 	}
 	
-	public void
 	
 	
 }
