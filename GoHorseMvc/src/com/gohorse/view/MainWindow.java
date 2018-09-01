@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Users;
@@ -23,8 +24,11 @@ import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
 	
-	private JTable Table;
-	private JScrollPane Grid;
+	private JScrollPane scroll;
+	private DefaultTableModel modelo = new DefaultTableModel();
+	private JTable table = new JTable(modelo);
+	private int cont;
+	
 	
 	private JMenuBar menu ;
 	private JMenu mAlunos;
@@ -342,6 +346,12 @@ public class MainWindow extends JFrame {
 		btnDeletarAluno.setVisible(false);
 		btnDeletarUsuario.setVisible(true);
 		
+	}
+	
+	public void CreateColuna (String coluna, int tamcoluna) {
+        modelo.addColumn(coluna);
+        table.getColumnModel().getColumn(1).setPreferredWidth(tamcoluna);
+		cont++;
 	}
 
 	

@@ -79,7 +79,7 @@ public class LoginWindow extends JFrame {
 					}
 					
 					
-				} catch ( Exception e1) {
+				} catch ( IOException e1) {
 					JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 				
