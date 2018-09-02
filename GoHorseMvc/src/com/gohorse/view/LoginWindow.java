@@ -88,6 +88,8 @@ public class LoginWindow extends JFrame {
 			}
 		});
     	btnConfirm.setBounds(40, 115, 124, 20);    	
+    	btnConfirm.setFocusPainted(false);
+    	btnConfirm.setContentAreaFilled(false);
     	getContentPane().add(btnConfirm);
     	
     	
