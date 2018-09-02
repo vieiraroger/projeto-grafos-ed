@@ -3,6 +3,7 @@ package com.gohorse.view;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -12,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
+import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
 
@@ -26,7 +29,7 @@ public class MainWindow extends JFrame {
 	
 	private JScrollPane scroll;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private JTable table = new JTable(modelo);
+	private JTable table;
 	private int cont;
 	
 	
@@ -225,6 +228,7 @@ public class MainWindow extends JFrame {
 		});
     	btnDeletarAluno.setBounds(430, 20, 140, 30); 	
     	getContentPane().add(btnDeletarAluno);
+    	
 		
 		btnCadastroAluno.setVisible(false);
 		btnEditarAluno.setVisible(false);
@@ -314,6 +318,7 @@ public class MainWindow extends JFrame {
 		btnDeletarAluno.setVisible(false);
 		btnDeletarCidade.setVisible(true);
 		
+		
 	}
 
 	public void StudentsWindow() {
@@ -346,13 +351,78 @@ public class MainWindow extends JFrame {
 		btnDeletarAluno.setVisible(false);
 		btnDeletarUsuario.setVisible(true);
 		
+		CreateTable("Users.txt");
+		table.setVisible(true);
+		scroll = new JScrollPane(table);
+		getContentPane().add(scroll);
+		scroll.setVisible(true);
+		
 	}
 	
-	public void CreateColuna (String coluna, int tamcoluna) {
+	/*public void CreateColumn (String coluna, int tamcoluna) {
         modelo.addColumn(coluna);
         table.getColumnModel().getColumn(1).setPreferredWidth(tamcoluna);
 		cont++;
-	}
+	}*/
+	
+	public void CreateTable(String filename) {
+		JOptionPane.showMessageDialog(null, "Passou antes");
+        switch(filename.charAt(0)) {
+    	case 'U':
+    		    JOptionPane.showMessageDialog(null, "Passou depois");
+    		
+    		
+    		
+	    		table = new JTable(modelo);
+	            modelo.addColumn("Usuário");
+	            modelo.addColumn("Perfil");
+	            table.getColumnModel().getColumn(1).setPreferredWidth(120);
+	            table.getColumnModel().getColumn(1).setPreferredWidth(120);
+    		    
+	            modelo.setNumRows(0);
+	            
+				ArrayList<Users> user;
+				 try {
+					user = (ArrayList) FileManipulation.selectAll("Users.txt");
+					
+					for (Users c : user) {
+	    	            modelo.addRow(new Object[]{c.getUser(), c.getPerfil()});
+	    	        }
+				 } catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Erro aqui");
+				 }
+    	        
+    		break;
+    	case 'S':
+				ArrayList<Students> student;
+				try {
+					student = (ArrayList) FileManipulation.selectAll("Cities.txt");
+					for (Students c : student) {
+	    	            modelo.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getNumber(), c.getNote(), c.getCep(), c.getAddress(), c.getCity(), c.getEstate(), c.getComplement(), c.getSuburb()});
+	    	        }
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    	        
+    	        
+    		break;
+    	case 'C':
+				ArrayList<Cities> city;
+				try {
+					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
+					 for (Cities c : city) {
+		    	            modelo.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
+		    	     }
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    	        
+    	       
+    		break;
+        }
+    }
 
 	
 	public static void main(String[] args) {
