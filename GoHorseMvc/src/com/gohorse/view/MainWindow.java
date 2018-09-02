@@ -4,10 +4,13 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,7 +32,6 @@ public class MainWindow extends JFrame {
 	private JTable table = new JTable(modelo);
 	private int cont;
 	
-	
 	private JMenuBar menu ;
 	private JMenu mAlunos;
 	private JMenu mCidades;
@@ -48,7 +50,7 @@ public class MainWindow extends JFrame {
 	private JButton btnDeletarAluno;
 	private JButton btnDeletarUsuario;
 	
-	private JPanel jpCadastroCidade;
+	private JPanel regCity;
 	private JLabel lbCity;
 	private JTextField txfCity; 
 	private JLabel lbState;
@@ -56,9 +58,11 @@ public class MainWindow extends JFrame {
 	private JLabel lbCountry;
 	private JTextField txfCountry;
 	
+	private JButton btnregCityister;
+	
 	public MainWindow (Users user) {
 		
-		setSize(600,500);
+		setSize(600,600);
 		setTitle("Menu");
 		setLayout(null);
         setResizable(false);
@@ -68,7 +72,7 @@ public class MainWindow extends JFrame {
         CreateStudentsComponents();
         CreateUsersComponents();
         CreateMenucomponents();
-
+        
 	}
 	
 	
@@ -135,7 +139,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				registerWindow();
+				regCity.setVisible(true);
 				
 			}
 			
@@ -177,6 +181,53 @@ public class MainWindow extends JFrame {
 		btnCadastroCidade.setVisible(false);
     	btnEditarCidade.setVisible(false);
     	btnDeletarCidade.setVisible(false);
+    	
+    	regCity = new JPanel();
+		regCity.setLayout(null);
+		regCity.setBounds(200, 80, 210, 280);
+		regCity.setBorder(BorderFactory.createTitledBorder("Nova Cidade"));
+		getContentPane().add(regCity);
+		regCity.setVisible(false);
+		
+    	lbCity = new JLabel();
+    	lbCity.setText("Cidade:");
+    	lbCity.setBounds(40, 40, 125, 20);
+    	regCity.add(lbCity);
+    	
+    	txfCity = new JTextField();
+    	txfCity.setBounds(40, 60, 125, 20);
+    	regCity.add(txfCity);
+    	
+    	lbState = new JLabel();
+    	lbState.setText("Estado:");
+    	lbState.setBounds(40, 100, 125, 20);
+    	regCity.add(lbState);
+    	
+    	txfState = new JTextField();
+    	txfState.setBounds(40, 120, 125, 20);
+    	regCity.add(txfState);
+    	
+    	lbCountry = new JLabel();
+    	lbCountry.setText("Pais:");
+    	lbCountry.setBounds(40, 160, 125, 20);
+    	regCity.add(lbCountry);
+    	
+    	txfCountry = new JTextField();
+    	txfCountry.setBounds(40, 180, 125, 20);
+    	regCity.add(txfCountry);
+    	
+    	btnregCityister = new JButton(new AbstractAction("Cadastrar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btnregCityister.setBounds(40, 230, 125, 20);   	
+    	regCity.add(btnregCityister);
+    	
+    	getContentPane().add(regCity);
     	
 	}
 	
@@ -230,6 +281,7 @@ public class MainWindow extends JFrame {
 		btnEditarAluno.setVisible(false);
     	btnDeletarAluno.setVisible(false);
 		
+    	
 	}
 	
 	public void CreateUsersComponents() {
@@ -284,22 +336,6 @@ public class MainWindow extends JFrame {
 		
 	}
 
-	public void registerWindow() {
-		
-		jpCadastroCidade = new JPanel();
-		jpCadastroCidade.setBounds(5, 20, 600, 200);
-		jpCadastroCidade.setOpaque(false);
-		jpCadastroCidade.add(lbCity, null);
-		getContentPane();
-		
-		
-		
-		jpCadastroCidade.setVisible(true);
-		
-		
-		
-	}
-	
 	public void CitiesWindow() {
 		
 		btnCadastroUsuario.setVisible(false);
