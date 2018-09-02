@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -61,6 +62,31 @@ public class MainWindow extends JFrame {
 	private JLabel lbCountry;
 	private JTextField txfCountry;
 	private JButton btnCityRegister;
+	
+	String Sexo[] = { "Masculino", "Feminino" };
+	
+	private JPanel regStudent;
+	private JLabel lbStudent;
+	private JTextField txfStudent;
+	private JLabel lbBirthdate;
+	private JTextField txfBirthdate;
+	private JLabel lbSex;
+	private JComboBox<?> cmbSex;
+	private JButton btnStudentRegister;
+	private JLabel lbPhone;
+	private JTextField txfPhone;
+	private JLabel lbCellphone;
+	private JTextField txfCellphone;
+	private JLabel lbEmail;
+	private JTextField txfEmail;
+	private JLabel lbNote;
+	private JTextField txfNote;
+	private JLabel lbAdress;
+	private JTextField txfAdress;
+	private JLabel lbAdressNum;
+	private JTextField txfAdressNum;
+	private JLabel lbComplement;
+	private JTextField txfComplement;
 
 	public MainWindow (Users user) {
 		
@@ -76,8 +102,7 @@ public class MainWindow extends JFrame {
         CreateMenucomponents();
         
 	}
-	
-	
+
 	public void CreateMenucomponents() {
 		
 		 menu = new  JMenuBar();
@@ -231,7 +256,7 @@ public class MainWindow extends JFrame {
 				
 			}
 		});
-    	btnCityRegister.setBounds(40, 230, 125, 20);   	
+    	btnCityRegister.setBounds(53, 230, 100, 20);   	
     	regCity.add(btnCityRegister);
     	btnCityRegister.setFocusPainted(false);
     	btnCityRegister.setContentAreaFilled(false);
@@ -248,7 +273,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente um cadastro");
+				regStudent.setVisible(true);
 				
 			}
 			
@@ -301,41 +326,107 @@ public class MainWindow extends JFrame {
     	btnDeletarAluno.setVisible(false);
     	
     	//register panel
-    	regCity = new JPanel();
-		regCity.setLayout(null);
-		regCity.setBounds(200, 80, 210, 280);
-		regCity.setBorder(BorderFactory.createTitledBorder("Nova Cidade"));
-		getContentPane().add(regCity);
-		regCity.setVisible(false);
+    	regStudent = new JPanel();
+    	regStudent.setLayout(null);
+    	regStudent.setBounds(100, 80, 400, 400);
+    	regStudent.setBorder(BorderFactory.createTitledBorder("Novo Aluno"));
+		getContentPane().add(regStudent);
+		regStudent.setVisible(false);
 		
-    	lbCity = new JLabel();
-    	lbCity.setText("Cidade:");
-    	lbCity.setBounds(40, 40, 125, 20);
-    	regCity.add(lbCity);
+		lbStudent = new JLabel();
+		lbStudent.setText("Estudante:");
+		lbStudent.setBounds(40, 40, 125, 20);
+		regStudent.add(lbStudent);
     	
-    	txfCity = new JTextField();
-    	txfCity.setBounds(40, 60, 125, 20);
-    	regCity.add(txfCity);
+    	txfStudent = new JTextField();
+    	txfStudent.setBounds(40, 60, 125, 20);
+    	regStudent.add(txfStudent);
     	
-    	lbState = new JLabel();
-    	lbState.setText("Estado:");
-    	lbState.setBounds(40, 100, 125, 20);
-    	regCity.add(lbState);
+    	lbBirthdate = new JLabel();
+    	lbBirthdate.setText("Data de nascimento:");
+    	lbBirthdate.setBounds(40, 100, 125, 20);
+    	regStudent.add(lbBirthdate);
     	
-    	txfState = new JTextField();
-    	txfState.setBounds(40, 120, 125, 20);
-    	regCity.add(txfState);
+    	txfBirthdate = new JTextField();
+    	txfBirthdate.setBounds(40, 120, 125, 20);
+    	regStudent.add(txfBirthdate);   	
     	
-    	lbCountry = new JLabel();
-    	lbCountry.setText("Pais:");
-    	lbCountry.setBounds(40, 160, 125, 20);
-    	regCity.add(lbCountry);
+    	lbSex = new JLabel();
+    	lbSex.setText("Sexo:");
+    	lbSex.setBounds(40, 160, 125, 20);
+    	regStudent.add(lbSex);
+
+    	cmbSex = new JComboBox<>(Sexo);
+    	cmbSex.setBounds(40, 180, 125, 20);
+    	regStudent.add(cmbSex);
     	
-    	txfCountry = new JTextField();
-    	txfCountry.setBounds(40, 180, 125, 20);
-    	regCity.add(txfCountry);
+    	lbPhone = new JLabel();
+    	lbPhone.setText("Telefone:");
+    	lbPhone.setBounds(40, 220, 125, 20);
+    	regStudent.add(lbPhone);
     	
-    	btnCityRegister = new JButton(new AbstractAction("Cadastrar") {
+    	txfPhone = new JTextField();
+    	txfPhone.setBounds(40, 240, 125, 20);
+    	regStudent.add(txfPhone);   	
+    	
+    	lbCellphone = new JLabel();
+    	lbCellphone.setText("Telefone Celular:");
+    	lbCellphone.setBounds(40, 280, 125, 20);
+    	regStudent.add(lbCellphone);
+    	
+    	txfCellphone = new JTextField();
+    	txfCellphone.setBounds(40, 300, 125, 20);
+    	regStudent.add(txfCellphone);   
+    	
+    	lbEmail = new JLabel();
+    	lbEmail.setText("Email:");
+    	lbEmail.setBounds(230, 40, 125, 20);
+    	regStudent.add(lbEmail);
+    	
+    	txfEmail = new JTextField();
+    	txfEmail.setBounds(230, 60, 125, 20);
+    	regStudent.add(txfEmail); 
+    	
+    	lbNote = new JLabel();
+    	lbNote.setText("Observação:");
+    	lbNote.setBounds(230, 100, 125, 20);
+    	regStudent.add(lbNote);
+    	
+    	txfNote = new JTextField();
+    	txfNote.setBounds(230, 120, 125, 20);
+    	regStudent.add(txfNote);
+    	
+    	lbAdress = new JLabel();
+    	lbAdress.setText("Endereço:");
+    	lbAdress.setBounds(230, 160, 125, 20);
+    	regStudent.add(lbAdress);
+    	
+    	txfAdress = new JTextField();
+    	txfAdress.setBounds(230, 180, 125, 20);
+    	regStudent.add(txfAdress);
+    	
+    	lbAdressNum = new JLabel();
+    	lbAdressNum.setText("Número:");
+    	lbAdressNum.setBounds(230, 220, 125, 20);
+    	regStudent.add(lbAdressNum);
+    	
+    	txfAdressNum = new JTextField();
+    	txfAdressNum.setBounds(230, 240, 125, 20);
+    	regStudent.add(txfAdressNum);
+    	
+    	lbComplement = new JLabel();
+    	lbComplement.setText("Complemento:");
+    	lbComplement.setBounds(230, 280, 125, 20);
+    	regStudent.add(lbComplement);
+    	
+    	txfComplement = new JTextField();
+    	txfComplement.setBounds(230, 300, 125, 20);
+    	regStudent.add(txfComplement);
+    	
+
+    	
+    	//button for registering
+    	btnStudentRegister = new JButton(new AbstractAction("Cadastrar") {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -343,12 +434,12 @@ public class MainWindow extends JFrame {
 				
 			}
 		});
-    	btnCityRegister.setBounds(40, 230, 125, 20);   	
-    	regCity.add(btnCityRegister);
-    	btnCityRegister.setFocusPainted(false);
-    	btnCityRegister.setContentAreaFilled(false);
+    	btnStudentRegister.setBounds(150, 350, 100, 20);   	
+    	regStudent.add(btnStudentRegister);
+    	btnStudentRegister.setFocusPainted(false);
+    	btnStudentRegister.setContentAreaFilled(false);
 			    	
-    	getContentPane().add(regCity);
+    	getContentPane().add(regStudent);
 		
     	
 	}
