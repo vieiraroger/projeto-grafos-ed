@@ -42,11 +42,10 @@ public class MainWindow extends JFrame {
 	private JScrollPane scrollUser;
 	private JScrollPane scrollStudent;
 	private JScrollPane scrollCity;
-	private DefaultTableModel modelos = new DefaultTableModel();
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		
 		String[] estudante = {"Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-				  "Celular","CEP","Endereço","N°","Cidade","Estado","Complemento",
+				  "Celular","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
 				  "Observação"};
 		
 		String[] usuario = {"Usuário", "Senha", "Perfil"};
@@ -194,8 +193,8 @@ public class MainWindow extends JFrame {
         CreateStudentsComponents();
         CreateUsersComponents();
         CreateTable("Users.txt");
-        CreateTable("Students.txt");
-        CreateTable("Cities.txt");
+        //CreateTable("Students.txt");
+        //CreateTable("Cities.txt");
         
 	}
 
@@ -995,7 +994,7 @@ public class MainWindow extends JFrame {
 				try {
 					student = (ArrayList) FileManipulation.selectAll("Students.txt");
 					for (Students c : student) {
-						modelos.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
+						modelo.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
