@@ -37,22 +37,68 @@ import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
 	
+	public char modelType;
+	
 	private JScrollPane scrollUser;
+	private JScrollPane scrollStudent;
+	private JScrollPane scrollCity;
+	private DefaultTableModel modelos = new DefaultTableModel();
 	private DefaultTableModel modelo = new DefaultTableModel() {
+		
+		String[] estudante = {"Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+				  "Celular","CEP","Endereço","N°","Cidade","Estado","Complemento",
+				  "Observação"};
 		
 		String[] usuario = {"Usuário", "Senha", "Perfil"};
 		
+		String[] cidade = {"Cidade", "Pais", "Estado"};
+		
         @Override 
         public int getColumnCount() { 
-            return usuario.length; 
+        	
+        	if (modelType == 'U') {
+        		
+        		return usuario.length;
+        		
+        	}
+        		 
+        	else if (modelType == 'S') {
+        		
+        		return estudante.length;
+        		
+        	}
+        	else {
+        		
+        		return cidade.length;
+        		
+        	}
+            
         } 
 
 		@Override
 		public String getColumnName(int index) {
-		    return usuario[index];
+		    
+        	if (modelType == 'U') {
+        		
+        		return usuario[index];
+        		
+        	}
+        	else if (modelType == 'S') {
+        		
+                return estudante[index];
+                
+        	}
+        	
+        	else {
+        		
+            	return cidade[index];
+            	
+        	}
+        	
 		}
 		
 	};
+	
 	private JTable tableUser;
 	private JTable tableCity;
 	private JTable tableStudent;
@@ -148,8 +194,8 @@ public class MainWindow extends JFrame {
         CreateStudentsComponents();
         CreateUsersComponents();
         CreateTable("Users.txt");
-        //CreateTable("Students.txt");
-       // CreateTable("Cities.txt");
+        CreateTable("Students.txt");
+        CreateTable("Cities.txt");
         
 	}
 
@@ -390,7 +436,7 @@ public class MainWindow extends JFrame {
 		    	btnMDeleteStudent.setVisible(false);
 		    	regStudent.setVisible(true);
 		    	btnStudentEdit.setVisible(false);
-		    	btnStudentRegister.setVisible(true);
+		    	btnStudentRegister.setVisible(true);		    	
 				
 			}
 			
@@ -842,10 +888,10 @@ public class MainWindow extends JFrame {
 		btnMDeleteStudent.setVisible(false);
 		btnMDeleteCity.setVisible(true);
 		
-		
-		//scrollStudent.setVisible(false);
+	
+		scrollStudent.setVisible(false);
 		scrollUser.setVisible(false);
-		//scrollCity.setVisible(true);
+		scrollCity.setVisible(true);
 		
 	}
 
@@ -867,9 +913,9 @@ public class MainWindow extends JFrame {
 		btnMDeleteCity.setVisible(false);
 		btnMDeleteStudent.setVisible(true);
 		
-		//scrollCity.setVisible(false);
+		scrollCity.setVisible(false);
 		scrollUser.setVisible(false);
-		//scrollStudent.setVisible(true);
+		scrollStudent.setVisible(true);
 		
 	}
 
@@ -891,8 +937,8 @@ public class MainWindow extends JFrame {
 		btnMDeleteStudent.setVisible(false);
 		btnMDeleteUser.setVisible(true);
 		
-		//scrollCity.setVisible(false);
-		//scrollStudent.setVisible(false);
+		scrollCity.setVisible(false);
+		scrollStudent.setVisible(false);
 		scrollUser.setVisible(true);
 						
 	}
@@ -909,8 +955,8 @@ public class MainWindow extends JFrame {
         
     	case 'U':
     		
-    		    //JOptionPane.showMessageDialog(null, "Passou depois");
-    		    
+    			modelType = 'U';
+    		
     			scrollUser = new JScrollPane(tableUser);
     			scrollUser.setBounds(30, 100, 540, 400);
     			getContentPane().add(scrollUser);	            
@@ -938,44 +984,62 @@ public class MainWindow extends JFrame {
     		
     	case 'S':
     			
-//				scrollStudent = new JScrollPane(tableUser);
-//				scrollStudent.setBounds(30, 100, 540, 400);
-//				getContentPane().add(scrollStudent);	
+    		    modelType = 'S';
+    		
+				scrollStudent = new JScrollPane(tableStudent);
+				scrollStudent.setBounds(30, 100, 540, 400);
+				getContentPane().add(scrollStudent);	
     		
     		
 				ArrayList<Students> student;
 				try {
-					student = (ArrayList) FileManipulation.selectAll("Cities.txt");
+					student = (ArrayList) FileManipulation.selectAll("Students.txt");
 					for (Students c : student) {
-	    	            modelo.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getNumber(), c.getNote(), c.getCep(), c.getAddress(), c.getCity(), c.getEstate(), c.getComplement(), c.getSuburb()});
+						modelos.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				//table.setVisible(true);
-    	        
+		 	        
+				tableStudent = new JTable(modelo);	    		    
+				tableStudent.setBounds(1, 11, 539, 399);
+    		    
+    		    scrollStudent.setViewportView(tableStudent);
+    		    tableStudent.setVisible(true);
+    		    scrollStudent.setVisible(false);	
     	        
     		break;
     	case 'C':
+    			
+    			modelType = 'C';
+    			
+				scrollCity = new JScrollPane(tableCity);
+				scrollCity.setBounds(30, 100, 540, 400);
+				getContentPane().add(scrollCity);	
+    			
 				ArrayList<Cities> city;
 				try {
 					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
 					 for (Cities c : city) {
-		    	            modelo.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
+						 modelo.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
 		    	     }
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//getContentPane().add(table);
+
+				tableCity = new JTable(modelo);	    		    
+				tableCity.setBounds(1, 11, 539, 399);
+    		    
+				scrollCity.setViewportView(tableCity);
+				tableCity.setVisible(true);
+    		    scrollCity.setVisible(false);
     	       
     		break;
         }
     }
 	
-
 	public static void main(String[] args) {
 		
 		new MainWindow(null).setVisible(true);
