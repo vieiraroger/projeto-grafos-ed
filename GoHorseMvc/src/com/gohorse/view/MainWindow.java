@@ -53,7 +53,8 @@ public class MainWindow extends JFrame {
 	private JButton btnDeletarCidade;
 	private JButton btnDeletarAluno;
 	private JButton btnDeletarUsuario;
-
+	private JButton btnWindowExit;
+	
 	private JPanel regCity;
 	private JLabel lbCity;
 	private JTextField txfCity; 
@@ -64,6 +65,8 @@ public class MainWindow extends JFrame {
 	private JButton btnCityRegister;
 	
 	String Sexo[] = { "Masculino", "Feminino" };
+	
+	
 	
 	private JPanel regStudent;
 	private JLabel lbStudent;
@@ -87,6 +90,15 @@ public class MainWindow extends JFrame {
 	private JTextField txfAdressNum;
 	private JLabel lbComplement;
 	private JTextField txfComplement;
+	private JLabel lbSuburb;
+	private JTextField txfSuburb;
+	private JLabel lbSCity;
+	private JTextField txfSCity;
+	private JLabel lbStuEstate;
+	private JTextField txfStuEstate;
+	private JLabel lbCep;
+	private JTextField txfCep;
+	
 
 	public MainWindow (Users user) {
 		
@@ -267,6 +279,7 @@ public class MainWindow extends JFrame {
 	
 	public void CreateStudentsComponents() {
 		
+		
 		//students add
 		btnCadastroAluno = new JButton(new AbstractAction("Cadastrar Aluno") {
 
@@ -274,6 +287,9 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				regStudent.setVisible(true);
+				btnCadastroAluno.setVisible(false);
+				btnEditarAluno.setVisible(false);
+		    	btnDeletarAluno.setVisible(false);
 				
 			}
 			
@@ -328,7 +344,7 @@ public class MainWindow extends JFrame {
     	//register panel
     	regStudent = new JPanel();
     	regStudent.setLayout(null);
-    	regStudent.setBounds(100, 80, 400, 400);
+    	regStudent.setBounds(0, 0, 600, 600);
     	regStudent.setBorder(BorderFactory.createTitledBorder("Novo Aluno"));
 		getContentPane().add(regStudent);
 		regStudent.setVisible(false);
@@ -342,102 +358,161 @@ public class MainWindow extends JFrame {
     	txfStudent.setBounds(40, 60, 125, 20);
     	regStudent.add(txfStudent);
     	
+    	lbSex = new JLabel();
+    	lbSex.setText("Sexo:");
+    	lbSex.setBounds(40, 85, 125, 20);
+    	regStudent.add(lbSex);
+		
+    	cmbSex = new JComboBox<>(Sexo);
+    	cmbSex.setBounds(40, 105, 125, 20);
+    	regStudent.add(cmbSex);
+    	
     	lbBirthdate = new JLabel();
     	lbBirthdate.setText("Data de nascimento:");
-    	lbBirthdate.setBounds(40, 100, 125, 20);
+    	lbBirthdate.setBounds(40, 135, 125, 20);
     	regStudent.add(lbBirthdate);
     	
     	txfBirthdate = new JTextField();
-    	txfBirthdate.setBounds(40, 120, 125, 20);
-    	regStudent.add(txfBirthdate);   	
-    	
-    	lbSex = new JLabel();
-    	lbSex.setText("Sexo:");
-    	lbSex.setBounds(40, 160, 125, 20);
-    	regStudent.add(lbSex);
-
-    	cmbSex = new JComboBox<>(Sexo);
-    	cmbSex.setBounds(40, 180, 125, 20);
-    	regStudent.add(cmbSex);
-    	
-    	lbPhone = new JLabel();
-    	lbPhone.setText("Telefone:");
-    	lbPhone.setBounds(40, 220, 125, 20);
-    	regStudent.add(lbPhone);
-    	
-    	txfPhone = new JTextField();
-    	txfPhone.setBounds(40, 240, 125, 20);
-    	regStudent.add(txfPhone);   	
-    	
-    	lbCellphone = new JLabel();
-    	lbCellphone.setText("Telefone Celular:");
-    	lbCellphone.setBounds(40, 280, 125, 20);
-    	regStudent.add(lbCellphone);
-    	
-    	txfCellphone = new JTextField();
-    	txfCellphone.setBounds(40, 300, 125, 20);
-    	regStudent.add(txfCellphone);   
-    	
-    	lbEmail = new JLabel();
-    	lbEmail.setText("Email:");
-    	lbEmail.setBounds(230, 40, 125, 20);
-    	regStudent.add(lbEmail);
-    	
-    	txfEmail = new JTextField();
-    	txfEmail.setBounds(230, 60, 125, 20);
-    	regStudent.add(txfEmail); 
-    	
-    	lbNote = new JLabel();
-    	lbNote.setText("Observação:");
-    	lbNote.setBounds(230, 100, 125, 20);
-    	regStudent.add(lbNote);
-    	
-    	txfNote = new JTextField();
-    	txfNote.setBounds(230, 120, 125, 20);
-    	regStudent.add(txfNote);
+    	txfBirthdate.setBounds(40, 155, 125, 20);
+    	regStudent.add(txfBirthdate);   
     	
     	lbAdress = new JLabel();
     	lbAdress.setText("Endereço:");
-    	lbAdress.setBounds(230, 160, 125, 20);
+    	lbAdress.setBounds(270, 40, 125, 20);
     	regStudent.add(lbAdress);
     	
     	txfAdress = new JTextField();
-    	txfAdress.setBounds(230, 180, 125, 20);
+    	txfAdress.setBounds(270, 60, 270, 20);
     	regStudent.add(txfAdress);
     	
     	lbAdressNum = new JLabel();
     	lbAdressNum.setText("Número:");
-    	lbAdressNum.setBounds(230, 220, 125, 20);
+    	lbAdressNum.setBounds(270, 85, 40, 20);
     	regStudent.add(lbAdressNum);
     	
     	txfAdressNum = new JTextField();
-    	txfAdressNum.setBounds(230, 240, 125, 20);
+    	txfAdressNum.setBounds(270, 105, 40, 20);
     	regStudent.add(txfAdressNum);
+    	
+    	lbSuburb = new JLabel();
+    	lbSuburb.setText("Bairro:");
+    	lbSuburb.setBounds(320, 85, 125, 20);
+    	regStudent.add(lbSuburb);
+    	
+    	txfSuburb = new JTextField();
+    	txfSuburb.setBounds(320, 105, 220, 20);
+    	regStudent.add(txfSuburb);
     	
     	lbComplement = new JLabel();
     	lbComplement.setText("Complemento:");
-    	lbComplement.setBounds(230, 280, 125, 20);
+    	lbComplement.setBounds(270, 130, 125, 20);
     	regStudent.add(lbComplement);
     	
     	txfComplement = new JTextField();
-    	txfComplement.setBounds(230, 300, 125, 20);
+    	txfComplement.setBounds(270, 150, 270, 20);
     	regStudent.add(txfComplement);
-    	
 
+    	lbSCity = new JLabel();
+    	lbSCity.setText("Cidade:");
+    	lbSCity.setBounds(270, 175, 125, 20);
+    	regStudent.add(lbSCity);
+    	
+    	txfSCity = new JTextField();
+    	txfSCity.setBounds(270, 195, 125, 20);
+    	regStudent.add(txfSCity);
+    	
+    	lbStuEstate= new JLabel();
+    	lbStuEstate.setText("Estado:");
+    	lbStuEstate.setBounds(405, 175, 125, 20);
+    	regStudent.add(lbStuEstate);
+    	
+    	txfStuEstate = new JTextField();
+    	txfStuEstate.setBounds(405, 195, 135, 20);
+    	regStudent.add(txfStuEstate);
+    	
+    	lbCep= new JLabel();
+    	lbCep.setText("CEP:");
+    	lbCep.setBounds(270, 220, 125, 20);
+    	regStudent.add(lbCep);
+    	
+    	txfCep = new JTextField();
+    	txfCep.setBounds(270, 240, 125, 20);
+    	regStudent.add(txfCep);
+    	
+    	lbPhone = new JLabel();
+    	lbPhone.setText("Telefone:");
+    	lbPhone.setBounds(40, 310, 125, 20);
+    	regStudent.add(lbPhone);
+    	
+    	txfPhone = new JTextField();
+    	txfPhone.setBounds(40, 330, 125, 20);
+    	regStudent.add(txfPhone);   	
+    	
+    	lbCellphone = new JLabel();
+    	lbCellphone.setText("Celular:");
+    	lbCellphone.setBounds(175, 310, 125, 20);
+    	regStudent.add(lbCellphone);
+    	
+    	txfCellphone = new JTextField();
+    	txfCellphone.setBounds(175, 330, 125, 20);
+    	regStudent.add(txfCellphone);   
+    	
+    	lbEmail = new JLabel();
+    	lbEmail.setText("Email:");
+    	lbEmail.setBounds(310, 310, 125, 20);
+    	regStudent.add(lbEmail);
+    	
+    	txfEmail = new JTextField();
+    	txfEmail.setBounds(310, 330, 230, 20);
+    	regStudent.add(txfEmail); 
+    	
+    	lbNote = new JLabel();
+    	lbNote.setText("Observação:");
+    	lbNote.setBounds(40, 355, 125, 20);
+    	regStudent.add(lbNote);
+    	
+    	txfNote = new JTextField();
+    	txfNote.setBounds(40, 375, 500, 70);
+    	regStudent.add(txfNote);
     	
     	//button for registering
     	btnStudentRegister = new JButton(new AbstractAction("Cadastrar") {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+
+				//TO-DO REGISTERING FUNCTIONS
+				//
+				
+				regStudent.setVisible(false);
+				btnCadastroAluno.setVisible(true);
+				btnEditarAluno.setVisible(true);
+		    	btnDeletarAluno.setVisible(true);
 				
 			}
 		});
-    	btnStudentRegister.setBounds(150, 350, 100, 20);   	
+    	btnStudentRegister.setBounds(350, 475, 150, 30);   	
     	regStudent.add(btnStudentRegister);
     	btnStudentRegister.setFocusPainted(false);
     	btnStudentRegister.setContentAreaFilled(false);
+    	
+    	btnWindowExit = new JButton(new AbstractAction("Sair") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//edtStudent.setvisible(false);
+				regStudent.setVisible(false);
+				btnCadastroAluno.setVisible(true);
+				btnEditarAluno.setVisible(true);
+		    	btnDeletarAluno.setVisible(true);
+				
+			}
+		});
+    	btnWindowExit.setBounds(100, 475, 150, 30);   	
+    	regStudent.add(btnWindowExit);
+    	btnWindowExit.setFocusPainted(false);
+    	btnWindowExit.setContentAreaFilled(false);
 			    	
     	getContentPane().add(regStudent);
 		
@@ -602,6 +677,8 @@ public class MainWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				regStudent.add(table);
+				table.setVisible(true);
     	        
     	        
     		break;
