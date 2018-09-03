@@ -636,7 +636,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regUser.setBorder(BorderFactory.createTitledBorder("Editar Usuário"));
+				regUser.setBorder(BorderFactory.createTitledBorder("Cadastrar Usuário"));
 				btnMRegisterUser.setVisible(false);
 				btnMEditUser.setVisible(false);
 				btnMDeleteUser.setVisible(false);
