@@ -127,13 +127,13 @@ public class MainWindow extends JFrame {
 	private JTextField txfUser;
 	private JLabel lbPassword;
 	private JPasswordField txfPassword;
-	private JLabel lbBio;
-	private JTextArea txfBio;
+	private JLabel lbType;
+	private JComboBox<?> cmbType;
 	private JButton btnUserRegister;
 	private JButton btnUserWindowExit;
 	private JButton btnUserEdit;
 
-	
+	String Tipo[] = { "User", "Admin" };
 
 	public MainWindow (Users user) {
 		
@@ -723,38 +723,37 @@ public class MainWindow extends JFrame {
     	//register panel
     	regUser = new JPanel();
     	regUser.setLayout(null);
-    	regUser.setBounds(130, 100, 340, 300);
+    	regUser.setBounds(180, 150, 228, 250);
     	regUser.setBorder(BorderFactory.createTitledBorder("Usuário"));
 		getContentPane().add(regUser);
 		regUser.setVisible(false);
 		
     	lbUser = new JLabel();
     	lbUser.setText("Usuário:");
-    	lbUser.setBounds(40, 40, 125, 20);
+    	lbUser.setBounds(50, 40, 125, 20);
     	regUser.add(lbUser);
     	
     	txfUser = new JTextField();
-    	txfUser.setBounds(40, 60, 125, 20);
+    	txfUser.setBounds(50, 60, 125, 20);
     	regUser.add(txfUser);
     	
     	lbPassword = new JLabel();
     	lbPassword.setText("Senha:");
-    	lbPassword.setBounds(175, 40, 125, 20);
+    	lbPassword.setBounds(50, 85, 125, 20);
     	regUser.add(lbPassword);
     	
     	txfPassword = new JPasswordField();
-    	txfPassword.setBounds(175, 60, 125, 20);
+    	txfPassword.setBounds(50, 105, 125, 20);
     	regUser.add(txfPassword);
     	
-    	lbBio = new JLabel();
-    	lbBio.setText("Perfil:");
-    	lbBio.setBounds(40, 80, 125, 20);
-    	regUser.add(lbBio);
+    	lbType= new JLabel();
+    	lbType.setText("Perfil:");
+    	lbType.setBounds(50, 130, 125, 20);
+    	regUser.add(lbType);
     	
-    	txfBio = new JTextArea();
-    	txfBio.setBounds(40, 100, 260, 110);
-    	txfBio.setBorder(BorderFactory.createEtchedBorder());
-    	regUser.add(txfBio);
+    	cmbType = new JComboBox<>(Tipo);
+    	cmbType.setBounds(50, 150, 125, 20);
+    	regUser.add(cmbType);
     	
     	//register button TODO registering
     	btnUserRegister = new JButton(new AbstractAction("Cadastrar") {
@@ -774,7 +773,7 @@ public class MainWindow extends JFrame {
 				
 			}
 		});
-    	btnUserRegister.setBounds(175, 240, 125, 20);   	
+    	btnUserRegister.setBounds(115, 200, 95, 20);   	
     	regUser.add(btnUserRegister);
     	btnUserRegister.setFocusPainted(false);
     	btnUserRegister.setContentAreaFilled(false);
@@ -797,7 +796,7 @@ public class MainWindow extends JFrame {
 				
 			}
 		});
-    	btnUserEdit.setBounds(175, 240, 125, 20);   	
+    	btnUserEdit.setBounds(115, 200, 95, 20);   	
     	regUser.add(btnUserEdit);
     	btnUserEdit.setFocusPainted(false);
     	btnUserEdit.setContentAreaFilled(false);
@@ -816,7 +815,7 @@ public class MainWindow extends JFrame {
 				
 			}
 		});
-    	btnUserWindowExit.setBounds(40, 240, 125, 20); 
+    	btnUserWindowExit.setBounds(20, 200, 90, 20); 
     	regUser.add(btnUserWindowExit);
     	btnUserWindowExit.setFocusPainted(false);
     	btnUserWindowExit.setContentAreaFilled(false);
@@ -903,7 +902,6 @@ public class MainWindow extends JFrame {
         table.getColumnModel().getColumn(1).setPreferredWidth(tamcoluna);
 		cont++;
 	}*/
-	
 	
 	public void CreateTable(String filename) {
 		
