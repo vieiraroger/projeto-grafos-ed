@@ -1,5 +1,6 @@
 package com.gohorse.view;
 
+import java.awt.Color;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -19,8 +20,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,16 +47,15 @@ public class MainWindow extends JFrame {
 	private JMenuItem smListarAluno;
 	private JMenuItem smListarUsuario;
 	
-	private JButton btnCadastroCidade;
-	private JButton btnCadastroAluno;
-	private JButton btnCadastroUsuario;
-	private JButton btnEditarCidade;
-	private JButton btnEditarAluno;
-	private JButton btnEditarUsuario;
-	private JButton btnDeletarCidade;
-	private JButton btnDeletarAluno;
-	private JButton btnDeletarUsuario;
-	private JButton btnWindowExit;
+	private JButton btnMRegisterCity;
+	private JButton btnMRegisterStudent;
+	private JButton btnMRegisterUser;
+	private JButton btnMEditCity;
+	private JButton btnMEditStudent;
+	private JButton btnMEditUser;
+	private JButton btnMDeleteCity;
+	private JButton btnMDeleteStudent;
+	private JButton btnMDeleteUser;
 	
 	private JPanel regCity;
 	private JLabel lbCity;
@@ -63,11 +65,12 @@ public class MainWindow extends JFrame {
 	private JLabel lbCountry;
 	private JTextField txfCountry;
 	private JButton btnCityRegister;
+	private JButton btnCityEdit;
+	private JButton btnCityWindowExit;
+	
 	
 	String Sexo[] = { "Masculino", "Feminino" };
-	
-	
-	
+
 	private JPanel regStudent;
 	private JLabel lbStudent;
 	private JTextField txfStudent;
@@ -76,6 +79,8 @@ public class MainWindow extends JFrame {
 	private JLabel lbSex;
 	private JComboBox<?> cmbSex;
 	private JButton btnStudentRegister;
+	private JButton btnStudentEdit;
+	private JButton btnStudentWindowExit;
 	private JLabel lbPhone;
 	private JTextField txfPhone;
 	private JLabel lbCellphone;
@@ -83,7 +88,7 @@ public class MainWindow extends JFrame {
 	private JLabel lbEmail;
 	private JTextField txfEmail;
 	private JLabel lbNote;
-	private JTextField txfNote;
+	private JTextArea txfNote;
 	private JLabel lbAdress;
 	private JTextField txfAdress;
 	private JLabel lbAdressNum;
@@ -98,6 +103,18 @@ public class MainWindow extends JFrame {
 	private JTextField txfStuEstate;
 	private JLabel lbCep;
 	private JTextField txfCep;
+	
+	private JPanel regUser;
+	private JLabel lbUser;
+	private JTextField txfUser;
+	private JLabel lbPassword;
+	private JPasswordField txfPassword;
+	private JLabel lbBio;
+	private JTextArea txfBio;
+	private JButton btnUserRegister;
+	private JButton btnUserWindowExit;
+	private JButton btnUserEdit;
+
 	
 
 	public MainWindow (Users user) {
@@ -146,7 +163,6 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				
 				CitiesWindow();
 				
 			}
@@ -173,39 +189,51 @@ public class MainWindow extends JFrame {
 	public void CreateCitiesComponents() {
 		
 		//cities add
-		btnCadastroCidade = new JButton(new AbstractAction("Cadastrar Cidade") {
+		btnMRegisterCity = new JButton(new AbstractAction("Cadastrar Cidade") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regCity.setVisible(true);
+				regCity.setBorder(BorderFactory.createTitledBorder("Cadastrar Cidade"));
+				btnMRegisterCity.setVisible(false);
+				btnMEditCity.setVisible(false);
+		    	btnMDeleteCity.setVisible(false);
+		    	regCity.setVisible(true);
+		    	btnCityEdit.setVisible(false);
+		    	btnCityRegister.setVisible(true);
 				
 			}
 			
 		});
-		btnCadastroCidade.setBounds(30, 20, 140, 30);    	
-		btnCadastroCidade.setFocusPainted(false);
-    	btnCadastroCidade.setContentAreaFilled(false);
-		getContentPane().add(btnCadastroCidade);
+		btnMRegisterCity.setBounds(30, 20, 140, 30);    	
+		btnMRegisterCity.setFocusPainted(false);
+    	btnMRegisterCity.setContentAreaFilled(false);
+		getContentPane().add(btnMRegisterCity);
 		
 		//cities edit
-    	btnEditarCidade = new JButton(new AbstractAction("Editar Cidade") {
+    	btnMEditCity = new JButton(new AbstractAction("Editar Cidade") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente uma edição");
+				regCity.setBorder(BorderFactory.createTitledBorder("Editar Cidade"));
+				btnMRegisterCity.setVisible(false);
+				btnMEditCity.setVisible(false);
+		    	btnMDeleteCity.setVisible(false);
+		    	regCity.setVisible(true);
+		    	btnCityRegister.setVisible(false);
+		    	btnCityEdit.setVisible(true);
 				
 			}
 			
 		});
-    	btnEditarCidade.setBounds(230, 20, 140, 30);    	
-    	btnEditarCidade.setFocusPainted(false);
-    	btnEditarCidade.setContentAreaFilled(false);
-    	getContentPane().add(btnEditarCidade);
+    	btnMEditCity.setBounds(230, 20, 140, 30);    	
+    	btnMEditCity.setFocusPainted(false);
+    	btnMEditCity.setContentAreaFilled(false);
+    	getContentPane().add(btnMEditCity);
     	
 		//cities delete
-    	btnDeletarCidade = new JButton(new AbstractAction("Deletar Cidade") {
+    	btnMDeleteCity = new JButton(new AbstractAction("Deletar Cidade") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -215,21 +243,21 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnDeletarCidade.setBounds(430, 20, 140, 30); 	
-    	btnDeletarCidade.setFocusPainted(false);
-    	btnDeletarCidade.setContentAreaFilled(false);
-    	getContentPane().add(btnDeletarCidade);
+    	btnMDeleteCity.setBounds(430, 20, 140, 30); 	
+    	btnMDeleteCity.setFocusPainted(false);
+    	btnMDeleteCity.setContentAreaFilled(false);
+    	getContentPane().add(btnMDeleteCity);
 		
     	//hide button after initializing
-		btnCadastroCidade.setVisible(false);
-    	btnEditarCidade.setVisible(false);
-    	btnDeletarCidade.setVisible(false);
+		btnMRegisterCity.setVisible(false);
+    	btnMEditCity.setVisible(false);
+    	btnMDeleteCity.setVisible(false);
     	
     	//register panel
     	regCity = new JPanel();
 		regCity.setLayout(null);
 		regCity.setBounds(200, 80, 210, 280);
-		regCity.setBorder(BorderFactory.createTitledBorder("Nova Cidade"));
+		regCity.setBorder(BorderFactory.createTitledBorder("Cidade"));
 		getContentPane().add(regCity);
 		regCity.setVisible(false);
 		
@@ -260,19 +288,68 @@ public class MainWindow extends JFrame {
     	txfCountry.setBounds(40, 180, 125, 20);
     	regCity.add(txfCountry);
     	
+    	//register button TODO registering
     	btnCityRegister = new JButton(new AbstractAction("Cadastrar") {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				
+				//TO DO registering methods
+				//
+				
+				regCity.setVisible(false);
+				btnMRegisterCity.setVisible(true);
+				btnMEditCity.setVisible(true);
+		    	btnMDeleteCity.setVisible(true);
+				
 				
 			}
 		});
-    	btnCityRegister.setBounds(53, 230, 100, 20);   	
+    	btnCityRegister.setBounds(93, 230, 95, 20);   	
     	regCity.add(btnCityRegister);
     	btnCityRegister.setFocusPainted(false);
     	btnCityRegister.setContentAreaFilled(false);
-			    	
+    	
+    	//edit button TODO PULL DATA TO EDIT
+    	btnCityEdit = new JButton(new AbstractAction("Aplicar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//TODO editing registry
+				//
+				
+				regCity.setVisible(false);
+				btnMRegisterCity.setVisible(true);
+				btnMEditCity.setVisible(true);
+		    	btnMDeleteCity.setVisible(true);
+				
+				
+			}
+		});
+    	btnCityEdit.setBounds(93, 230, 95, 20);   	
+    	regCity.add(btnCityEdit);
+    	btnCityEdit.setFocusPainted(false);
+    	btnCityEdit.setContentAreaFilled(false);
+    	
+    	//window exit button
+    	btnCityWindowExit = new JButton(new AbstractAction("Sair") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			
+				regCity.setVisible(false);
+				btnMRegisterCity.setVisible(true);
+				btnMEditCity.setVisible(true);
+		    	btnMDeleteCity.setVisible(true);
+				
+			}
+		});
+    	btnCityWindowExit.setBounds(23, 230, 60, 20);   	
+    	regCity.add(btnCityWindowExit);
+    	btnCityWindowExit.setFocusPainted(false);
+    	btnCityWindowExit.setContentAreaFilled(false);
+    	
     	getContentPane().add(regCity);
     	
 	}
@@ -281,46 +358,55 @@ public class MainWindow extends JFrame {
 		
 		
 		//students add
-		btnCadastroAluno = new JButton(new AbstractAction("Cadastrar Aluno") {
+		btnMRegisterStudent = new JButton(new AbstractAction("Cadastrar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regStudent.setVisible(true);
-				btnCadastroAluno.setVisible(false);
-				btnEditarAluno.setVisible(false);
-		    	btnDeletarAluno.setVisible(false);
+				regStudent.setBorder(BorderFactory.createTitledBorder("Cadastrar Aluno"));
+				btnMRegisterStudent.setVisible(false);
+				btnMEditStudent.setVisible(false);
+		    	btnMDeleteStudent.setVisible(false);
+		    	regStudent.setVisible(true);
+		    	btnStudentEdit.setVisible(false);
+		    	btnStudentRegister.setVisible(true);
 				
 			}
 			
 		});
-		btnCadastroAluno.setBounds(30, 20, 140, 30);   
-		btnCadastroAluno.setFocusPainted(false);
-		btnCadastroAluno.setContentAreaFilled(false);
-		getContentPane().add(btnCadastroAluno);
+		btnMRegisterStudent.setBounds(30, 20, 140, 30);   
+		btnMRegisterStudent.setFocusPainted(false);
+		btnMRegisterStudent.setContentAreaFilled(false);
+		getContentPane().add(btnMRegisterStudent);
 
 		
 		
-		//students edit
-    	btnEditarAluno = new JButton(new AbstractAction("Editar Aluno") {
+		//students edit TO DO PULL DATA TO EDIT
+    	btnMEditStudent = new JButton(new AbstractAction("Editar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente uma edição");
-				
+				regStudent.setBorder(BorderFactory.createTitledBorder("Editar Aluno"));
+				btnMRegisterStudent.setVisible(false);
+				btnMEditStudent.setVisible(false);
+		    	btnMDeleteStudent.setVisible(false);
+		    	regStudent.setVisible(true);
+		    	btnStudentRegister.setVisible(false);
+		    	btnStudentEdit.setVisible(true);
+		    	
 			}
 			
 		});
-    	btnEditarAluno.setBounds(230, 20, 140, 30);    	
-    	btnEditarAluno.setFocusPainted(false);
-    	btnEditarAluno.setContentAreaFilled(false);
-    	getContentPane().add(btnEditarAluno);
+    	btnMEditStudent.setBounds(230, 20, 140, 30);    	
+    	btnMEditStudent.setFocusPainted(false);
+    	btnMEditStudent.setContentAreaFilled(false);
+    	getContentPane().add(btnMEditStudent);
     	
     	
     	
 		//students delete
-    	btnDeletarAluno = new JButton(new AbstractAction("Deletar Aluno") {
+    	btnMDeleteStudent = new JButton(new AbstractAction("Deletar Aluno") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -330,22 +416,22 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnDeletarAluno.setBounds(430, 20, 140, 30); 	
-    	btnDeletarAluno.setFocusPainted(false);
-    	btnDeletarAluno.setContentAreaFilled(false);
-    	getContentPane().add(btnDeletarAluno);
+    	btnMDeleteStudent.setBounds(430, 20, 140, 30); 	
+    	btnMDeleteStudent.setFocusPainted(false);
+    	btnMDeleteStudent.setContentAreaFilled(false);
+    	getContentPane().add(btnMDeleteStudent);
     	
 		
     	//hide button after initializing
-		btnCadastroAluno.setVisible(false);
-		btnEditarAluno.setVisible(false);
-    	btnDeletarAluno.setVisible(false);
+		btnMRegisterStudent.setVisible(false);
+		btnMEditStudent.setVisible(false);
+    	btnMDeleteStudent.setVisible(false);
     	
-    	//register panel
+    	//student form
     	regStudent = new JPanel();
     	regStudent.setLayout(null);
     	regStudent.setBounds(0, 0, 600, 600);
-    	regStudent.setBorder(BorderFactory.createTitledBorder("Novo Aluno"));
+    	regStudent.setBorder(BorderFactory.createTitledBorder("Aluno"));
 		getContentPane().add(regStudent);
 		regStudent.setVisible(false);
 		
@@ -386,7 +472,7 @@ public class MainWindow extends JFrame {
     	regStudent.add(txfAdress);
     	
     	lbAdressNum = new JLabel();
-    	lbAdressNum.setText("Número:");
+    	lbAdressNum.setText("Nº:");
     	lbAdressNum.setBounds(270, 85, 40, 20);
     	regStudent.add(lbAdressNum);
     	
@@ -467,15 +553,16 @@ public class MainWindow extends JFrame {
     	regStudent.add(txfEmail); 
     	
     	lbNote = new JLabel();
-    	lbNote.setText("Observação:");
+    	lbNote.setText("Observações:");
     	lbNote.setBounds(40, 355, 125, 20);
     	regStudent.add(lbNote);
     	
-    	txfNote = new JTextField();
+    	txfNote = new JTextArea();
     	txfNote.setBounds(40, 375, 500, 70);
+    	txfNote.setBorder(BorderFactory.createEtchedBorder());
     	regStudent.add(txfNote);
     	
-    	//button for registering
+    	////register button TODO registering
     	btnStudentRegister = new JButton(new AbstractAction("Cadastrar") {
 			
 			@Override
@@ -485,9 +572,9 @@ public class MainWindow extends JFrame {
 				//
 				
 				regStudent.setVisible(false);
-				btnCadastroAluno.setVisible(true);
-				btnEditarAluno.setVisible(true);
-		    	btnDeletarAluno.setVisible(true);
+				btnMRegisterStudent.setVisible(true);
+				btnMEditStudent.setVisible(true);
+		    	btnMDeleteStudent.setVisible(true);
 				
 			}
 		});
@@ -496,23 +583,45 @@ public class MainWindow extends JFrame {
     	btnStudentRegister.setFocusPainted(false);
     	btnStudentRegister.setContentAreaFilled(false);
     	
-    	btnWindowExit = new JButton(new AbstractAction("Sair") {
+    	//button for editing TODO editing
+    	btnStudentEdit = new JButton(new AbstractAction("Aplicar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				//TODO REGISTERING FUNCTIONS
+				//
+				
+				regStudent.setVisible(false);
+				btnMRegisterStudent.setVisible(true);
+				btnMEditStudent.setVisible(true);
+		    	btnMDeleteStudent.setVisible(true);
+				
+			}
+		});
+    	btnStudentEdit.setBounds(350, 475, 150, 30);   	
+    	regStudent.add(btnStudentEdit);
+    	btnStudentEdit.setFocusPainted(false);
+    	btnStudentEdit.setContentAreaFilled(false);
+    	
+    	//window exit button
+    	btnStudentWindowExit = new JButton(new AbstractAction("Sair") {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
 				//edtStudent.setvisible(false);
 				regStudent.setVisible(false);
-				btnCadastroAluno.setVisible(true);
-				btnEditarAluno.setVisible(true);
-		    	btnDeletarAluno.setVisible(true);
+				btnMRegisterStudent.setVisible(true);
+				btnMEditStudent.setVisible(true);
+		    	btnMDeleteStudent.setVisible(true);
 				
 			}
 		});
-    	btnWindowExit.setBounds(100, 475, 150, 30);   	
-    	regStudent.add(btnWindowExit);
-    	btnWindowExit.setFocusPainted(false);
-    	btnWindowExit.setContentAreaFilled(false);
+    	btnStudentWindowExit.setBounds(100, 475, 150, 30);   	
+    	regStudent.add(btnStudentWindowExit);
+    	btnStudentWindowExit.setFocusPainted(false);
+    	btnStudentWindowExit.setContentAreaFilled(false);
 			    	
     	getContentPane().add(regStudent);
 		
@@ -522,41 +631,53 @@ public class MainWindow extends JFrame {
 	public void CreateUsersComponents() {
 		
 		//user add
-		btnCadastroUsuario = new JButton(new AbstractAction("Cadastrar Usuario") {
+		btnMRegisterUser = new JButton(new AbstractAction("Cadastrar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente um cadastro");
+				regUser.setBorder(BorderFactory.createTitledBorder("Editar Usuário"));
+				btnMRegisterUser.setVisible(false);
+				btnMEditUser.setVisible(false);
+				btnMDeleteUser.setVisible(false);
+				regUser.setVisible(true);	
+				btnUserEdit.setVisible(false);
+				btnUserRegister.setVisible(true);
 				
 			}
 			
 		});
-		btnCadastroUsuario.setBounds(30, 20, 140, 30);  
-		btnCadastroUsuario.setFocusPainted(false);
-		btnCadastroUsuario.setContentAreaFilled(false);
-		getContentPane().add(btnCadastroUsuario);
+		btnMRegisterUser.setBounds(30, 20, 140, 30);  
+		btnMRegisterUser.setFocusPainted(false);
+		btnMRegisterUser.setContentAreaFilled(false);
+		getContentPane().add(btnMRegisterUser);
 		
 		
 		//user edit
-    	btnEditarUsuario = new JButton(new AbstractAction("Editar Usuario") {
+    	btnMEditUser = new JButton(new AbstractAction("Editar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente uma edição");
+				regUser.setBorder(BorderFactory.createTitledBorder("Editar Usuário"));
+				btnMRegisterUser.setVisible(false);
+				btnMEditUser.setVisible(false);
+				btnMDeleteUser.setVisible(false);
+				regUser.setVisible(true);
+				btnUserRegister.setVisible(false);
+				btnUserEdit.setVisible(true);
 				
 			}
 			
 		});
-    	btnEditarUsuario.setBounds(230, 20, 140, 30);    
-    	btnEditarUsuario.setFocusPainted(false);
-    	btnEditarUsuario.setContentAreaFilled(false);
-    	getContentPane().add(btnEditarUsuario);
+    	btnMEditUser.setBounds(230, 20, 140, 30);    
+    	btnMEditUser.setFocusPainted(false);
+    	btnMEditUser.setContentAreaFilled(false);
+    	getContentPane().add(btnMEditUser);
     	
     	
 		//user delete
-    	btnDeletarUsuario = new JButton(new AbstractAction("Deletar Usuario") {
+    	btnMDeleteUser = new JButton(new AbstractAction("Deletar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -566,63 +687,179 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
-    	btnDeletarUsuario.setBounds(430, 20, 140, 30); 	
-    	btnDeletarUsuario.setFocusPainted(false);
-    	btnDeletarUsuario.setContentAreaFilled(false);
-    	getContentPane().add(btnDeletarUsuario);
+    	btnMDeleteUser.setBounds(430, 20, 140, 30); 	
+    	btnMDeleteUser.setFocusPainted(false);
+    	btnMDeleteUser.setContentAreaFilled(false);
+    	getContentPane().add(btnMDeleteUser);
 		
-    	btnCadastroUsuario.setVisible(false);
-    	btnEditarUsuario.setVisible(false);
-    	btnDeletarUsuario.setVisible(false);
+    	//hide buttons after initializing
+    	btnMRegisterUser.setVisible(false);
+    	btnMEditUser.setVisible(false);
+    	btnMDeleteUser.setVisible(false);
+    	
+    	//register panel
+    	regUser = new JPanel();
+    	regUser.setLayout(null);
+    	regUser.setBounds(130, 100, 340, 300);
+    	regUser.setBorder(BorderFactory.createTitledBorder("Usuário"));
+		getContentPane().add(regUser);
+		regUser.setVisible(false);
+		
+    	lbUser = new JLabel();
+    	lbUser.setText("Usuário:");
+    	lbUser.setBounds(40, 40, 125, 20);
+    	regUser.add(lbUser);
+    	
+    	txfUser = new JTextField();
+    	txfUser.setBounds(40, 60, 125, 20);
+    	regUser.add(txfUser);
+    	
+    	lbPassword = new JLabel();
+    	lbPassword.setText("Senha:");
+    	lbPassword.setBounds(175, 40, 125, 20);
+    	regUser.add(lbPassword);
+    	
+    	txfPassword = new JPasswordField();
+    	txfPassword.setBounds(175, 60, 125, 20);
+    	regUser.add(txfPassword);
+    	
+    	lbBio = new JLabel();
+    	lbBio.setText("Perfil:");
+    	lbBio.setBounds(40, 80, 125, 20);
+    	regUser.add(lbBio);
+    	
+    	txfBio = new JTextArea();
+    	txfBio.setBounds(40, 100, 260, 110);
+    	txfBio.setBorder(BorderFactory.createEtchedBorder());
+    	regUser.add(txfBio);
+    	
+    	//register button TODO registering
+    	btnUserRegister = new JButton(new AbstractAction("Cadastrar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//TO DO registering methods
+				//
+				
+				regUser.setVisible(false);
+				btnMRegisterUser.setVisible(true);
+				btnMEditUser.setVisible(true);
+		    	btnMDeleteUser.setVisible(true);
+				
+				
+			}
+		});
+    	btnUserRegister.setBounds(175, 240, 125, 20);   	
+    	regUser.add(btnUserRegister);
+    	btnUserRegister.setFocusPainted(false);
+    	btnUserRegister.setContentAreaFilled(false);
+    	
+    	//edit button TODO editing
+    	btnUserEdit = new JButton(new AbstractAction("Aplicar") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//TODO editing registry
+				//
+				
+				regUser.setVisible(false);
+				btnMRegisterUser.setVisible(true);
+				btnMEditUser.setVisible(true);
+		    	btnMDeleteUser.setVisible(true);
+				
+				
+			}
+		});
+    	btnUserEdit.setBounds(175, 240, 125, 20);   	
+    	regUser.add(btnUserEdit);
+    	btnUserEdit.setFocusPainted(false);
+    	btnUserEdit.setContentAreaFilled(false);
+    	
+    	//window exit button
+    	btnUserWindowExit = new JButton(new AbstractAction("Sair") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			
+				regUser.setVisible(false);
+				btnMRegisterUser.setVisible(true);
+				btnMEditUser.setVisible(true);
+		    	btnMDeleteUser.setVisible(true);
+				
+			}
+		});
+    	btnUserWindowExit.setBounds(40, 240, 125, 20); 
+    	regUser.add(btnUserWindowExit);
+    	btnUserWindowExit.setFocusPainted(false);
+    	btnUserWindowExit.setContentAreaFilled(false);
+    	
+    	getContentPane().add(regUser);
 		
 	}
 
+	
 	public void CitiesWindow() {
 		
-		btnCadastroUsuario.setVisible(false);
-		btnCadastroAluno.setVisible(false);
-		btnCadastroCidade.setVisible(true);
+		regCity.setVisible(false);
+		regStudent.setVisible(false);
+		regUser.setVisible(false);
 		
-		btnEditarUsuario.setVisible(false);
-		btnEditarAluno.setVisible(false);
-		btnEditarCidade.setVisible(true);
+		btnMRegisterUser.setVisible(false);
+		btnMRegisterStudent.setVisible(false);
+		btnMRegisterCity.setVisible(true);
 		
-		btnDeletarUsuario.setVisible(false);
-		btnDeletarAluno.setVisible(false);
-		btnDeletarCidade.setVisible(true);
+		btnMEditUser.setVisible(false);
+		btnMEditStudent.setVisible(false);
+		btnMEditCity.setVisible(true);
+		
+		btnMDeleteUser.setVisible(false);
+		btnMDeleteStudent.setVisible(false);
+		btnMDeleteCity.setVisible(true);
 		
 		
 	}
 
+	
 	public void StudentsWindow() {
+		
+		regCity.setVisible(false);
+		regStudent.setVisible(false);
+		regUser.setVisible(false);
 
-		btnCadastroUsuario.setVisible(false);
-		btnCadastroCidade.setVisible(false);
-		btnCadastroAluno.setVisible(true);
+		btnMRegisterUser.setVisible(false);
+		btnMRegisterCity.setVisible(false);
+		btnMRegisterStudent.setVisible(true);
 		
-		btnEditarUsuario.setVisible(false);
-		btnEditarCidade.setVisible(false);
-		btnEditarAluno.setVisible(true);
+		btnMEditUser.setVisible(false);
+		btnMEditCity.setVisible(false);
+		btnMEditStudent.setVisible(true);
 		
-		btnDeletarUsuario.setVisible(false);
-		btnDeletarCidade.setVisible(false);
-		btnDeletarAluno.setVisible(true);
+		btnMDeleteUser.setVisible(false);
+		btnMDeleteCity.setVisible(false);
+		btnMDeleteStudent.setVisible(true);
 		
 	}
 	
+	
 	public void UsersWindow() {
 		
-		btnCadastroCidade.setVisible(false);
-		btnCadastroAluno.setVisible(false);
-		btnCadastroUsuario.setVisible(true);
+		regCity.setVisible(false);
+		regStudent.setVisible(false);
+		regUser.setVisible(false);
 		
-		btnEditarCidade.setVisible(false);
-		btnEditarAluno.setVisible(false);
-		btnEditarUsuario.setVisible(true);
+		btnMRegisterCity.setVisible(false);
+		btnMRegisterStudent.setVisible(false);
+		btnMRegisterUser.setVisible(true);
 		
-		btnDeletarCidade.setVisible(false);
-		btnDeletarAluno.setVisible(false);
-		btnDeletarUsuario.setVisible(true);
+		btnMEditCity.setVisible(false);
+		btnMEditStudent.setVisible(false);
+		btnMEditUser.setVisible(true);
+		
+		btnMDeleteCity.setVisible(false);
+		btnMDeleteStudent.setVisible(false);
+		btnMDeleteUser.setVisible(true);
 		
 		CreateTable("Users.txt");
 		table.setVisible(true);
@@ -632,12 +869,14 @@ public class MainWindow extends JFrame {
 		
 	}
 	
+
 	/*public void CreateColumn (String coluna, int tamcoluna) {
         modelo.addColumn(coluna);
         table.getColumnModel().getColumn(1).setPreferredWidth(tamcoluna);
 		cont++;
 	}*/
 	
+
 	public void CreateTable(String filename) {
 		JOptionPane.showMessageDialog(null, "Passou antes");
         switch(filename.charAt(0)) {
@@ -699,7 +938,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-	
+
 	public static void main(String[] args) {
 		
 		new MainWindow(null).setVisible(true);
