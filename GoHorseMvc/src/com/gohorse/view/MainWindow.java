@@ -345,9 +345,12 @@ public class MainWindow extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//TO DO registering methods
-				//
+				Cities city = new Cities(txfCity.getText(),txfState.getText(),txfCountry.getText());
+				try {
+					FileManipulation.insert(city);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				
 				regCity.setVisible(false);
 				btnMRegisterCity.setVisible(true);
@@ -619,8 +622,27 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				//TO-DO REGISTERING FUNCTIONS
-				//
+				Students stu = new Students(txfStudent.getText(),
+											txfBirthdate.getText(), 
+											((String) cmbSex.getSelectedItem()).charAt(0),
+											txfPhone.getText(),
+											txfCellphone.getText(),
+											txfEmail.getText(),
+											txfNote.getText(),
+											txfAdress.getText(),
+											txfAdressNum.getText(),
+											txfComplement.getText(),
+											txfSuburb.getText(),
+											txfCity.getText(),
+											txfState.getText(),
+											txfCep.getText());
+				
+				try {
+					FileManipulation.insert(stu);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				regStudent.setVisible(false);
 				btnMRegisterStudent.setVisible(true);
@@ -790,8 +812,14 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				//TO DO registering methods
-				//
+				Users u = new Users(txfUser.getText(),String.valueOf(txfPassword.getPassword()),(String) cmbType.getSelectedItem());
+				
+				try {
+					FileManipulation.insert(u);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				regUser.setVisible(false);
 				btnMRegisterUser.setVisible(true);

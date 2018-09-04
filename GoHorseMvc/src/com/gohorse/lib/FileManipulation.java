@@ -204,7 +204,7 @@ public class FileManipulation {
 	 * @throws IOException 
 	 */
     public static void insert(Cities obj) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Cities",true));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Cities.txt",true));
         String line = "";
         
         line = obj.getCity() + DIVISOR + obj.getState() + DIVISOR + obj.getCountry();
