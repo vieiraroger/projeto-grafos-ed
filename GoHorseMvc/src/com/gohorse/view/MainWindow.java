@@ -1,8 +1,6 @@
 package com.gohorse.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.ScrollPane;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,9 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Students;
@@ -36,64 +29,21 @@ import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
 
 public class MainWindow extends JFrame {
-	
-	public char modelType;
-	
+		
 	private JScrollPane scrollUser;
 	private JScrollPane scrollStudent;
 	private JScrollPane scrollCity;
 	private DefaultTableModel modelo = new DefaultTableModel() {
 		
-		String[] estudante = {"Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-				  "Celular","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
-				  "Observação"};
-		
 		String[] usuario = {"Usuário", "Senha", "Perfil"};
-		
-		String[] cidade = {"Cidade", "Pais", "Estado"};
 		
         @Override 
         public int getColumnCount() { 
-        	
-        	if (modelType == 'U') {
-        		
-        		return usuario.length;
-        		
-        	}
-        		 
-        	else if (modelType == 'S') {
-        		
-        		return estudante.length;
-        		
-        	}
-        	else {
-        		
-        		return cidade.length;
-        		
-        	}
-            
+            return usuario.length; 
         } 
-
-		@Override
+ 		@Override
 		public String getColumnName(int index) {
-		    
-        	if (modelType == 'U') {
-        		
-        		return usuario[index];
-        		
-        	}
-        	else if (modelType == 'S') {
-        		
-                return estudante[index];
-                
-        	}
-        	
-        	else {
-        		
-            	return cidade[index];
-            	
-        	}
-        	
+		    return usuario[index];
 		}
 		
 	};
@@ -193,8 +143,8 @@ public class MainWindow extends JFrame {
         CreateStudentsComponents();
         CreateUsersComponents();
         CreateTable("Users.txt");
-        //CreateTable("Students.txt");
-        //CreateTable("Cities.txt");
+        CreateTable("Students.txt");
+        CreateTable("Cities.txt");
         
 	}
 
@@ -249,6 +199,8 @@ public class MainWindow extends JFrame {
 		 mAlunos.add(smListarAluno);
 		 mCidades.add(smListarCidade);
 		 mUsuarios.add(smListarUsuario);
+		 
+		 
 		 
 	}
 	
@@ -421,7 +373,6 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void CreateStudentsComponents() {
-		
 		
 		//students add
 		btnMRegisterStudent = new JButton(new AbstractAction("Cadastrar Aluno") {
@@ -688,9 +639,8 @@ public class MainWindow extends JFrame {
     	regStudent.add(btnStudentWindowExit);
     	btnStudentWindowExit.setFocusPainted(false);
     	btnStudentWindowExit.setContentAreaFilled(false);
-			    	
-    	getContentPane().add(regStudent);
 		
+    	getContentPane().add(regStudent);
     	
 	}
 	
@@ -953,72 +903,72 @@ public class MainWindow extends JFrame {
         switch(filename.charAt(0)) {
         
     	case 'U':
-    		
-    			modelType = 'U';
-    		
-    			scrollUser = new JScrollPane(tableUser);
-    			scrollUser.setBounds(30, 100, 540, 400);
-    			getContentPane().add(scrollUser);	            
-    			
+    	   		
 				ArrayList<Users> user;
 				 try {
 					 
-					user = (ArrayList)FileManipulation.selectAll("Users.txt");
+					 user = (ArrayList)FileManipulation.selectAll("Users.txt");
 					
-					for (Users c : user) {
-	    	            modelo.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
-	    	        }
-				 } catch (IOException e) {
+					 for (Users c : user) {
+						
+						 modelo.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
+	    	            
+					 	}
+					
+				 } 
+				 
+				 catch (IOException e) {
+					 
 					JOptionPane.showMessageDialog(null, "Erro aqui");
-				 }
+					
+				 	}
 	            
-    		    tableUser = new JTable(modelo);	    		    
-    		    tableUser.setBounds(1, 11, 539, 399);
-    		    
-    		    scrollUser.setViewportView(tableUser);
-    		    tableUser.setVisible(true);
-    		    scrollUser.setVisible(false);	
+	    		  tableUser = new JTable(modelo);	    		    
+			      tableUser.setBounds(1, 11, 539, 399);
+			      tableUser.setEnabled(false);  
+			      
+			      scrollUser = new JScrollPane(tableUser);
+				  scrollUser.setBounds(30, 100, 540, 400);
+			      scrollUser.setViewportView(tableUser);
+			      getContentPane().add(scrollUser);
+				  tableUser.setVisible(true);
+				  scrollUser.setVisible(false);
 	                
-    		break;
+    	break;
     		
     	case 'S':
-    			
-    		    modelType = 'S';
-    		
-				scrollStudent = new JScrollPane(tableStudent);
-				scrollStudent.setBounds(30, 100, 540, 400);
-				getContentPane().add(scrollStudent);	
-    		
-    		
+    	    	   			
 				ArrayList<Students> student;
 				try {
-					student = (ArrayList) FileManipulation.selectAll("Students.txt");
+					
+					student = (ArrayList)FileManipulation.selectAll("Students.txt");
+					
 					for (Students c : student) {
 						modelo.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Erro aqui");
 					e.printStackTrace();
 				}
-		 	        
+				
 				tableStudent = new JTable(modelo);	    		    
 				tableStudent.setBounds(1, 11, 539, 399);
-    		    
+				tableStudent.setEnabled(false);
+				
+				scrollStudent = new JScrollPane(tableStudent);
+				scrollStudent.setBounds(30, 100, 540, 400);	
     		    scrollStudent.setViewportView(tableStudent);
+    		    getContentPane().add(scrollStudent);
     		    tableStudent.setVisible(true);
-    		    scrollStudent.setVisible(false);	
+    		    scrollStudent.setVisible(false);
     	        
     		break;
+    		
     	case 'C':
-    			
-    			modelType = 'C';
-    			
-				scrollCity = new JScrollPane(tableCity);
-				scrollCity.setBounds(30, 100, 540, 400);
-				getContentPane().add(scrollCity);	
     			
 				ArrayList<Cities> city;
 				try {
+					
 					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
 					 for (Cities c : city) {
 						 modelo.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
@@ -1027,16 +977,21 @@ public class MainWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 				tableCity = new JTable(modelo);	    		    
 				tableCity.setBounds(1, 11, 539, 399);
+				tableCity.setEnabled(false);
     		    
+				scrollCity = new JScrollPane(tableCity);
+				scrollCity.setBounds(30, 100, 540, 400);				
 				scrollCity.setViewportView(tableCity);
+				getContentPane().add(scrollCity);
 				tableCity.setVisible(true);
     		    scrollCity.setVisible(false);
-    	       
+				
     		break;
+    		
         }
+        
     }
 	
 	public static void main(String[] args) {
