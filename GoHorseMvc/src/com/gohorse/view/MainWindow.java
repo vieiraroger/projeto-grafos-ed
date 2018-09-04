@@ -33,7 +33,40 @@ public class MainWindow extends JFrame {
 	private JScrollPane scrollUser;
 	private JScrollPane scrollStudent;
 	private JScrollPane scrollCity;
-	private DefaultTableModel modelo = new DefaultTableModel() {
+	private DefaultTableModel modeloCity = new DefaultTableModel() {
+		
+		String[] cidade = {"Cidade", "Pais", "Estado"};
+		
+        public int getColumnCount() { 
+            return cidade.length; 
+        } 
+        
+ 		@Override
+		public String getColumnName(int index) {
+		    return cidade[index];
+		}
+		
+	};
+		
+	private DefaultTableModel modeloStudent = new DefaultTableModel() {
+		
+		String[] estudante = {"Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+				  "Celular","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
+				  "Observação"};
+		
+        public int getColumnCount() { 
+            return estudante.length; 
+        } 
+        
+ 		@Override
+		public String getColumnName(int index) {
+		    return estudante[index];
+		}
+		
+	};
+		
+
+	private DefaultTableModel modeloUser = new DefaultTableModel() {
 		
 		String[] usuario = {"Usuário", "Senha", "Perfil"};
 		
@@ -41,6 +74,7 @@ public class MainWindow extends JFrame {
         public int getColumnCount() { 
             return usuario.length; 
         } 
+        
  		@Override
 		public String getColumnName(int index) {
 		    return usuario[index];
@@ -911,7 +945,7 @@ public class MainWindow extends JFrame {
 					
 					 for (Users c : user) {
 						
-						 modelo.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
+						 modeloUser.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
 	    	            
 					 	}
 					
@@ -923,7 +957,7 @@ public class MainWindow extends JFrame {
 					
 				 	}
 	            
-	    		  tableUser = new JTable(modelo);	    		    
+	    		  tableUser = new JTable(modeloUser);	    		    
 			      tableUser.setBounds(1, 11, 539, 399);
 			      tableUser.setEnabled(false);  
 			      
@@ -944,14 +978,14 @@ public class MainWindow extends JFrame {
 					student = (ArrayList)FileManipulation.selectAll("Students.txt");
 					
 					for (Students c : student) {
-						modelo.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
+						modeloStudent.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro aqui");
 					e.printStackTrace();
 				}
 				
-				tableStudent = new JTable(modelo);	    		    
+				tableStudent = new JTable(modeloStudent);	    		    
 				tableStudent.setBounds(1, 11, 539, 399);
 				tableStudent.setEnabled(false);
 				
@@ -971,13 +1005,13 @@ public class MainWindow extends JFrame {
 					
 					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
 					 for (Cities c : city) {
-						 modelo.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
+						 modeloCity.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
 		    	     }
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				tableCity = new JTable(modelo);	    		    
+				tableCity = new JTable(modeloCity);	    		    
 				tableCity.setBounds(1, 11, 539, 399);
 				tableCity.setEnabled(false);
     		    
