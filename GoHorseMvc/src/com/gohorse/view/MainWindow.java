@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
@@ -65,7 +66,6 @@ public class MainWindow extends JFrame {
 		
 	};
 		
-
 	private DefaultTableModel modeloUser = new DefaultTableModel() {
 		
 		String[] usuario = {"Usuário", "Senha", "Perfil"};
@@ -620,8 +620,10 @@ public class MainWindow extends JFrame {
     	btnStudentRegister = new JButton(new AbstractAction("Cadastrar") {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				ClearTable("Students.txt");
+				
 				Students stu = new Students(txfStudent.getText(),
 											txfBirthdate.getText(), 
 											((String) cmbSex.getSelectedItem()).charAt(0),
@@ -643,7 +645,8 @@ public class MainWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+							
+				UpdateTable("Students.txt");
 				regStudent.setVisible(false);
 				btnMRegisterStudent.setVisible(true);
 				btnMEditStudent.setVisible(true);
@@ -662,9 +665,11 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				//TODO REGISTERING FUNCTIONS
+				//TODO EDITING FUNCTIONS
 				//
 				
+				ClearTable("Students.txt");
+				UpdateTable("Students.txt");
 				regStudent.setVisible(false);
 				btnMRegisterStudent.setVisible(true);
 				btnMEditStudent.setVisible(true);
@@ -682,8 +687,7 @@ public class MainWindow extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//edtStudent.setvisible(false);
+								
 				regStudent.setVisible(false);
 				btnMRegisterStudent.setVisible(true);
 				btnMEditStudent.setVisible(true);
@@ -821,13 +825,15 @@ public class MainWindow extends JFrame {
 					e.printStackTrace();
 				}
 				
+				ClearTable("Users.txt");
+				UpdateTable("Users.txt");
 				regUser.setVisible(false);
 				btnMRegisterUser.setVisible(true);
 				btnMEditUser.setVisible(true);
 		    	btnMDeleteUser.setVisible(true);
 		    	scrollUser.setVisible(true);
-				
-				
+		    	
+
 			}
 		});
     	btnUserRegister.setBounds(115, 200, 95, 20);   	
@@ -844,12 +850,13 @@ public class MainWindow extends JFrame {
 				//TODO editing registry
 				//
 				
+				ClearTable("Users.txt");
+				UpdateTable("Users.txt");
 				regUser.setVisible(false);
 				btnMRegisterUser.setVisible(true);
 				btnMEditUser.setVisible(true);
 		    	btnMDeleteUser.setVisible(true);
 		    	scrollUser.setVisible(true);
-				
 				
 			}
 		});
@@ -864,11 +871,14 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			
+				ClearTable("Users.txt");
+				UpdateTable("Users.txt");
 				regUser.setVisible(false);
 				btnMRegisterUser.setVisible(true);
 				btnMEditUser.setVisible(true);
 		    	btnMDeleteUser.setVisible(true);
 		    	scrollUser.setVisible(true);
+		    	
 				
 			}
 		});
@@ -1055,6 +1065,114 @@ public class MainWindow extends JFrame {
         }
         
     }
+	
+	public void UpdateTable(String filename) {
+		
+        switch(filename.charAt(0)) {
+        
+    	case 'U':
+    	   		
+				ArrayList<Users> user;
+				 try {
+					 
+					 user = (ArrayList)FileManipulation.selectAll("Users.txt");
+					
+					 for (Users c : user) {
+						
+						 modeloUser.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
+	    	            
+					 	}
+					
+				 } 
+				 
+				 catch (IOException e) {
+					 
+					JOptionPane.showMessageDialog(null, "Erro aqui");
+					
+				 }               
+    	break;
+    		
+    	case 'S':
+    	    	   			
+				ArrayList<Students> student;
+				try {
+					
+					student = (ArrayList)FileManipulation.selectAll("Students.txt");
+					
+					for (Students c : student) {
+						modeloStudent.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
+	    	        }
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Erro aqui");
+					e.printStackTrace();
+				}
+				    	        
+    		break;
+    		
+    	case 'C':
+    			
+				ArrayList<Cities> city;
+				try {
+					
+					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
+					 for (Cities c : city) {
+						 modeloCity.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
+		    	     }
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+    		break;
+    		
+        }
+        
+    }
+	
+	public void ClearTable(String filename) {
+		
+		int i;
+		
+		switch(filename.charAt(0)) {
+        
+    	case 'U':
+    	   		
+    		for (i = 0; i <= modeloUser.getRowCount(); i++) {
+						
+    			modeloUser.removeRow(i);
+    			tableUser.setModel(modeloUser);
+						 
+				}
+             
+    	break;
+    		
+    	case 'S':
+    	    	   			
+    		for (i = 0; i <= modeloStudent.getRowCount(); i++) {
+				
+    			modeloStudent.removeRow(i);
+    			tableStudent.setModel(modeloStudent);
+    			
+				}
+				    	        
+    	break;
+    		
+    	case 'C':
+    			
+    		for (i = 0; i < modeloCity.getRowCount(); i++) {
+				
+    			modeloCity.removeRow(i);
+    			tableCity.setModel(modeloCity);
+						 
+				}
+				
+    		break;
+    		
+        }
+    		
+        
+        
+}
 	
 	public static void main(String[] args) {
 		
