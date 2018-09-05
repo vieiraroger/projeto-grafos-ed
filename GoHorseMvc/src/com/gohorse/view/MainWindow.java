@@ -1,7 +1,6 @@
 package com.gohorse.view;
 
 
-import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -24,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
@@ -166,8 +164,11 @@ public class MainWindow extends JFrame {
 	private JButton btnUserEdit;
 
 	String Tipo[] = { "User", "Admin" };
-
+	boolean acess;
+	
+	
 	public MainWindow (Users user) {
+		acess = user.getPerfil().equals(Tipo[1]);
 		
 		setSize(600,620);
 		setTitle("Menu");
@@ -177,11 +178,16 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
         CreateMenucomponents();
         CreateCitiesComponents();
-        CreateStudentsComponents();
-        CreateUsersComponents();
-        CreateTable("Users.txt");
-        CreateTable("Students.txt");
         CreateTable("Cities.txt");
+        CreateStudentsComponents();
+        CreateTable("Students.txt");
+        if(acess) {
+        	CreateUsersComponents();
+            CreateTable("Users.txt");
+        }
+        
+        
+        
         
 	}
 
@@ -193,11 +199,25 @@ public class MainWindow extends JFrame {
 		 
 		 mAlunos 			= new JMenu("Alunos");
 		 mCidades			= new JMenu("Cidades");
-		 mUsuarios			= new JMenu("Usuarios");
+		 
 		 
 		 menu.add(mAlunos);
 		 menu.add(mCidades);
-		 menu.add(mUsuarios);
+		 if(acess) {
+			 mUsuarios			= new JMenu("Usuarios");
+			 menu.add(mUsuarios);
+			 smListarUsuario= new JMenuItem(new AbstractAction("Listar") {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+
+						UsersWindow();
+						
+					}
+				 });
+			 mUsuarios.add(smListarUsuario);
+		 }
+		 
 		 
 		 //db screens acesses
 		 smListarAluno = new JMenuItem(new AbstractAction("Listar") {
@@ -222,20 +242,12 @@ public class MainWindow extends JFrame {
 			
 		 });
 		 
-		 smListarUsuario= new JMenuItem(new AbstractAction("Listar") {
-				
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				UsersWindow();
-				
-			}
-		 });
+		 
 		 
 		 
 		 mAlunos.add(smListarAluno);
 		 mCidades.add(smListarCidade);
-		 mUsuarios.add(smListarUsuario);
+		 
 		 
 		 
 		 
