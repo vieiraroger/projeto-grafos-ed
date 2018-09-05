@@ -1,3 +1,4 @@
-roger@123456@admin
+roger@123456@Admin
 teste@usuario@User
-admin@admin@admin
+admin@admin@Admin
+Jackson@1234@Admin

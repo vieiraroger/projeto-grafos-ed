@@ -465,13 +465,30 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regStudent.setBorder(BorderFactory.createTitledBorder("Editar Aluno"));
-				btnMRegisterStudent.setVisible(false);
-				btnMEditStudent.setVisible(false);
-		    	btnMDeleteStudent.setVisible(false);
-		    	regStudent.setVisible(true);
-		    	btnStudentRegister.setVisible(false);
-		    	btnStudentEdit.setVisible(true);
+				tableStudent.setEnabled(true);
+				
+				tableStudent.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	 int linhaSelecionada = -1;
+				            linhaSelecionada = tableStudent.getSelectedRow();
+				            if (linhaSelecionada >= 0) {
+				            	String student = new String();
+				                /*Students student = new Students((String) tableStudent.getValueAt(linhaSelecionada, 0),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 1), );*/
+				                FileManipulation fm = new FileManipulation();
+				                try {
+									fm.delete("Students.txt", student);
+								} catch (IOException e1) {
+								}
+				                modeloStudent.removeRow(linhaSelecionada);
+				            } else {
+				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				            }
+				           tableStudent.setEnabled(false); 
+			             }
+			            
+			           }
+			        );
 		    	
 			}
 			
@@ -781,15 +798,28 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regUser.setBorder(BorderFactory.createTitledBorder("Editar Usuário"));
-				regUser.setVisible(true);
-				btnMRegisterUser.setVisible(false);
-				btnMEditUser.setVisible(false);
-				btnMDeleteUser.setVisible(false);				
-				btnUserRegister.setVisible(false);
-				btnUserEdit.setVisible(true);
-				scrollUser.setVisible(false);
+
+                tableUser.setEnabled(true);
 				
+				tableUser.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	 int linhaSelecionada = -1;
+				            linhaSelecionada = tableUser.getSelectedRow();
+				            if (linhaSelecionada >= 0) {
+				                Users user = new Users((String) tableUser.getValueAt(linhaSelecionada, 0), (String) tableUser.getValueAt(linhaSelecionada, 1), (String) tableUser.getValueAt(linhaSelecionada, 2) );
+				                FileManipulation fm = new FileManipulation();
+				                try {
+									fm.update(user);
+								} catch (IOException e1) {
+								}
+				            } else {
+				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				            }
+				           tableUser.setEnabled(false); 
+			             }
+			            
+			           }
+			        );
 			}
 			
 		});
