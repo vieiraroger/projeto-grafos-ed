@@ -472,12 +472,10 @@ public class MainWindow extends JFrame {
 			        	 int linhaSelecionada = -1;
 				            linhaSelecionada = tableStudent.getSelectedRow();
 				            if (linhaSelecionada >= 0) {
-				            	String student = new String();
 				                /*Students student = new Students((String) tableStudent.getValueAt(linhaSelecionada, 0),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 1), );*/
-				                FileManipulation fm = new FileManipulation();
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 1),);*/
 				                try {
-									fm.delete("Students.txt", student);
+				                	FileManipulation.delete("Students.txt", (String) tableStudent.getValueAt(linhaSelecionada, 0));
 								} catch (IOException e1) {
 								}
 				                modeloStudent.removeRow(linhaSelecionada);
@@ -805,10 +803,13 @@ public class MainWindow extends JFrame {
 			        	 int linhaSelecionada = -1;
 				            linhaSelecionada = tableUser.getSelectedRow();
 				            if (linhaSelecionada >= 0) {
+				            	System.out.println(tableUser.getValueAt(linhaSelecionada, 0));
+				            	System.out.println(tableUser.getValueAt(linhaSelecionada, 1));
+				            	System.out.println(tableUser.getValueAt(linhaSelecionada, 2));
+				            	
 				                Users user = new Users((String) tableUser.getValueAt(linhaSelecionada, 0), (String) tableUser.getValueAt(linhaSelecionada, 1), (String) tableUser.getValueAt(linhaSelecionada, 2) );
-				                FileManipulation fm = new FileManipulation();
 				                try {
-									fm.update(user);
+				                	FileManipulation.update(user);
 								} catch (IOException e1) {
 								}
 				            } else {

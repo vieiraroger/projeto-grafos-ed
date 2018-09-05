@@ -140,41 +140,6 @@ public class FileManipulation {
     	   
     }
 	
-    
-    /**
-	 * 
-	 * @param Object obj
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws IOException
-	 * Funciona perfeitamente, mas para ser chamado de outras funções aqui criadas é necessário adapta-las...
-	 * Fiz somente pra mostrar que é possível fazer um método genérico para ser utilizado em qualquer classe criada
-	 * sem ter a necessidade de ficar criando novos métodos.
-	 * Quando vier a parte de banco de dados, todos os métodos de insert, update e delete serão genéricos igual a este.
-	 * Para fins de testes:
-	 * Object object = new Students(...);
-	 * FileManipulation.insert(object);
-	 */
-    public static void insert(Object obj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
-		Class<?> clazz = obj.getClass();
-		BufferedWriter buffWrite = new BufferedWriter(new FileWriter(clazz.getSimpleName().toString() + ".txt",true));
-		
-		Method[] metodos = clazz.getMethods();
-		String res = "";
-		for (Method m : metodos) {
-			String name = m.getName();
-			if (name.startsWith("get") && !name.equals("getClass")) {
-				if (m.invoke(obj) != null) {
-				res += m.invoke(obj).toString() + DIVISOR;
-				}
-			}
-		}
-		res = res.substring(0, res.length() - 1);
-		buffWrite.append(res + System.getProperty("line.separator"));
-		buffWrite.close();
-	}
-    
 	/** 
 	 * @param Users object
 	 * @throws IOException 
