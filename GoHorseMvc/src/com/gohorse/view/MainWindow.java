@@ -1,7 +1,10 @@
 package com.gohorse.view;
 
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -290,7 +293,28 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente uma exclusão");
+                tableCity.setEnabled(true);
+				
+				tableCity.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	 int linhaSelecionada = -1;
+				            linhaSelecionada = tableCity.getSelectedRow();
+				            if (linhaSelecionada >= 0) {
+				                String city = (String) tableCity.getValueAt(linhaSelecionada, 0);
+				                FileManipulation fm = new FileManipulation();
+				                try {
+									fm.delete("Cities.txt", city);
+								} catch (IOException e1) {
+								}
+				                modeloCity.removeRow(linhaSelecionada);
+				            } else {
+				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				            }
+				           tableCity.setEnabled(false); 
+			             }
+			            
+			           }
+			        );
 				
 			}
 			
@@ -465,7 +489,28 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("futuramente uma exclusão");
+                tableStudent.setEnabled(true);
+				
+				tableStudent.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	 int linhaSelecionada = -1;
+				            linhaSelecionada = tableStudent.getSelectedRow();
+				            if (linhaSelecionada >= 0) {
+				                String student = (String) tableStudent.getValueAt(linhaSelecionada, 0);
+				                FileManipulation fm = new FileManipulation();
+				                try {
+									fm.delete("Students.txt", student);
+								} catch (IOException e1) {
+								}
+				                modeloStudent.removeRow(linhaSelecionada);
+				            } else {
+				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				            }
+				           tableStudent.setEnabled(false); 
+			             }
+			            
+			           }
+			        );
 				
 			}
 			
@@ -759,8 +804,28 @@ public class MainWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tableUser.setEnabled(true);
 				
-				System.out.println("futuramente uma exclusão");
+				tableUser.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	 int linhaSelecionada = -1;
+				            linhaSelecionada = tableUser.getSelectedRow();
+				            if (linhaSelecionada >= 0) {
+				                String user = (String) tableUser.getValueAt(linhaSelecionada, 0);
+				                FileManipulation fm = new FileManipulation();
+				                try {
+									fm.delete("Users.txt", user);
+								} catch (IOException e1) {
+								}
+				                modeloUser.removeRow(linhaSelecionada);
+				            } else {
+				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				            }
+				           
+				           tableUser.setEnabled(false);
+			             }
+			           }
+			        );
 				
 			}
 			
@@ -991,13 +1056,13 @@ public class MainWindow extends JFrame {
 				 
 				 catch (IOException e) {
 					 
-					JOptionPane.showMessageDialog(null, "Erro aqui");
+					JOptionPane.showMessageDialog(null, "Ops!  Ocorreu algum problema, contato o administrador");
 					
 				 	}
 	            
 	    		  tableUser = new JTable(modeloUser);	    		    
 			      tableUser.setBounds(1, 11, 539, 399);
-			      tableUser.setEnabled(false);  
+			      tableUser.setEnabled(false); 
 			      
 			      scrollUser = new JScrollPane(tableUser);
 				  scrollUser.setBounds(30, 100, 540, 400);
