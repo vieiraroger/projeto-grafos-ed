@@ -493,33 +493,43 @@ public class MainWindow extends JFrame {
 			         public void keyPressed(KeyEvent e) {
 			        	 int linhaSelecionada = -1;
 				            linhaSelecionada = tableStudent.getSelectedRow();
-				            if (linhaSelecionada >= 0) {
-				            	/*{"Id","1","2","E-Mail","4","5",
-				  "6","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
-				  "Observação"};*//*
-				  (1,2, char 4, String 5, String 6,
-			String email, String note, String address, String number, String complement, String suburb,
-			String city, String estate, String cep)
+				            if (linhaSelecionada >= 0) {/*
+				            	 {"Id",
+				            	 "Estudante",
+				            	 "Data de Nascimento",
+				            	 "E-Mail",
+				            	 "Sexo",
+				            	 "Telefone",
+				   				  "Celular",
+				   				  "CEP",
+				   				  "N°", 
+				   				  "Endereço",
+									"bairro", 
+									"Cidade",z
+									"Estado",
+									"Complemento",
+				   				  "Observação"};*/
+
+				        
 				                Students student = new Students((String) tableStudent.getValueAt(linhaSelecionada, 1),
 				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 2),
-				                		                         ((String) tableStudent.getValueAt(linhaSelecionada, 4)).charAt(0),
+				                		                         ((char) tableStudent.getValueAt(linhaSelecionada, 4)),
 				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 5),
 				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 6),
 				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 3),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 10),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 10),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 9),
 				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 14),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, ),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, ),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, ),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 8));
-				                student.setStudent_id((int)tableStudent.getValueAt(linhaSelecionada, 0));
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 9),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 8),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 13),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 10),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 11),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 12),
+				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 7));
+				                student.setStudent_id(Integer.parseInt((String) tableStudent.getValueAt(linhaSelecionada, 0)));
 				                try {
-				                	FileManipulation.delete("Students.txt", (String) tableStudent.getValueAt(linhaSelecionada, 0));
+				                	FileManipulation.update(student);
 								} catch (IOException e1) {
 								}
-				                modeloStudent.removeRow(linhaSelecionada);
 				            } else {
 				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 				            }
@@ -1254,7 +1264,7 @@ public class MainWindow extends JFrame {
 					student = (ArrayList)FileManipulation.selectAll("Students.txt");
 					
 					for (Students c : student) {
-						modeloStudent.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
+						modeloStudent.addRow(new Object[]{c.getStudent_id(),c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro aqui");

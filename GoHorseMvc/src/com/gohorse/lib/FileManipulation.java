@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import com.gohorse.database.model.Cities;
@@ -124,8 +122,8 @@ public class FileManipulation {
 	    		for(int i=0;i<list.size();i++) {
 	    			Students stu = (Students) list.get(i);
 	    			Integer id = stu.getStudent_id();
-	    			if(id.toString().equals(primaryKey)) {
-	    				insert((Students) list.get(i));
+	    			if(!id.toString().equals(primaryKey)) {
+	    				insert(stu);
 	    			}
 	        	}
 	    		break;
@@ -187,24 +185,32 @@ public class FileManipulation {
     public static Integer insert(Students obj) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter("Students.txt",true));
         String line = "";
-        Integer id = 0;
         
-        /* get last id */
-        BufferedReader buffRead = new BufferedReader(new FileReader("Students.txt"));
+        
+        
+       
+        	Integer id = 0;
+        	 /* get last id */
+            BufferedReader buffRead = new BufferedReader(new FileReader("Students.txt"));
 
-        line = buffRead.readLine();
-        while (line != null) {
-            
-        	String[] aux = line.split(DIVISOR);
-        	
-        	id = Integer.parseInt(aux[0]);
-            
             line = buffRead.readLine();
-        }
+            while (line != null) {
+                
+            	String[] aux = line.split(DIVISOR);
+            	
+            	id = Integer.parseInt(aux[0]);
+                
+                line = buffRead.readLine();
+            }
+            
+            buffRead.close();
+            id++;
+            obj.setStudent_id(id);
         
-        buffRead.close();
-        id++;
-        line = id + DIVISOR
+        
+       
+        
+        	line = obj.getStudent_id() + DIVISOR
         	+ obj.getStudent() + DIVISOR
         	+ obj.getBirthdate() + DIVISOR
         	+ obj.getSex()  + DIVISOR
@@ -223,7 +229,7 @@ public class FileManipulation {
         buffWrite.append(line + "\n");
         buffWrite.close();
         
-        return id;
+        return obj.getStudent_id();
     }
 	
     /**
