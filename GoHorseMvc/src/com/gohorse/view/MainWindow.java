@@ -54,7 +54,7 @@ public class MainWindow extends JFrame {
 		
 	private DefaultTableModel modeloStudent = new DefaultTableModel() {
 		
-		String[] estudante = {"Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+		String[] estudante = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
 				  "Celular","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
 				  "Observação"};
 		
@@ -514,9 +514,8 @@ public class MainWindow extends JFrame {
 				            linhaSelecionada = tableStudent.getSelectedRow();
 				            if (linhaSelecionada >= 0) {
 				                String student = (String) tableStudent.getValueAt(linhaSelecionada, 0);
-				                FileManipulation fm = new FileManipulation();
 				                try {
-									fm.delete("Students.txt", student);
+				                	FileManipulation.delete("Students.txt", student);
 								} catch (IOException e1) {
 								}
 				                modeloStudent.removeRow(linhaSelecionada);
@@ -1111,7 +1110,7 @@ public class MainWindow extends JFrame {
 					student = (ArrayList)FileManipulation.selectAll("Students.txt");
 					
 					for (Students c : student) {
-						modeloStudent.addRow(new Object[]{c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
+						modeloStudent.addRow(new Object[]{Integer.toString(c.getStudent_id()),c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Erro aqui");
@@ -1232,7 +1231,7 @@ public class MainWindow extends JFrame {
         
     	case 'U':
     	   		
-    		for (i = 0; i <= modeloUser.getRowCount(); i++) {
+    		for (i = 0; i < modeloUser.getRowCount(); i++) {
 						
     			modeloUser.removeRow(i);
     			tableUser.setModel(modeloUser);
@@ -1243,7 +1242,7 @@ public class MainWindow extends JFrame {
     		
     	case 'S':
     	    	   			
-    		for (i = 0; i <= modeloStudent.getRowCount(); i++) {
+    		for (i = 0; i < modeloStudent.getRowCount(); i++) {
 				
     			modeloStudent.removeRow(i);
     			tableStudent.setModel(modeloStudent);

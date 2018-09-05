@@ -18,7 +18,7 @@ import com.gohorse.database.model.Users;
  */
 public class FileManipulation {
 	
-	private static String DIVISOR = "@";
+	private static String DIVISOR = "!@.";
 	
 	/**
 	 * @param file name and a string from some file.txt
