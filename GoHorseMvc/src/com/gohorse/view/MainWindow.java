@@ -1242,7 +1242,7 @@ public class MainWindow extends JFrame {
 				 try {
 					 
 					 user = (ArrayList)FileManipulation.selectAll("Users.txt");
-					
+					 
 					 for (Users c : user) {
 						
 						 modeloUser.addRow(new Object[]{c.getUser(), c.getPassword(), c.getPerfil()});
@@ -1264,7 +1264,7 @@ public class MainWindow extends JFrame {
 				try {
 					
 					student = (ArrayList)FileManipulation.selectAll("Students.txt");
-					
+					modeloStudent = null;
 					for (Students c : student) {
 						modeloStudent.addRow(new Object[]{c.getStudent_id(),c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }
@@ -1279,7 +1279,7 @@ public class MainWindow extends JFrame {
     			
 				ArrayList<Cities> city;
 				try {
-					
+					modeloCity = null;
 					city = (ArrayList) FileManipulation.selectAll("Cities.txt");
 					 for (Cities c : city) {
 						 modeloCity.addRow(new Object[]{c.getCity(), c.getState(), c.getCountry()});
@@ -1303,7 +1303,7 @@ public class MainWindow extends JFrame {
         
     	case 'U':
     	   		
-    		for (i = 0; i < modeloUser.getRowCount(); i++) {
+    		for (i = modeloUser.getRowCount() - 1; i >= 0 ; i--) {
 						
     			modeloUser.removeRow(i);
     			tableUser.setModel(modeloUser);
@@ -1314,7 +1314,7 @@ public class MainWindow extends JFrame {
     		
     	case 'S':
     	    	   			
-    		for (i = 0; i < modeloStudent.getRowCount(); i++) {
+    		for (i = modeloStudent.getRowCount() - 1; i >= 0 ; i--) {
 				
     			modeloStudent.removeRow(i);
     			tableStudent.setModel(modeloStudent);
@@ -1325,7 +1325,7 @@ public class MainWindow extends JFrame {
     		
     	case 'C':
     			
-    		for (i = 0; i < modeloCity.getRowCount(); i++) {
+    		for (i = modeloCity.getRowCount() - 1; i >= 0 ; i--) {
 				
     			modeloCity.removeRow(i);
     			tableCity.setModel(modeloCity);
