@@ -396,7 +396,7 @@ public class MainWindow extends JFrame {
     				
     				regCity.setVisible(false);
     				btnMRegisterCity.setVisible(true);
-    				btnMEditCity.setVisible(true);
+    				btnMEditCity.setVisible(false);
     		    	btnMDeleteCity.setVisible(true);
     				
     				
@@ -441,7 +441,7 @@ public class MainWindow extends JFrame {
 				regCity.setVisible(false);
 				if(acess) {
 					btnMRegisterCity.setVisible(true);
-					btnMEditCity.setVisible(true);
+					btnMEditCity.setVisible(false);
 			    	btnMDeleteCity.setVisible(true);
 					
 				}
@@ -1052,7 +1052,7 @@ public class MainWindow extends JFrame {
 			
 			btnMEditUser.setVisible(false);
 			btnMEditStudent.setVisible(false);
-			btnMEditCity.setVisible(true);
+			btnMEditCity.setVisible(false);
 			
 			btnMDeleteUser.setVisible(false);
 			btnMDeleteStudent.setVisible(false);
