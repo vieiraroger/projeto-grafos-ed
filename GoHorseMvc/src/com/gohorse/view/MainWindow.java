@@ -262,6 +262,7 @@ public class MainWindow extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					regCity.setBorder(BorderFactory.createTitledBorder("Cadastrar Cidade"));
+					scrollCity.setVisible(false);
 					btnMRegisterCity.setVisible(false);
 					btnMEditCity.setVisible(false);
 			    	btnMDeleteCity.setVisible(false);
@@ -436,6 +437,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
+				scrollCity.setVisible(true);
 				regCity.setVisible(false);
 				if(acess) {
 					btnMRegisterCity.setVisible(true);
