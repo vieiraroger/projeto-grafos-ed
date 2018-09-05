@@ -746,8 +746,8 @@ public class MainWindow extends JFrame {
 											txfAdressNum.getText(),
 											txfComplement.getText(),
 											txfSuburb.getText(),
-											txfCity.getText(),
-											txfState.getText(),
+											txfSCity.getText(),
+											lbStuEstate.getText(),
 											txfCep.getText());
 				
 				try {

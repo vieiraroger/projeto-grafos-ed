@@ -2,6 +2,8 @@ package com.gohorse.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
@@ -59,6 +61,12 @@ public class LoginWindow extends JFrame {
     	txfPassword = new JPasswordField();
     	txfPassword.setBounds(40, 80, 125, 20);
     	getContentPane().add(txfPassword);
+    	
+    	txfPassword.addKeyListener(new KeyAdapter() {
+			         public void keyPressed(KeyEvent e) {
+			        	btnConfirm.doClick(); 
+			         }
+			         });
     	
     	btnConfirm = new JButton(new AbstractAction("Login") {
 			
