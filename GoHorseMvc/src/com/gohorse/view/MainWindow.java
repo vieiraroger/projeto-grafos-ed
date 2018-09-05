@@ -254,92 +254,96 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void CreateCitiesComponents() {
-		
-		//cities add
-		btnMRegisterCity = new JButton(new AbstractAction("Cadastrar Cidade") {
+		if(acess) {
+			//cities add
+			btnMRegisterCity = new JButton(new AbstractAction("Cadastrar Cidade") {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					regCity.setBorder(BorderFactory.createTitledBorder("Cadastrar Cidade"));
+					btnMRegisterCity.setVisible(false);
+					btnMEditCity.setVisible(false);
+			    	btnMDeleteCity.setVisible(false);
+			    	regCity.setVisible(true);
+			    	btnCityEdit.setVisible(false);
+			    	btnCityRegister.setVisible(true);
+					
+				}
 				
-				regCity.setBorder(BorderFactory.createTitledBorder("Cadastrar Cidade"));
-				btnMRegisterCity.setVisible(false);
-				btnMEditCity.setVisible(false);
-		    	btnMDeleteCity.setVisible(false);
-		    	regCity.setVisible(true);
-		    	btnCityEdit.setVisible(false);
-		    	btnCityRegister.setVisible(true);
-				
-			}
+			});
+			btnMRegisterCity.setBounds(30, 20, 140, 30);    	
+			btnMRegisterCity.setFocusPainted(false);
+	    	btnMRegisterCity.setContentAreaFilled(false);
+			getContentPane().add(btnMRegisterCity);
 			
-		});
-		btnMRegisterCity.setBounds(30, 20, 140, 30);    	
-		btnMRegisterCity.setFocusPainted(false);
-    	btnMRegisterCity.setContentAreaFilled(false);
-		getContentPane().add(btnMRegisterCity);
-		
-		//cities edit
-    	btnMEditCity = new JButton(new AbstractAction("Editar Cidade") {
+			//cities edit
+	    	btnMEditCity = new JButton(new AbstractAction("Editar Cidade") {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					regCity.setBorder(BorderFactory.createTitledBorder("Editar Cidade"));
+					btnMRegisterCity.setVisible(false);
+					btnMEditCity.setVisible(false);
+			    	btnMDeleteCity.setVisible(false);
+			    	regCity.setVisible(true);
+			    	btnCityRegister.setVisible(false);
+			    	btnCityEdit.setVisible(true);
+					
+				}
 				
-				regCity.setBorder(BorderFactory.createTitledBorder("Editar Cidade"));
-				btnMRegisterCity.setVisible(false);
-				btnMEditCity.setVisible(false);
-		    	btnMDeleteCity.setVisible(false);
-		    	regCity.setVisible(true);
-		    	btnCityRegister.setVisible(false);
-		    	btnCityEdit.setVisible(true);
+			});
+	    	btnMEditCity.setBounds(230, 20, 140, 30);    	
+	    	btnMEditCity.setFocusPainted(false);
+	    	btnMEditCity.setContentAreaFilled(false);
+	    	getContentPane().add(btnMEditCity);
+	    	
+			//cities delete
+	    	btnMDeleteCity = new JButton(new AbstractAction("Deletar Cidade") {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+	                tableCity.setEnabled(true);
+					
+					tableCity.addKeyListener(new KeyAdapter() {
+				         public void keyPressed(KeyEvent e) {
+				        	 int linhaSelecionada = -1;
+					            linhaSelecionada = tableCity.getSelectedRow();
+					            if (linhaSelecionada >= 0) {
+					                String city = (String) tableCity.getValueAt(linhaSelecionada, 0);
+					                FileManipulation fm = new FileManipulation();
+					                try {
+										fm.delete("Cities.txt", city);
+									} catch (IOException e1) {
+									}
+					                modeloCity.removeRow(linhaSelecionada);
+					            } else {
+					                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+					            }
+					           tableCity.setEnabled(false); 
+				             }
+				            
+				           }
+				        );
+					
+				}
 				
-			}
-			
-		});
-    	btnMEditCity.setBounds(230, 20, 140, 30);    	
-    	btnMEditCity.setFocusPainted(false);
-    	btnMEditCity.setContentAreaFilled(false);
-    	getContentPane().add(btnMEditCity);
+			});
+	    	btnMDeleteCity.setBounds(430, 20, 140, 30); 	
+	    	btnMDeleteCity.setFocusPainted(false);
+	    	btnMDeleteCity.setContentAreaFilled(false);
+	    	getContentPane().add(btnMDeleteCity);
+	    	
+	    	//hide button after initializing
+			btnMRegisterCity.setVisible(false);
+	    	btnMEditCity.setVisible(false);
+	    	btnMDeleteCity.setVisible(false);
+		}
+		
+		
     	
-		//cities delete
-    	btnMDeleteCity = new JButton(new AbstractAction("Deletar Cidade") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-                tableCity.setEnabled(true);
-				
-				tableCity.addKeyListener(new KeyAdapter() {
-			         public void keyPressed(KeyEvent e) {
-			        	 int linhaSelecionada = -1;
-				            linhaSelecionada = tableCity.getSelectedRow();
-				            if (linhaSelecionada >= 0) {
-				                String city = (String) tableCity.getValueAt(linhaSelecionada, 0);
-				                FileManipulation fm = new FileManipulation();
-				                try {
-									fm.delete("Cities.txt", city);
-								} catch (IOException e1) {
-								}
-				                modeloCity.removeRow(linhaSelecionada);
-				            } else {
-				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
-				            }
-				           tableCity.setEnabled(false); 
-			             }
-			            
-			           }
-			        );
-				
-			}
-			
-		});
-    	btnMDeleteCity.setBounds(430, 20, 140, 30); 	
-    	btnMDeleteCity.setFocusPainted(false);
-    	btnMDeleteCity.setContentAreaFilled(false);
-    	getContentPane().add(btnMDeleteCity);
-		
-    	//hide button after initializing
-		btnMRegisterCity.setVisible(false);
-    	btnMEditCity.setVisible(false);
-    	btnMDeleteCity.setVisible(false);
     	
     	//register panel
     	regCity = new JPanel();
@@ -376,63 +380,69 @@ public class MainWindow extends JFrame {
     	txfCountry.setBounds(40, 180, 125, 20);
     	regCity.add(txfCountry);
     	
-    	//register button TODO registering
-    	btnCityRegister = new JButton(new AbstractAction("Cadastrar") {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Cities city = new Cities(txfCity.getText(),txfState.getText(),txfCountry.getText());
-				try {
-					FileManipulation.insert(city);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				regCity.setVisible(false);
-				btnMRegisterCity.setVisible(true);
-				btnMEditCity.setVisible(true);
-		    	btnMDeleteCity.setVisible(true);
-				
-				
-			}
-		});
-    	btnCityRegister.setBounds(93, 230, 95, 20);   	
-    	regCity.add(btnCityRegister);
-    	btnCityRegister.setFocusPainted(false);
-    	btnCityRegister.setContentAreaFilled(false);
+    	if(acess) {
+    		//register button TODO registering
+        	btnCityRegister = new JButton(new AbstractAction("Cadastrar") {
+    			
+    			@Override
+    			public void actionPerformed(ActionEvent arg0) {
+    				Cities city = new Cities(txfCity.getText(),txfState.getText(),txfCountry.getText());
+    				try {
+    					FileManipulation.insert(city);
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
+    				
+    				regCity.setVisible(false);
+    				btnMRegisterCity.setVisible(true);
+    				btnMEditCity.setVisible(true);
+    		    	btnMDeleteCity.setVisible(true);
+    				
+    				
+    			}
+    		});
+        	btnCityRegister.setBounds(93, 230, 95, 20);   	
+        	regCity.add(btnCityRegister);
+        	btnCityRegister.setFocusPainted(false);
+        	btnCityRegister.setContentAreaFilled(false);
+        	
+        	//edit button TODO PULL DATA TO EDIT
+        	btnCityEdit = new JButton(new AbstractAction("Aplicar") {
+    			
+    			@Override
+    			public void actionPerformed(ActionEvent arg0) {
+    				
+    				//TODO editing registry
+    				//
+    				
+    				regCity.setVisible(false);
+    				btnMRegisterCity.setVisible(true);
+    				btnMEditCity.setVisible(true);
+    		    	btnMDeleteCity.setVisible(true);
+    				
+    				
+    			}
+    		});
+        	btnCityEdit.setBounds(93, 230, 95, 20);   	
+        	regCity.add(btnCityEdit);
+        	btnCityEdit.setFocusPainted(false);
+        	btnCityEdit.setContentAreaFilled(false);
+    	}
     	
-    	//edit button TODO PULL DATA TO EDIT
-    	btnCityEdit = new JButton(new AbstractAction("Aplicar") {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				//TODO editing registry
-				//
-				
-				regCity.setVisible(false);
-				btnMRegisterCity.setVisible(true);
-				btnMEditCity.setVisible(true);
-		    	btnMDeleteCity.setVisible(true);
-				
-				
-			}
-		});
-    	btnCityEdit.setBounds(93, 230, 95, 20);   	
-    	regCity.add(btnCityEdit);
-    	btnCityEdit.setFocusPainted(false);
-    	btnCityEdit.setContentAreaFilled(false);
     	
     	//window exit button
     	btnCityWindowExit = new JButton(new AbstractAction("Sair") {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			
+				
 				regCity.setVisible(false);
-				btnMRegisterCity.setVisible(true);
-				btnMEditCity.setVisible(true);
-		    	btnMDeleteCity.setVisible(true);
+				if(acess) {
+					btnMRegisterCity.setVisible(true);
+					btnMEditCity.setVisible(true);
+			    	btnMDeleteCity.setVisible(true);
+					
+				}
 				
 			}
 		});
@@ -1002,23 +1012,28 @@ public class MainWindow extends JFrame {
 		
 		regCity.setVisible(false);
 		regStudent.setVisible(false);
-		regUser.setVisible(false);
 		
-		btnMRegisterUser.setVisible(false);
-		btnMRegisterStudent.setVisible(false);
-		btnMRegisterCity.setVisible(true);
 		
-		btnMEditUser.setVisible(false);
-		btnMEditStudent.setVisible(false);
-		btnMEditCity.setVisible(true);
-		
-		btnMDeleteUser.setVisible(false);
-		btnMDeleteStudent.setVisible(false);
-		btnMDeleteCity.setVisible(true);
-		
+		if(acess) {
+			regUser.setVisible(false);
+			btnMRegisterUser.setVisible(false);
+			btnMRegisterStudent.setVisible(false);
+			btnMRegisterCity.setVisible(true);
+			
+			btnMEditUser.setVisible(false);
+			btnMEditStudent.setVisible(false);
+			btnMEditCity.setVisible(true);
+			
+			btnMDeleteUser.setVisible(false);
+			btnMDeleteStudent.setVisible(false);
+			btnMDeleteCity.setVisible(true);
+		}
 	
 		scrollStudent.setVisible(false);
-		scrollUser.setVisible(false);
+		if(acess) {
+			scrollUser.setVisible(false);
+		}
+		
 		scrollCity.setVisible(true);
 		
 	}
@@ -1027,22 +1042,31 @@ public class MainWindow extends JFrame {
 		
 		regCity.setVisible(false);
 		regStudent.setVisible(false);
-		regUser.setVisible(false);
-
-		btnMRegisterUser.setVisible(false);
-		btnMRegisterCity.setVisible(false);
-		btnMRegisterStudent.setVisible(true);
+		if(acess) {
+			regUser.setVisible(false);
+		}
 		
-		btnMEditUser.setVisible(false);
-		btnMEditCity.setVisible(false);
-		btnMEditStudent.setVisible(true);
 		
-		btnMDeleteUser.setVisible(false);
-		btnMDeleteCity.setVisible(false);
-		btnMDeleteStudent.setVisible(true);
+		if(acess) {
+			btnMRegisterUser.setVisible(false);
+			btnMRegisterCity.setVisible(false);
+			btnMRegisterStudent.setVisible(true);
+			
+			btnMEditUser.setVisible(false);
+			btnMEditCity.setVisible(false);
+			btnMEditStudent.setVisible(true);
+			
+			btnMDeleteUser.setVisible(false);
+			btnMDeleteCity.setVisible(false);
+			btnMDeleteStudent.setVisible(true);
+		}
+		
 		
 		scrollCity.setVisible(false);
-		scrollUser.setVisible(false);
+		if(acess) {
+			scrollUser.setVisible(false);
+		}
+		
 		scrollStudent.setVisible(true);
 		
 	}
@@ -1052,22 +1076,27 @@ public class MainWindow extends JFrame {
 		regCity.setVisible(false);
 		regStudent.setVisible(false);
 		regUser.setVisible(false);
+		if(acess) {
+			btnMRegisterCity.setVisible(false);
+			btnMRegisterStudent.setVisible(false);
+			btnMRegisterUser.setVisible(true);
+			
+			btnMEditCity.setVisible(false);
+			btnMEditStudent.setVisible(false);
+			btnMEditUser.setVisible(true);
+			
+			btnMDeleteCity.setVisible(false);
+			btnMDeleteStudent.setVisible(false);
+			btnMDeleteUser.setVisible(true);
+		}
 		
-		btnMRegisterCity.setVisible(false);
-		btnMRegisterStudent.setVisible(false);
-		btnMRegisterUser.setVisible(true);
-		
-		btnMEditCity.setVisible(false);
-		btnMEditStudent.setVisible(false);
-		btnMEditUser.setVisible(true);
-		
-		btnMDeleteCity.setVisible(false);
-		btnMDeleteStudent.setVisible(false);
-		btnMDeleteUser.setVisible(true);
 		
 		scrollCity.setVisible(false);
 		scrollStudent.setVisible(false);
-		scrollUser.setVisible(true);
+		if(acess) {
+			scrollUser.setVisible(true);
+		}
+		
 						
 	}
 	
