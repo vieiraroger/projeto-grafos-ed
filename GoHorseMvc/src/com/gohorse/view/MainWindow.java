@@ -184,11 +184,7 @@ public class MainWindow extends JFrame {
         if(acess) {
         	CreateUsersComponents();
             CreateTable("Users.txt");
-        }
-        
-        
-        
-        
+        }      
 	}
 
 	public void CreateMenucomponents() {
@@ -321,7 +317,7 @@ public class MainWindow extends JFrame {
 									}
 					                modeloCity.removeRow(linhaSelecionada);
 					            } else {
-					                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+					               //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 					            }
 					           tableCity.setEnabled(false); 
 				             }
@@ -390,6 +386,9 @@ public class MainWindow extends JFrame {
     				Cities city = new Cities(txfCity.getText(),txfState.getText(),txfCountry.getText());
     				try {
     					FileManipulation.insert(city);
+    					ClearTable("Cities.txt");
+    					CreateTable("Cities.txt");
+    					scrollCity.setVisible(true);
     				} catch (IOException e) {
     					e.printStackTrace();
     				}
@@ -533,7 +532,7 @@ public class MainWindow extends JFrame {
 								} catch (IOException e1) {
 								}
 				            } else {
-				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 				            }
 				           tableStudent.setEnabled(false); 
 			             }
@@ -565,12 +564,12 @@ public class MainWindow extends JFrame {
 				            linhaSelecionada = tableStudent.getSelectedRow();
 				            if (linhaSelecionada >= 0) {
 				                try {
-				                	FileManipulation.delete("Students.txt", (String) tableStudent.getValueAt(linhaSelecionada, 0));
+				                	FileManipulation.delete("Students.txt", tableStudent.getValueAt(linhaSelecionada, 0).toString());
 								} catch (IOException e1) {
 								}
 				                modeloStudent.removeRow(linhaSelecionada);
 				            } else {
-				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 				            }
 				           tableStudent.setEnabled(false); 
 			             }
@@ -865,7 +864,7 @@ public class MainWindow extends JFrame {
 								} catch (IOException e1) {
 								}
 				            } else {
-				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 				            }
 				           tableUser.setEnabled(false); 
 			             }
@@ -901,7 +900,7 @@ public class MainWindow extends JFrame {
 								}
 				                modeloUser.removeRow(linhaSelecionada);
 				            } else {
-				                JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
 				            }
 				           
 				           tableUser.setEnabled(false);
@@ -1264,7 +1263,6 @@ public class MainWindow extends JFrame {
 				try {
 					
 					student = (ArrayList)FileManipulation.selectAll("Students.txt");
-					modeloStudent = null;
 					for (Students c : student) {
 						modeloStudent.addRow(new Object[]{c.getStudent_id(),c.getStudent(), c.getBirthdate(), c.getEmail(), c.getSex(), c.getPhone(), c.getCellphone(), c.getCep(), c.getNumber(), c.getAddress(), c.getSuburb(), c.getCity(), c.getEstate(), c.getComplement(), c.getNote()});
 	    	        }

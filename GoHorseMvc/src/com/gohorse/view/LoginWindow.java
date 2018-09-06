@@ -63,10 +63,15 @@ public class LoginWindow extends JFrame {
     	getContentPane().add(txfPassword);
     	
     	txfPassword.addKeyListener(new KeyAdapter() {
-			         public void keyPressed(KeyEvent e) {
-			        	btnConfirm.doClick(); 
-			         }
-			         });
+    		
+    		public void keyPressed(KeyEvent e) {
+    			
+    			if (e.getKeyCode() == e.VK_ENTER) { 
+    				
+    				btnConfirm.doClick(); 
+			    }
+			}
+    	});
     	
     	btnConfirm = new JButton(new AbstractAction("Login") {
 			
@@ -84,25 +89,25 @@ public class LoginWindow extends JFrame {
 						
 						LoginWindow.this.dispose();
 						
+					} else {
+						
+						throw new Exception("Usuário ou senha inválidos!");
+						
 					}
 					
 					
-				} catch ( IOException e1) {
-					JOptionPane.showMessageDialog(null, "Usuário ou Senha incorretos", "Erro", JOptionPane.ERROR_MESSAGE);
-				}
-				
-				
-				
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}		
 			}
 		});
+    	
     	btnConfirm.setBounds(40, 115, 124, 20);    	
     	btnConfirm.setFocusPainted(false);
     	btnConfirm.setContentAreaFilled(false);
     	getContentPane().add(btnConfirm);
-    	
-    	
+    	  	
     }
-    
     
     public static void main(String[] args) {
         
