@@ -492,47 +492,35 @@ public class MainWindow extends JFrame {
 				
 				tableStudent.addKeyListener(new KeyAdapter() {
 			         public void keyPressed(KeyEvent e) {
-			        	 int linhaSelecionada = -1;
-				            linhaSelecionada = tableStudent.getSelectedRow();
-				            if (linhaSelecionada >= 0) {/*
-				            	 {"Id",
-				            	 "Estudante",
-				            	 "Data de Nascimento",
-				            	 "E-Mail",
-				            	 "Sexo",
-				            	 "Telefone",
-				   				  "Celular",
-				   				  "CEP",
-				   				  "N°", 
-				   				  "Endereço",
-									"bairro", 
-									"Cidade",z
-									"Estado",
-									"Complemento",
-				   				  "Observação"};*/
-
-				        
-				                Students student = new Students((String) tableStudent.getValueAt(linhaSelecionada, 1),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 2),
-				                		                         ((char) tableStudent.getValueAt(linhaSelecionada, 4)),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 5),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 6),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 3),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 14),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 9),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 8),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 13),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 10),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 11),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 12),
-				                		                         (String)tableStudent.getValueAt(linhaSelecionada, 7));
-				                student.setStudent_id(Integer.parseInt((String) tableStudent.getValueAt(linhaSelecionada, 0)));
-				                try {
-				                	FileManipulation.update(student);
-								} catch (IOException e1) {
-								}
-				            } else {
-				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+			        	 	try {
+			        	 		int linhaSelecionada = -1;
+					            linhaSelecionada = tableStudent.getSelectedRow();
+					            if (linhaSelecionada >= 0) {
+					            
+					                Students student = new Students((String) tableStudent.getValueAt(linhaSelecionada, 1),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 2),
+					                		                         ((char) tableStudent.getValueAt(linhaSelecionada, 4)),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 5),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 6),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 3),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 14),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 9),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 8),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 13),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 10),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 11),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 12),
+					                		                         (String)tableStudent.getValueAt(linhaSelecionada, 7));
+					                student.setStudent_id((Integer) tableStudent.getValueAt(linhaSelecionada, 0));
+					                try {
+					                	FileManipulation.update(student);
+									} catch (IOException e1) {
+									}
+					            }
+			        	 	
+				            } 
+			        	 	catch(Exception e1) {
+				                JOptionPane.showMessageDialog(null, e1.getMessage());
 				            }
 				           tableStudent.setEnabled(false); 
 			             }
@@ -733,28 +721,70 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {;
 				
 				ClearTable("Students.txt");
-				
-				Students stu = new Students(txfStudent.getText(),
-											txfBirthdate.getText(), 
-											((String) cmbSex.getSelectedItem()).charAt(0),
-											txfPhone.getText(),
-											txfCellphone.getText(),
-											txfEmail.getText(),
-											txfNote.getText(),
-											txfAdress.getText(),
-											txfAdressNum.getText(),
-											txfComplement.getText(),
-											txfSuburb.getText(),
-											txfSCity.getText(),
-											lbStuEstate.getText(),
-											txfCep.getText());
-				
 				try {
-					FileManipulation.insert(stu);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					if(txfStudent.getText().length() < 1) {
+						throw new Exception("Aluno não pode ser vazio.");
+					}
+					if(txfBirthdate.getText().length() < 1) {
+						throw new Exception("Data de nascimento não pode ser vazio.");
+					}
+					if(txfPhone.getText().length() < 1) {
+						throw new Exception("Telefone não pode ser vazio.");
+					}
+					if(txfCellphone.getText().length() < 1) {
+						throw new Exception("Celular não pode ser vazio.");
+					}
+					if(txfEmail.getText().length() < 1) {
+						throw new Exception("Email não pode ser vazio.");
+					}
+					if(txfAdress.getText().length() < 1) {
+						throw new Exception("Endereço não pode ser vazio.");
+					}
+					if(txfAdressNum.getText().length() < 1) {
+						throw new Exception("Numero não pode ser vazio.");
+					}
+					if(txfComplement.getText().length() < 1) {
+						throw new Exception("Complemento não pode ser vazio.");
+					}
+					if(txfSuburb.getText().length() < 1) {
+						throw new Exception("Bairro não pode ser vazio.");
+					}
+					if(txfSCity.getText().length() < 1) {
+						throw new Exception("Cidade não pode ser vazio.");
+					}
+					if(lbStuEstate.getText().length() < 1) {
+						throw new Exception("Estado não pode ser vazio.");
+					}
+					if(txfCep.getText().length() < 1) {
+						throw new Exception("Cep não pode ser vazio.");
+					}
+					
+					Students stu = new Students(txfStudent.getText(),
+							txfBirthdate.getText(), 
+							((String) cmbSex.getSelectedItem()).charAt(0),
+							txfPhone.getText(),
+							txfCellphone.getText(),
+							txfEmail.getText(),
+							txfNote.getText(),
+							txfAdress.getText(),
+							txfAdressNum.getText(),
+							txfComplement.getText(),
+							txfSuburb.getText(),
+							txfSCity.getText(),
+							lbStuEstate.getText(),
+							txfCep.getText());
+
+					try {
+						FileManipulation.insert(stu);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				catch(Exception e1) {
+					JOptionPane.showMessageDialog(null,e1.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+				}
+				
 							
 				UpdateTable("Students.txt");
 				regStudent.setVisible(false);
