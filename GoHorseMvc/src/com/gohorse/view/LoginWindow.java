@@ -82,7 +82,7 @@ public class LoginWindow extends JFrame {
 					
 					Users user = (Users) FileManipulation.select("Users.txt", txfUser.getText());
 					
-					if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
+					if (user != null && user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
 						
 						MainWindow mw = new MainWindow(user);
 						mw.setVisible(true);
