@@ -1,6 +1,9 @@
 package com.gohorse.view;
 
 
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -170,7 +173,9 @@ public class MainWindow extends JFrame {
 	public MainWindow (Users user) {
 		acess = user.getPerfil().equals(Tipo[1]);
 		
-		setSize(600,620);
+		Container c = getContentPane();
+	    Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+	    setSize(tela.width, tela.height);
 		setTitle("Menu");
 		setLayout(null);
         setResizable(false);
