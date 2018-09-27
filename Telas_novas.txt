@@ -1,0 +1,15 @@
+Curso
+  Código;
+  Nome;
+Fases
+  Código;
+  Nome;
+Disciplina 
+  Código;
+  Nome;
+  Dia da semana;
+  Quantidade de Professores;
+Professores
+  Código;
+  Nome;
+  Titulo Doscente (Pós, Mestrado, Doutorado, Pós-Doutorado);
