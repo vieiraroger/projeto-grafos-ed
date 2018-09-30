@@ -38,6 +38,7 @@ public class MainWindow extends JFrame {
 	private JScrollPane scrollUser;
 	private JScrollPane scrollStudent;
 	private JScrollPane scrollCity;
+	private JScrollPane scrollTeacher;
 	private DefaultTableModel modeloCity = new DefaultTableModel() {
 		
 		String[] cidade = {"Cidade", "Pais", "Estado"};
@@ -52,12 +53,27 @@ public class MainWindow extends JFrame {
 		}
 		
 	};
+	
+	private DefaultTableModel modeloTeacher = new DefaultTableModel() {
+		
+		String[] Teacher = {"CÃ³digo", "Nome", "TÃ­tulo"};
+		
+        public int getColumnCount() { 
+            return Teacher.length; 
+        } 
+        
+ 		@Override
+		public String getColumnName(int index) {
+		    return Teacher[index];
+		}
+		
+	};
 		
 	private DefaultTableModel modeloStudent = new DefaultTableModel() {
 		
 		String[] estudante = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-				  "Celular","CEP","N°", "Endereço", "bairro", "Cidade","Estado","Complemento",
-				  "Observação"};
+				  "Celular","CEP","NÂ°", "EndereÃ§o", "bairro", "Cidade","Estado","Complemento",
+				  "ObservaÃ§Ã£o"};
 		
         public int getColumnCount() { 
             return estudante.length; 
@@ -72,7 +88,7 @@ public class MainWindow extends JFrame {
 		
 	private DefaultTableModel modeloUser = new DefaultTableModel() {
 		
-		String[] usuario = {"Usuário", "Senha", "Perfil"};
+		String[] usuario = {"UsuÃ¡rio", "Senha", "Perfil"};
 		
         @Override 
         public int getColumnCount() { 
@@ -89,25 +105,40 @@ public class MainWindow extends JFrame {
 	private JTable tableUser;
 	private JTable tableCity;
 	private JTable tableStudent;
+	private JTable tableTeacher;
 	private int cont;
 	
 	private JMenuBar menu ;
 	private JMenu mAlunos;
 	private JMenu mCidades;
 	private JMenu mUsuarios;
+	private JMenu mTeacher;
+	private JMenu mPhases;
+	private JMenu mCourses;
+	private JMenu mSubjects;
+	
 	private JMenuItem smListarCidade;
 	private JMenuItem smListarAluno;
 	private JMenuItem smListarUsuario;
+	private JMenuItem smListPhases;
+	private JMenuItem smListarTeacher;
+	private JMenuItem smListCourses;
+	private JMenuItem smListSubjects;
 	
 	private JButton btnMRegisterCity;
 	private JButton btnMRegisterStudent;
 	private JButton btnMRegisterUser;
+	private JButton btnMRegister;
+	
 	private JButton btnMEditCity;
 	private JButton btnMEditStudent;
 	private JButton btnMEditUser;
+	private JButton btnMEdit;
+	
 	private JButton btnMDeleteCity;
 	private JButton btnMDeleteStudent;
 	private JButton btnMDeleteUser;
+	private JButton btnMDelete;
 	
 	private JPanel regCity;
 	private JLabel lbCity;
@@ -198,12 +229,20 @@ public class MainWindow extends JFrame {
 		 
 		 setJMenuBar(menu);
 		 
-		 mAlunos 			= new JMenu("Alunos");
-		 mCidades			= new JMenu("Cidades");
-		 
+		 mAlunos = new JMenu("Alunos");
+		 mCidades = new JMenu("Cidades");
+		 mTeacher = new JMenu("Professores");
+		 mCourses = new JMenu("Cursos");
+		 mPhases = new JMenu("Fases");
+		 mSubjects = new JMenu("Disciplinas");
 		 
 		 menu.add(mAlunos);
 		 menu.add(mCidades);
+		 menu.add(mTeacher);
+		 menu.add(mCourses);
+		 menu.add(mPhases);
+		 menu.add(mSubjects);
+		 
 		 if(acess) {
 			 mUsuarios			= new JMenu("Usuarios");
 			 menu.add(mUsuarios);
@@ -243,14 +282,56 @@ public class MainWindow extends JFrame {
 			
 		 });
 		 
+		 smListCourses = new JMenuItem(new AbstractAction("Listar") {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					StudentsWindow();
+					
+				}
+				
+			 });
+			 
+		 smListPhases = new JMenuItem(new AbstractAction("Listar") {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					StudentsWindow();
+					
+				}
+				
+			 });
+			 
+		 smListSubjects = new JMenuItem(new AbstractAction("Listar") {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					StudentsWindow();
+					
+				}
+				
+			 });
 		 
-		 
-		 
+		 smListarTeacher = new JMenuItem(new AbstractAction("Listar") {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					TeachersWindow();
+					
+				}
+				
+			 });
+			 
 		 mAlunos.add(smListarAluno);
 		 mCidades.add(smListarCidade);
-		 
-		 
-		 
+		 mCourses.add(smListCourses);
+		 mPhases.add(smListPhases);
+		 mSubjects.add(smListSubjects);
+		 mTeacher.add(smListarTeacher);
 		 
 	}
 	
@@ -322,7 +403,7 @@ public class MainWindow extends JFrame {
 									}
 					                modeloCity.removeRow(linhaSelecionada);
 					            } else {
-					               //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+					               //JOptionPane.showMessageDialog(null, "Ã‰ necesÃ¡rio selecionar uma linha.");
 					            }
 					           tableCity.setEnabled(false); 
 				             }
@@ -562,7 +643,7 @@ public class MainWindow extends JFrame {
 								}
 				                modeloStudent.removeRow(linhaSelecionada);
 				            } else {
-				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "Ã‰ necesÃ¡rio selecionar uma linha.");
 				            }
 				           tableStudent.setEnabled(false); 
 			             }
@@ -620,7 +701,7 @@ public class MainWindow extends JFrame {
     	regStudent.add(txfBirthdate);   
     	
     	lbAdress = new JLabel();
-    	lbAdress.setText("Endereço:");
+    	lbAdress.setText("EndereÃ§o:");
     	lbAdress.setBounds(270, 40, 125, 20);
     	regStudent.add(lbAdress);
     	
@@ -629,7 +710,7 @@ public class MainWindow extends JFrame {
     	regStudent.add(txfAdress);
     	
     	lbAdressNum = new JLabel();
-    	lbAdressNum.setText("Nº:");
+    	lbAdressNum.setText("NÂº:");
     	lbAdressNum.setBounds(270, 85, 40, 20);
     	regStudent.add(lbAdressNum);
     	
@@ -710,7 +791,7 @@ public class MainWindow extends JFrame {
     	regStudent.add(txfEmail); 
     	
     	lbNote = new JLabel();
-    	lbNote.setText("Observações:");
+    	lbNote.setText("ObservaÃ§Ãµes:");
     	lbNote.setBounds(40, 355, 125, 20);
     	regStudent.add(lbNote);
     	
@@ -728,40 +809,40 @@ public class MainWindow extends JFrame {
 				ClearTable("Students.txt");
 				try {
 					if(txfStudent.getText().length() < 1) {
-						throw new Exception("Aluno não pode ser vazio.");
+						throw new Exception("Aluno nÃ£o pode ser vazio.");
 					}
 					if(txfBirthdate.getText().length() < 1) {
-						throw new Exception("Data de nascimento não pode ser vazio.");
+						throw new Exception("Data de nascimento nÃ£o pode ser vazio.");
 					}
 					if(txfPhone.getText().length() < 1) {
-						throw new Exception("Telefone não pode ser vazio.");
+						throw new Exception("Telefone nÃ£o pode ser vazio.");
 					}
 					if(txfCellphone.getText().length() < 1) {
-						throw new Exception("Celular não pode ser vazio.");
+						throw new Exception("Celular nÃ£o pode ser vazio.");
 					}
 					if(txfEmail.getText().length() < 1) {
-						throw new Exception("Email não pode ser vazio.");
+						throw new Exception("Email nÃ£o pode ser vazio.");
 					}
 					if(txfAdress.getText().length() < 1) {
-						throw new Exception("Endereço não pode ser vazio.");
+						throw new Exception("EndereÃ§o nÃ£o pode ser vazio.");
 					}
 					if(txfAdressNum.getText().length() < 1) {
-						throw new Exception("Numero não pode ser vazio.");
+						throw new Exception("Numero nÃ£o pode ser vazio.");
 					}
 					if(txfComplement.getText().length() < 1) {
-						throw new Exception("Complemento não pode ser vazio.");
+						throw new Exception("Complemento nÃ£o pode ser vazio.");
 					}
 					if(txfSuburb.getText().length() < 1) {
-						throw new Exception("Bairro não pode ser vazio.");
+						throw new Exception("Bairro nÃ£o pode ser vazio.");
 					}
 					if(txfSCity.getText().length() < 1) {
-						throw new Exception("Cidade não pode ser vazio.");
+						throw new Exception("Cidade nÃ£o pode ser vazio.");
 					}
 					if(lbStuEstate.getText().length() < 1) {
-						throw new Exception("Estado não pode ser vazio.");
+						throw new Exception("Estado nÃ£o pode ser vazio.");
 					}
 					if(txfCep.getText().length() < 1) {
-						throw new Exception("Cep não pode ser vazio.");
+						throw new Exception("Cep nÃ£o pode ser vazio.");
 					}
 					
 					Students stu = new Students(txfStudent.getText(),
@@ -857,7 +938,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				regUser.setBorder(BorderFactory.createTitledBorder("Cadastrar Usuário"));
+				regUser.setBorder(BorderFactory.createTitledBorder("Cadastrar UsuÃ¡rio"));
 				btnMRegisterUser.setVisible(false);
 				btnMEditUser.setVisible(false);
 				btnMDeleteUser.setVisible(false);
@@ -899,7 +980,7 @@ public class MainWindow extends JFrame {
 								} catch (IOException e1) {
 								}
 				            } else {
-				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "Ã‰ necesÃ¡rio selecionar uma linha.");
 				            }
 				           tableUser.setEnabled(false); 
 			             }
@@ -935,7 +1016,7 @@ public class MainWindow extends JFrame {
 								}
 				                modeloUser.removeRow(linhaSelecionada);
 				            } else {
-				                //JOptionPane.showMessageDialog(null, "É necesário selecionar uma linha.");
+				                //JOptionPane.showMessageDialog(null, "Ã‰ necesÃ¡rio selecionar uma linha.");
 				            }
 				           
 				           tableUser.setEnabled(false);
@@ -960,12 +1041,12 @@ public class MainWindow extends JFrame {
     	regUser = new JPanel();
     	regUser.setLayout(null);
     	regUser.setBounds(180, 150, 228, 250);
-    	regUser.setBorder(BorderFactory.createTitledBorder("Usuário"));
+    	regUser.setBorder(BorderFactory.createTitledBorder("UsuÃ¡rio"));
 		getContentPane().add(regUser);
 		regUser.setVisible(false);
 		
     	lbUser = new JLabel();
-    	lbUser.setText("Usuário:");
+    	lbUser.setText("UsuÃ¡rio:");
     	lbUser.setBounds(50, 40, 125, 20);
     	regUser.add(lbUser);
     	
@@ -1072,6 +1153,214 @@ public class MainWindow extends JFrame {
 		
 	}
 	
+	public void CreateStardartComponents() {
+		if(acess) {
+			//cities add
+			btnMRegister = new JButton(new AbstractAction("Cadastrar") {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					regCity.setBorder(BorderFactory.createTitledBorder("Cadastrar"));
+					scrollCity.setVisible(false);
+					btnMRegister.setVisible(false);
+					btnMEdit.setVisible(false);
+			    	btnMDelete.setVisible(false);
+			    	reg.setVisible(true);
+			    	btnCityEdit.setVisible(false);
+			    	btnCityRegister.setVisible(true);
+					
+				}
+				
+			});
+			btnMRegisterCity.setBounds(30, 20, 140, 30);    	
+			btnMRegisterCity.setFocusPainted(false);
+	    	btnMRegisterCity.setContentAreaFilled(false);
+			getContentPane().add(btnMRegisterCity);
+			
+			//cities edit
+	    	btnMEditCity = new JButton(new AbstractAction("Editar Cidade") {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					regCity.setBorder(BorderFactory.createTitledBorder("Editar Cidade"));
+					btnMRegisterCity.setVisible(false);
+					btnMEditCity.setVisible(false);
+			    	btnMDeleteCity.setVisible(false);
+			    	regCity.setVisible(true);
+			    	btnCityRegister.setVisible(false);
+			    	btnCityEdit.setVisible(true);
+					
+				}
+				
+			});
+	    	btnMEditCity.setBounds(230, 20, 140, 30);    	
+	    	btnMEditCity.setFocusPainted(false);
+	    	btnMEditCity.setContentAreaFilled(false);
+	    	getContentPane().add(btnMEditCity);
+	    	
+			//cities delete
+	    	btnMDeleteCity = new JButton(new AbstractAction("Deletar Cidade") {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+	                tableCity.setEnabled(true);
+					
+					tableCity.addKeyListener(new KeyAdapter() {
+				         public void keyPressed(KeyEvent e) {
+				        	 int linhaSelecionada = -1;
+					            linhaSelecionada = tableCity.getSelectedRow();
+					            if (linhaSelecionada >= 0) {
+					                String city = (String) tableCity.getValueAt(linhaSelecionada, 0);
+					                FileManipulation fm = new FileManipulation();
+					                try {
+										fm.delete("Cities.txt", city);
+									} catch (IOException e1) {
+									}
+					                modeloCity.removeRow(linhaSelecionada);
+					            } else {
+					               //JOptionPane.showMessageDialog(null, "Ã‰ necesÃ¡rio selecionar uma linha.");
+					            }
+					           tableCity.setEnabled(false); 
+				             }
+				            
+				           }
+				        );
+					
+				}
+				
+			});
+	    	btnMDeleteCity.setBounds(430, 20, 140, 30); 	
+	    	btnMDeleteCity.setFocusPainted(false);
+	    	btnMDeleteCity.setContentAreaFilled(false);
+	    	getContentPane().add(btnMDeleteCity);
+	    	
+	    	//hide button after initializing
+			btnMRegisterCity.setVisible(false);
+	    	btnMEditCity.setVisible(false);
+	    	btnMDeleteCity.setVisible(false);
+		}
+		
+		
+    	
+    	
+    	//register panel
+    	regCity = new JPanel();
+		regCity.setLayout(null);
+		regCity.setBounds(200, 80, 210, 280);
+		regCity.setBorder(BorderFactory.createTitledBorder("Cidade"));
+		getContentPane().add(regCity);
+		regCity.setVisible(false);
+		
+    	lbCity = new JLabel();
+    	lbCity.setText("Cidade:");
+    	lbCity.setBounds(40, 40, 125, 20);
+    	regCity.add(lbCity);
+    	
+    	txfCity = new JTextField();
+    	txfCity.setBounds(40, 60, 125, 20);
+    	regCity.add(txfCity);
+    	
+    	lbState = new JLabel();
+    	lbState.setText("Estado:");
+    	lbState.setBounds(40, 100, 125, 20);
+    	regCity.add(lbState);
+    	
+    	txfState = new JTextField();
+    	txfState.setBounds(40, 120, 125, 20);
+    	regCity.add(txfState);
+    	
+    	lbCountry = new JLabel();
+    	lbCountry.setText("Pais:");
+    	lbCountry.setBounds(40, 160, 125, 20);
+    	regCity.add(lbCountry);
+    	
+    	txfCountry = new JTextField();
+    	txfCountry.setBounds(40, 180, 125, 20);
+    	regCity.add(txfCountry);
+    	
+    	if(acess) {
+    		//register button TODO registering
+        	btnCityRegister = new JButton(new AbstractAction("Cadastrar") {
+    			
+    			@Override
+    			public void actionPerformed(ActionEvent arg0) {
+    				Cities city = new Cities(txfCity.getText(),txfState.getText(),txfCountry.getText());
+    				try {
+    					FileManipulation.insert(city);
+    					ClearTable("Cities.txt");
+    					CreateTable("Cities.txt");
+    					scrollCity.setVisible(true);
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
+    				
+    				regCity.setVisible(false);
+    				btnMRegisterCity.setVisible(true);
+    				btnMEditCity.setVisible(false);
+    		    	btnMDeleteCity.setVisible(true);
+    				
+    				
+    			}
+    		});
+        	btnCityRegister.setBounds(93, 230, 95, 20);   	
+        	regCity.add(btnCityRegister);
+        	btnCityRegister.setFocusPainted(false);
+        	btnCityRegister.setContentAreaFilled(false);
+        	
+        	//edit button TODO PULL DATA TO EDIT
+        	btnCityEdit = new JButton(new AbstractAction("Aplicar") {
+    			
+    			@Override
+    			public void actionPerformed(ActionEvent arg0) {
+    				
+    				//TODO editing registry
+    				//
+    				
+    				regCity.setVisible(false);
+    				btnMRegisterCity.setVisible(true);
+    				btnMEditCity.setVisible(true);
+    		    	btnMDeleteCity.setVisible(true);
+    				
+    				
+    			}
+    		});
+        	btnCityEdit.setBounds(93, 230, 95, 20);   	
+        	regCity.add(btnCityEdit);
+        	btnCityEdit.setFocusPainted(false);
+        	btnCityEdit.setContentAreaFilled(false);
+    	}
+    	
+    	
+    	//window exit button
+    	btnCityWindowExit = new JButton(new AbstractAction("Sair") {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				scrollCity.setVisible(true);
+				regCity.setVisible(false);
+				if(acess) {
+					btnMRegisterCity.setVisible(true);
+					btnMEditCity.setVisible(false);
+			    	btnMDeleteCity.setVisible(true);
+					
+				}
+				
+			}
+		});
+    	btnCityWindowExit.setBounds(23, 230, 60, 20);   	
+    	regCity.add(btnCityWindowExit);
+    	btnCityWindowExit.setFocusPainted(false);
+    	btnCityWindowExit.setContentAreaFilled(false);
+    	
+    	getContentPane().add(regCity);
+    	
+	}
+	
+
 	public void CitiesWindow() {
 		
 		regCity.setVisible(false);
@@ -1162,6 +1451,40 @@ public class MainWindow extends JFrame {
 		}
 		
 						
+	}
+	
+	public void TeachersWindow() {
+		
+		regCity.setVisible(false);
+		regStudent.setVisible(false);
+		if(acess) {
+			regUser.setVisible(false);
+		}
+		
+		
+		if(acess) {
+			btnMRegisterUser.setVisible(false);
+			btnMRegisterCity.setVisible(false);
+			btnMRegisterStudent.setVisible(true);
+			
+			btnMEditUser.setVisible(false);
+			btnMEditCity.setVisible(false);
+			btnMEditStudent.setVisible(true);
+			btnMEditStudent.setText("TESTE");
+			
+			btnMDeleteUser.setVisible(false);
+			btnMDeleteCity.setVisible(false);
+			btnMDeleteStudent.setVisible(true);
+		}
+		
+		
+		scrollCity.setVisible(false);
+		if(acess) {
+			scrollUser.setVisible(false);
+		}
+		
+		scrollStudent.setVisible(true);
+		
 	}
 	
 	/*public void CreateColumn (String coluna, int tamcoluna) {
