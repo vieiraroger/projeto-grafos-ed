@@ -1,7 +1,8 @@
 package com.gohorse.database.model;
 
-public class Teacher {
+public class Teacher implements Entity {
 	
+	private Integer id;
 	private String Code;
 	private String Name;
 	private String Graduation;
@@ -35,6 +36,17 @@ public class Teacher {
 
 	public void setGraduation(String graduation) {
 		Graduation = graduation;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+		
 	}
 	
 
