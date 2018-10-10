@@ -1,7 +1,11 @@
 package com.gohorse.database.model;
 
-public class Users {
-	
+import java.io.Serializable;
+
+public class Users implements Entity, Serializable {
+
+	private static final long serialVersionUID = -6710793234179078915L;
+	private int id;
 	private String user;
 	private String password;
 	private String perfil;
@@ -30,6 +34,17 @@ public class Users {
 
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+		
 	}
 	
 	

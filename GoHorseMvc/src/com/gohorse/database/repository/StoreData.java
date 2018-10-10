@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class StoreData<T> {
 	private static String FILE_EXTENSION = ".DAT";
-	private static String FILE_URI = "D:\\topanotti\\";
+	private static String FILE_URI = "C:\\Users\\comp15\\";
 
 	private final Class<T> type;
 

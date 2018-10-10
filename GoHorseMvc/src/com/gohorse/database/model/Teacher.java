@@ -1,7 +1,10 @@
 package com.gohorse.database.model;
 
-public class Teacher implements Entity {
+import java.io.Serializable;
+
+public class Teacher implements Entity, Serializable {
 	
+	private static final long serialVersionUID = -8982355266862975723L;
 	private Integer id;
 	private String Code;
 	private String Name;

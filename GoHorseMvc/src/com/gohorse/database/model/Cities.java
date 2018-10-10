@@ -1,7 +1,11 @@
 package com.gohorse.database.model;
 
-public class Cities {
+import java.io.Serializable;
+
+public class Cities implements Entity, Serializable{
 	
+	private static final long serialVersionUID = -5718169470825373489L;
+	private int id;
 	private String city;
 	private String state;
 	private String country;
@@ -26,6 +30,16 @@ public class Cities {
 
 	public Cities() {
 	
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

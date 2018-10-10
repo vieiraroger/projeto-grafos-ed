@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -18,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.gohorse.database.model.Users;
+import com.gohorse.database.service.UsersService;
 import com.gohorse.lib.FileManipulation;
 
 public class LoginWindow extends JFrame {
@@ -80,16 +83,28 @@ public class LoginWindow extends JFrame {
 				
 				try {
 					
-					Users user = (Users) FileManipulation.select("Users.txt", txfUser.getText());
+					UsersService us = new UsersService();
+					Collection<Users> list = us.findAll();
 					
-					if (user != null && user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
-						
-						MainWindow mw = new MainWindow(user);
-						mw.setVisible(true);
-						
-						LoginWindow.this.dispose();
-						
-					} else {
+					if(list == null) {
+						System.out.println("debu");
+						us.save(new Users("admin","admin","Admin"));
+					}
+					
+					
+					boolean entrou = true;
+					for (Users user : list) {
+						if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
+							
+							MainWindow mw = new MainWindow(user);
+							mw.setVisible(true);
+							entrou = false;
+							LoginWindow.this.dispose();
+							
+						}
+					}
+					
+					 if(entrou) {
 						
 						throw new Exception("Usuário ou senha inválidos!");
 						
@@ -97,6 +112,7 @@ public class LoginWindow extends JFrame {
 					
 					
 				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
 					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}		
 			}

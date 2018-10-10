@@ -1,7 +1,10 @@
 package com.gohorse.database.model;
 
-public class Students {
+import java.io.Serializable;
+
+public class Students implements Entity, Serializable {
 	
+	private static final long serialVersionUID = 7940068363349065718L;
 	private Integer student_id;
 	private String student;
 	private String birthdate;
@@ -158,10 +161,18 @@ public class Students {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	
-		
-	
+
+
+	@Override
+	public Integer getId() {
+		return student_id;
+	}
+
+
+	@Override
+	public void setId(Integer id) {
+		this.student_id = id;
+	}
 }
 
 
