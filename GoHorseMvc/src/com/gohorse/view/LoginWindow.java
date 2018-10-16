@@ -127,7 +127,10 @@ public class LoginWindow extends JFrame {
     
     public static void main(String[] args) {
         
-    	new LoginWindow().setVisible(true);
+    	Users u = new Users("admin","admin","admin" );
+    	MainWindow mw = new MainWindow(u);
+    	mw.setVisible(true);
+    	//new LoginWindow().setVisible(true);
     	
     }
 

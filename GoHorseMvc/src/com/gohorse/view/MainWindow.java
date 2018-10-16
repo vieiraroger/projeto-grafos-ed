@@ -118,6 +118,15 @@ public class MainWindow extends JFrame {
 	private JMenu mCourses;
 	private JMenu mSubjects;
 	
+	private JPanel studentsPanel;
+	private JPanel citiesPanel;
+	private JPanel usersPanel;
+	private JPanel teacherPanel;
+	private JPanel phasesPanel;
+	private JPanel coursesPanel;
+	private JPanel subjectsPanel;
+	
+	
 	private JMenuItem smListarCidade;
 	private JMenuItem smListarAluno;
 	private JMenuItem smListarUsuario;
@@ -224,8 +233,8 @@ public class MainWindow extends JFrame {
 	
 	
 	public MainWindow (Users user) {
-		acess = user.getPerfil().equals(Tipo[1]);
-		
+		//acess = user.getPerfil().equals(Tipo[1]);
+		acess =true;
 		Container c = getContentPane();
 	    Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
 	    setSize(tela.width, tela.height);
@@ -238,11 +247,14 @@ public class MainWindow extends JFrame {
         CreateCitiesComponents();
         CreateTable("Cities.txt");
         CreateStudentsComponents();
+        CreateTeacherComponents();
         CreateTable("Students.txt");
         if(acess) {
         	CreateUsersComponents();
             CreateTable("Users.txt");
         }      
+        
+        
 	}
 
 	public void CreateMenucomponents() {
@@ -1017,7 +1029,6 @@ public class MainWindow extends JFrame {
     	btnMEditUser.setContentAreaFilled(false);
     	getContentPane().add(btnMEditUser);
     	
-    	
 		//user delete
     	btnMDeleteUser = new JButton(new AbstractAction("Deletar Usuario") {
 
@@ -1178,30 +1189,7 @@ public class MainWindow extends JFrame {
 	public void CreateTeacherComponents() {
 		if(acess) {
 			//cities add
-			btnMRegisterCity = new JButton(new AbstractAction("Cadastrar Professor") {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					regTeacher.setBorder(BorderFactory.createTitledBorder("Cadastrar Professor"));
-					scrollTeacher.setVisible(false);
-					btnMRegisterTeacher.setVisible(false);
-					btnMEditTeacher.setVisible(false);
-			    	btnMDeleteTeacher.setVisible(false);
-			    	regTeacher.setVisible(true);
-			    	btnTeacherEdit.setVisible(false);
-			    	btnTeacherRegister.setVisible(true);
-					
-				}
-				
-			});
-			btnMRegisterTeacher.setBounds(30, 20, 140, 30);    	
-			btnMRegisterTeacher.setFocusPainted(false);
-	    	btnMRegisterTeacher.setContentAreaFilled(false);
-			getContentPane().add(btnMRegisterTeacher);
-			
-			//teachers edit
-	    	btnMEditTeacher = new JButton(new AbstractAction("Editar Professor") {
+			btnMRegisterTeacher = new JButton(new AbstractAction("Cadastrar Professor") {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -1217,6 +1205,22 @@ public class MainWindow extends JFrame {
 				}
 				
 			});
+			btnMRegisterTeacher.setBounds(30, 20, 140, 30);    	
+			btnMRegisterTeacher.setFocusPainted(false);
+	    	btnMRegisterTeacher.setContentAreaFilled(false);
+			getContentPane().add(btnMRegisterTeacher);
+			
+			//teachers edit TODO
+	    	btnMEditTeacher = new JButton(new AbstractAction("Editar Professor") {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+	    		
+	    		
+	    	});
 	    	btnMEditTeacher.setBounds(230, 20, 140, 30);    	
 	    	btnMEditTeacher.setFocusPainted(false);
 	    	btnMEditTeacher.setContentAreaFilled(false);
@@ -1273,7 +1277,6 @@ public class MainWindow extends JFrame {
 		regTeacher.setLayout(null);
 		regTeacher.setBounds(200, 80, 210, 280);
 		regTeacher.setBorder(BorderFactory.createTitledBorder("Professor"));
-		getContentPane().add(regTeacher);
 		regTeacher.setVisible(false);
 		
     	lbTeacherCode= new JLabel();
@@ -1366,10 +1369,10 @@ public class MainWindow extends JFrame {
     	btnTeacherWindowExit.setFocusPainted(false);
     	btnTeacherWindowExit.setContentAreaFilled(false);
     	
-    	getContentPane().add(regCity);
+    	getContentPane().add(regTeacher);
     	
 	}
-	
+
 	public void CitiesWindow() {
 		
 		regCity.setVisible(false);
@@ -1467,7 +1470,6 @@ public class MainWindow extends JFrame {
 		regTeacher.setVisible(false);
 		regStudent.setVisible(false);
 		
-		
 		if(acess) {
 			regUser.setVisible(false);
 			btnMRegisterUser.setVisible(false);
@@ -1478,7 +1480,7 @@ public class MainWindow extends JFrame {
 			btnMEditUser.setVisible(false);
 			btnMEditStudent.setVisible(false);
 			btnMEditCity.setVisible(false);
-			btnMEditTeacher.setVisible(false);
+			btnMEditTeacher.setVisible(true);
 			
 			btnMDeleteUser.setVisible(false);
 			btnMDeleteStudent.setVisible(false);
@@ -1703,5 +1705,11 @@ public class MainWindow extends JFrame {
         
         
 }
+	
+	public void SetAllComponentsVisibleFalse() {
+		
+
+		
+	}
 
 }
