@@ -16,3 +16,13 @@
 
 ## ERROS ROMULO
 
+- [ ] Ordem Correta das linhas, Header, Curso, Fase, Disciplina, Professor
+- [ ] Qualquer inconsistência de dados deve ser apresentada por mensagem em TELA
+e o arquivo não deve ser importado
+- [ ] Total de registros do TRAILER deve ser igual a soma de todas as linhas
+presentes no arquivo com exceção ao HEADER
+- [ ] A quantidade de disciplina presente no RESUMO da Operação deve ser igual a
+quantidade de disciplinas apresentados no RESUMO das Disciplinas
+
+- [ ] A quantidade de Professores presente no RESUMO da Operação deve ser igual
+a quantidade de professores apresentados no RESUMO dos Professores
