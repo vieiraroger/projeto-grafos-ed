@@ -2,7 +2,8 @@
 
 - [ ] Arquivo sequencial incorreto
 - [ ] Header incorreto:
-- [ ] Tamanho
+- [ ] Tamanho de caracteres da linha
+- [ ] tamanho de caracteres de condicional a cada adição
 - [ ] Numeros
 - [ ] Data invalida
 
@@ -14,4 +15,4 @@
 ## -------------------------------------------------------
 
 ## ERROS ROMULO
-Errro nao oq
+
