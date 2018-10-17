@@ -1,0 +1,17 @@
+## ERROS ROGER
+
+- [ ] Arquivo sequencial incorreto
+- [ ] Header incorreto:
+- [ ] Tamanho
+- [ ] Numeros
+- [ ] Data invalida
+
+- [ ] Quantidade de professores incorreto
+- [ ] Quantidade de materias incorreto
+- [ ] Numero da fase invalido de acordo com o header
+- [ ] Quantidade professor incorreto
+
+## -------------------------------------------------------
+
+## ERROS ROMULO
+Errro nao oq
