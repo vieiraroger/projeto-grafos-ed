@@ -601,7 +601,6 @@ public class MainWindow extends JFrame {
 		getContentPane().add(btnMRegisterStudent);
 
 		
-		
 		//students edit TO DO PULL DATA TO EDIT
     	btnMEditStudent = new JButton(new AbstractAction("Editar Aluno") {
 
