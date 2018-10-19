@@ -39,24 +39,16 @@ import com.gohorse.lib.FileManipulation;
 
 public class MainWindowNew extends JFrame {
 		
-	// Declarando botoes menu topo
-	private JMenuItem smListCities;
-	private JMenuItem smListStudents;
-	private JMenuItem smListUsers;
-	private JMenuItem smListPhases;
-	private JMenuItem smListTeachers;
-	private JMenuItem smListCourses;
-	private JMenuItem smListSubjects;
-	private JMenuBar menu;
-	private JMenu mStudents;
-	private JMenu mCities;
-	private JMenu mUsers;
-	private JMenu mTeachers;
-	private JMenu mPhases;
-	private JMenu mCourses;
-	private JMenu mSubjects;
+	// Declaring Panels
+	private JPanel studentsPanel;
+	private JPanel citiesPanel;
+	private JPanel usersPanel;
+	private JPanel teachersPanel;
+	private JPanel phasesPanel;
+	private JPanel coursesPanel;
+	private JPanel subjectsPanel;
 	
-	// Internal Frames para registro
+	// Declaring internal frames
 	private JInternalFrame studentsInternalFrame;
 	private JInternalFrame citiesInternalFrame;
 	private JInternalFrame usersInternalFrame;
@@ -65,19 +57,9 @@ public class MainWindowNew extends JFrame {
 	private JInternalFrame coursesInternalFrame;
 	private JInternalFrame subjectsInternalFrame;
 	
-	// Paineis para cada menu
-	private JPanel studentsPanel;
-	private JPanel citiesPanel;
-	private JPanel usersPanel;
-	private JPanel teachersPanel;
-	private JPanel phasesPanel;
-	private JPanel coursesPanel;
-	private JPanel subjectsPanel;
-
 	public MainWindowNew () {
 
-	    Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
-	    setSize(tela.width, tela.height);
+	    setSize(1400, 800);
 		setTitle("Menu");
 		setLayout(null);
         setResizable(false);
@@ -102,6 +84,23 @@ public class MainWindowNew extends JFrame {
 	
 	public void CreateTopBarComponents() {
 		
+		 //declaring top bar objects
+		 JMenuItem smListCities;
+		 JMenuItem smListStudents;
+		 JMenuItem smListUsers;
+		 JMenuItem smListPhases;
+		 JMenuItem smListTeachers;
+		 JMenuItem smListCourses;
+		 JMenuItem smListSubjects;
+		 JMenuBar menu;
+		 JMenu mStudents;
+		 JMenu mCities;
+		 JMenu mUsers;
+		 JMenu mTeachers;
+		 JMenu mPhases;
+		 JMenu mCourses;
+		 JMenu mSubjects;
+
 		 menu = new JMenuBar();
 		 setJMenuBar(menu);
 		 
@@ -214,11 +213,12 @@ public class MainWindowNew extends JFrame {
 		//Students Panel Declaration
 		studentsPanel = new JPanel();
 		studentsPanel.setLayout(null);
-		studentsPanel.setBounds(0, 0, 1200, 1200);
+		studentsPanel.setBounds(0, 0, 1400, 800);
 		getContentPane().add(studentsPanel);
 		
-		//Adding Internal frame to Panel
+		//Adding Internal frame and table to Panel (ORDER IS IMPORTANT)
 		studentsPanel.add(studentsInternalFrame);	
+		CreateStudentsTable();
 		
 		//Main Panel Buttons
 		JButton btnRegisterStudents = new JButton("Cadastrar Aluno");
@@ -234,7 +234,7 @@ public class MainWindowNew extends JFrame {
 					
 	            }
 	        });
-		btnRegisterStudents.setBounds(30, 20, 140, 30);   
+		btnRegisterStudents.setBounds(50, 30, 150, 40);   
 		btnRegisterStudents.setFocusPainted(false);
 		btnRegisterStudents.setContentAreaFilled(false);
 		studentsPanel.add(btnRegisterStudents);
@@ -248,7 +248,7 @@ public class MainWindowNew extends JFrame {
 				
             }
         });
-    	btnEditStudents.setBounds(230, 20, 140, 30);    	
+    	btnEditStudents.setBounds(210, 30, 150, 40);    	
     	btnEditStudents.setFocusPainted(false);
     	btnEditStudents.setContentAreaFilled(false);
     	studentsPanel.add(btnEditStudents);
@@ -262,7 +262,7 @@ public class MainWindowNew extends JFrame {
 				
             }
         });
-        btnDeleteStudents.setBounds(430, 20, 140, 30); 	
+        btnDeleteStudents.setBounds(370, 30, 150, 40); 	
         btnDeleteStudents.setFocusPainted(false);
         btnDeleteStudents.setContentAreaFilled(false);
         studentsPanel.add(btnDeleteStudents);
@@ -278,11 +278,12 @@ public class MainWindowNew extends JFrame {
 		//Cities Panel Declaration
 		citiesPanel = new JPanel();
 		citiesPanel.setLayout(null);
-		citiesPanel.setBounds(0, 0, 1200, 1200);
+		citiesPanel.setBounds(0, 0, 1400, 800);
 		getContentPane().add(citiesPanel);
 		
 		//Adding Internal frame to Panel
 		citiesPanel.add(citiesInternalFrame);	
+		CreateCitiesTable();
 		
 		//Main Panel Buttons
 		JButton btnRegisterCities;
@@ -300,7 +301,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-		btnRegisterCities.setBounds(30, 20, 140, 30);   
+		btnRegisterCities.setBounds(50, 30, 150, 40);    
 		btnRegisterCities.setFocusPainted(false);
 		btnRegisterCities.setContentAreaFilled(false);
 		citiesPanel.add(btnRegisterCities);
@@ -315,7 +316,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnEditCities.setBounds(230, 20, 140, 30);    	
+    	btnEditCities.setBounds(210, 30, 150, 40);    	
     	btnEditCities.setFocusPainted(false);
     	btnEditCities.setContentAreaFilled(false);
     	citiesPanel.add(btnEditCities);
@@ -330,7 +331,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnDeleteCities.setBounds(430, 20, 140, 30); 	
+    	btnDeleteCities.setBounds(370, 30, 150, 40); 	
     	btnDeleteCities.setFocusPainted(false);
     	btnDeleteCities.setContentAreaFilled(false);
     	citiesPanel.add(btnDeleteCities);
@@ -341,12 +342,19 @@ public class MainWindowNew extends JFrame {
 
 	public void FillComponentsInUsersPanel() {	
 		
+		CreateComponentUsersInternalFrame();
+		
 		//Users Panel Declaration
 		usersPanel = new JPanel();
 		usersPanel.setLayout(null);
-		usersPanel.setBounds(0, 0, 1200, 1200);
+		usersPanel.setBounds(0, 0, 1400, 800);
 		getContentPane().add(usersPanel);
 		
+		//Adding Internal frame and Table to Panel
+		usersPanel.add(usersInternalFrame);	
+		CreateUsersTable();
+		
+		//Main Panel Buttons
 		JButton btnRegisterUsers;
 		JButton btnEditUsers;
 		JButton btnDeleteUsers;
@@ -357,10 +365,12 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {					    	
 				
+				usersInternalFrame.setVisible(true);
+				
 			}
 			
 		});
-		btnRegisterUsers.setBounds(30, 20, 140, 30);   
+		btnRegisterUsers.setBounds(50, 30, 150, 40);   
 		btnRegisterUsers.setFocusPainted(false);
 		btnRegisterUsers.setContentAreaFilled(false);
 		usersPanel.add(btnRegisterUsers);
@@ -375,7 +385,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnEditUsers.setBounds(230, 20, 140, 30);    	
+    	btnEditUsers.setBounds(210, 30, 150, 40);   	
     	btnEditUsers.setFocusPainted(false);
     	btnEditUsers.setContentAreaFilled(false);
     	usersPanel.add(btnEditUsers);
@@ -390,7 +400,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnDeleteUsers.setBounds(430, 20, 140, 30); 	
+    	btnDeleteUsers.setBounds(370, 30, 150, 40); 
     	btnDeleteUsers.setFocusPainted(false);
     	btnDeleteUsers.setContentAreaFilled(false);
     	usersPanel.add(btnDeleteUsers);
@@ -401,11 +411,16 @@ public class MainWindowNew extends JFrame {
 	
 	public void FillComponentsInTeachersPanel() {	
 		
+		CreateComponentTeachersInternalFrame();
+		
 		//Teachers Panel Declaration
 		teachersPanel = new JPanel();
 		teachersPanel.setLayout(null);
 		teachersPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(teachersPanel);
+		
+		//Adding Internal frame to Panel
+		teachersPanel.add(teachersInternalFrame);
 		
 		JButton btnRegisterTeachers;
 		JButton btnEditTeachers;
@@ -416,6 +431,8 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {					    	
+				
+				teachersInternalFrame.setVisible(true);
 				
 			}
 			
@@ -641,16 +658,16 @@ public class MainWindowNew extends JFrame {
 	
 	public void CreateComponentStudentsInternalFrame() {
 		
-		studentsInternalFrame = new JInternalFrame();
+		studentsInternalFrame = new JInternalFrame("Cadastro de Aluno");
 		studentsInternalFrame.setLayout(null);
 		studentsInternalFrame.setBounds(0, 0, 600, 600);
 		studentsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
 		
-		//Registering Panel Buttons
+		//Registering Panel Buttons declarations
 		JButton btnSaveStudents = new JButton("Salvar");
 		JButton btnExitStudents = new JButton("Sair");
 		
-		//Registering Panel Fields
+		//Registering Panel Fields declarations
 		String Sexo[] = { "Masculino", "Feminino" };
 		
 		JLabel lbStudent;
@@ -808,8 +825,9 @@ public class MainWindowNew extends JFrame {
     	txfNote.setBounds(40, 375, 500, 70);
     	txfNote.setBorder(BorderFactory.createEtchedBorder());
     	studentsInternalFrame.add(txfNote); 
+    	//Registering Panel Fields declarations
     	
-    	//Students register panel saving
+    	//button for register panel saving
     	btnSaveStudents.addActionListener(new ActionListener() {
 			
 			@Override
@@ -825,6 +843,7 @@ public class MainWindowNew extends JFrame {
     	btnSaveStudents.setContentAreaFilled(false);
     	studentsInternalFrame.add(btnSaveStudents);
     	
+    	//button for register panel exiting
     	btnExitStudents.addActionListener(new ActionListener() {
 			
 			@Override
@@ -846,16 +865,16 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateComponentCitiesInternalFrame() {
 		
-		citiesInternalFrame = new JInternalFrame();
+		citiesInternalFrame = new JInternalFrame("Cadastro de Cidade");
 		citiesInternalFrame.setLayout(null);
-		citiesInternalFrame.setBounds(200, 80, 210, 280);
+		citiesInternalFrame.setBounds(200, 80, 210, 310);
 		citiesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
 		
-		//Registering Panel Buttons
+		//Registering Panel Buttons declarations
 		JButton btnSaveCities = new JButton("Salvar");
 		JButton btnExitCities = new JButton("Sair");
 		
-		//Registering Panel Fields
+		//Registering Panel Fields declarations
 		JLabel lbCity;
 		JTextField txfCity; 
 		JLabel lbState;
@@ -889,6 +908,8 @@ public class MainWindowNew extends JFrame {
     	txfCountry = new JTextField();
     	txfCountry.setBounds(40, 180, 125, 20);
     	citiesInternalFrame.add(txfCountry);
+    	////Registering Panel Fields declarations
+    	
     	
     	//Register panel saving
     	btnSaveCities.addActionListener(new ActionListener() {
@@ -905,7 +926,7 @@ public class MainWindowNew extends JFrame {
     	btnSaveCities.setContentAreaFilled(false);
     	citiesInternalFrame.add(btnSaveCities);
     	
-    	//Exit register panel
+    	//Register panel exiting
     	btnExitCities.addActionListener(new ActionListener() {
 			
 			@Override
@@ -922,6 +943,281 @@ public class MainWindowNew extends JFrame {
 		
     	citiesInternalFrame.setVisible(false);
 	
+	}
+
+	public void CreateComponentUsersInternalFrame() {
+		
+		usersInternalFrame = new JInternalFrame("Cadastro de Usuário");
+		usersInternalFrame.setLayout(null);
+		usersInternalFrame.setBounds(180, 150, 228, 290);
+		usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSaveUsers = new JButton("Salvar");
+		JButton btnExitUsers = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		
+		String UserType[] = { "User", "Admin" };
+		
+		JLabel lbUser;
+		JTextField txfUser;
+		JLabel lbPassword;
+		JPasswordField txfPassword;
+		JLabel lbType;
+		JComboBox<?> cmbType;
+				
+    	lbUser = new JLabel();
+    	lbUser.setText("UsuÃ¡rio:");
+    	lbUser.setBounds(50, 40, 125, 20);
+    	usersInternalFrame.add(lbUser);
+    	
+    	txfUser = new JTextField();
+    	txfUser.setBounds(50, 60, 125, 20);
+    	usersInternalFrame.add(txfUser);
+    	
+    	lbPassword = new JLabel();
+    	lbPassword.setText("Senha:");
+    	lbPassword.setBounds(50, 85, 125, 20);
+    	usersInternalFrame.add(lbPassword);
+    	
+    	txfPassword = new JPasswordField();
+    	txfPassword.setBounds(50, 105, 125, 20);
+    	usersInternalFrame.add(txfPassword);
+    	
+    	lbType= new JLabel();
+    	lbType.setText("Perfil:");
+    	lbType.setBounds(50, 130, 125, 20);
+    	usersInternalFrame.add(lbType);
+    	
+    	cmbType = new JComboBox<>(UserType);
+    	cmbType.setBounds(50, 150, 125, 20);
+    	usersInternalFrame.add(cmbType);
+    	////Registering Panel Fields declarations
+    	
+    	
+    	//Register panel saving
+    	btnSaveUsers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				usersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSaveUsers.setBounds(115, 200, 95, 20); 	
+    	btnSaveUsers.setFocusPainted(false);
+    	btnSaveUsers.setContentAreaFilled(false);
+    	usersInternalFrame.add(btnSaveUsers);
+    	
+    	//Register panel exiting
+    	btnExitUsers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				usersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitUsers.setBounds(20, 200, 90, 20); 
+    	btnExitUsers.setFocusPainted(false);
+    	btnExitUsers.setContentAreaFilled(false);
+    	usersInternalFrame.add(btnExitUsers);
+		
+    	usersInternalFrame.setVisible(false);
+	
+	}
+	
+	public void CreateComponentTeachersInternalFrame() {
+		
+		teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
+		teachersInternalFrame.setLayout(null);
+		teachersInternalFrame.setBounds(200, 80, 210, 280);
+		teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSaveTeachers = new JButton("Salvar");
+		JButton btnExitTeachers = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		JPanel regTeacher;
+		JLabel lbTeacherName;
+		JTextField txfTeachername; 
+		JLabel lbTeacherCode;
+		JTextField txfTeacherCOde;
+		JLabel lbTeacherGraduation;
+		JTextField txfTeacherGraduation;
+		JButton btnTeacherRegister;
+		JButton btnTeacherEdit;
+		JButton btnTeacherWindowExit;		
+		
+    	lbTeacherCode= new JLabel();
+    	lbTeacherCode.setText("Codigo:");
+    	lbTeacherCode.setBounds(40, 40, 125, 20);
+    	teachersInternalFrame.add(lbTeacherCode);
+    	
+    	txfTeacherGraduation = new JTextField();
+    	txfTeacherGraduation.setBounds(40, 60, 125, 20);
+    	teachersInternalFrame.add(txfTeacherGraduation);
+    	
+    	lbTeacherName = new JLabel();
+    	lbTeacherName.setText("Nome:");
+    	teachersInternalFrame.add(lbTeacherName);
+    	//Registering Panel Fields declarations
+    	
+    	
+    	//Register panel saving
+    	btnSaveTeachers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				teachersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSaveTeachers.setBounds(93, 230, 95, 20);  	
+    	btnSaveTeachers.setFocusPainted(false);
+    	btnSaveTeachers.setContentAreaFilled(false);
+    	teachersInternalFrame.add(btnSaveTeachers);
+    	
+    	//Register panel exiting
+    	btnExitTeachers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				teachersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitTeachers.setBounds(23, 230, 60, 20); 
+    	btnExitTeachers.setFocusPainted(false);
+    	btnExitTeachers.setContentAreaFilled(false);
+    	teachersInternalFrame.add(btnExitTeachers);
+		
+    	teachersInternalFrame.setVisible(false);
+	
+	}
+	
+	public void CreateStudentsTable(){
+		
+		//Declaring Table Model
+		DefaultTableModel studentTableModel = new DefaultTableModel() {
+			
+			String[] estudante = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+					  "Celular","CEP","Número", "Endereço", "bairro", "Cidade","Estado","Complemento",
+					  "Observação"};
+			
+	        public int getColumnCount() { 
+	            return estudante.length; 
+	        } 
+	        
+	 		@Override
+			public String getColumnName(int index) {
+			    return estudante[index];
+			}
+			
+		};
+		
+		//Declaring Table and Scroll pane
+		JTable studentTable;
+		JScrollPane studentScrollPane;
+		
+		//Table Configuration
+		studentTable = new JTable(studentTableModel);	    		    
+		studentTable.setBounds(1, 1, 539, 399);
+		studentTable.setEnabled(false);
+		
+		//Scroll Pane Configuration
+		studentScrollPane = new JScrollPane(studentTable);
+		studentScrollPane.setBounds(50, 100, 1300, 600);	
+		
+	    studentsPanel.add(studentScrollPane);
+	    
+	    studentTable.setVisible(true);
+	    
+	}
+
+	public void CreateUsersTable(){
+		
+		//Declaring Table Model
+		DefaultTableModel usersTableModel = new DefaultTableModel() {
+			
+			String[] usuario = {"UsuÃ¡rio", "Senha", "Perfil"};
+			
+	        @Override 
+	        public int getColumnCount() { 
+	            return usuario.length; 
+	        } 
+	        
+	 		@Override
+			public String getColumnName(int index) {
+			    return usuario[index];
+			}
+			
+		};
+		
+		//Declaring Table and Scroll pane
+		JTable usersTable;
+		JScrollPane usersScrollPane;
+		
+		//Table Configuration
+		usersTable = new JTable(usersTableModel);	    		    
+		usersTable.setBounds(1, 1, 539, 399);
+		usersTable.setEnabled(false);
+		
+		//Scroll Pane Configuration
+		usersScrollPane = new JScrollPane(usersTable);
+		usersScrollPane.setBounds(50, 100, 1300, 600);	
+		
+	    usersPanel.add(usersScrollPane);
+	    
+	    usersTable.setVisible(true);
+	    
+	}
+
+	public void CreateCitiesTable(){
+		
+		//Declaring Table Model
+		DefaultTableModel citiesTableModel = new DefaultTableModel() {
+			
+			String[] cidade = {"Cidade", "Pais", "Estado"};
+			
+			public int getColumnCount() { 
+			
+				return cidade.length; 
+				
+			} 
+			
+			@Override
+			public String getColumnName(int index) {
+			
+				return cidade[index];
+				
+			}
+			
+		};
+		
+		//Declaring Table and Scroll pane
+		JTable citiesTable;
+		JScrollPane citiesScrollPane;
+		
+		//Table Configuration
+		citiesTable = new JTable(citiesTableModel);	    		    
+		citiesTable.setBounds(1, 1, 539, 399);
+		citiesTable.setEnabled(false);
+		
+		//Scroll Pane Configuration
+		citiesScrollPane = new JScrollPane(citiesTable);
+		citiesScrollPane.setBounds(50, 100, 1300, 600);	
+		
+	    citiesPanel.add(citiesScrollPane);
+	    
+	    citiesTable.setVisible(true);
+	    
 	}
 	
 	public void ShowPanel(String PanelName){
@@ -1026,7 +1322,7 @@ public class MainWindowNew extends JFrame {
 		
 			case "students":
 				
-				studentsPanel.setVisible(true);
+				studentsPanel.setVisible(false);
 				
 			break;
 			
@@ -1075,5 +1371,4 @@ public class MainWindowNew extends JFrame {
 
 	}
 	
-
 }

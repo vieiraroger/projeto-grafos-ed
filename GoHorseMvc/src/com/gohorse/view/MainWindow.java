@@ -1705,10 +1705,4 @@ public class MainWindow extends JFrame {
         
 }
 	
-	public void SetAllComponentsVisibleFalse() {
-		
-
-		
-	}
-
 }
