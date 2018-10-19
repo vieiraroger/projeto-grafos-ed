@@ -1,5 +1,7 @@
 package com.gohorse.view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -15,6 +17,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -53,8 +56,14 @@ public class MainWindowNew extends JFrame {
 	private JMenu mCourses;
 	private JMenu mSubjects;
 	
-	// Paineis para registros
-	private JPanel studentsRegisterPanel;
+	// Internal Frames para registro
+	private JInternalFrame studentsInternalFrame;
+	private JInternalFrame citiesInternalFrame;
+	private JInternalFrame usersInternalFrame;
+	private JInternalFrame teachersInternalFrame;
+	private JInternalFrame phasesInternalFrame;
+	private JInternalFrame coursesInternalFrame;
+	private JInternalFrame subjectsInternalFrame;
 	
 	// Paineis para cada menu
 	private JPanel studentsPanel;
@@ -117,14 +126,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				studentsPanel.setVisible(true);
-				
-				citiesPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				teachersPanel.setVisible(false);
-				phasesPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				subjectsPanel.setVisible(false);
+				ShowPanel("students");
 				
 			}
 			
@@ -135,14 +137,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				citiesPanel.setVisible(true);
-				
-				studentsPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				teachersPanel.setVisible(false);
-				phasesPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				subjectsPanel.setVisible(false);
+				ShowPanel("cities");
 				
 			}
 			
@@ -153,14 +148,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					
-				coursesPanel.setVisible(true);
-				
-				studentsPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				teachersPanel.setVisible(false);
-				phasesPanel.setVisible(false);
-				citiesPanel.setVisible(false);
-				subjectsPanel.setVisible(false);
+				ShowPanel("courses");
 		
 			}
 				
@@ -171,14 +159,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				phasesPanel.setVisible(true);
-				
-				studentsPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				teachersPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				citiesPanel.setVisible(false);
-				subjectsPanel.setVisible(false);
+				ShowPanel("phases");
 					
 			}
 				
@@ -189,14 +170,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					
-				subjectsPanel.setVisible(true);
-				
-				studentsPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				teachersPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				citiesPanel.setVisible(false);
-				phasesPanel.setVisible(false);
+				ShowPanel("subjects");
 					
 			}
 				
@@ -207,14 +181,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					
-				teachersPanel.setVisible(true);
-				
-				studentsPanel.setVisible(false);
-				usersPanel.setVisible(false);
-				subjectsPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				citiesPanel.setVisible(false);
-				phasesPanel.setVisible(false);
+				ShowPanel("teachers");
 				
 			}
 				
@@ -225,14 +192,7 @@ public class MainWindowNew extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					usersPanel.setVisible(true);
-					
-					studentsPanel.setVisible(false);
-					teachersPanel.setVisible(false);
-					subjectsPanel.setVisible(false);
-					coursesPanel.setVisible(false);
-					citiesPanel.setVisible(false);
-					phasesPanel.setVisible(false);
+					ShowPanel("users");
 					
 				}
 			 });
@@ -249,12 +209,17 @@ public class MainWindowNew extends JFrame {
 	
 	public void FillComponentsInStudentsPanel() {	
 		
+		CreateComponentStudentsInternalFrame();
+		
 		//Students Panel Declaration
 		studentsPanel = new JPanel();
 		studentsPanel.setLayout(null);
 		studentsPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(studentsPanel);
-				
+		
+		//Adding Internal frame to Panel
+		studentsPanel.add(studentsInternalFrame);	
+		
 		//Main Panel Buttons
 		JButton btnRegisterStudents = new JButton("Cadastrar Aluno");
 		JButton btnEditStudents = new JButton("Editar Aluno");
@@ -265,10 +230,7 @@ public class MainWindowNew extends JFrame {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	
-	            	studentsRegisterPanel.setVisible(true);
-					btnRegisterStudents.setVisible(false);
-					btnEditStudents.setVisible(false);
-					btnDeleteStudents.setVisible(false);
+	            	studentsInternalFrame.setVisible(true);	   
 					
 	            }
 	        });
@@ -282,10 +244,7 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-            	studentsRegisterPanel.setVisible(true);
-				btnRegisterStudents.setVisible(false);
-				btnEditStudents.setVisible(false);
-				btnDeleteStudents.setVisible(false);
+
 				
             }
         });
@@ -299,25 +258,22 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
-            	studentsRegisterPanel.setVisible(true);
-				btnRegisterStudents.setVisible(false);
-				btnEditStudents.setVisible(false);
-				btnDeleteStudents.setVisible(false);
+            	
 				
             }
         });
         btnDeleteStudents.setBounds(430, 20, 140, 30); 	
         btnDeleteStudents.setFocusPainted(false);
         btnDeleteStudents.setContentAreaFilled(false);
-    	studentsPanel.add(btnDeleteStudents);
-    	    	
-  
-    	CreateComponentsStudentsRegisterPanel();
+        studentsPanel.add(btnDeleteStudents);
+    	
     	studentsPanel.setVisible(false);
     	
 	}
 
 	public void FillComponentsInCitiesPanel() {	
+		
+		CreateComponentCitiesInternalFrame();
 		
 		//Cities Panel Declaration
 		citiesPanel = new JPanel();
@@ -325,6 +281,10 @@ public class MainWindowNew extends JFrame {
 		citiesPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(citiesPanel);
 		
+		//Adding Internal frame to Panel
+		citiesPanel.add(citiesInternalFrame);	
+		
+		//Main Panel Buttons
 		JButton btnRegisterCities;
 		JButton btnEditCities;
 		JButton btnDeleteCities;
@@ -334,6 +294,8 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {					    	
+				
+				citiesInternalFrame.setVisible(true);
 				
 			}
 			
@@ -677,19 +639,18 @@ public class MainWindowNew extends JFrame {
     	
 	}
 	
-	public void CreateComponentsStudentsRegisterPanel() {
+	public void CreateComponentStudentsInternalFrame() {
 		
-		studentsRegisterPanel = new JPanel();
-		studentsRegisterPanel.setLayout(null);
-		studentsRegisterPanel.setBounds(0, 0, 600, 600);
-		studentsRegisterPanel.setBorder(BorderFactory.createTitledBorder("Aluno"));
-		getContentPane().add(studentsRegisterPanel);
-		studentsRegisterPanel.setVisible(false);
+		studentsInternalFrame = new JInternalFrame();
+		studentsInternalFrame.setLayout(null);
+		studentsInternalFrame.setBounds(0, 0, 600, 600);
+		studentsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
 		
 		//Registering Panel Buttons
 		JButton btnSaveStudents = new JButton("Salvar");
 		JButton btnExitStudents = new JButton("Sair");
 		
+		//Registering Panel Fields
 		String Sexo[] = { "Masculino", "Feminino" };
 		
 		JLabel lbStudent;
@@ -724,129 +685,129 @@ public class MainWindowNew extends JFrame {
 		lbStudent = new JLabel();
 		lbStudent.setText("Estudante:");
 		lbStudent.setBounds(40, 40, 125, 20);
-		studentsRegisterPanel.add(lbStudent);
+		studentsInternalFrame.add(lbStudent);
     	
     	txfStudent = new JTextField();
     	txfStudent.setBounds(40, 60, 125, 20);
-    	studentsRegisterPanel.add(txfStudent);
+    	studentsInternalFrame.add(txfStudent);
     	
     	lbSex = new JLabel();
     	lbSex.setText("Sexo:");
     	lbSex.setBounds(40, 85, 125, 20);
-    	studentsRegisterPanel.add(lbSex);
+    	studentsInternalFrame.add(lbSex);
 		
     	cmbSex = new JComboBox<>(Sexo);
     	cmbSex.setBounds(40, 105, 125, 20);
-    	studentsRegisterPanel.add(cmbSex);
+    	studentsInternalFrame.add(cmbSex);
     	
     	lbBirthdate = new JLabel();
     	lbBirthdate.setText("Data de nascimento:");
     	lbBirthdate.setBounds(40, 135, 125, 20);
-    	studentsRegisterPanel.add(lbBirthdate);
+    	studentsInternalFrame.add(lbBirthdate);
     	
     	txfBirthdate = new JTextField();
     	txfBirthdate.setBounds(40, 155, 125, 20);
-    	studentsRegisterPanel.add(txfBirthdate);   
+    	studentsInternalFrame.add(txfBirthdate);   
     	
     	lbAdress = new JLabel();
     	lbAdress.setText("Endereço:");
     	lbAdress.setBounds(270, 40, 125, 20);
-    	studentsRegisterPanel.add(lbAdress);
+    	studentsInternalFrame.add(lbAdress);
     	
     	txfAdress = new JTextField();
     	txfAdress.setBounds(270, 60, 270, 20);
-    	studentsRegisterPanel.add(txfAdress);
+    	studentsInternalFrame.add(txfAdress);
     	
     	lbAdressNum = new JLabel();
     	lbAdressNum.setText("Nº:");
     	lbAdressNum.setBounds(270, 85, 40, 20);
-    	studentsRegisterPanel.add(lbAdressNum);
+    	studentsInternalFrame.add(lbAdressNum);
     	
     	txfAdressNum = new JTextField();
     	txfAdressNum.setBounds(270, 105, 40, 20);
-    	studentsRegisterPanel.add(txfAdressNum);
+    	studentsInternalFrame.add(txfAdressNum);
     	
     	lbSuburb = new JLabel();
     	lbSuburb.setText("Bairro:");
     	lbSuburb.setBounds(320, 85, 125, 20);
-    	studentsRegisterPanel.add(lbSuburb);
+    	studentsInternalFrame.add(lbSuburb);
     	
     	txfSuburb = new JTextField();
     	txfSuburb.setBounds(320, 105, 220, 20);
-    	studentsRegisterPanel.add(txfSuburb);
+    	studentsInternalFrame.add(txfSuburb);
     	
     	lbComplement = new JLabel();
     	lbComplement.setText("Complemento:");
     	lbComplement.setBounds(270, 130, 125, 20);
-    	studentsRegisterPanel.add(lbComplement);
+    	studentsInternalFrame.add(lbComplement);
     	
     	txfComplement = new JTextField();
     	txfComplement.setBounds(270, 150, 270, 20);
-    	studentsRegisterPanel.add(txfComplement);
+    	studentsInternalFrame.add(txfComplement);
 
     	lbSCity = new JLabel();
     	lbSCity.setText("Cidade:");
     	lbSCity.setBounds(270, 175, 125, 20);
-    	studentsRegisterPanel.add(lbSCity);
+    	studentsInternalFrame.add(lbSCity);
     	
     	txfSCity = new JTextField();
     	txfSCity.setBounds(270, 195, 125, 20);
-    	studentsRegisterPanel.add(txfSCity);
+    	studentsInternalFrame.add(txfSCity);
     	
     	lbStuEstate= new JLabel();
     	lbStuEstate.setText("Estado:");
     	lbStuEstate.setBounds(405, 175, 125, 20);
-    	studentsRegisterPanel.add(lbStuEstate);
+    	studentsInternalFrame.add(lbStuEstate);
     	
     	txfStuEstate = new JTextField();
     	txfStuEstate.setBounds(405, 195, 135, 20);
-    	studentsRegisterPanel.add(txfStuEstate);
+    	studentsInternalFrame.add(txfStuEstate);
     	
     	lbCep= new JLabel();
     	lbCep.setText("CEP:");
     	lbCep.setBounds(270, 220, 125, 20);
-    	studentsRegisterPanel.add(lbCep);
+    	studentsInternalFrame.add(lbCep);
     	
     	txfCep = new JTextField();
     	txfCep.setBounds(270, 240, 125, 20);
-    	studentsRegisterPanel.add(txfCep);
+    	studentsInternalFrame.add(txfCep);
     	
     	lbPhone = new JLabel();
     	lbPhone.setText("Telefone:");
     	lbPhone.setBounds(40, 310, 125, 20);
-    	studentsRegisterPanel.add(lbPhone);
+    	studentsInternalFrame.add(lbPhone);
     	
     	txfPhone = new JTextField();
     	txfPhone.setBounds(40, 330, 125, 20);
-    	studentsRegisterPanel.add(txfPhone);   	
+    	studentsInternalFrame.add(txfPhone);   	
     	
     	lbCellphone = new JLabel();
     	lbCellphone.setText("Celular:");
     	lbCellphone.setBounds(175, 310, 125, 20);
-    	studentsRegisterPanel.add(lbCellphone);
+    	studentsInternalFrame.add(lbCellphone);
     	
     	txfCellphone = new JTextField();
     	txfCellphone.setBounds(175, 330, 125, 20);
-    	studentsRegisterPanel.add(txfCellphone);   
+    	studentsInternalFrame.add(txfCellphone);   
     	
     	lbEmail = new JLabel();
     	lbEmail.setText("Email:");
     	lbEmail.setBounds(310, 310, 125, 20);
-    	studentsRegisterPanel.add(lbEmail);
+    	studentsInternalFrame.add(lbEmail);
     	
     	txfEmail = new JTextField();
     	txfEmail.setBounds(310, 330, 230, 20);
-    	studentsRegisterPanel.add(txfEmail); 
+    	studentsInternalFrame.add(txfEmail); 
     	
     	lbNote = new JLabel();
     	lbNote.setText("Observações:");
     	lbNote.setBounds(40, 355, 125, 20);
-    	studentsRegisterPanel.add(lbNote);
+    	studentsInternalFrame.add(lbNote);
     	
     	txfNote = new JTextArea();
     	txfNote.setBounds(40, 375, 500, 70);
     	txfNote.setBorder(BorderFactory.createEtchedBorder());
-    	studentsRegisterPanel.add(txfNote);
+    	studentsInternalFrame.add(txfNote); 
     	
     	//Students register panel saving
     	btnSaveStudents.addActionListener(new ActionListener() {
@@ -855,17 +816,264 @@ public class MainWindowNew extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {;
 				
 				studentsPanel.setVisible(true);
-				studentsRegisterPanel.setVisible(false);
+				studentsInternalFrame.setVisible(false);
 				
 			}
 		});
     	btnSaveStudents.setBounds(350, 475, 150, 30);   	
     	btnSaveStudents.setFocusPainted(false);
     	btnSaveStudents.setContentAreaFilled(false);
-    	studentsRegisterPanel.add(btnSaveStudents);
-		
-    	studentsPanel.add(studentsRegisterPanel);
+    	studentsInternalFrame.add(btnSaveStudents);
     	
+    	btnExitStudents.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				studentsPanel.setVisible(true);
+				studentsInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitStudents.setBounds(100, 475, 150, 30);   	
+    	btnExitStudents.setFocusPainted(false);
+    	btnExitStudents.setContentAreaFilled(false);
+    	studentsInternalFrame.add(btnExitStudents);
+		
+    	studentsInternalFrame.setVisible(false);
+	
+	}
+
+	public void CreateComponentCitiesInternalFrame() {
+		
+		citiesInternalFrame = new JInternalFrame();
+		citiesInternalFrame.setLayout(null);
+		citiesInternalFrame.setBounds(200, 80, 210, 280);
+		citiesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons
+		JButton btnSaveCities = new JButton("Salvar");
+		JButton btnExitCities = new JButton("Sair");
+		
+		//Registering Panel Fields
+		JLabel lbCity;
+		JTextField txfCity; 
+		JLabel lbState;
+		JTextField txfState;
+		JLabel lbCountry;
+		JTextField txfCountry;
+		
+    	lbCity = new JLabel();
+    	lbCity.setText("Cidade:");
+    	lbCity.setBounds(40, 40, 125, 20);
+    	citiesInternalFrame.add(lbCity);
+    	
+    	txfCity = new JTextField();
+    	txfCity.setBounds(40, 60, 125, 20);
+    	citiesInternalFrame.add(txfCity);
+    	
+    	lbState = new JLabel();
+    	lbState.setText("Estado:");
+    	lbState.setBounds(40, 100, 125, 20);
+    	citiesInternalFrame.add(lbState);
+    	
+    	txfState = new JTextField();
+    	txfState.setBounds(40, 120, 125, 20);
+    	citiesInternalFrame.add(txfState);
+    	
+    	lbCountry = new JLabel();
+    	lbCountry.setText("Pais:");
+    	lbCountry.setBounds(40, 160, 125, 20);
+    	citiesInternalFrame.add(lbCountry);
+    	
+    	txfCountry = new JTextField();
+    	txfCountry.setBounds(40, 180, 125, 20);
+    	citiesInternalFrame.add(txfCountry);
+    	
+    	//Register panel saving
+    	btnSaveCities.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				citiesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSaveCities.setBounds(93, 230, 95, 20);    	
+    	btnSaveCities.setFocusPainted(false);
+    	btnSaveCities.setContentAreaFilled(false);
+    	citiesInternalFrame.add(btnSaveCities);
+    	
+    	//Exit register panel
+    	btnExitCities.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				citiesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitCities.setBounds(23, 230, 60, 20);
+    	btnExitCities.setFocusPainted(false);
+    	btnExitCities.setContentAreaFilled(false);
+    	citiesInternalFrame.add(btnExitCities);
+		
+    	citiesInternalFrame.setVisible(false);
+	
 	}
 	
+	public void ShowPanel(String PanelName){
+		
+		switch(PanelName) {
+		
+			case "students":
+				
+				studentsPanel.setVisible(true);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "cities":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(true);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "users":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(true);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "teachers":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(true);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "phases":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(true);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "courses":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(true);
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			case "subjects":
+				
+				studentsPanel.setVisible(false);
+				citiesPanel.setVisible(false);
+				usersPanel.setVisible(false);
+				teachersPanel.setVisible(false);
+				phasesPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				subjectsPanel.setVisible(true);
+				
+			break;
+			
+			default:
+				
+				 JOptionPane.showMessageDialog(studentsPanel, "Parametro errado, codificador.");
+				
+		}
+
+	}
+
+	public void HidePanel(String PanelName){
+		
+		switch(PanelName) {
+		
+			case "students":
+				
+				studentsPanel.setVisible(true);
+				
+			break;
+			
+			case "cities":
+				
+				citiesPanel.setVisible(false);
+				
+			break;
+			
+			case "users":
+				
+				usersPanel.setVisible(false);
+				
+			break;
+			
+			case "teachers":
+				
+				teachersPanel.setVisible(false);
+				
+			break;
+			
+			case "phases":
+				
+				phasesPanel.setVisible(false);
+				
+			break;
+			
+			case "courses":
+				
+				coursesPanel.setVisible(false);
+				
+			break;
+			
+			case "subjects":
+				
+				subjectsPanel.setVisible(false);
+				
+			break;
+			
+			default:
+				
+				 JOptionPane.showMessageDialog(studentsPanel, "Parametro errado, codificador.");
+				
+		}
+	
+
+	}
+	
+
 }
