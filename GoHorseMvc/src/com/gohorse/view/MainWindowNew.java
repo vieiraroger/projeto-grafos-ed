@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -53,7 +54,6 @@ public class MainWindowNew extends JFrame {
 	private JMenu mSubjects;
 	
 	// Paineis para registros
-	
 	private JPanel studentsRegisterPanel;
 	
 	// Paineis para cada menu
@@ -254,65 +254,69 @@ public class MainWindowNew extends JFrame {
 		studentsPanel.setLayout(null);
 		studentsPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(studentsPanel);
-		
-		JButton btnRegisterStudents = new JButton;
-		JButton btnEditStudents;
-		JButton btnDeleteStudent;
-		
-		//Students Registering
-		btnRegisterStudents = new JButton(new AbstractAction("Cadastrar Aluno") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {					    	
 				
-				studentsRegisterPanel.setVisible(true);
-				btnRegisterStudents.setVisible(true);
-				btnEditStudents.setVisible(false);
-				btnDeleteStudent.setVisible(false);
-				
-			}
-			
-		});
+		//Main Panel Buttons
+		JButton btnRegisterStudents = new JButton("Cadastrar Aluno");
+		JButton btnEditStudents = new JButton("Editar Aluno");
+		JButton btnDeleteStudents = new JButton("Deletar Aluno");
+		
+		//Students Registering 
+	    btnRegisterStudents.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	
+	            	studentsRegisterPanel.setVisible(true);
+					btnRegisterStudents.setVisible(false);
+					btnEditStudents.setVisible(false);
+					btnDeleteStudents.setVisible(false);
+					
+	            }
+	        });
 		btnRegisterStudents.setBounds(30, 20, 140, 30);   
 		btnRegisterStudents.setFocusPainted(false);
 		btnRegisterStudents.setContentAreaFilled(false);
 		studentsPanel.add(btnRegisterStudents);
 	
 		//Students Editing 
-    	btnEditStudents = new JButton(new AbstractAction("Editar Aluno") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
+        btnEditStudents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	studentsRegisterPanel.setVisible(true);
+				btnRegisterStudents.setVisible(false);
+				btnEditStudents.setVisible(false);
+				btnDeleteStudents.setVisible(false);
 				
-		    	
-			}
-			
-		});
+            }
+        });
     	btnEditStudents.setBounds(230, 20, 140, 30);    	
     	btnEditStudents.setFocusPainted(false);
     	btnEditStudents.setContentAreaFilled(false);
     	studentsPanel.add(btnEditStudents);
     	
 		//Students deleting
-    	btnDeleteStudent = new JButton(new AbstractAction("Deletar Aluno") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
+    	btnDeleteStudents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	studentsRegisterPanel.setVisible(true);
+				btnRegisterStudents.setVisible(false);
+				btnEditStudents.setVisible(false);
+				btnDeleteStudents.setVisible(false);
 				
-			}
-			
-		});
-    	btnDeleteStudent.setBounds(430, 20, 140, 30); 	
-    	btnDeleteStudent.setFocusPainted(false);
-    	btnDeleteStudent.setContentAreaFilled(false);
-    	studentsPanel.add(btnDeleteStudent);
-    
+            }
+        });
+        btnDeleteStudents.setBounds(430, 20, 140, 30); 	
+        btnDeleteStudents.setFocusPainted(false);
+        btnDeleteStudents.setContentAreaFilled(false);
+    	studentsPanel.add(btnDeleteStudents);
+    	    	
+  
     	CreateComponentsStudentsRegisterPanel();
     	studentsPanel.setVisible(false);
     	
 	}
-	
+
 	public void FillComponentsInCitiesPanel() {	
 		
 		//Cities Panel Declaration
@@ -682,6 +686,10 @@ public class MainWindowNew extends JFrame {
 		getContentPane().add(studentsRegisterPanel);
 		studentsRegisterPanel.setVisible(false);
 		
+		//Registering Panel Buttons
+		JButton btnSaveStudents = new JButton("Salvar");
+		JButton btnExitStudents = new JButton("Sair");
+		
 		String Sexo[] = { "Masculino", "Feminino" };
 		
 		JLabel lbStudent;
@@ -690,9 +698,6 @@ public class MainWindowNew extends JFrame {
 		JTextField txfBirthdate;
 		JLabel lbSex;
 		JComboBox<?> cmbSex;
-		JButton btnStudentRegister;
-		JButton btnStudentEdit;
-		JButton btnStudentWindowExit;
 		JLabel lbPhone;
 		JTextField txfPhone;
 		JLabel lbCellphone;
@@ -842,6 +847,22 @@ public class MainWindowNew extends JFrame {
     	txfNote.setBounds(40, 375, 500, 70);
     	txfNote.setBorder(BorderFactory.createEtchedBorder());
     	studentsRegisterPanel.add(txfNote);
+    	
+    	//Students register panel saving
+    	btnSaveStudents.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				studentsPanel.setVisible(true);
+				studentsRegisterPanel.setVisible(false);
+				
+			}
+		});
+    	btnSaveStudents.setBounds(350, 475, 150, 30);   	
+    	btnSaveStudents.setFocusPainted(false);
+    	btnSaveStudents.setContentAreaFilled(false);
+    	studentsRegisterPanel.add(btnSaveStudents);
 		
     	studentsPanel.add(studentsRegisterPanel);
     	
