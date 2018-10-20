@@ -3,10 +3,8 @@ package com.gohorse.view;
 import java.awt.BasicStroke;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -26,7 +24,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 public class MainWindowNew extends JFrame {
         
@@ -53,21 +50,19 @@ public class MainWindowNew extends JFrame {
     private JInternalFrame citiesInternalFrame;
     private JInternalFrame usersInternalFrame;
     
-    public MainWindowNew () {        
+    //JFrame constructor
+    
+    public MainWindowNew () {
     	
-        //Getting window sizes
-        if(isFullScreen == true) {
-        	
+        //Setting window size depending on IsFullscreen
+        if(isFullScreen == true) {        	
         	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
-        	setSize(ScreenSize.width, ScreenSize.height);
-        	
+        	setSize(ScreenSize.width, ScreenSize.height);        	
         }
                      
-        else {
-        	
+        else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
-        	setSize(ScreenSize.width, ScreenSize.height);
-        	
+        	setSize(ScreenSize.width, ScreenSize.height);        	
         }            
         
         //Setting up main JFrame            
@@ -75,7 +70,7 @@ public class MainWindowNew extends JFrame {
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);      
         
         //Creating visual components
         CreateTopBarComponents();
@@ -138,7 +133,7 @@ public class MainWindowNew extends JFrame {
          menu.add(mStudents);
          menu.add(mTeachers);
          menu.add(mSubjects);
-         //menu.add(mPhases);
+         menu.add(mPhases);
          menu.add(mCourses);
          menu.add(mCities);
          menu.add(mOptions);
@@ -254,7 +249,7 @@ public class MainWindowNew extends JFrame {
     
     //Panels - CREATE AND FILL
     
-    public void FillComponentsInStudentsPanel() {   
+    public void FillComponentsInStudentsPanel() {
         
         CreateComponentStudentsInternalFrame();
         
@@ -319,7 +314,7 @@ public class MainWindowNew extends JFrame {
         
     }
 
-    public void FillComponentsInTeachersPanel() {   
+    public void FillComponentsInTeachersPanel() {
         
         CreateComponentTeachersInternalFrame();
         
@@ -388,7 +383,7 @@ public class MainWindowNew extends JFrame {
         
     }
 
-    public void FillComponentsInSubjectsPanel() {   
+    public void FillComponentsInSubjectsPanel() {
         
         CreateComponentSubjectsInternalFrame();
         
@@ -457,7 +452,7 @@ public class MainWindowNew extends JFrame {
         
     }
     
-    public void FillComponentsInPhasesPanel() /*commented in menu bar, screen is useless*/ { 
+    public void FillComponentsInPhasesPanel(){ 
         
         CreateComponentPhasesInternalFrame();
         
@@ -524,7 +519,7 @@ public class MainWindowNew extends JFrame {
         
     }
    
-    public void FillComponentsInCoursesPanel() {    
+    public void FillComponentsInCoursesPanel(){
         
         CreateComponentCoursesInternalFrame();
         
@@ -593,7 +588,7 @@ public class MainWindowNew extends JFrame {
         
     }
 
-    public void FillComponentsInCitiesPanel() { 
+    public void FillComponentsInCitiesPanel(){ 
         
         CreateComponentCitiesInternalFrame();
         
@@ -662,7 +657,7 @@ public class MainWindowNew extends JFrame {
         
     }
 
-    public void FillComponentsInUsersPanel() {  
+    public void FillComponentsInUsersPanel(){  
         
         CreateComponentUsersInternalFrame();
         
@@ -733,7 +728,7 @@ public class MainWindowNew extends JFrame {
     
     //Internal Frames - CREATE AND FILL   
     
-    public void CreateComponentStudentsInternalFrame() {
+    public void CreateComponentStudentsInternalFrame(){
         
         studentsInternalFrame = new JInternalFrame("Cadastro de Aluno");
         studentsInternalFrame.setLayout(null);
@@ -940,7 +935,7 @@ public class MainWindowNew extends JFrame {
     
     }
 
-    public void CreateComponentTeachersInternalFrame() {
+    public void CreateComponentTeachersInternalFrame(){
         
         teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
         teachersInternalFrame.setLayout(null);
@@ -1024,7 +1019,7 @@ public class MainWindowNew extends JFrame {
     
     }
     
-    public void CreateComponentSubjectsInternalFrame() {
+    public void CreateComponentSubjectsInternalFrame(){
         
         subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
         subjectsInternalFrame.setLayout(null);
@@ -1120,7 +1115,7 @@ public class MainWindowNew extends JFrame {
     
     }
     
-    public void CreateComponentPhasesInternalFrame() /*parent commented, wont show, screen is useless*/ {
+    public void CreateComponentPhasesInternalFrame(){
         
         phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
         phasesInternalFrame.setLayout(null);
@@ -1189,7 +1184,7 @@ public class MainWindowNew extends JFrame {
     
     }
     
-    public void CreateComponentCoursesInternalFrame() {
+    public void CreateComponentCoursesInternalFrame(){
         
         coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
         coursesInternalFrame.setLayout(null);
@@ -1258,7 +1253,7 @@ public class MainWindowNew extends JFrame {
     
     }
     
-    public void CreateComponentCitiesInternalFrame() {
+    public void CreateComponentCitiesInternalFrame(){
         
         citiesInternalFrame = new JInternalFrame("Cadastro de Cidade");
         citiesInternalFrame.setLayout(null);
@@ -1340,7 +1335,7 @@ public class MainWindowNew extends JFrame {
     
     }
 
-    public void CreateComponentUsersInternalFrame() {
+    public void CreateComponentUsersInternalFrame(){
         
         usersInternalFrame = new JInternalFrame("Cadastro de Usuário");
         usersInternalFrame.setLayout(null);
@@ -1546,8 +1541,10 @@ public class MainWindowNew extends JFrame {
         
     }
 
-    public void CreatePhasesTable()/*not implemented, two columns with numbers, useless*/{
-        
+    public void CreatePhasesTable(){
+       
+    	//useless, wont implement
+    	
     }
     
     public void CreateCourseTable(){
@@ -1671,7 +1668,7 @@ public class MainWindowNew extends JFrame {
         
     }
     
-    //Configuration Screen
+    //Configuration Internal Frame - CREATE AND FILL
     
     public void CreateConfigInternalFrame() {
     	  	
@@ -1696,15 +1693,16 @@ public class MainWindowNew extends JFrame {
         isFullScreenOnOff = new JCheckBox("Fullscreen", isFullScreen);
         isFullScreenOnOff.setBounds(20, 50, 20, 20);
         configInternalFrame.add(isFullScreenOnOff);
+        //Configuration field declarations
         
         //Save changes button - if statements verify JCheckbox and isFullScreen status - display confirm box if it will change screen size
         btnSaveConfig.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent arg0) {;
-                 
+                                         
             	if(isFullScreenOnOff.isSelected() == true && isFullScreen == true) {
-            		
+            		            		
             		configInternalFrame.setVisible(false);
             		
             	}
@@ -1712,33 +1710,32 @@ public class MainWindowNew extends JFrame {
             	else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
             		
             		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
-            		if (DialogResult == JOptionPane.YES_OPTION) {
+            		if (DialogResult == JOptionPane.YES_OPTION) {      
             			
             			isFullScreen = true;
-                		ResizeWindow();
-            			
+                		ResizeWindow();         
+                		
             		}
             		            		
             		
             	}
-            	else if(isFullScreenOnOff.isSelected() == false && isFullScreen == false) {
+            	else if(isFullScreenOnOff.isSelected() == false && isFullScreen == false) {   
             		
-            		configInternalFrame.setVisible(false);
+            		configInternalFrame.setVisible(false); 
             		
             	}
-            	else {
+            	else {      
             		
             		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
-            		if (DialogResult == JOptionPane.YES_OPTION) {
+            		if (DialogResult == JOptionPane.YES_OPTION) {          
             			
-            			isFullScreen = true;
-                		ResizeWindow();
-            			
-            		}
+            			isFullScreen = false;            		
+                		ResizeWindow();            	
+                		
+            		}           		
             		
-            	}
-            		
-                	
+            	}            		            	
+            	
             }
         });
         btnSaveConfig.setBounds(93, 150, 95, 20);       
@@ -1752,6 +1749,7 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
+            	isFullScreenOnOff.setSelected(isFullScreen);
             	configInternalFrame.setVisible(false);
                 
             }
