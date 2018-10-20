@@ -1,12 +1,16 @@
 package com.gohorse.view;
 
 import java.awt.BasicStroke;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -23,9 +27,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
 public class MainWindowNew extends JFrame {
         
+    // Saving screen size in variable
+    Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();     
+    
     // Declaring Panels
+
     private JPanel studentsPanel;
     private JPanel teachersPanel;
     private JPanel subjectsPanel;
@@ -35,6 +44,7 @@ public class MainWindowNew extends JFrame {
     private JPanel usersPanel;
 
     // Declaring internal frames
+    private JInternalFrame configInternalFrame;
     private JInternalFrame studentsInternalFrame;
     private JInternalFrame teachersInternalFrame;
     private JInternalFrame subjectsInternalFrame;
@@ -43,15 +53,25 @@ public class MainWindowNew extends JFrame {
     private JInternalFrame citiesInternalFrame;
     private JInternalFrame usersInternalFrame;
     
-    public MainWindowNew () {
-  
-        setSize(1400, 800);
+    public MainWindowNew (boolean FullScreen) {
+                	
+        //Getting window sizes
+        if(FullScreen == true)
+            ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());           
+        else
+            ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
+        
+        //Setting up main JFrame    
+        setSize(ScreenSize.width, ScreenSize.height);
         setTitle("Menu");
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        //Creating visual components
         CreateTopBarComponents();
+        CreateConfigInternalFrame();
         FillComponentsInStudentsPanel();
         FillComponentsInCitiesPanel();
         FillComponentsInUsersPanel();
@@ -65,7 +85,8 @@ public class MainWindowNew extends JFrame {
     //TESTING MAIN TODO REVERT MAIN TO LOGINWINDOW
     
     public static void main(String[] args) {
-        MainWindowNew mw = new MainWindowNew();
+    	
+        MainWindowNew mw = new MainWindowNew(false);
         mw.setVisible(true);
         
     }
@@ -92,6 +113,7 @@ public class MainWindowNew extends JFrame {
          JMenuItem smListCourses;
          JMenuItem smListSubjects;
          JMenuItem smSoftwareInfo;
+         JMenuItem smConfig;
 
          menu = new JMenuBar();
          setJMenuBar(menu);
@@ -103,7 +125,7 @@ public class MainWindowNew extends JFrame {
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
          mOptions   = new JMenu("Opções");
-         mUsers     = new JMenu("Usuarios");         
+         mUsers     = new JMenu("Usuários");         
     
          menu.add(mStudents);
          menu.add(mTeachers);
@@ -190,7 +212,7 @@ public class MainWindowNew extends JFrame {
                 }
              });
          
-         smSoftwareInfo = new JMenuItem(new AbstractAction("Info") {
+         smSoftwareInfo = new JMenuItem(new AbstractAction("Sobre") {
                 
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -200,6 +222,16 @@ public class MainWindowNew extends JFrame {
                 }
              });
          
+         smConfig = new JMenuItem(new AbstractAction("Configurações") {
+             
+             @Override
+             public void actionPerformed(ActionEvent e) {
+
+                 configInternalFrame.setVisible(true);
+                 
+             }
+          });
+         
          mStudents.add(smListStudents);
          mCities.add(smListCities);
          mCourses.add(smListCourses);
@@ -208,6 +240,7 @@ public class MainWindowNew extends JFrame {
          mTeachers.add(smListTeachers);
          mUsers.add(smListUsers);
          mOptions.add(smSoftwareInfo);
+         mOptions.add(smConfig);
          
     }
     
@@ -220,7 +253,7 @@ public class MainWindowNew extends JFrame {
         //Students Panel Declaration
         studentsPanel = new JPanel();
         studentsPanel.setLayout(null);
-        studentsPanel.setBounds(0, 0, 1400, 800);
+        studentsPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(studentsPanel);
         
         //Adding Internal frame and table to Panel (ORDER IS IMPORTANT)
@@ -285,7 +318,7 @@ public class MainWindowNew extends JFrame {
         //Teachers Panel Declaration
         teachersPanel = new JPanel();
         teachersPanel.setLayout(null);
-        teachersPanel.setBounds(0, 0, 1400, 800);
+        teachersPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(teachersPanel);
         
         //Adding Internal frame to Panel
@@ -354,7 +387,7 @@ public class MainWindowNew extends JFrame {
         //Subjects Panel Declaration
         subjectsPanel = new JPanel();
         subjectsPanel.setLayout(null);
-        subjectsPanel.setBounds(0, 0, 1400, 800);
+        subjectsPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(subjectsPanel);
         
         //Adding Internal frame to Panel
@@ -423,7 +456,7 @@ public class MainWindowNew extends JFrame {
         //Phases Panel Declaration
         phasesPanel = new JPanel();
         phasesPanel.setLayout(null);
-        phasesPanel.setBounds(0, 0, 1400, 800);
+        phasesPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(phasesPanel);
         
         //Adding Internal frame to Panel
@@ -490,7 +523,7 @@ public class MainWindowNew extends JFrame {
         //Courses Panel Declaration
         coursesPanel = new JPanel();
         coursesPanel.setLayout(null);
-        coursesPanel.setBounds(0, 0, 1400, 800);
+        coursesPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(coursesPanel);
         
         //Adding Internal frame to Panel
@@ -559,7 +592,7 @@ public class MainWindowNew extends JFrame {
         //Cities Panel Declaration
         citiesPanel = new JPanel();
         citiesPanel.setLayout(null);
-        citiesPanel.setBounds(0, 0, 1400, 800);
+        citiesPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(citiesPanel);
         
         //Adding Internal frame to Panel
@@ -628,7 +661,7 @@ public class MainWindowNew extends JFrame {
         //Users Panel Declaration
         usersPanel = new JPanel();
         usersPanel.setLayout(null);
-        usersPanel.setBounds(0, 0, 1400, 800);
+        usersPanel.setSize(ScreenSize.width, ScreenSize.height);
         getContentPane().add(usersPanel);
         
         //Adding Internal frame and Table to Panel
@@ -697,7 +730,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame = new JInternalFrame("Cadastro de Aluno");
         studentsInternalFrame.setLayout(null);
         studentsInternalFrame.setBounds(0, 0, 600, 600);
-        studentsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        studentsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveStudents = new JButton("Salvar");
@@ -763,7 +796,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame.add(txfBirthdate);   
         
         lbAdress = new JLabel();
-        lbAdress.setText("EndereÃ§o:");
+        lbAdress.setText("Endereço:");
         lbAdress.setBounds(270, 40, 125, 20);
         studentsInternalFrame.add(lbAdress);
         
@@ -853,7 +886,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame.add(txfEmail); 
         
         lbNote = new JLabel();
-        lbNote.setText("ObservaÃ§Ãµes:");
+        lbNote.setText("Observações:");
         lbNote.setBounds(40, 355, 125, 20);
         studentsInternalFrame.add(lbNote);
         
@@ -904,14 +937,14 @@ public class MainWindowNew extends JFrame {
         teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
         teachersInternalFrame.setLayout(null);
         teachersInternalFrame.setBounds(200, 80, 210, 280);
-        teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveTeachers = new JButton("Salvar");
         JButton btnExitTeachers = new JButton("Sair");
         
         //Registering Panel Fields declarations
-        String TeacherGraduationType[] = { "Graduacao", "Pos-Graducao","Mestrado","Doutorado"};
+        String TeacherGraduationType[] = { "Graduação", "Pos-Graduação","Mestrado","Doutorado"};
         JLabel lbTeacherName;
         JTextField txfTeacherName; 
         JLabel lbTeacherCode;
@@ -920,7 +953,7 @@ public class MainWindowNew extends JFrame {
         JComboBox<?> cbmTeacherGraduation;
         
         lbTeacherCode= new JLabel();
-        lbTeacherCode.setText("Codigo:");
+        lbTeacherCode.setText("Código:");
         lbTeacherCode.setBounds(40, 30, 125, 20);
         teachersInternalFrame.add(lbTeacherCode);
         
@@ -929,7 +962,7 @@ public class MainWindowNew extends JFrame {
         teachersInternalFrame.add(txfTeacherCode);
         
         lbTeacherGraduation= new JLabel();
-        lbTeacherGraduation.setText("Graduacao:");
+        lbTeacherGraduation.setText("Graduação");
         lbTeacherGraduation.setBounds(40, 120, 125, 20);
         teachersInternalFrame.add(lbTeacherGraduation);
         
@@ -988,7 +1021,7 @@ public class MainWindowNew extends JFrame {
         subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
         subjectsInternalFrame.setLayout(null);
         subjectsInternalFrame.setBounds(200, 80, 210, 310);
-        subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveSubjects = new JButton("Salvar");
@@ -1007,7 +1040,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfSubjectTeacherAmount;
         
         lbSubjectCode= new JLabel();
-        lbSubjectCode.setText("Codigo:");
+        lbSubjectCode.setText("Código:");
         lbSubjectCode.setBounds(40, 30, 125, 20);
         subjectsInternalFrame.add(lbSubjectCode);
         
@@ -1084,7 +1117,7 @@ public class MainWindowNew extends JFrame {
         phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
         phasesInternalFrame.setLayout(null);
         phasesInternalFrame.setBounds(200, 80, 210, 230);
-        phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSavePhases = new JButton("Salvar");
@@ -1097,7 +1130,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfPhaseCode;
         
         lbPhaseCode= new JLabel();
-        lbPhaseCode.setText("Codigo:");
+        lbPhaseCode.setText("Código:");
         lbPhaseCode.setBounds(40, 30, 125, 20);
         phasesInternalFrame.add(lbPhaseCode);
         
@@ -1153,7 +1186,7 @@ public class MainWindowNew extends JFrame {
         coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
         coursesInternalFrame.setLayout(null);
         coursesInternalFrame.setBounds(200, 80, 210, 230);
-        coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveCourses = new JButton("Salvar");
@@ -1166,7 +1199,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfCourseCode;
         
         lbCourseCode= new JLabel();
-        lbCourseCode.setText("Codigo:");
+        lbCourseCode.setText("Código:");
         lbCourseCode.setBounds(40, 30, 125, 20);
         coursesInternalFrame.add(lbCourseCode);
         
@@ -1222,7 +1255,7 @@ public class MainWindowNew extends JFrame {
         citiesInternalFrame = new JInternalFrame("Cadastro de Cidade");
         citiesInternalFrame.setLayout(null);
         citiesInternalFrame.setBounds(200, 80, 210, 310);
-        citiesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        citiesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveCities = new JButton("Salvar");
@@ -1255,7 +1288,7 @@ public class MainWindowNew extends JFrame {
         citiesInternalFrame.add(txfState);
         
         lbCountry = new JLabel();
-        lbCountry.setText("Pais:");
+        lbCountry.setText("País:");
         lbCountry.setBounds(40, 160, 125, 20);
         citiesInternalFrame.add(lbCountry);
         
@@ -1304,7 +1337,7 @@ public class MainWindowNew extends JFrame {
         usersInternalFrame = new JInternalFrame("Cadastro de Usuário");
         usersInternalFrame.setLayout(null);
         usersInternalFrame.setBounds(180, 150, 228, 290);
-        usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
         JButton btnSaveUsers = new JButton("Salvar");
@@ -1312,7 +1345,7 @@ public class MainWindowNew extends JFrame {
         
         //Registering Panel Fields declarations
         
-        String UserType[] = { "User", "Admin" };
+        String UserType[] = { "Usuário", "Administrador" };
         
         JLabel lbUser;
         JTextField txfUser;
@@ -1322,7 +1355,7 @@ public class MainWindowNew extends JFrame {
         JComboBox<?> cmbType;
                 
         lbUser = new JLabel();
-        lbUser.setText("UsuÃ¡rio:");
+        lbUser.setText("Usuário:");
         lbUser.setBounds(50, 40, 125, 20);
         usersInternalFrame.add(lbUser);
         
@@ -1391,8 +1424,8 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel studentTableModel = new DefaultTableModel() {
             
-            String[] studentColumns = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-                      "Celular","CEP","Número", "Endereço", "bairro", "Cidade","Estado","Complemento",
+            String[] studentColumns = {"Código","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+                      "Celular","CEP","Número", "Endereço", "Bairro", "Cidade","Estado","Complemento",
                       "Observação"};
             
             public int getColumnCount() { 
@@ -1404,6 +1437,7 @@ public class MainWindowNew extends JFrame {
                 return studentColumns[index];
             }
             
+            
         };
         
         //Declaring Table and Scroll pane
@@ -1411,14 +1445,15 @@ public class MainWindowNew extends JFrame {
         JScrollPane studentScrollPane;
         
         //Table Configuration
-        studentTable = new JTable(studentTableModel);                   
-        studentTable.setBounds(1, 1, 539, 399);
+        studentTable = new JTable(studentTableModel);    
         studentTable.setEnabled(false);
         
         //Scroll Pane Configuration
-        studentScrollPane = new JScrollPane(studentTable);
-        studentScrollPane.setBounds(50, 100, 1300, 600);    
-        
+        studentScrollPane = new JScrollPane(studentTable);        
+        studentScrollPane.setLocation(50, 100); 
+        studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
+               
         studentsPanel.add(studentScrollPane);
         
         studentTable.setVisible(true);
@@ -1428,7 +1463,7 @@ public class MainWindowNew extends JFrame {
     public void CreateTeacherTable(){
         
         //Declaring Table Model
-        DefaultTableModel TeacherTableModel = new DefaultTableModel() {
+        DefaultTableModel teacherTableModel = new DefaultTableModel() {
             
             String[] teacherColumns = {"Código", "Nome", "Graduação"};
             
@@ -1444,28 +1479,29 @@ public class MainWindowNew extends JFrame {
         };
         
         //Declaring Table and Scroll pane
-        JTable TeacherTable;
-        JScrollPane TeacherScrollPane;
+        JTable teacherTable;
+        JScrollPane teacherScrollPane;
         
         //Table Configuration
-        TeacherTable = new JTable(TeacherTableModel);                   
-        TeacherTable.setBounds(1, 1, 539, 399);
-        TeacherTable.setEnabled(false);
+        teacherTable = new JTable(teacherTableModel);                   
+        teacherTable.setEnabled(false);
         
         //Scroll Pane Configuration
-        TeacherScrollPane = new JScrollPane(TeacherTable);
-        TeacherScrollPane.setBounds(50, 100, 1300, 600);    
+        teacherScrollPane = new JScrollPane(teacherTable);
+        teacherScrollPane.setLocation(50, 100); 
+        teacherScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        teacherScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));    
         
-        teachersPanel.add(TeacherScrollPane);
+        teachersPanel.add(teacherScrollPane);
         
-        TeacherTable.setVisible(true);
+        teacherTable.setVisible(true);
         
     }
 
     public void CreateSubjectTable(){
         
         //Declaring Table Model
-        DefaultTableModel SubjectTableModel = new DefaultTableModel() {
+        DefaultTableModel subjectTableModel = new DefaultTableModel() {
             
             
             String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "Nº de Professores"};
@@ -1483,21 +1519,22 @@ public class MainWindowNew extends JFrame {
         };
         
         //Declaring Table and Scroll pane
-        JTable SubjectTable;
-        JScrollPane SubjectScrollPane;
+        JTable subjectTable;
+        JScrollPane subjectScrollPane;
         
         //Table Configuration
-        SubjectTable = new JTable(SubjectTableModel);                   
-        SubjectTable.setBounds(1, 1, 539, 399);
-        SubjectTable.setEnabled(false);
+        subjectTable = new JTable(subjectTableModel);                   
+        subjectTable.setEnabled(false);
                 
         //Scroll Pane Configuration
-        SubjectScrollPane = new JScrollPane(SubjectTable);
-        SubjectScrollPane.setBounds(50, 100, 1300, 600);    
+        subjectScrollPane = new JScrollPane(subjectTable);
+        subjectScrollPane.setLocation(50, 100); 
+        subjectScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        subjectScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
         
-        subjectsPanel.add(SubjectScrollPane);
+        subjectsPanel.add(subjectScrollPane);
               
-        SubjectTable.setVisible(true);
+        subjectTable.setVisible(true);
         
     }
 
@@ -1508,7 +1545,7 @@ public class MainWindowNew extends JFrame {
     public void CreateCourseTable(){
         
         //Declaring Table Model
-        DefaultTableModel CourseTableModel = new DefaultTableModel() {
+        DefaultTableModel courseTableModel = new DefaultTableModel() {
             
             
             String[] courseColumns = {"Código", "Nome"};
@@ -1526,21 +1563,22 @@ public class MainWindowNew extends JFrame {
         };
         
         //Declaring Table and Scroll pane
-        JTable CourseTable;
-        JScrollPane CourseScrollPane;
+        JTable courseTable;
+        JScrollPane courseScrollPane;
         
         //Table Configuration
-        CourseTable = new JTable(CourseTableModel);                   
-        CourseTable.setBounds(1, 1, 539, 399);
-        CourseTable.setEnabled(false);
+        courseTable = new JTable(courseTableModel);                   
+        courseTable.setEnabled(false);
                 
         //Scroll Pane Configuration
-        CourseScrollPane = new JScrollPane(CourseTable);
-        CourseScrollPane.setBounds(50, 100, 1300, 600);    
+        courseScrollPane = new JScrollPane(courseTable);
+        courseScrollPane.setLocation(50, 100); 
+        courseScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        courseScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
         
-        coursesPanel.add(CourseScrollPane);
+        coursesPanel.add(courseScrollPane);
               
-        CourseTable.setVisible(true);
+        courseTable.setVisible(true);
         
     } 
 
@@ -1549,7 +1587,7 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel citiesTableModel = new DefaultTableModel() {
             
-            String[] cidade = {"Cidade", "Pais", "Estado"};
+            String[] cidade = {"Cidade", "País", "Estado"};
             
             public int getColumnCount() { 
             
@@ -1572,25 +1610,26 @@ public class MainWindowNew extends JFrame {
         
         //Table Configuration
         citiesTable = new JTable(citiesTableModel);                 
-        citiesTable.setBounds(1, 1, 539, 399);
         citiesTable.setEnabled(false);
         
         //Scroll Pane Configuration
         citiesScrollPane = new JScrollPane(citiesTable);
-        citiesScrollPane.setBounds(50, 100, 1300, 600); 
+        citiesScrollPane.setLocation(50, 100); 
+        citiesScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        citiesScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
         
         citiesPanel.add(citiesScrollPane);
         
         citiesTable.setVisible(true);
         
     }
-     
+       
     public void CreateUsersTable(){
         
         //Declaring Table Model
         DefaultTableModel usersTableModel = new DefaultTableModel() {
             
-            String[] usuario = {"UsuÃ¡rio", "Senha", "Perfil"};
+            String[] usuario = {"Usuário", "Senha", "Perfil"};
             
             @Override 
             public int getColumnCount() { 
@@ -1610,20 +1649,104 @@ public class MainWindowNew extends JFrame {
         
         //Table Configuration
         usersTable = new JTable(usersTableModel);                   
-        usersTable.setBounds(1, 1, 539, 399);
         usersTable.setEnabled(false);
         
         //Scroll Pane Configuration
         usersScrollPane = new JScrollPane(usersTable);
-        usersScrollPane.setBounds(50, 100, 1300, 600);  
+        usersScrollPane.setLocation(50, 100); 
+        usersScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        usersScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
         
         usersPanel.add(usersScrollPane);
         
         usersTable.setVisible(true);
         
     }
+    
+    //Configuration Screen
+    
+    public void CreateConfigInternalFrame() {    	
+    	  	
+        configInternalFrame = new JInternalFrame("Configurações");
+        configInternalFrame.setLayout(null);
+        configInternalFrame.setBounds(200, 80, 210, 230);
+        configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+        getContentPane().add(configInternalFrame);
+    	
+        //Configuration button declarations
+        JButton btnSaveConfig = new JButton("Salvar");
+        JButton btnExitConfig = new JButton("Sair");
         
-    //Other Methods    
+        //Configuration field declarations
+        JCheckBox FullscreenOnOff;        
+        JLabel FullscreenLabel;
+        
+        FullscreenLabel = new JLabel("Fullscreen");
+        FullscreenLabel.setBounds(40, 50, 125, 20);
+        configInternalFrame.add(FullscreenLabel);
+        
+        FullscreenOnOff = new JCheckBox("fullscreen");
+        FullscreenOnOff.setBounds(20, 50, 20, 20);
+        configInternalFrame.add(FullscreenOnOff);
+        
+        //Save changes button
+        btnSaveConfig.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                 
+            	if(FullscreenOnOff.isSelected() == true ) {
+            		
+            		
+            		
+            	}
+            		                	
+            	else if(FullscreenOnOff.isSelected() == true) {
+            		            		
+            		dispose();
+            		MainWindowNew mw2 = new MainWindowNew(true);
+            		mw2.setVisible(true);
+            		
+            	}
+            	else if(FullscreenOnOff.isSelected() == false ) {
+            		
+            		
+            		
+            	}
+            	else {
+            		
+            		
+            		
+            	}
+            		
+                	
+            }
+        });
+        btnSaveConfig.setBounds(93, 150, 95, 20);       
+        btnSaveConfig.setFocusPainted(false);
+        btnSaveConfig.setContentAreaFilled(false);
+        configInternalFrame.add(btnSaveConfig);
+        
+        //Exit configuration menu button
+        btnExitConfig.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                
+            	configInternalFrame.setVisible(false);
+                
+            }
+        });
+        btnExitConfig.setBounds(23, 150, 60, 20);        
+        btnExitConfig.setFocusPainted(false);
+        btnExitConfig.setContentAreaFilled(false);
+        configInternalFrame.add(btnExitConfig);
+        
+        configInternalFrame.setVisible(false);
+        
+    }
+    
+    //Other Methods      
     
     public void ShowPanel(String PanelName){
         
@@ -1720,7 +1843,7 @@ public class MainWindowNew extends JFrame {
         }
 
     }
-
+   
     public void HidePanel(String PanelName){
         
         switch(PanelName) {
@@ -1774,6 +1897,39 @@ public class MainWindowNew extends JFrame {
         }
     
 
+    }
+    
+    public void Dispose() {
+    	
+    	MainWindowNew mw = new MainWindowNew();
+    	
+    	getContentPane();
+    	
+        //Getting window sizes
+        if(FullScreen == true)
+        	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());          	
+        else
+        	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
+        
+        //Setting up main JFrame    
+        setSize(ScreenSize.width, ScreenSize.height);
+        setTitle("Menu");
+        setLayout(null);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
+        //Creating visual components
+        CreateTopBarComponents();
+        CreateConfigInternalFrame();
+        FillComponentsInStudentsPanel();
+        FillComponentsInCitiesPanel();
+        FillComponentsInUsersPanel();
+        FillComponentsInTeachersPanel();
+        FillComponentsInPhasesPanel();
+        FillComponentsInCoursesPanel();
+        FillComponentsInSubjectsPanel();
+    	
     }
     
 }
