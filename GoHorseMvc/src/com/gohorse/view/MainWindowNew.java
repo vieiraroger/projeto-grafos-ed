@@ -31,10 +31,10 @@ import javax.swing.table.DefaultTableModel;
 public class MainWindowNew extends JFrame {
         
     // Saving screen size in variable
+	public static boolean isFullScreen;
     Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();     
     
     // Declaring Panels
-
     private JPanel studentsPanel;
     private JPanel teachersPanel;
     private JPanel subjectsPanel;
@@ -53,16 +53,24 @@ public class MainWindowNew extends JFrame {
     private JInternalFrame citiesInternalFrame;
     private JInternalFrame usersInternalFrame;
     
-    public MainWindowNew (boolean FullScreen) {
-                	
+    public MainWindowNew () {        
+    	
         //Getting window sizes
-        if(FullScreen == true)
-            ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());           
-        else
-            ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
+        if(isFullScreen == true) {
+        	
+        	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
+        	setSize(ScreenSize.width, ScreenSize.height);
+        	
+        }
+                     
+        else {
+        	
+        	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
+        	setSize(ScreenSize.width, ScreenSize.height);
+        	
+        }            
         
-        //Setting up main JFrame    
-        setSize(ScreenSize.width, ScreenSize.height);
+        //Setting up main JFrame            
         setTitle("Menu");
         setLayout(null);
         setResizable(false);
@@ -86,7 +94,7 @@ public class MainWindowNew extends JFrame {
     
     public static void main(String[] args) {
     	
-        MainWindowNew mw = new MainWindowNew(false);
+        MainWindowNew mw = new MainWindowNew();
         mw.setVisible(true);
         
     }
@@ -239,8 +247,8 @@ public class MainWindowNew extends JFrame {
          mSubjects.add(smListSubjects);
          mTeachers.add(smListTeachers);
          mUsers.add(smListUsers);
-         mOptions.add(smSoftwareInfo);
          mOptions.add(smConfig);
+         mOptions.add(smSoftwareInfo);
          
     }
     
@@ -1665,7 +1673,7 @@ public class MainWindowNew extends JFrame {
     
     //Configuration Screen
     
-    public void CreateConfigInternalFrame() {    	
+    public void CreateConfigInternalFrame() {
     	  	
         configInternalFrame = new JInternalFrame("Configurações");
         configInternalFrame.setLayout(null);
@@ -1678,44 +1686,55 @@ public class MainWindowNew extends JFrame {
         JButton btnExitConfig = new JButton("Sair");
         
         //Configuration field declarations
-        JCheckBox FullscreenOnOff;        
-        JLabel FullscreenLabel;
+        JCheckBox isFullScreenOnOff;        
+        JLabel isFullScreenLabel;
         
-        FullscreenLabel = new JLabel("Fullscreen");
-        FullscreenLabel.setBounds(40, 50, 125, 20);
-        configInternalFrame.add(FullscreenLabel);
+        isFullScreenLabel = new JLabel("FullScreen");
+        isFullScreenLabel.setBounds(40, 50, 125, 20);
+        configInternalFrame.add(isFullScreenLabel);
         
-        FullscreenOnOff = new JCheckBox("fullscreen");
-        FullscreenOnOff.setBounds(20, 50, 20, 20);
-        configInternalFrame.add(FullscreenOnOff);
+        isFullScreenOnOff = new JCheckBox("Fullscreen", isFullScreen);
+        isFullScreenOnOff.setBounds(20, 50, 20, 20);
+        configInternalFrame.add(isFullScreenOnOff);
         
-        //Save changes button
+        //Save changes button - if statements verify JCheckbox and isFullScreen status - display confirm box if it will change screen size
         btnSaveConfig.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                  
-            	if(FullscreenOnOff.isSelected() == true ) {
+            	if(isFullScreenOnOff.isSelected() == true && isFullScreen == true) {
             		
-            		
+            		configInternalFrame.setVisible(false);
             		
             	}
             		                	
-            	else if(FullscreenOnOff.isSelected() == true) {
+            	else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
+            		
+            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
+            		if (DialogResult == JOptionPane.YES_OPTION) {
+            			
+            			isFullScreen = true;
+                		ResizeWindow();
+            			
+            		}
             		            		
-            		dispose();
-            		MainWindowNew mw2 = new MainWindowNew(true);
-            		mw2.setVisible(true);
             		
             	}
-            	else if(FullscreenOnOff.isSelected() == false ) {
+            	else if(isFullScreenOnOff.isSelected() == false && isFullScreen == false) {
             		
-            		
+            		configInternalFrame.setVisible(false);
             		
             	}
             	else {
             		
-            		
+            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
+            		if (DialogResult == JOptionPane.YES_OPTION) {
+            			
+            			isFullScreen = true;
+                		ResizeWindow();
+            			
+            		}
             		
             	}
             		
@@ -1899,36 +1918,11 @@ public class MainWindowNew extends JFrame {
 
     }
     
-    public void Dispose() {
-    	
-    	MainWindowNew mw = new MainWindowNew();
-    	
-    	getContentPane();
-    	
-        //Getting window sizes
-        if(FullScreen == true)
-        	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());          	
-        else
-        	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
-        
-        //Setting up main JFrame    
-        setSize(ScreenSize.width, ScreenSize.height);
-        setTitle("Menu");
-        setLayout(null);
-        setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
-        //Creating visual components
-        CreateTopBarComponents();
-        CreateConfigInternalFrame();
-        FillComponentsInStudentsPanel();
-        FillComponentsInCitiesPanel();
-        FillComponentsInUsersPanel();
-        FillComponentsInTeachersPanel();
-        FillComponentsInPhasesPanel();
-        FillComponentsInCoursesPanel();
-        FillComponentsInSubjectsPanel();
+    public void ResizeWindow() {
+    	     	        
+        dispose();
+        MainWindowNew mw = new MainWindowNew();
+        mw.setVisible(true);
     	
     }
     
