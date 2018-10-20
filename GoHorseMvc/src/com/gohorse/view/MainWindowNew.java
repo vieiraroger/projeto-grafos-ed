@@ -478,11 +478,16 @@ public class MainWindowNew extends JFrame {
 
 	public void FillComponentsInPhasesPanel() {	
 		
+		CreateComponentPhasesInternalFrame();
+		
 		//Phases Panel Declaration
 		phasesPanel = new JPanel();
 		phasesPanel.setLayout(null);
 		phasesPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(phasesPanel);
+		
+		//Adding Internal frame to Panel
+		phasesPanel.add(phasesInternalFrame);
 		
 		JButton btnRegisterPhases;
 		JButton btnEditPhases;
@@ -539,11 +544,16 @@ public class MainWindowNew extends JFrame {
 	
 	public void FillComponentsInCoursesPanel() {	
 		
+		CreateComponentCoursesInternalFrame();
+		
 		//Courses Panel Declaration
 		coursesPanel = new JPanel();
 		coursesPanel.setLayout(null);
 		coursesPanel.setBounds(0, 0, 1200, 1200);
 		getContentPane().add(coursesPanel);
+		
+		//Adding Internal frame to Panel
+		coursesPanel.add(coursesInternalFrame);
 		
 		JButton btnRegisterCourses;
 		JButton btnEditCourses;
@@ -554,6 +564,8 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {					    	
+				
+				coursesInternalFrame.setVisible(true);
 				
 			}
 			
@@ -1116,11 +1128,12 @@ public class MainWindowNew extends JFrame {
 	}
 	
 	public void CreateComponentPhasesInternalFrame() {
-		phasesInternalFrame = new JInternalFrame("Cadastro de Disciplinas");
+		
+		phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
 		phasesInternalFrame.setLayout(null);
 		phasesInternalFrame.setBounds(200, 80, 210, 280);
 		phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
-		/*
+		
 		//Registering Panel Buttons declarations
 		JButton btnSavePhases = new JButton("Salvar");
 		JButton btnExitPhases = new JButton("Sair");
@@ -1180,7 +1193,76 @@ public class MainWindowNew extends JFrame {
     	phasesInternalFrame.add(btnExitPhases);
 		
     	phasesInternalFrame.setVisible(false);
-	*/
+	
+	}
+	
+	public void CreateComponentCoursesInternalFrame() {
+		
+		coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
+		coursesInternalFrame.setLayout(null);
+		coursesInternalFrame.setBounds(200, 80, 210, 280);
+		coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSaveCourses = new JButton("Salvar");
+		JButton btnExitCourses = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		JLabel lbCourseName;
+		JTextField txfCourseName; 
+		JLabel lbCourseCode;
+		JTextField txfCourseCode;
+		
+    	lbCourseCode= new JLabel();
+    	lbCourseCode.setText("Codigo:");
+    	lbCourseCode.setBounds(40, 40, 125, 20);
+    	coursesInternalFrame.add(lbCourseCode);
+    	
+    	txfCourseCode= new JTextField();
+    	txfCourseCode.setBounds(40, 60, 125, 20);
+    	coursesInternalFrame.add(txfCourseCode);
+    	
+    	lbCourseName= new JLabel();
+    	lbCourseName.setText("Nome:");
+    	lbCourseName.setBounds(40, 85, 125, 20);
+    	coursesInternalFrame.add(lbCourseName);
+    	
+    	txfCourseName= new JTextField();
+    	txfCourseName.setBounds(40, 105, 125, 20);
+    	coursesInternalFrame.add(txfCourseName); 		
+    	
+    	//Register panel saving
+    	btnSaveCourses.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+			coursesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSaveCourses.setBounds(93, 230, 95, 20);  	
+    	btnSaveCourses.setFocusPainted(false);
+    	btnSaveCourses.setContentAreaFilled(false);
+    	coursesInternalFrame.add(btnSaveCourses);
+    	
+    	//Register panel exiting
+    	btnExitCourses.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				coursesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitCourses.setBounds(23, 230, 60, 20); 
+    	btnExitCourses.setFocusPainted(false);
+    	btnExitCourses.setContentAreaFilled(false);
+    	coursesInternalFrame.add(btnExitCourses);
+		
+    	coursesInternalFrame.setVisible(false);
+	
 	}
 	
 	public void CreateStudentsTable(){
