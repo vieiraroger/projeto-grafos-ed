@@ -26,3 +26,8 @@ quantidade de disciplinas apresentados no RESUMO das Disciplinas
 
 - [ ] A quantidade de Professores presente no RESUMO da Operação deve ser igual
 a quantidade de professores apresentados no RESUMO dos Professores
+
+- [ ] número da graduacao invalida com a tabela
+
+- [ ] professores repetidos no mesmo dia da semana
+
