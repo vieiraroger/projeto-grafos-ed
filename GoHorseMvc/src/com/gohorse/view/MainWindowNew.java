@@ -437,7 +437,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-		btnRegisterTeachers.setBounds(30, 20, 140, 30);   
+		btnRegisterTeachers.setBounds(30, 20, 180, 30);   
 		btnRegisterTeachers.setFocusPainted(false);
 		btnRegisterTeachers.setContentAreaFilled(false);
 		teachersPanel.add(btnRegisterTeachers);
@@ -452,7 +452,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnEditTeachers.setBounds(230, 20, 140, 30);    	
+    	btnEditTeachers.setBounds(230, 20, 180, 30);    	
     	btnEditTeachers.setFocusPainted(false);
     	btnEditTeachers.setContentAreaFilled(false);
     	teachersPanel.add(btnEditTeachers);
@@ -467,7 +467,7 @@ public class MainWindowNew extends JFrame {
 			}
 			
 		});
-    	btnDeleteTeachers.setBounds(430, 20, 140, 30); 	
+    	btnDeleteTeachers.setBounds(430, 20, 180, 30); 	
     	btnDeleteTeachers.setFocusPainted(false);
     	btnDeleteTeachers.setContentAreaFilled(false);
     	teachersPanel.add(btnDeleteTeachers);
@@ -494,6 +494,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {					    	
 				
+				phasesInternalFrame.setVisible(true);
 			}
 			
 		});
@@ -1042,29 +1043,41 @@ public class MainWindowNew extends JFrame {
 		JButton btnExitTeachers = new JButton("Sair");
 		
 		//Registering Panel Fields declarations
-		JPanel regTeacher;
+		String TeacherGraduationType[] = { "Graduacao", "Pos-Graducao","Mestrado","Doutorado"};
 		JLabel lbTeacherName;
-		JTextField txfTeachername; 
+		JTextField txfTeacherName; 
 		JLabel lbTeacherCode;
-		JTextField txfTeacherCOde;
+		JTextField txfTeacherCode;
 		JLabel lbTeacherGraduation;
-		JTextField txfTeacherGraduation;
-		JButton btnTeacherRegister;
-		JButton btnTeacherEdit;
-		JButton btnTeacherWindowExit;		
+		JComboBox<?> cbmTeacherGraduation;
 		
     	lbTeacherCode= new JLabel();
     	lbTeacherCode.setText("Codigo:");
     	lbTeacherCode.setBounds(40, 40, 125, 20);
     	teachersInternalFrame.add(lbTeacherCode);
     	
-    	txfTeacherGraduation = new JTextField();
-    	txfTeacherGraduation.setBounds(40, 60, 125, 20);
-    	teachersInternalFrame.add(txfTeacherGraduation);
+    	txfTeacherCode= new JTextField();
+    	txfTeacherCode.setBounds(40, 60, 125, 20);
+    	teachersInternalFrame.add(txfTeacherCode);
     	
-    	lbTeacherName = new JLabel();
+    	lbTeacherGraduation= new JLabel();
+    	lbTeacherGraduation.setText("Graduacao:");
+    	lbTeacherGraduation.setBounds(40, 130, 125, 20);
+    	teachersInternalFrame.add(lbTeacherGraduation);
+    	
+    	cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
+    	cbmTeacherGraduation.setBounds(40, 150, 125, 20);
+    	teachersInternalFrame.add(cbmTeacherGraduation);
+    	
+    	lbTeacherName= new JLabel();
     	lbTeacherName.setText("Nome:");
+    	lbTeacherName.setBounds(40, 85, 125, 20);
     	teachersInternalFrame.add(lbTeacherName);
+    	
+    	txfTeacherName= new JTextField();
+    	txfTeacherName.setBounds(40, 105, 125, 20);
+    	teachersInternalFrame.add(txfTeacherName);
+    	
     	//Registering Panel Fields declarations
     	
     	
@@ -1100,6 +1113,74 @@ public class MainWindowNew extends JFrame {
 		
     	teachersInternalFrame.setVisible(false);
 	
+	}
+	
+	public void CreateComponentPhasesInternalFrame() {
+		phasesInternalFrame = new JInternalFrame("Cadastro de Disciplinas");
+		phasesInternalFrame.setLayout(null);
+		phasesInternalFrame.setBounds(200, 80, 210, 280);
+		phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		/*
+		//Registering Panel Buttons declarations
+		JButton btnSavePhases = new JButton("Salvar");
+		JButton btnExitPhases = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		JLabel lbPhaseName;
+		JTextField txfPhaseName; 
+		JLabel lbPhaseCode;
+		JTextField txfPhaseCode;
+		
+    	lbPhaseCode= new JLabel();
+    	lbPhaseCode.setText("Codigo:");
+    	lbPhaseCode.setBounds(40, 40, 125, 20);
+    	phasesInternalFrame.add(lbPhaseCode);
+    	
+    	txfPhaseCode= new JTextField();
+    	txfPhaseCode.setBounds(40, 60, 125, 20);
+    	phasesInternalFrame.add(txfPhaseCode);
+    	
+    	lbPhaseName= new JLabel();
+    	lbPhaseName.setText("Nome:");
+    	lbPhaseName.setBounds(40, 85, 125, 20);
+    	phasesInternalFrame.add(lbPhaseName);
+    	
+    	txfPhaseName= new JTextField();
+    	txfPhaseName.setBounds(40, 105, 125, 20);
+    	phasesInternalFrame.add(txfPhaseName); 		
+    	
+    	//Register panel saving
+    	btnSavePhases.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+			phasesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSavePhases.setBounds(93, 230, 95, 20);  	
+    	btnSavePhases.setFocusPainted(false);
+    	btnSavePhases.setContentAreaFilled(false);
+    	phasesInternalFrame.add(btnSavePhases);
+    	
+    	//Register panel exiting
+    	btnExitPhases.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				phasesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitPhases.setBounds(23, 230, 60, 20); 
+    	btnExitPhases.setFocusPainted(false);
+    	btnExitPhases.setContentAreaFilled(false);
+    	phasesInternalFrame.add(btnExitPhases);
+		
+    	phasesInternalFrame.setVisible(false);
+	*/
 	}
 	
 	public void CreateStudentsTable(){
