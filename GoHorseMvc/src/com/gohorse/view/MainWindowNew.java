@@ -1,16 +1,8 @@
 package com.gohorse.view;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.AbstractAction;
@@ -31,31 +23,25 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.gohorse.database.model.Cities;
-import com.gohorse.database.model.Students;
-import com.gohorse.database.model.Teacher;
-import com.gohorse.database.model.Users;
-import com.gohorse.lib.FileManipulation;
-
 public class MainWindowNew extends JFrame {
 		
 	// Declaring Panels
 	private JPanel studentsPanel;
-	private JPanel citiesPanel;
-	private JPanel usersPanel;
 	private JPanel teachersPanel;
+	private JPanel subjectsPanel;
 	private JPanel phasesPanel;
 	private JPanel coursesPanel;
-	private JPanel subjectsPanel;
-	
+	private JPanel citiesPanel;
+	private JPanel usersPanel;
+
 	// Declaring internal frames
 	private JInternalFrame studentsInternalFrame;
-	private JInternalFrame citiesInternalFrame;
-	private JInternalFrame usersInternalFrame;
 	private JInternalFrame teachersInternalFrame;
+	private JInternalFrame subjectsInternalFrame;
 	private JInternalFrame phasesInternalFrame;
 	private JInternalFrame coursesInternalFrame;
-	private JInternalFrame subjectsInternalFrame;
+	private JInternalFrame citiesInternalFrame;
+	private JInternalFrame usersInternalFrame;
 	
 	public MainWindowNew () {
 
@@ -76,22 +62,19 @@ public class MainWindowNew extends JFrame {
         
         }
 	
+	//TESTING MAIN TODO REVERT MAIN TO LOGINWINDOW
+	
 	public static void main(String[] args) {
 		MainWindowNew mw = new MainWindowNew();
 		mw.setVisible(true);
 		
 	}
 	
+	//Top bar - CREATE AND FILL
+	
 	public void CreateTopBarComponents() {
 		
 		 //declaring top bar objects
-		 JMenuItem smListCities;
-		 JMenuItem smListStudents;
-		 JMenuItem smListUsers;
-		 JMenuItem smListPhases;
-		 JMenuItem smListTeachers;
-		 JMenuItem smListCourses;
-		 JMenuItem smListSubjects;
 		 JMenuBar menu;
 		 JMenu mStudents;
 		 JMenu mCities;
@@ -100,24 +83,35 @@ public class MainWindowNew extends JFrame {
 		 JMenu mPhases;
 		 JMenu mCourses;
 		 JMenu mSubjects;
+		 JMenu mOptions;
+		 JMenuItem smListCities;
+		 JMenuItem smListStudents;
+		 JMenuItem smListUsers;
+		 JMenuItem smListPhases;
+		 JMenuItem smListTeachers;
+		 JMenuItem smListCourses;
+		 JMenuItem smListSubjects;
+		 JMenuItem smSoftwareInfo;
 
 		 menu = new JMenuBar();
 		 setJMenuBar(menu);
 		 
 		 mStudents 	= new JMenu("Alunos");
-		 mCities 	= new JMenu("Cidades");
 		 mTeachers 	= new JMenu("Professores");
-		 mCourses	= new JMenu("Cursos");
-		 mPhases 	= new JMenu("Fases");
 		 mSubjects 	= new JMenu("Disciplinas");
+		 mPhases 	= new JMenu("Fases");
+		 mCourses	= new JMenu("Cursos");		 
+		 mCities 	= new JMenu("Cidades");
+		 mOptions	= new JMenu("Opções");
 		 mUsers		= new JMenu("Usuarios");
-		 
+
 		 menu.add(mStudents);
-		 menu.add(mCities);
 		 menu.add(mTeachers);
-		 menu.add(mCourses);
-		 menu.add(mPhases);
 		 menu.add(mSubjects);
+		 menu.add(mPhases);
+		 menu.add(mCourses);
+		 menu.add(mCities);
+		 menu.add(mOptions);
 		 menu.add(mUsers);
 		 
 		 smListStudents = new JMenuItem(new AbstractAction("Listar") {
@@ -196,6 +190,16 @@ public class MainWindowNew extends JFrame {
 				}
 			 });
 		 
+		 smSoftwareInfo = new JMenuItem(new AbstractAction("Info") {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					JOptionPane.showMessageDialog(null, "Criado por:\n\nBruno Firme\nRoger Vieira\nJackson Belloli\nRomulo Ramos\nGabriel Fernandes\nJunior Topanotti\nFelipe Alves\n\nUNESC - 2018");
+					
+				}
+			 });
+		 
 		 mStudents.add(smListStudents);
 		 mCities.add(smListCities);
 		 mCourses.add(smListCourses);
@@ -203,8 +207,11 @@ public class MainWindowNew extends JFrame {
 		 mSubjects.add(smListSubjects);
 		 mTeachers.add(smListTeachers);
 		 mUsers.add(smListUsers);
+		 mOptions.add(smSoftwareInfo);
 		 
 	}
+	
+	//Panels - CREATE AND FILL
 	
 	public void FillComponentsInStudentsPanel() {	
 		
@@ -268,6 +275,279 @@ public class MainWindowNew extends JFrame {
         studentsPanel.add(btnDeleteStudents);
     	
     	studentsPanel.setVisible(false);
+    	
+	}
+
+	public void FillComponentsInTeachersPanel() {	
+		
+		CreateComponentTeachersInternalFrame();
+		
+		//Teachers Panel Declaration
+		teachersPanel = new JPanel();
+		teachersPanel.setLayout(null);
+		teachersPanel.setBounds(0, 0, 1400, 800);
+		getContentPane().add(teachersPanel);
+		
+		//Adding Internal frame to Panel
+		teachersPanel.add(teachersInternalFrame);
+		CreateTeacherTable();
+		
+		//Main Panel Buttons
+		JButton btnRegisterTeachers;
+		JButton btnEditTeachers;
+		JButton btnDeleteTeachers;
+		
+		//Teachers Registering
+		btnRegisterTeachers = new JButton(new AbstractAction("Cadastrar Professores") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {					    	
+				
+				teachersInternalFrame.setVisible(true);
+				
+			}
+			
+		});
+		btnRegisterTeachers.setBounds(50, 30, 170, 40);     
+		btnRegisterTeachers.setFocusPainted(false);
+		btnRegisterTeachers.setContentAreaFilled(false);
+		teachersPanel.add(btnRegisterTeachers);
+	
+		//Teachers Editing 
+    	btnEditTeachers = new JButton(new AbstractAction("Editar Professores") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		    	
+			}
+			
+		});
+    	btnEditTeachers.setBounds(230, 30, 170, 40);    	
+    	btnEditTeachers.setFocusPainted(false);
+    	btnEditTeachers.setContentAreaFilled(false);
+    	teachersPanel.add(btnEditTeachers);
+    	
+		//Teachers deleting
+    	btnDeleteTeachers = new JButton(new AbstractAction("Deletar Professores") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	
+				
+			}
+			
+		});
+    	btnDeleteTeachers.setBounds(410, 30, 170, 40); 	
+    	btnDeleteTeachers.setFocusPainted(false);
+    	btnDeleteTeachers.setContentAreaFilled(false);
+    	teachersPanel.add(btnDeleteTeachers);
+    
+    	teachersPanel.setVisible(false);
+    	
+	}
+
+	public void FillComponentsInSubjectsPanel() {	
+		
+		CreateComponentSubjectsInternalFrame();
+		
+		//Subjects Panel Declaration
+		subjectsPanel = new JPanel();
+		subjectsPanel.setLayout(null);
+		subjectsPanel.setBounds(0, 0, 1400, 800);
+		getContentPane().add(subjectsPanel);
+		
+		//Adding Internal frame to Panel
+		subjectsPanel.add(subjectsInternalFrame);
+		CreateSubjectTable();
+		
+		//Main Panel Buttons
+		JButton btnRegisterSubjects;
+		JButton btnEditSubjects;
+		JButton btnDeleteSubjects;
+		
+		//Subjects Registering
+		btnRegisterSubjects = new JButton(new AbstractAction("Cadastrar Disciplina") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {					    	
+				
+				subjectsInternalFrame.setVisible(true);
+				
+			}
+			
+		});
+		btnRegisterSubjects.setBounds(50, 30, 150, 40);   
+		btnRegisterSubjects.setFocusPainted(false);
+		btnRegisterSubjects.setContentAreaFilled(false);
+		subjectsPanel.add(btnRegisterSubjects);
+	
+		//Subjects Editing 
+    	btnEditSubjects = new JButton(new AbstractAction("Editar Disciplina") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		    	
+			}
+			
+		});
+    	btnEditSubjects.setBounds(210, 30, 150, 40);     	
+    	btnEditSubjects.setFocusPainted(false);
+    	btnEditSubjects.setContentAreaFilled(false);
+    	subjectsPanel.add(btnEditSubjects);
+    	
+		//Subjects deleting
+    	btnDeleteSubjects = new JButton(new AbstractAction("Deletar Disciplina") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	
+				
+			}
+			
+		});
+    	btnDeleteSubjects.setBounds(370, 30, 150, 40); 	
+    	btnDeleteSubjects.setFocusPainted(false);
+    	btnDeleteSubjects.setContentAreaFilled(false);
+    	subjectsPanel.add(btnDeleteSubjects);
+    
+    	subjectsPanel.setVisible(false);
+    	
+	}
+	
+	public void FillComponentsInPhasesPanel() {	
+		
+		CreateComponentPhasesInternalFrame();
+		
+		//Phases Panel Declaration
+		phasesPanel = new JPanel();
+		phasesPanel.setLayout(null);
+		phasesPanel.setBounds(0, 0, 1400, 800);
+		getContentPane().add(phasesPanel);
+		
+		//Adding Internal frame to Panel
+		phasesPanel.add(phasesInternalFrame);
+		
+		//Main Panel Buttons
+		JButton btnRegisterPhases;
+		JButton btnEditPhases;
+		JButton btnDeletePhases;
+		
+		//Phases Registering
+		btnRegisterPhases = new JButton(new AbstractAction("Cadastrar Fases") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {					    	
+				
+				phasesInternalFrame.setVisible(true);
+			}
+			
+		});
+		btnRegisterPhases.setBounds(50, 30, 150, 40);   
+		btnRegisterPhases.setFocusPainted(false);
+		btnRegisterPhases.setContentAreaFilled(false);
+		phasesPanel.add(btnRegisterPhases);
+	
+		//Phases Editing 
+    	btnEditPhases = new JButton(new AbstractAction("Editar Fases") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		    	
+			}
+			
+		});
+    	btnEditPhases.setBounds(210, 30, 150, 40);     	
+    	btnEditPhases.setFocusPainted(false);
+    	btnEditPhases.setContentAreaFilled(false);
+    	phasesPanel.add(btnEditPhases);
+    	
+		//Phases deleting
+    	btnDeletePhases = new JButton(new AbstractAction("Deletar Fases") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	
+				
+			}
+			
+		});
+    	btnDeletePhases.setBounds(370, 30, 150, 40); 	
+    	btnDeletePhases.setFocusPainted(false);
+    	btnDeletePhases.setContentAreaFilled(false);
+    	phasesPanel.add(btnDeletePhases);
+    
+    	phasesPanel.setVisible(false);
+    	
+	}
+	
+	public void FillComponentsInCoursesPanel() {	
+		
+		CreateComponentCoursesInternalFrame();
+		
+		//Courses Panel Declaration
+		coursesPanel = new JPanel();
+		coursesPanel.setLayout(null);
+		coursesPanel.setBounds(0, 0, 1400, 800);
+		getContentPane().add(coursesPanel);
+		
+		//Adding Internal frame to Panel
+		coursesPanel.add(coursesInternalFrame);
+		
+		//Main Panel Buttons
+		JButton btnRegisterCourses;
+		JButton btnEditCourses;
+		JButton btnDeleteCourses;
+		
+		//Courses Registering
+		btnRegisterCourses = new JButton(new AbstractAction("Cadastrar Curso") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {					    	
+				
+				coursesInternalFrame.setVisible(true);
+				
+			}
+			
+		});
+		btnRegisterCourses.setBounds(50, 30, 150, 40);   
+		btnRegisterCourses.setFocusPainted(false);
+		btnRegisterCourses.setContentAreaFilled(false);
+		coursesPanel.add(btnRegisterCourses);
+	
+		//Courses Editing 
+    	btnEditCourses = new JButton(new AbstractAction("Editar Curso") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+		    	
+			}
+			
+		});
+    	btnEditCourses.setBounds(210, 30, 150, 40);     	
+    	btnEditCourses.setFocusPainted(false);
+    	btnEditCourses.setContentAreaFilled(false);
+    	coursesPanel.add(btnEditCourses);
+    	
+		//Courses deleting
+    	btnDeleteCourses = new JButton(new AbstractAction("Deletar Curso") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	
+				
+			}
+			
+		});
+    	btnDeleteCourses.setBounds(370, 30, 150, 40); 	
+    	btnDeleteCourses.setFocusPainted(false);
+    	btnDeleteCourses.setContentAreaFilled(false);
+    	coursesPanel.add(btnDeleteCourses);
+    
+    	coursesPanel.setVisible(false);
     	
 	}
 
@@ -409,265 +689,7 @@ public class MainWindowNew extends JFrame {
     	
 	}
 	
-	public void FillComponentsInTeachersPanel() {	
-		
-		CreateComponentTeachersInternalFrame();
-		
-		//Teachers Panel Declaration
-		teachersPanel = new JPanel();
-		teachersPanel.setLayout(null);
-		teachersPanel.setBounds(0, 0, 1200, 1200);
-		getContentPane().add(teachersPanel);
-		
-		//Adding Internal frame to Panel
-		teachersPanel.add(teachersInternalFrame);
-		
-		JButton btnRegisterTeachers;
-		JButton btnEditTeachers;
-		JButton btnDeleteTeachers;
-		
-		//Teachers Registering
-		btnRegisterTeachers = new JButton(new AbstractAction("Cadastrar Professores") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {					    	
-				
-				teachersInternalFrame.setVisible(true);
-				
-			}
-			
-		});
-		btnRegisterTeachers.setBounds(30, 20, 180, 30);   
-		btnRegisterTeachers.setFocusPainted(false);
-		btnRegisterTeachers.setContentAreaFilled(false);
-		teachersPanel.add(btnRegisterTeachers);
-	
-		//Teachers Editing 
-    	btnEditTeachers = new JButton(new AbstractAction("Editar Professores") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-		    	
-			}
-			
-		});
-    	btnEditTeachers.setBounds(230, 20, 180, 30);    	
-    	btnEditTeachers.setFocusPainted(false);
-    	btnEditTeachers.setContentAreaFilled(false);
-    	teachersPanel.add(btnEditTeachers);
-    	
-		//Teachers deleting
-    	btnDeleteTeachers = new JButton(new AbstractAction("Deletar Professores") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
-				
-			}
-			
-		});
-    	btnDeleteTeachers.setBounds(430, 20, 180, 30); 	
-    	btnDeleteTeachers.setFocusPainted(false);
-    	btnDeleteTeachers.setContentAreaFilled(false);
-    	teachersPanel.add(btnDeleteTeachers);
-    
-    	teachersPanel.setVisible(false);
-    	
-	}
-
-	public void FillComponentsInPhasesPanel() {	
-		
-		CreateComponentPhasesInternalFrame();
-		
-		//Phases Panel Declaration
-		phasesPanel = new JPanel();
-		phasesPanel.setLayout(null);
-		phasesPanel.setBounds(0, 0, 1200, 1200);
-		getContentPane().add(phasesPanel);
-		
-		//Adding Internal frame to Panel
-		phasesPanel.add(phasesInternalFrame);
-		
-		JButton btnRegisterPhases;
-		JButton btnEditPhases;
-		JButton btnDeletePhases;
-		
-		//Phases Registering
-		btnRegisterPhases = new JButton(new AbstractAction("Cadastrar Fases") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {					    	
-				
-				phasesInternalFrame.setVisible(true);
-			}
-			
-		});
-		btnRegisterPhases.setBounds(30, 20, 140, 30);   
-		btnRegisterPhases.setFocusPainted(false);
-		btnRegisterPhases.setContentAreaFilled(false);
-		phasesPanel.add(btnRegisterPhases);
-	
-		//Phases Editing 
-    	btnEditPhases = new JButton(new AbstractAction("Editar Fases") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-		    	
-			}
-			
-		});
-    	btnEditPhases.setBounds(230, 20, 140, 30);    	
-    	btnEditPhases.setFocusPainted(false);
-    	btnEditPhases.setContentAreaFilled(false);
-    	phasesPanel.add(btnEditPhases);
-    	
-		//Phases deleting
-    	btnDeletePhases = new JButton(new AbstractAction("Deletar Fases") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
-				
-			}
-			
-		});
-    	btnDeletePhases.setBounds(430, 20, 140, 30); 	
-    	btnDeletePhases.setFocusPainted(false);
-    	btnDeletePhases.setContentAreaFilled(false);
-    	phasesPanel.add(btnDeletePhases);
-    
-    	phasesPanel.setVisible(false);
-    	
-	}
-	
-	public void FillComponentsInCoursesPanel() {	
-		
-		CreateComponentCoursesInternalFrame();
-		
-		//Courses Panel Declaration
-		coursesPanel = new JPanel();
-		coursesPanel.setLayout(null);
-		coursesPanel.setBounds(0, 0, 1200, 1200);
-		getContentPane().add(coursesPanel);
-		
-		//Adding Internal frame to Panel
-		coursesPanel.add(coursesInternalFrame);
-		
-		JButton btnRegisterCourses;
-		JButton btnEditCourses;
-		JButton btnDeleteCourses;
-		
-		//Courses Registering
-		btnRegisterCourses = new JButton(new AbstractAction("Cadastrar Curso") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {					    	
-				
-				coursesInternalFrame.setVisible(true);
-				
-			}
-			
-		});
-		btnRegisterCourses.setBounds(30, 20, 140, 30);   
-		btnRegisterCourses.setFocusPainted(false);
-		btnRegisterCourses.setContentAreaFilled(false);
-		coursesPanel.add(btnRegisterCourses);
-	
-		//Courses Editing 
-    	btnEditCourses = new JButton(new AbstractAction("Editar Curso") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-		    	
-			}
-			
-		});
-    	btnEditCourses.setBounds(230, 20, 140, 30);    	
-    	btnEditCourses.setFocusPainted(false);
-    	btnEditCourses.setContentAreaFilled(false);
-    	coursesPanel.add(btnEditCourses);
-    	
-		//Courses deleting
-    	btnDeleteCourses = new JButton(new AbstractAction("Deletar Curso") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
-				
-			}
-			
-		});
-    	btnDeleteCourses.setBounds(430, 20, 140, 30); 	
-    	btnDeleteCourses.setFocusPainted(false);
-    	btnDeleteCourses.setContentAreaFilled(false);
-    	coursesPanel.add(btnDeleteCourses);
-    
-    	coursesPanel.setVisible(false);
-    	
-	}
-
-	public void FillComponentsInSubjectsPanel() {	
-		
-		//Subjects Panel Declaration
-		subjectsPanel = new JPanel();
-		subjectsPanel.setLayout(null);
-		subjectsPanel.setBounds(0, 0, 1200, 1200);
-		getContentPane().add(subjectsPanel);
-		
-		JButton btnRegisterSubjects;
-		JButton btnEditSubjects;
-		JButton btnDeleteSubjects;
-		
-		//Subjects Registering
-		btnRegisterSubjects = new JButton(new AbstractAction("Cadastrar Materia") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {					    	
-				
-			}
-			
-		});
-		btnRegisterSubjects.setBounds(30, 20, 140, 30);   
-		btnRegisterSubjects.setFocusPainted(false);
-		btnRegisterSubjects.setContentAreaFilled(false);
-		subjectsPanel.add(btnRegisterSubjects);
-	
-		//Subjects Editing 
-    	btnEditSubjects = new JButton(new AbstractAction("Editar Materia") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-		    	
-			}
-			
-		});
-    	btnEditSubjects.setBounds(230, 20, 140, 30);    	
-    	btnEditSubjects.setFocusPainted(false);
-    	btnEditSubjects.setContentAreaFilled(false);
-    	subjectsPanel.add(btnEditSubjects);
-    	
-		//Subjects deleting
-    	btnDeleteSubjects = new JButton(new AbstractAction("Deletar Materia") {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-	
-				
-			}
-			
-		});
-    	btnDeleteSubjects.setBounds(430, 20, 140, 30); 	
-    	btnDeleteSubjects.setFocusPainted(false);
-    	btnDeleteSubjects.setContentAreaFilled(false);
-    	subjectsPanel.add(btnDeleteSubjects);
-    
-    	subjectsPanel.setVisible(false);
-    	
-	}
+	//Internal Frames - CREATE AND FILL
 	
 	public void CreateComponentStudentsInternalFrame() {
 		
@@ -749,7 +771,7 @@ public class MainWindowNew extends JFrame {
     	studentsInternalFrame.add(txfAdress);
     	
     	lbAdressNum = new JLabel();
-    	lbAdressNum.setText("NÂº:");
+    	lbAdressNum.setText("Nº:");
     	lbAdressNum.setBounds(270, 85, 40, 20);
     	studentsInternalFrame.add(lbAdressNum);
     	
@@ -876,6 +898,322 @@ public class MainWindowNew extends JFrame {
 	
 	}
 
+	public void CreateComponentTeachersInternalFrame() {
+		
+		teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
+		teachersInternalFrame.setLayout(null);
+		teachersInternalFrame.setBounds(200, 80, 210, 280);
+		teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSaveTeachers = new JButton("Salvar");
+		JButton btnExitTeachers = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		String TeacherGraduationType[] = { "Graduacao", "Pos-Graducao","Mestrado","Doutorado"};
+		JLabel lbTeacherName;
+		JTextField txfTeacherName; 
+		JLabel lbTeacherCode;
+		JTextField txfTeacherCode;
+		JLabel lbTeacherGraduation;
+		JComboBox<?> cbmTeacherGraduation;
+		
+    	lbTeacherCode= new JLabel();
+    	lbTeacherCode.setText("Codigo:");
+    	lbTeacherCode.setBounds(40, 30, 125, 20);
+    	teachersInternalFrame.add(lbTeacherCode);
+    	
+    	txfTeacherCode= new JTextField();
+    	txfTeacherCode.setBounds(40, 50, 125, 20);
+    	teachersInternalFrame.add(txfTeacherCode);
+    	
+    	lbTeacherGraduation= new JLabel();
+    	lbTeacherGraduation.setText("Graduacao:");
+    	lbTeacherGraduation.setBounds(40, 120, 125, 20);
+    	teachersInternalFrame.add(lbTeacherGraduation);
+    	
+    	cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
+    	cbmTeacherGraduation.setBounds(40, 140, 125, 20);
+    	teachersInternalFrame.add(cbmTeacherGraduation);
+    	
+    	lbTeacherName= new JLabel();
+    	lbTeacherName.setText("Nome:");
+    	lbTeacherName.setBounds(40, 75, 125, 20);
+    	teachersInternalFrame.add(lbTeacherName);
+    	
+    	txfTeacherName= new JTextField();
+    	txfTeacherName.setBounds(40, 95, 125, 20);
+    	teachersInternalFrame.add(txfTeacherName);
+    	
+    	//Registering Panel Fields declarations
+    	
+    	
+    	//Register panel saving
+    	btnSaveTeachers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				teachersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSaveTeachers.setBounds(93, 200, 95, 20);  	
+    	btnSaveTeachers.setFocusPainted(false);
+    	btnSaveTeachers.setContentAreaFilled(false);
+    	teachersInternalFrame.add(btnSaveTeachers);
+    	
+    	//Register panel exiting
+    	btnExitTeachers.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				teachersInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitTeachers.setBounds(23, 200, 60, 20); 
+    	btnExitTeachers.setFocusPainted(false);
+    	btnExitTeachers.setContentAreaFilled(false);
+    	teachersInternalFrame.add(btnExitTeachers);
+		
+    	teachersInternalFrame.setVisible(false);
+	
+	}
+	
+    public void CreateComponentSubjectsInternalFrame() {
+        
+        subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
+        subjectsInternalFrame.setLayout(null);
+        subjectsInternalFrame.setBounds(200, 80, 210, 310);
+        subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+        
+        //Registering Panel Buttons declarations
+        JButton btnSaveSubjects = new JButton("Salvar");
+        JButton btnExitSubjects = new JButton("Sair");
+        
+        //Registering Panel Fields declarations
+        JLabel lbSubjectName;
+        JTextField txfSubjectName; 
+        JLabel lbSubjectCode;
+        JTextField txfSubjectCode;
+        JLabel lbSubjectWeekday;
+        JTextField txfSubjectWeekday;
+        JLabel lbSubjectTeacherAmount;
+        JTextField txfSubjectTeacherAmount;
+        
+        lbSubjectCode= new JLabel();
+        lbSubjectCode.setText("Codigo:");
+        lbSubjectCode.setBounds(40, 30, 125, 20);
+        subjectsInternalFrame.add(lbSubjectCode);
+        
+        txfSubjectCode= new JTextField();
+        txfSubjectCode.setBounds(40, 50, 125, 20);
+        subjectsInternalFrame.add(txfSubjectCode);
+                       
+        lbSubjectName= new JLabel();
+        lbSubjectName.setText("Nome:");
+        lbSubjectName.setBounds(40, 75, 125, 20);
+        subjectsInternalFrame.add(lbSubjectName);
+        
+        txfSubjectName= new JTextField();
+        txfSubjectName.setBounds(40, 95, 125, 20);
+        subjectsInternalFrame.add(txfSubjectName);
+        
+        lbSubjectWeekday= new JLabel();
+        lbSubjectWeekday.setText("Dia da Semana:");
+        lbSubjectWeekday.setBounds(40, 120, 125, 20);
+        subjectsInternalFrame.add(lbSubjectWeekday);
+        
+        txfSubjectWeekday= new JTextField();
+        txfSubjectWeekday.setBounds(40, 140, 125, 20);
+        subjectsInternalFrame.add(txfSubjectWeekday);
+        
+        lbSubjectTeacherAmount = new JLabel();
+        lbSubjectTeacherAmount.setText("Quantidade de Professores:");
+        lbSubjectTeacherAmount.setBounds(40, 165, 125, 20);
+        subjectsInternalFrame.add(lbSubjectTeacherAmount);
+        
+        txfSubjectTeacherAmount= new JTextField();
+        txfSubjectTeacherAmount.setBounds(40, 185, 125, 20);
+        subjectsInternalFrame.add(txfSubjectTeacherAmount);
+        
+        //Registering Panel Fields declarations
+        
+        
+        //Register panel saving
+        btnSaveSubjects.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                
+            	subjectsInternalFrame.setVisible(false);
+                
+            }
+        });
+        btnSaveSubjects.setBounds(93, 230, 95, 20);     
+        btnSaveSubjects.setFocusPainted(false);
+        btnSaveSubjects.setContentAreaFilled(false);
+        subjectsInternalFrame.add(btnSaveSubjects);
+        
+        //Register panel exiting
+        btnExitSubjects.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                
+            	subjectsInternalFrame.setVisible(false);
+                
+            }
+        });
+        btnExitSubjects.setBounds(23, 230, 60, 20); 
+        btnExitSubjects.setFocusPainted(false);
+        btnExitSubjects.setContentAreaFilled(false);
+        subjectsInternalFrame.add(btnExitSubjects);
+        
+        subjectsInternalFrame.setVisible(false);
+    
+    }
+ 	
+	public void CreateComponentPhasesInternalFrame() {
+		
+		phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
+		phasesInternalFrame.setLayout(null);
+		phasesInternalFrame.setBounds(200, 80, 210, 230);
+		phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSavePhases = new JButton("Salvar");
+		JButton btnExitPhases = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		JLabel lbPhaseName;
+		JTextField txfPhaseName; 
+		JLabel lbPhaseCode;
+		JTextField txfPhaseCode;
+		
+    	lbPhaseCode= new JLabel();
+    	lbPhaseCode.setText("Codigo:");
+    	lbPhaseCode.setBounds(40, 30, 125, 20);
+    	phasesInternalFrame.add(lbPhaseCode);
+    	
+    	txfPhaseCode= new JTextField();
+    	txfPhaseCode.setBounds(40, 50, 125, 20);
+    	phasesInternalFrame.add(txfPhaseCode);
+    	
+    	lbPhaseName= new JLabel();
+    	lbPhaseName.setText("Nome:");
+    	lbPhaseName.setBounds(40, 75, 125, 20);
+    	phasesInternalFrame.add(lbPhaseName);
+    	
+    	txfPhaseName= new JTextField();
+    	txfPhaseName.setBounds(40, 95, 125, 20);
+    	phasesInternalFrame.add(txfPhaseName); 		
+    	
+    	//Register panel saving
+    	btnSavePhases.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+			phasesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnSavePhases.setBounds(93, 150, 95, 20);  	
+    	btnSavePhases.setFocusPainted(false);
+    	btnSavePhases.setContentAreaFilled(false);
+    	phasesInternalFrame.add(btnSavePhases);
+    	
+    	//Register panel exiting
+    	btnExitPhases.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {;
+				
+				phasesInternalFrame.setVisible(false);
+				
+			}
+		});
+    	btnExitPhases.setBounds(23, 150, 60, 20); 
+    	btnExitPhases.setFocusPainted(false);
+    	btnExitPhases.setContentAreaFilled(false);
+    	phasesInternalFrame.add(btnExitPhases);
+		
+    	phasesInternalFrame.setVisible(false);
+	
+	}
+	
+	public void CreateComponentCoursesInternalFrame() {
+		
+		coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
+		coursesInternalFrame.setLayout(null);
+		coursesInternalFrame.setBounds(200, 80, 210, 230);
+		coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
+		
+		//Registering Panel Buttons declarations
+		JButton btnSaveCourses = new JButton("Salvar");
+		JButton btnExitCourses = new JButton("Sair");
+		
+		//Registering Panel Fields declarations
+		JLabel lbCourseName;
+		JTextField txfCourseName; 
+		JLabel lbCourseCode;
+		JTextField txfCourseCode;
+		
+        lbCourseCode= new JLabel();
+        lbCourseCode.setText("Codigo:");
+        lbCourseCode.setBounds(40, 30, 125, 20);
+        coursesInternalFrame.add(lbCourseCode);
+        
+        txfCourseCode= new JTextField();
+        txfCourseCode.setBounds(40, 50, 125, 20);
+        coursesInternalFrame.add(txfCourseCode);
+        
+        lbCourseName= new JLabel();
+        lbCourseName.setText("Nome:");
+        lbCourseName.setBounds(40, 75, 125, 20);
+        coursesInternalFrame.add(lbCourseName);
+        
+        txfCourseName= new JTextField();
+        txfCourseName.setBounds(40, 95, 125, 20);
+        coursesInternalFrame.add(txfCourseName);      
+        
+        //Register panel saving
+        btnSaveCourses.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                
+            coursesInternalFrame.setVisible(false);
+                
+            }
+        });
+        btnSaveCourses.setBounds(93, 150, 95, 20);   
+        btnSaveCourses.setFocusPainted(false);
+        btnSaveCourses.setContentAreaFilled(false);
+        coursesInternalFrame.add(btnSaveCourses);
+        
+        //Register panel exiting
+        btnExitCourses.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {;
+                
+            coursesInternalFrame.setVisible(false);
+                
+            }
+        });
+        btnExitCourses.setBounds(23, 150, 60, 20); 
+        btnExitCourses.setFocusPainted(false);
+        btnExitCourses.setContentAreaFilled(false);
+        coursesInternalFrame.add(btnExitCourses);
+		
+    	coursesInternalFrame.setVisible(false);
+	
+	}
+	
 	public void CreateComponentCitiesInternalFrame() {
 		
 		citiesInternalFrame = new JInternalFrame("Cadastro de Cidade");
@@ -1042,245 +1380,25 @@ public class MainWindowNew extends JFrame {
     	usersInternalFrame.setVisible(false);
 	
 	}
-	
-	public void CreateComponentTeachersInternalFrame() {
-		
-		teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
-		teachersInternalFrame.setLayout(null);
-		teachersInternalFrame.setBounds(200, 80, 210, 280);
-		teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
-		
-		//Registering Panel Buttons declarations
-		JButton btnSaveTeachers = new JButton("Salvar");
-		JButton btnExitTeachers = new JButton("Sair");
-		
-		//Registering Panel Fields declarations
-		String TeacherGraduationType[] = { "Graduacao", "Pos-Graducao","Mestrado","Doutorado"};
-		JLabel lbTeacherName;
-		JTextField txfTeacherName; 
-		JLabel lbTeacherCode;
-		JTextField txfTeacherCode;
-		JLabel lbTeacherGraduation;
-		JComboBox<?> cbmTeacherGraduation;
-		
-    	lbTeacherCode= new JLabel();
-    	lbTeacherCode.setText("Codigo:");
-    	lbTeacherCode.setBounds(40, 40, 125, 20);
-    	teachersInternalFrame.add(lbTeacherCode);
-    	
-    	txfTeacherCode= new JTextField();
-    	txfTeacherCode.setBounds(40, 60, 125, 20);
-    	teachersInternalFrame.add(txfTeacherCode);
-    	
-    	lbTeacherGraduation= new JLabel();
-    	lbTeacherGraduation.setText("Graduacao:");
-    	lbTeacherGraduation.setBounds(40, 130, 125, 20);
-    	teachersInternalFrame.add(lbTeacherGraduation);
-    	
-    	cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
-    	cbmTeacherGraduation.setBounds(40, 150, 125, 20);
-    	teachersInternalFrame.add(cbmTeacherGraduation);
-    	
-    	lbTeacherName= new JLabel();
-    	lbTeacherName.setText("Nome:");
-    	lbTeacherName.setBounds(40, 85, 125, 20);
-    	teachersInternalFrame.add(lbTeacherName);
-    	
-    	txfTeacherName= new JTextField();
-    	txfTeacherName.setBounds(40, 105, 125, 20);
-    	teachersInternalFrame.add(txfTeacherName);
-    	
-    	//Registering Panel Fields declarations
-    	
-    	
-    	//Register panel saving
-    	btnSaveTeachers.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-				teachersInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnSaveTeachers.setBounds(93, 230, 95, 20);  	
-    	btnSaveTeachers.setFocusPainted(false);
-    	btnSaveTeachers.setContentAreaFilled(false);
-    	teachersInternalFrame.add(btnSaveTeachers);
-    	
-    	//Register panel exiting
-    	btnExitTeachers.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-				teachersInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnExitTeachers.setBounds(23, 230, 60, 20); 
-    	btnExitTeachers.setFocusPainted(false);
-    	btnExitTeachers.setContentAreaFilled(false);
-    	teachersInternalFrame.add(btnExitTeachers);
-		
-    	teachersInternalFrame.setVisible(false);
-	
-	}
-	
-	public void CreateComponentPhasesInternalFrame() {
-		
-		phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
-		phasesInternalFrame.setLayout(null);
-		phasesInternalFrame.setBounds(200, 80, 210, 280);
-		phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
-		
-		//Registering Panel Buttons declarations
-		JButton btnSavePhases = new JButton("Salvar");
-		JButton btnExitPhases = new JButton("Sair");
-		
-		//Registering Panel Fields declarations
-		JLabel lbPhaseName;
-		JTextField txfPhaseName; 
-		JLabel lbPhaseCode;
-		JTextField txfPhaseCode;
-		
-    	lbPhaseCode= new JLabel();
-    	lbPhaseCode.setText("Codigo:");
-    	lbPhaseCode.setBounds(40, 40, 125, 20);
-    	phasesInternalFrame.add(lbPhaseCode);
-    	
-    	txfPhaseCode= new JTextField();
-    	txfPhaseCode.setBounds(40, 60, 125, 20);
-    	phasesInternalFrame.add(txfPhaseCode);
-    	
-    	lbPhaseName= new JLabel();
-    	lbPhaseName.setText("Nome:");
-    	lbPhaseName.setBounds(40, 85, 125, 20);
-    	phasesInternalFrame.add(lbPhaseName);
-    	
-    	txfPhaseName= new JTextField();
-    	txfPhaseName.setBounds(40, 105, 125, 20);
-    	phasesInternalFrame.add(txfPhaseName); 		
-    	
-    	//Register panel saving
-    	btnSavePhases.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-			phasesInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnSavePhases.setBounds(93, 230, 95, 20);  	
-    	btnSavePhases.setFocusPainted(false);
-    	btnSavePhases.setContentAreaFilled(false);
-    	phasesInternalFrame.add(btnSavePhases);
-    	
-    	//Register panel exiting
-    	btnExitPhases.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-				phasesInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnExitPhases.setBounds(23, 230, 60, 20); 
-    	btnExitPhases.setFocusPainted(false);
-    	btnExitPhases.setContentAreaFilled(false);
-    	phasesInternalFrame.add(btnExitPhases);
-		
-    	phasesInternalFrame.setVisible(false);
-	
-	}
-	
-	public void CreateComponentCoursesInternalFrame() {
-		
-		coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
-		coursesInternalFrame.setLayout(null);
-		coursesInternalFrame.setBounds(200, 80, 210, 280);
-		coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(1.5f)));
-		
-		//Registering Panel Buttons declarations
-		JButton btnSaveCourses = new JButton("Salvar");
-		JButton btnExitCourses = new JButton("Sair");
-		
-		//Registering Panel Fields declarations
-		JLabel lbCourseName;
-		JTextField txfCourseName; 
-		JLabel lbCourseCode;
-		JTextField txfCourseCode;
-		
-    	lbCourseCode= new JLabel();
-    	lbCourseCode.setText("Codigo:");
-    	lbCourseCode.setBounds(40, 40, 125, 20);
-    	coursesInternalFrame.add(lbCourseCode);
-    	
-    	txfCourseCode= new JTextField();
-    	txfCourseCode.setBounds(40, 60, 125, 20);
-    	coursesInternalFrame.add(txfCourseCode);
-    	
-    	lbCourseName= new JLabel();
-    	lbCourseName.setText("Nome:");
-    	lbCourseName.setBounds(40, 85, 125, 20);
-    	coursesInternalFrame.add(lbCourseName);
-    	
-    	txfCourseName= new JTextField();
-    	txfCourseName.setBounds(40, 105, 125, 20);
-    	coursesInternalFrame.add(txfCourseName); 		
-    	
-    	//Register panel saving
-    	btnSaveCourses.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-			coursesInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnSaveCourses.setBounds(93, 230, 95, 20);  	
-    	btnSaveCourses.setFocusPainted(false);
-    	btnSaveCourses.setContentAreaFilled(false);
-    	coursesInternalFrame.add(btnSaveCourses);
-    	
-    	//Register panel exiting
-    	btnExitCourses.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {;
-				
-				coursesInternalFrame.setVisible(false);
-				
-			}
-		});
-    	btnExitCourses.setBounds(23, 230, 60, 20); 
-    	btnExitCourses.setFocusPainted(false);
-    	btnExitCourses.setContentAreaFilled(false);
-    	coursesInternalFrame.add(btnExitCourses);
-		
-    	coursesInternalFrame.setVisible(false);
-	
-	}
+
+	//JTables - Create 
 	
 	public void CreateStudentsTable(){
 		
 		//Declaring Table Model
 		DefaultTableModel studentTableModel = new DefaultTableModel() {
 			
-			String[] estudante = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+			String[] studentColumns = {"Id","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
 					  "Celular","CEP","Número", "Endereço", "bairro", "Cidade","Estado","Complemento",
 					  "Observação"};
 			
 	        public int getColumnCount() { 
-	            return estudante.length; 
+	            return studentColumns.length; 
 	        } 
 	        
 	 		@Override
 			public String getColumnName(int index) {
-			    return estudante[index];
+			    return studentColumns[index];
 			}
 			
 		};
@@ -1304,6 +1422,80 @@ public class MainWindowNew extends JFrame {
 	    
 	}
 
+	public void CreateTeacherTable(){
+        
+        //Declaring Table Model
+        DefaultTableModel TeacherTableModel = new DefaultTableModel() {
+            
+            String[] teacherColumns = {"Código", "Nome", "Graduação"};
+            
+            public int getColumnCount() { 
+                return teacherColumns.length; 
+            } 
+            
+            @Override
+            public String getColumnName(int index) {
+                return teacherColumns[index];
+            }
+            
+        };
+        
+        //Declaring Table and Scroll pane
+        JTable TeacherTable;
+        JScrollPane TeacherScrollPane;
+        
+        //Table Configuration
+        TeacherTable = new JTable(TeacherTableModel);                   
+        TeacherTable.setBounds(1, 1, 539, 399);
+        TeacherTable.setEnabled(false);
+        
+        //Scroll Pane Configuration
+        TeacherScrollPane = new JScrollPane(TeacherTable);
+        TeacherScrollPane.setBounds(50, 100, 1300, 600);    
+        
+        teachersPanel.add(TeacherScrollPane);
+        
+        TeacherTable.setVisible(true);
+        
+    }
+
+    public void CreateSubjectTable(){
+        
+        //Declaring Table Model
+        DefaultTableModel SubjectTableModel = new DefaultTableModel() {
+            
+            String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "Nº de Professores"};
+            
+            public int getColumnCount() { 
+                return subjectColumns.length; 
+            } 
+            
+            @Override
+            public String getColumnName(int index) {
+                return subjectColumns[index];
+            }
+            
+        };
+        
+        //Declaring Table and Scroll pane
+        JTable SubjectTable;
+        JScrollPane SubjectScrollPane;
+        
+        //Table Configuration
+        SubjectTable = new JTable(SubjectTableModel);                   
+        SubjectTable.setBounds(1, 1, 539, 399);
+        SubjectTable.setEnabled(false);
+        
+        //Scroll Pane Configuration
+        SubjectScrollPane = new JScrollPane(SubjectTable);
+        SubjectScrollPane.setBounds(50, 100, 1300, 600);    
+        
+        subjectsPanel.add(SubjectScrollPane);
+        
+        SubjectTable.setVisible(true);
+        
+    }
+	
 	public void CreateUsersTable(){
 		
 		//Declaring Table Model
@@ -1382,6 +1574,8 @@ public class MainWindowNew extends JFrame {
 	    citiesTable.setVisible(true);
 	    
 	}
+	
+	//Other Methods
 	
 	public void ShowPanel(String PanelName){
 		
