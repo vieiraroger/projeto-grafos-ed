@@ -49,7 +49,7 @@ public class LoginWindow extends JFrame {
     	
     	lbUser = new JLabel();
     	lbUser.setBounds(40, 20, 125, 20);
-    	lbUser.setText("Usuário");
+    	lbUser.setText("Usuï¿½rio");
     	getContentPane().add(lbUser);
     	
     	txfUser = new JTextField();
@@ -86,9 +86,9 @@ public class LoginWindow extends JFrame {
 					UsersService us = new UsersService();
 					Collection<Users> list = us.findAll();
 					
-					if(list == null) {
-						System.out.println("debu");
+					if(list == null) {						
 						us.save(new Users("admin","admin","Admin"));
+						throw new Exception("Nenhum usuÃ¡rio encontrado! UsuÃ¡rio padrÃ£o cadastrado!");
 					}
 					
 					
@@ -96,7 +96,7 @@ public class LoginWindow extends JFrame {
 					for (Users user : list) {
 						if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
 							
-							MainWindow mw = new MainWindow(user);
+							MainWindowNew mw = new MainWindowNew();
 							mw.setVisible(true);
 							entrou = false;
 							LoginWindow.this.dispose();
@@ -106,7 +106,7 @@ public class LoginWindow extends JFrame {
 					
 					 if(entrou) {
 						
-						throw new Exception("Usuário ou senha inválidos!");
+						throw new Exception("Usuï¿½rio ou senha invï¿½lidos!");
 						
 					}
 					
@@ -127,10 +127,10 @@ public class LoginWindow extends JFrame {
     
     public static void main(String[] args) {
         
-    	Users u = new Users("admin","admin","admin" );
+    	/*Users u = new Users("admin","admin","admin" );
     	MainWindow mw = new MainWindow(u);
-    	mw.setVisible(true);
-    	//new LoginWindow().setVisible(true);
+    	mw.setVisible(true);*/
+    	new LoginWindow().setVisible(true);
     	
     }
 

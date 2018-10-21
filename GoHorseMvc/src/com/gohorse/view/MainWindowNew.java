@@ -33,6 +33,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.gohorse.database.model.Fase;
+import com.gohorse.database.model.Maths;
+import com.gohorse.database.model.Teacher;
+
 public class MainWindowNew extends JFrame {
         
     // Saving screen size in variable
@@ -70,7 +74,7 @@ public class MainWindowNew extends JFrame {
         	setSize(ScreenSize.width, ScreenSize.height);             	
         }                     
         else {        	
-        	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
+        	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
         	setSize(ScreenSize.width, ScreenSize.height);    
         	
         }                     
@@ -1477,7 +1481,14 @@ public class MainWindowNew extends JFrame {
      	 JButton btnSelecionarArquivo;
      	 JButton btnImportarArquivo;
      	 
-     	 labelDescricao = new JLabel("Arquivo:");
+     	JList<Fase> listFases;
+    	JList<Maths> listDisciplinas;
+    	JList<Teacher> listProfessores;
+    	DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
+    	DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
+    	DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
+     	 
+     	labelDescricao = new JLabel("Arquivo:");
   		labelDescricao.setBounds(15, 10, 100, 25);
   		importerInternalFrame.add(labelDescricao);
   		
@@ -1538,6 +1549,24 @@ public class MainWindowNew extends JFrame {
   		btnImportarArquivo = new JButton("Importar");
   		btnImportarArquivo.setBounds(395, 32, 90, 25);
   		importerInternalFrame.add(btnImportarArquivo); 
+  		
+  		listFases = new JList<Fase>(modelFases);
+		JScrollPane scrollFases = new JScrollPane(listFases);
+		scrollFases.setBounds(20, 165, 300, 450);
+		importerInternalFrame.add(scrollFases, BorderLayout.CENTER);
+		listFases.addMouseListener(null);
+		
+		listDisciplinas = new JList<Maths>(modelDisciplinas);
+		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
+		scrollDisciplinas.setBounds(360, 165, 300, 450);
+		importerInternalFrame.add(scrollDisciplinas, BorderLayout.CENTER);
+		listDisciplinas.addMouseListener(null);
+		
+		listProfessores = new JList<Teacher>(modelProfessores);
+		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
+		scrollProfessores.setBounds(700, 165, 300, 450);
+		importerInternalFrame.add(scrollProfessores, BorderLayout.CENTER);
+		listProfessores.addMouseListener(null);
      
   		importerInternalFrame.setVisible(false);
     }
