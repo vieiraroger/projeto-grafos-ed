@@ -2,6 +2,7 @@ package com.gohorse.view;
 
 import java.math.*;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,6 +39,7 @@ import com.gohorse.database.model.Fase;
 import com.gohorse.database.model.Maths;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
+import com.gohorse.database.service.MathsService;
 import com.gohorse.database.service.StudentsService;
 import com.gohorse.database.service.TeacherService;
 
@@ -1183,7 +1185,7 @@ public class MainWindowNew extends JFrame {
     
     public void CreateComponentSubjectsInternalFrame(){
         
-        subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
+        subjectsInternalFrame = new JInternalFrame("Cadastro de Matérias");
         subjectsInternalFrame.setLayout(null);
         subjectsInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -1247,11 +1249,49 @@ public class MainWindowNew extends JFrame {
         btnSaveSubjects.addActionListener(new ActionListener() {
             
             @Override
-            public void actionPerformed(ActionEvent arg0) {;
-                
-                subjectsInternalFrame.setVisible(false);
-                
-            }
+            public void actionPerformed(ActionEvent arg0) {
+            	
+            Maths mh;
+        	MathsService mhs = new MathsService();
+        	
+        	try {
+				if (txfSubjectCode.getText().isEmpty()) {
+					throw new Exception("Campo Código está vazio!");
+				}else if (txfSubjectName.getText().isEmpty()) {
+					throw new Exception("Campo Nome está vazio!");
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == -1) {
+					throw new Exception("Campo Dia da Semana está vazio!");
+				}else if (txfSubjectTeacherAmount.getText().isEmpty()) {
+					throw new Exception("Campo Quantidade de Professores está vazio!");
+				}
+				String weekday = "";
+				
+				if (cmbSubjectWeekdays.getSelectedIndex() == 0) {
+					weekday = "Segunda-feira";
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == 1 ) {
+					weekday = "Terça-feira";
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == 2) {
+					weekday = "Quarta-feira";
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == 3) {
+					weekday = "Quinta-feira";
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == 4) {
+					weekday = "Sexta-feira";
+				}else if (cmbSubjectWeekdays.getSelectedIndex() == 5) {
+					weekday = "Sábado";
+				}
+				
+				mh = new Maths(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
+				
+				mhs.save(mh);
+				
+				  subjectsInternalFrame.setVisible(false);
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			} 
+            
+         }	
         });
         btnSaveSubjects.setBounds(93, 230, 95, 20);     
         btnSaveSubjects.setFocusPainted(false);
@@ -1694,9 +1734,9 @@ public class MainWindowNew extends JFrame {
        //Declaring Table Model
        DefaultTableModel studentTableModel = new DefaultTableModel() {
             
-           String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-                     "Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
-                     "Observa��o"};
+           String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+                     "Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
+                     "Observa��o"};
             
            public int getColumnCount() { 
                return studentColumns.length; 
