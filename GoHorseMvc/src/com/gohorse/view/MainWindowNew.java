@@ -35,7 +35,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Fase;
 import com.gohorse.database.model.Maths;
+import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
+import com.gohorse.database.service.StudentsService;
 
 public class MainWindowNew extends JFrame {
         
@@ -76,12 +78,22 @@ public class MainWindowNew extends JFrame {
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
         	setSize(ScreenSize.width, ScreenSize.height);    
+<<<<<<< HEAD
+
+        	
+        }                     
+
+        }*/                     
+    	setSize(750, 500);
+        
+=======
         	
         }                     
 
                         
     	//setSize(750, 500);
 
+>>>>>>> b5fc9b72cd8b558de7e5e01c650fb9ec13773462
         //Setting up main JFrame
         setTitle("Menu");
         setLayout(null);
@@ -104,13 +116,6 @@ public class MainWindowNew extends JFrame {
         }
     
     //TESTING MAIN TODO REVERT MAIN TO LOGINWINDOW
-    
-    public static void main(String[] args) {
-    	
-        MainWindowNew mw = new MainWindowNew();
-        mw.setVisible(true);
-        
-    }
     
     //Top bar - CREATE AND FILL
     
@@ -147,6 +152,15 @@ public class MainWindowNew extends JFrame {
          mPhases    = new JMenu("Fases");
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
+<<<<<<< HEAD
+         mOptions   = new JMenu("Op��es");
+         mUsers     = new JMenu("Usu�rios");  
+         mUtilities = new JMenu("Utilidades");
+
+         mOptions   = new JMenu("Op��es");
+         mUsers     = new JMenu("Usu�rios");         
+
+=======
 //<<<<<<< HEAD
          mOptions   = new JMenu("Op��es");
          mUsers     = new JMenu("Usu�rios");  
@@ -155,6 +169,7 @@ public class MainWindowNew extends JFrame {
          mOptions   = new JMenu("Op��es");
          mUsers     = new JMenu("Usu�rios");         
 //>>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
+>>>>>>> b5fc9b72cd8b558de7e5e01c650fb9ec13773462
     
          menu.add(mStudents);
          menu.add(mTeachers);
@@ -841,6 +856,7 @@ public class MainWindowNew extends JFrame {
         
         cmbSex = new JComboBox<>(Sexo);
         cmbSex.setBounds(40, 105, 125, 20);
+        cmbSex.setSelectedIndex(-1);
         studentsInternalFrame.add(cmbSex);
         
         lbBirthdate = new JLabel();
@@ -959,8 +975,53 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
-                studentsPanel.setVisible(true);
-                studentsInternalFrame.setVisible(false);
+                Students st;
+                StudentsService sts = new StudentsService();
+                try {
+					if(txfStudent.getText().isEmpty()) {
+						throw new Exception("Campo Estudante está vazio!");
+					}else if (txfBirthdate.getText().isEmpty()) {
+						throw new Exception("Campo Data de nascimento está vazio!");
+					}else if (cmbSex.getSelectedIndex() == -1) {
+						throw new Exception("Campo Sexo está vazio!");
+					}else if (txfPhone.getText().isEmpty()) {
+						throw new Exception("Campo Telefone está vazio!");
+					}else if (txfCellphone.getText().isEmpty()) {
+						throw new Exception("Campo Celular está vazio!");
+					}else if (txfEmail.getText().isEmpty()) {
+						throw new Exception("Campo Email está vazio!");
+					}else if (txfNote.getText().isEmpty()) {
+						throw new Exception("Campo Observações está vazio!");
+					}else if (txfAdress.getText().isEmpty()) {
+						throw new Exception("Campo Endereço está vazio!");
+					}else if (txfAdressNum.getText().isEmpty()) {
+						throw new Exception("Campo N° está vazio!");
+					}else if (txfComplement.getText().isEmpty()) {
+						throw new Exception("Campo Complemento está vazio!");
+					}else if (txfSuburb.getText().isEmpty()) {
+						throw new Exception("Campo Bairro está vazio!");
+					}else if (txfSCity.getText().isEmpty()) {
+						throw new Exception("Campo Cidade está vazio!");
+					}else if (txfStuEstate.getText().isEmpty()) {
+						throw new Exception("Campo Estado está vazio!");
+					}else if (txfCep.getText().isEmpty()) {
+						throw new Exception("Campo CEP está vazio!");
+					}
+					
+					st = new Students(txfStudent.getText(), txfBirthdate.getText(), (String) cmbSex.getSelectedItem(), txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
+					
+					sts.save(st);
+					
+					studentsPanel.setVisible(true);
+	                studentsInternalFrame.setVisible(false);
+	                
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+                
+                
+                
                 
             }
         });
@@ -1614,8 +1675,8 @@ public class MainWindowNew extends JFrame {
         studentScrollPane = new JScrollPane(studentTable);        
         studentScrollPane.setLocation(50, 100); 
         studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
-        //studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
-        studentScrollPane.setSize(650 , 300);
+        studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
+        //studentScrollPane.setSize(650 , 300);
                
         studentsPanel.add(studentScrollPane);
         
