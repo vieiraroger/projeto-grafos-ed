@@ -1,12 +1,16 @@
 package com.gohorse.view;
 
+import java.math.*;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -15,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -42,6 +47,7 @@ public class MainWindowNew extends JFrame {
     private JPanel coursesPanel;
     private JPanel citiesPanel;
     private JPanel usersPanel;
+    private JPanel importerPanel;
 
     // Declaring internal frames
     private JInternalFrame configInternalFrame;
@@ -52,6 +58,7 @@ public class MainWindowNew extends JFrame {
     private JInternalFrame coursesInternalFrame;
     private JInternalFrame citiesInternalFrame;
     private JInternalFrame usersInternalFrame;
+    private JInternalFrame importerInternalFrame;
     
     //JFrame constructor
     
@@ -65,6 +72,7 @@ public class MainWindowNew extends JFrame {
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
         	setSize(ScreenSize.width, ScreenSize.height);    
+        	
         }                     
         
         //Setting up main JFrame           
@@ -72,7 +80,8 @@ public class MainWindowNew extends JFrame {
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);            
+        setLocationRelativeTo(null);    
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         
         //Creating visual components
         CreateTopBarComponents();
@@ -84,7 +93,7 @@ public class MainWindowNew extends JFrame {
         FillComponentsInPhasesPanel();
         FillComponentsInCoursesPanel();
         FillComponentsInSubjectsPanel();                              
-        
+        FillComponentsInImporterPanel();
         }
     
     //TESTING MAIN TODO REVERT MAIN TO LOGINWINDOW
@@ -110,6 +119,7 @@ public class MainWindowNew extends JFrame {
          JMenu mCourses;
          JMenu mSubjects;
          JMenu mOptions;
+         JMenu mUtilities;
          JMenuItem smListCities;
          JMenuItem smListStudents;
          JMenuItem smListUsers;
@@ -119,6 +129,7 @@ public class MainWindowNew extends JFrame {
          JMenuItem smListSubjects;
          JMenuItem smSoftwareInfo;
          JMenuItem smConfig;
+         JMenuItem smImporter;
 
          menu = new JMenuBar();
          setJMenuBar(menu);
@@ -130,7 +141,8 @@ public class MainWindowNew extends JFrame {
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
          mOptions   = new JMenu("Opções");
-         mUsers     = new JMenu("Usuários");         
+         mUsers     = new JMenu("Usuários");  
+         mUtilities = new JMenu("Utilidades");
     
          menu.add(mStudents);
          menu.add(mTeachers);
@@ -140,6 +152,7 @@ public class MainWindowNew extends JFrame {
          menu.add(mCities);
          menu.add(mOptions);
          menu.add(mUsers);
+         menu.add(mUtilities);
          
          smListStudents = new JMenuItem(new AbstractAction("Listar") {
                 
@@ -237,6 +250,17 @@ public class MainWindowNew extends JFrame {
              }
           });
          
+         smImporter = new JMenuItem(new AbstractAction("Importar") {
+             
+             @Override
+             public void actionPerformed(ActionEvent e) {
+
+            	ShowPanel("importer");
+            	importerInternalFrame.setVisible(true);
+                 
+             }
+          });
+         
          mStudents.add(smListStudents);
          mCities.add(smListCities);
          mCourses.add(smListCourses);
@@ -246,6 +270,7 @@ public class MainWindowNew extends JFrame {
          mUsers.add(smListUsers);
          mOptions.add(smConfig);
          mOptions.add(smSoftwareInfo);
+         mUtilities.add(smImporter);
          
     }
     
@@ -728,13 +753,28 @@ public class MainWindowNew extends JFrame {
         
     }
     
+    public void FillComponentsInImporterPanel(){
+              
+        //Importers Panel Declaration
+    	CreateComponentImporterInternalFrame();
+        importerPanel = new JPanel();
+        importerPanel.setLayout(null);
+        importerPanel.setSize(ScreenSize.width, ScreenSize.height);
+        getContentPane().add(importerPanel);
+        importerPanel.add(importerInternalFrame); 
+        
+        //Adding Internal frame and Table to Panel
+  
+        importerPanel.setVisible(false);
+    }
+    
     //Internal Frames - CREATE AND FILL   
     
     public void CreateComponentStudentsInternalFrame(){
         
         studentsInternalFrame = new JInternalFrame("Cadastro de Aluno");
         studentsInternalFrame.setLayout(null);
-        studentsInternalFrame.setBounds(0, 0, 600, 600);
+        studentsInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         studentsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -941,7 +981,7 @@ public class MainWindowNew extends JFrame {
         
         teachersInternalFrame = new JInternalFrame("Cadastro de Professores");
         teachersInternalFrame.setLayout(null);
-        teachersInternalFrame.setBounds(200, 80, 210, 280);
+        teachersInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1025,7 +1065,7 @@ public class MainWindowNew extends JFrame {
         
         subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
         subjectsInternalFrame.setLayout(null);
-        subjectsInternalFrame.setBounds(200, 80, 210, 310);
+        subjectsInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1121,7 +1161,7 @@ public class MainWindowNew extends JFrame {
         
         phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
         phasesInternalFrame.setLayout(null);
-        phasesInternalFrame.setBounds(200, 80, 210, 230);
+        phasesInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         phasesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1190,7 +1230,7 @@ public class MainWindowNew extends JFrame {
         
         coursesInternalFrame = new JInternalFrame("Cadastro de Curso");
         coursesInternalFrame.setLayout(null);
-        coursesInternalFrame.setBounds(200, 80, 210, 230);
+        coursesInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         coursesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1259,7 +1299,7 @@ public class MainWindowNew extends JFrame {
         
         citiesInternalFrame = new JInternalFrame("Cadastro de Cidade");
         citiesInternalFrame.setLayout(null);
-        citiesInternalFrame.setBounds(200, 80, 210, 310);
+        citiesInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         citiesInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1341,7 +1381,7 @@ public class MainWindowNew extends JFrame {
         
         usersInternalFrame = new JInternalFrame("Cadastro de Usuário");
         usersInternalFrame.setLayout(null);
-        usersInternalFrame.setBounds(180, 150, 228, 290);
+        usersInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         
         //Registering Panel Buttons declarations
@@ -1420,6 +1460,86 @@ public class MainWindowNew extends JFrame {
         
         usersInternalFrame.setVisible(false);
     
+    }
+    
+    public void CreateComponentImporterInternalFrame(){
+    	  importerInternalFrame = new JInternalFrame("Cadastro de Cidade");
+    	  importerInternalFrame.setLayout(null);
+    	  importerInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
+    	  importerInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL))); 
+    	
+    	 JLabel labelDescricao;
+     	 JTextField txfData;
+     	 JTextField txfFaseInicial;
+     	 JTextField txfFaseFinal;
+     	 JTextField txfCurso;
+     	 JTextField txfImportacao;
+     	 JButton btnSelecionarArquivo;
+     	 JButton btnImportarArquivo;
+     	 
+     	 labelDescricao = new JLabel("Arquivo:");
+  		labelDescricao.setBounds(15, 10, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		txfImportacao = new JTextField();
+  		txfImportacao.setBounds(15, 32, 350, 25);
+  		importerInternalFrame.add(txfImportacao);
+  		
+  		btnSelecionarArquivo = new JButton("?");
+  		
+  		
+  		btnSelecionarArquivo.setBounds(370, 32, 20, 25);
+  		importerInternalFrame.add(btnSelecionarArquivo);		
+  		
+  		labelDescricao = new JLabel("Data:");
+  		labelDescricao.setBounds(15, 80, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		txfData = new JTextField();
+  		txfData.setBounds(50, 80, 80, 25);
+  		importerInternalFrame.add(txfData);
+  		
+  		labelDescricao = new JLabel("Fase Inicial:");
+  		labelDescricao.setBounds(145, 80, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		txfFaseInicial = new JTextField();
+  		txfFaseInicial.setBounds(215, 80, 75, 25);
+  		importerInternalFrame.add(txfFaseInicial);	
+  		
+  		labelDescricao = new JLabel("Fase Final:");
+  		labelDescricao.setBounds(305, 80, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		txfFaseFinal = new JTextField();
+  		txfFaseFinal.setBounds(368, 80, 75, 25);
+  		importerInternalFrame.add(txfFaseFinal);
+  		
+  		labelDescricao = new JLabel("Curso:");
+  		labelDescricao.setBounds(460, 80, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		txfCurso = new JTextField();
+  		txfCurso.setBounds(501, 80, 160, 25);
+  		importerInternalFrame.add(txfCurso);
+  		
+  		labelDescricao = new JLabel("FASES:");
+  		labelDescricao.setBounds(20, 145, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		labelDescricao = new JLabel("DISCIPLINAS:");
+  		labelDescricao.setBounds(360, 145, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		labelDescricao = new JLabel("PROFESSORES:");
+  		labelDescricao.setBounds(700, 145, 100, 25);
+  		importerInternalFrame.add(labelDescricao);
+  		
+  		btnImportarArquivo = new JButton("Importar");
+  		btnImportarArquivo.setBounds(395, 32, 90, 25);
+  		importerInternalFrame.add(btnImportarArquivo); 
+     
+  		importerInternalFrame.setVisible(false);
     }
     
     //JTables - CREATE   
@@ -1780,6 +1900,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1792,6 +1913,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1804,6 +1926,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1816,6 +1939,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1828,6 +1952,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(true);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1840,6 +1965,7 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(true);
                 subjectsPanel.setVisible(false);
+                importerPanel.setVisible(false);
                 
             break;
             
@@ -1852,8 +1978,23 @@ public class MainWindowNew extends JFrame {
                 phasesPanel.setVisible(false);
                 coursesPanel.setVisible(false);
                 subjectsPanel.setVisible(true);
+                importerPanel.setVisible(false);
                 
             break;
+            
+            case "importer":
+                
+                studentsPanel.setVisible(false);
+                citiesPanel.setVisible(false);
+                usersPanel.setVisible(false);
+                teachersPanel.setVisible(false);
+                phasesPanel.setVisible(false);
+                coursesPanel.setVisible(false);
+                subjectsPanel.setVisible(false);
+                importerPanel.setVisible(true);
+                
+            break;
+            
             
             default:
                 
