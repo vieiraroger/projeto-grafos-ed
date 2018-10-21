@@ -975,6 +975,13 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
+            	//converting JCombobox input from string to char
+            	char sexoCmbSexSave;
+            	if (cmbSex.getSelectedItem() == "Masculino")
+            		sexoCmbSexSave = 'M';
+            	else
+            		sexoCmbSexSave = 'F';         
+            	
                 Students st;
                 StudentsService sts = new StudentsService();
                 try {
@@ -1008,7 +1015,7 @@ public class MainWindowNew extends JFrame {
 						throw new Exception("Campo CEP está vazio!");
 					}
 					
-					st = new Students(txfStudent.getText(), txfBirthdate.getText(), (String) cmbSex.getSelectedItem(), txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
+					st = new Students(txfStudent.getText(), txfBirthdate.getText(), sexoCmbSexSave, txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
 					
 					sts.save(st);
 					
