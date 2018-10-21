@@ -10,6 +10,7 @@ public class Teacher implements Entity, Serializable {
 	private String Name;
 	private String Graduation;
 	
+	
 	public Teacher(String code, String name, String graduation) {
 		super();
 		Code = code;

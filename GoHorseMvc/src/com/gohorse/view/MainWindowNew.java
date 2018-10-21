@@ -38,6 +38,7 @@ import com.gohorse.database.model.Maths;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
 import com.gohorse.database.service.StudentsService;
+import com.gohorse.database.service.TeacherService;
 
 public class MainWindowNew extends JFrame {
         
@@ -78,22 +79,20 @@ public class MainWindowNew extends JFrame {
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
         	setSize(ScreenSize.width, ScreenSize.height);    
-<<<<<<< HEAD
 
         	
         }                     
 
-        }*/                     
+                  
     	setSize(750, 500);
         
-=======
-        	
-        }                     
+
+        	                    
 
                         
     	//setSize(750, 500);
 
->>>>>>> b5fc9b72cd8b558de7e5e01c650fb9ec13773462
+
         //Setting up main JFrame
         setTitle("Menu");
         setLayout(null);
@@ -152,7 +151,7 @@ public class MainWindowNew extends JFrame {
          mPhases    = new JMenu("Fases");
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
-<<<<<<< HEAD
+
          mOptions   = new JMenu("Op��es");
          mUsers     = new JMenu("Usu�rios");  
          mUtilities = new JMenu("Utilidades");
@@ -160,16 +159,16 @@ public class MainWindowNew extends JFrame {
          mOptions   = new JMenu("Op��es");
          mUsers     = new JMenu("Usu�rios");         
 
-=======
-//<<<<<<< HEAD
-         mOptions   = new JMenu("Op��es");
-         mUsers     = new JMenu("Usu�rios");  
+
+
+         mOptions   = new JMenu("Op��es");
+         mUsers     = new JMenu("Usu�rios");  
          mUtilities = new JMenu("Utilidades");
-//=======
+
          mOptions   = new JMenu("Op��es");
          mUsers     = new JMenu("Usu�rios");         
-//>>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
->>>>>>> b5fc9b72cd8b558de7e5e01c650fb9ec13773462
+
+
     
          menu.add(mStudents);
          menu.add(mTeachers);
@@ -1008,7 +1007,15 @@ public class MainWindowNew extends JFrame {
 						throw new Exception("Campo CEP está vazio!");
 					}
 					
-					st = new Students(txfStudent.getText(), txfBirthdate.getText(), (String) cmbSex.getSelectedItem(), txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
+					String sex = "";
+					
+					if (cmbSex.getSelectedIndex() == 0) {
+						sex = "Masculino";
+					}else {
+						sex = "Feminino";
+					}
+					
+					st = new Students(txfStudent.getText(), txfBirthdate.getText(), sex , txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
 					
 					sts.save(st);
 					
@@ -1062,7 +1069,7 @@ public class MainWindowNew extends JFrame {
         JButton btnExitTeachers = new JButton("Sair");
         
         //Registering Panel Fields declarations
-        String TeacherGraduationType[] = { "Gradua��o", "Pos-Gradua��o","Mestrado","Doutorado"};
+        String TeacherGraduationType[] = { "Gradua��o", "Pós-Gradua��o","Mestrado","Doutorado"};
         JLabel lbTeacherName;
         JTextField txfTeacherName; 
         JLabel lbTeacherCode;
@@ -1086,6 +1093,7 @@ public class MainWindowNew extends JFrame {
         
         cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
         cbmTeacherGraduation.setBounds(40, 140, 125, 20);
+        cbmTeacherGraduation.setSelectedIndex(-1);
         teachersInternalFrame.add(cbmTeacherGraduation);
         
         lbTeacherName= new JLabel();
@@ -1106,8 +1114,39 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
-                teachersInternalFrame.setVisible(false);
-                
+            	Teacher tc;
+            	TeacherService tcs = new TeacherService();
+            	
+            	try {
+					if (txfTeacherCode.getText().isEmpty()) {
+						throw new Exception("Campo Código está vazio!");
+					}else if (txfTeacherName.getText().isEmpty()) {
+						throw new Exception("Campo Nome está vazio!");
+					}else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
+						throw new Exception("Campo Graduação está vazio!");
+					}
+					String graduation = "";
+					
+					if (cbmTeacherGraduation.getSelectedIndex() == 0) {
+						graduation = "Graduação";
+					}else if (cbmTeacherGraduation.getSelectedIndex() == 1 ) {
+						graduation = "Pós-Graduação";
+					}else if (cbmTeacherGraduation.getSelectedIndex() == 2) {
+						graduation = "Mestrado";
+					}else if (cbmTeacherGraduation.getSelectedIndex() == 3) {
+						graduation = "Doutorado";
+					}
+					
+					tc = new Teacher(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
+					
+					tcs.save(tc);
+					
+					teachersInternalFrame.setVisible(false);
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}                                                
             }
         });
         btnSaveTeachers.setBounds(93, 200, 95, 20);     
