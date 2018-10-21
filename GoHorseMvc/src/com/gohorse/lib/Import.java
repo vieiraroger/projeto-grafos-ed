@@ -27,11 +27,31 @@ public class Import {
 	        Courses course = new Courses();
 	        course.setName(line.substring(1, 11));
 	        
+	        line = buffRead.readLine();
 	        while (line != null) {
 	        	//RESUMO OPERACAO
-	        	line = buffRead.readLine();
+	        	
 	        	verifySummaryOperation(line);
-	            
+	        	Integer subjects_defined = Integer.parseInt(line.substring(8,10));
+	        	Integer teachers_defined = Integer.parseInt(line.substring(10,12));
+	        	Integer teachers_total = 0;
+	            for(int i=0;i<subjects_defined;i++) {
+	            	String subject = buffRead.readLine();
+	            	verifySubject(subject);
+	            	//Math m = new Math();
+	            	
+	            	Integer subject_teacher = Integer.parseInt(subject.substring(9, 11));
+	            	for(int j=0;j<subject_teacher;j++) {
+	            		String teacher = buffRead.readLine();
+	            		verifyTeacher(teacher);
+	            		
+	            		
+	            	}
+	            	
+	            }
+	        	
+	            line = buffRead.readLine();
+	        	break;
 	        }
 	        buffRead.close();
 		} catch(Exception ex) {
@@ -40,6 +60,8 @@ public class Import {
 		
 		return null;
 	}
+	
+	//TODO um for para verificar onde é para ter numero
 	
 	private void verifyHeader(String header) throws Exception {
 		//TODO SEQUENCIAL
@@ -148,4 +170,25 @@ public class Import {
 			throw new Exception("ERRO R. DE OPERACAO 002:");
 		}
 	}
+
+	private void verifySubject(String subject) throws Exception {
+		if(subject.length() != 11) {
+        	throw new Exception("ERRO MATERIA 001: Tamanho da materia invalido.");
+        }
+        
+        if(subject.charAt(0) != '2') {
+        	throw new Exception("ERRO MATERIA 002: Tipo de Registro Errado.");
+        }
+	}
+	
+	private void verifyTeacher(String teacher) throws Exception {
+		if(teacher.length() != 43) {
+        	throw new Exception("ERRO PROFESSOR 001: Tamanho do professor invalido.");
+        }
+        
+        if(teacher.charAt(0) != '3') {
+        	throw new Exception("ERRO PROFESSOR 002: Tipo de Registro Errado.");
+        }
+	}
+	
 }
