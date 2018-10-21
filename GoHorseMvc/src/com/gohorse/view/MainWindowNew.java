@@ -69,17 +69,22 @@ public class MainWindowNew extends JFrame {
     public MainWindowNew () {
     	        
         //Setting window size depending on IsFullscreen
-        if(isFullScreen == true) {        	
+        /*if(isFullScreen == true) {        	
         	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
         	setSize(ScreenSize.width, ScreenSize.height);             	
         }                     
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
         	setSize(ScreenSize.width, ScreenSize.height);    
+<<<<<<< HEAD
         	
         }                     
+=======
+        }*/                     
+    	setSize(750, 500);
+>>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
         
-        //Setting up main JFrame           
+        //Setting up main JFrame
         setTitle("Menu");
         setLayout(null);
         setResizable(false);
@@ -144,9 +149,14 @@ public class MainWindowNew extends JFrame {
          mPhases    = new JMenu("Fases");
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
+<<<<<<< HEAD
          mOptions   = new JMenu("Opções");
          mUsers     = new JMenu("Usuários");  
          mUtilities = new JMenu("Utilidades");
+=======
+         mOptions   = new JMenu("Opï¿½ï¿½es");
+         mUsers     = new JMenu("Usuï¿½rios");         
+>>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
     
          menu.add(mStudents);
          menu.add(mTeachers);
@@ -244,7 +254,7 @@ public class MainWindowNew extends JFrame {
                 }
              });
          
-         smConfig = new JMenuItem(new AbstractAction("Configurações") {
+         smConfig = new JMenuItem(new AbstractAction("Configuraï¿½ï¿½es") {
              
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -708,7 +718,7 @@ public class MainWindowNew extends JFrame {
         JButton btnDeleteUsers;
         
         //Users Registering
-        btnRegisterUsers = new JButton(new AbstractAction("Cadastrar Usuário") {
+        btnRegisterUsers = new JButton(new AbstractAction("Cadastrar Usuï¿½rio") {
 
             @Override
             public void actionPerformed(ActionEvent e) {                            
@@ -724,7 +734,7 @@ public class MainWindowNew extends JFrame {
         usersPanel.add(btnRegisterUsers);
     
         //Users Editing 
-        btnEditUsers = new JButton(new AbstractAction("Editar Usuário") {
+        btnEditUsers = new JButton(new AbstractAction("Editar Usuï¿½rio") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -739,7 +749,7 @@ public class MainWindowNew extends JFrame {
         usersPanel.add(btnEditUsers);
         
         //Users deleting
-        btnDeleteUsers = new JButton(new AbstractAction("Deletar Usuário") {
+        btnDeleteUsers = new JButton(new AbstractAction("Deletar Usuï¿½rio") {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -845,7 +855,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame.add(txfBirthdate);   
         
         lbAdress = new JLabel();
-        lbAdress.setText("Endereço:");
+        lbAdress.setText("Endereï¿½o:");
         lbAdress.setBounds(270, 40, 125, 20);
         studentsInternalFrame.add(lbAdress);
         
@@ -854,7 +864,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame.add(txfAdress);
         
         lbAdressNum = new JLabel();
-        lbAdressNum.setText("Nº:");
+        lbAdressNum.setText("Nï¿½:");
         lbAdressNum.setBounds(270, 85, 40, 20);
         studentsInternalFrame.add(lbAdressNum);
         
@@ -935,7 +945,7 @@ public class MainWindowNew extends JFrame {
         studentsInternalFrame.add(txfEmail); 
         
         lbNote = new JLabel();
-        lbNote.setText("Observações:");
+        lbNote.setText("Observaï¿½ï¿½es:");
         lbNote.setBounds(40, 355, 125, 20);
         studentsInternalFrame.add(lbNote);
         
@@ -993,7 +1003,7 @@ public class MainWindowNew extends JFrame {
         JButton btnExitTeachers = new JButton("Sair");
         
         //Registering Panel Fields declarations
-        String TeacherGraduationType[] = { "Graduação", "Pos-Graduação","Mestrado","Doutorado"};
+        String TeacherGraduationType[] = { "Graduaï¿½ï¿½o", "Pos-Graduaï¿½ï¿½o","Mestrado","Doutorado"};
         JLabel lbTeacherName;
         JTextField txfTeacherName; 
         JLabel lbTeacherCode;
@@ -1002,7 +1012,7 @@ public class MainWindowNew extends JFrame {
         JComboBox<?> cbmTeacherGraduation;
         
         lbTeacherCode= new JLabel();
-        lbTeacherCode.setText("Código:");
+        lbTeacherCode.setText("Cï¿½digo:");
         lbTeacherCode.setBounds(40, 30, 125, 20);
         teachersInternalFrame.add(lbTeacherCode);
         
@@ -1011,7 +1021,7 @@ public class MainWindowNew extends JFrame {
         teachersInternalFrame.add(txfTeacherCode);
         
         lbTeacherGraduation= new JLabel();
-        lbTeacherGraduation.setText("Graduação");
+        lbTeacherGraduation.setText("Graduaï¿½ï¿½o");
         lbTeacherGraduation.setBounds(40, 120, 125, 20);
         teachersInternalFrame.add(lbTeacherGraduation);
         
@@ -1077,7 +1087,7 @@ public class MainWindowNew extends JFrame {
         JButton btnExitSubjects = new JButton("Sair");
         
         //Registering Panel Fields declarations
-        String Weekdays[] = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado" };
+        String Weekdays[] = {"Segunda-feira", "Terï¿½a-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sï¿½bado" };
         JLabel lbSubjectWeekday;
         JComboBox<?> cmbSubjectWeekdays;
         
@@ -1089,7 +1099,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfSubjectTeacherAmount;
         
         lbSubjectCode= new JLabel();
-        lbSubjectCode.setText("Código:");
+        lbSubjectCode.setText("Cï¿½digo:");
         lbSubjectCode.setBounds(40, 30, 125, 20);
         subjectsInternalFrame.add(lbSubjectCode);
         
@@ -1179,7 +1189,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfPhaseCode;
         
         lbPhaseCode= new JLabel();
-        lbPhaseCode.setText("Código:");
+        lbPhaseCode.setText("Cï¿½digo:");
         lbPhaseCode.setBounds(40, 30, 125, 20);
         phasesInternalFrame.add(lbPhaseCode);
         
@@ -1248,7 +1258,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfCourseCode;
         
         lbCourseCode= new JLabel();
-        lbCourseCode.setText("Código:");
+        lbCourseCode.setText("Cï¿½digo:");
         lbCourseCode.setBounds(40, 30, 125, 20);
         coursesInternalFrame.add(lbCourseCode);
         
@@ -1337,7 +1347,7 @@ public class MainWindowNew extends JFrame {
         citiesInternalFrame.add(txfState);
         
         lbCountry = new JLabel();
-        lbCountry.setText("País:");
+        lbCountry.setText("Paï¿½s:");
         lbCountry.setBounds(40, 160, 125, 20);
         citiesInternalFrame.add(lbCountry);
         
@@ -1383,7 +1393,7 @@ public class MainWindowNew extends JFrame {
 
     public void CreateComponentUsersInternalFrame(){
         
-        usersInternalFrame = new JInternalFrame("Cadastro de Usuário");
+        usersInternalFrame = new JInternalFrame("Cadastro de Usuï¿½rio");
         usersInternalFrame.setLayout(null);
         usersInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -1394,7 +1404,7 @@ public class MainWindowNew extends JFrame {
         
         //Registering Panel Fields declarations
         
-        String UserType[] = { "Usuário", "Administrador" };
+        String UserType[] = { "Usuï¿½rio", "Administrador" };
         
         JLabel lbUser;
         JTextField txfUser;
@@ -1404,7 +1414,7 @@ public class MainWindowNew extends JFrame {
         JComboBox<?> cmbType;
                 
         lbUser = new JLabel();
-        lbUser.setText("Usuário:");
+        lbUser.setText("Usuï¿½rio:");
         lbUser.setBounds(50, 40, 125, 20);
         usersInternalFrame.add(lbUser);
         
@@ -1578,9 +1588,9 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel studentTableModel = new DefaultTableModel() {
             
-            String[] studentColumns = {"Código","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-                      "Celular","CEP","Número", "Endereço", "Bairro", "Cidade","Estado","Complemento",
-                      "Observação"};
+            String[] studentColumns = {"Cï¿½digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+                      "Celular","CEP","Nï¿½mero", "Endereï¿½o", "Bairro", "Cidade","Estado","Complemento",
+                      "Observaï¿½ï¿½o"};
             
             public int getColumnCount() { 
                 return studentColumns.length; 
@@ -1606,7 +1616,8 @@ public class MainWindowNew extends JFrame {
         studentScrollPane = new JScrollPane(studentTable);        
         studentScrollPane.setLocation(50, 100); 
         studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
-        studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
+        //studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
+        studentScrollPane.setSize(650 , 300);
                
         studentsPanel.add(studentScrollPane);
         
@@ -1619,7 +1630,7 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel teacherTableModel = new DefaultTableModel() {
             
-            String[] teacherColumns = {"Código", "Nome", "Graduação"};
+            String[] teacherColumns = {"Cï¿½digo", "Nome", "Graduaï¿½ï¿½o"};
             
             public int getColumnCount() { 
                 return teacherColumns.length; 
@@ -1658,7 +1669,7 @@ public class MainWindowNew extends JFrame {
         DefaultTableModel subjectTableModel = new DefaultTableModel() {
             
             
-            String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "Nº de Professores"};
+            String[] subjectColumns = {"Cï¿½digo", "Nome", "Dia da Semana", "Nï¿½ de Professores"};
             
             public int getColumnCount() { 
                 return subjectColumns.length; 
@@ -1704,7 +1715,7 @@ public class MainWindowNew extends JFrame {
         DefaultTableModel courseTableModel = new DefaultTableModel() {
             
             
-            String[] courseColumns = {"Código", "Nome"};
+            String[] courseColumns = {"Cï¿½digo", "Nome"};
             
             public int getColumnCount() { 
                 return courseColumns.length; 
@@ -1743,7 +1754,7 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel citiesTableModel = new DefaultTableModel() {
             
-            String[] cidade = {"Cidade", "País", "Estado"};
+            String[] cidade = {"Cidade", "Paï¿½s", "Estado"};
             
             public int getColumnCount() { 
             
@@ -1785,7 +1796,7 @@ public class MainWindowNew extends JFrame {
         //Declaring Table Model
         DefaultTableModel usersTableModel = new DefaultTableModel() {
             
-            String[] usuario = {"Usuário", "Senha", "Perfil"};
+            String[] usuario = {"Usuï¿½rio", "Senha", "Perfil"};
             
             @Override 
             public int getColumnCount() { 
@@ -1823,7 +1834,7 @@ public class MainWindowNew extends JFrame {
     
     public void CreateConfigInternalFrame() {
     	  	
-        configInternalFrame = new JInternalFrame("Configurações");
+        configInternalFrame = new JInternalFrame("Configuraï¿½ï¿½es");
         configInternalFrame.setLayout(null);
         configInternalFrame.setBounds(200, 80, 210, 230);
         configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -1860,7 +1871,7 @@ public class MainWindowNew extends JFrame {
             		                	
             	else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
             		
-            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
+            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
             		if (DialogResult == JOptionPane.YES_OPTION) {      
             			
             			isFullScreen = true;
@@ -1877,7 +1888,7 @@ public class MainWindowNew extends JFrame {
             	}
             	else {      
             		
-            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?");
+            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
             		if (DialogResult == JOptionPane.YES_OPTION) {          
             			
             			isFullScreen = false;            		
