@@ -1,6 +1,7 @@
 package com.gohorse.view;
 
 import java.math.*;
+import java.util.ArrayList;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -316,7 +317,7 @@ public class MainWindowNew extends JFrame {
         
         //Adding Internal frame and table to Panel (ORDER IS IMPORTANT)
         studentsPanel.add(studentsInternalFrame);   
-        CreateStudentsTable();
+        CreateAndFillStudentsTable();
         
         //Main Panel Buttons
         JButton btnRegisterStudents = new JButton("Cadastrar Aluno");
@@ -1688,48 +1689,63 @@ public class MainWindowNew extends JFrame {
     
     //JTables - CREATE   
     
-    public void CreateStudentsTable(){
-        
-        //Declaring Table Model
-        DefaultTableModel studentTableModel = new DefaultTableModel() {
-            
-            String[] studentColumns = {"Cï¿½digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-                      "Celular","CEP","Nï¿½mero", "Endereï¿½o", "Bairro", "Cidade","Estado","Complemento",
-                      "Observaï¿½ï¿½o"};
-            
-            public int getColumnCount() { 
-                return studentColumns.length; 
-            } 
-            
-            @Override
-            public String getColumnName(int index) {
-                return studentColumns[index];
-            }
-            
-            
-        };
-        
-        //Declaring Table and Scroll pane
-        JTable studentTable;
-        JScrollPane studentScrollPane;
-        
-        //Table Configuration
-        studentTable = new JTable(studentTableModel);    
-        studentTable.setEnabled(false);
-        
-        //Scroll Pane Configuration
-        studentScrollPane = new JScrollPane(studentTable);        
-        studentScrollPane.setLocation(50, 100); 
-        studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
-        studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
-        //studentScrollPane.setSize(650 , 300);
+    public void CreateAndFillStudentsTable(){
                
-        studentsPanel.add(studentScrollPane);
+       //Declaring Table Model
+       DefaultTableModel studentTableModel = new DefaultTableModel() {
+            
+           String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+                     "Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
+                     "Observa��o"};
+            
+           public int getColumnCount() { 
+               return studentColumns.length; 
+           } 
+            
+           @Override
+           public String getColumnName(int index) {
+               return studentColumns[index];
+           }            
+            
+       };
         
-        studentTable.setVisible(true);
+       //Declaring Table and Scroll pane
+       JTable studentTable;
+       JScrollPane studentScrollPane;                                   
+       
+       //Initialize StudentService and pull data object
+       StudentsService sts = new StudentsService(); 
+       ArrayList<Students> StudentsArrayList = new ArrayList<>(sts.findAll());
+       
+       //ADD ROWS TO TABLE
+       for(int index = 0; index < StudentsArrayList.size(); index++) {                         
+                
+           Object[] data = {StudentsArrayList.get(index).getStudent_id(), StudentsArrayList.get(index).getStudent(), StudentsArrayList.get(index).getBirthdate(),
+                   StudentsArrayList.get(index).getEmail(), StudentsArrayList.get(index).getSex(), StudentsArrayList.get(index).getPhone(), StudentsArrayList.get(index).getCellphone(),
+                   StudentsArrayList.get(index).getCep(), StudentsArrayList.get(index).getNumber(), StudentsArrayList.get(index).getAddress(), StudentsArrayList.get(index).getSuburb(),
+                   StudentsArrayList.get(index).getCity(), StudentsArrayList.get(index).getEstate(), StudentsArrayList.get(index).getComplement(), StudentsArrayList.get(index).getNote()};
+            
+           studentTableModel.addRow(data);
+           
+       }
+        
+       //Table Configuration
+       studentTable = new JTable(studentTableModel);    
+       studentTable.setEnabled(false);
+        
+       //Scroll Pane Configuration
+       studentScrollPane = new JScrollPane(studentTable);        
+       studentScrollPane.setLocation(50, 100); 
+       studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+       studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
+       //studentScrollPane.setSize(650 , 300);              
+        
+       studentsPanel.add(studentScrollPane);
+               
+       studentTable.setVisible(true);
         
     }
-
+   
     public void CreateTeacherTable(){
         
         //Declaring Table Model
