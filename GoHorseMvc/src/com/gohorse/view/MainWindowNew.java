@@ -1,11 +1,13 @@
 package com.gohorse.view;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class MainWindowNew extends JFrame {
@@ -53,24 +56,23 @@ public class MainWindowNew extends JFrame {
     //JFrame constructor
     
     public MainWindowNew () {
-    	
+    	        
         //Setting window size depending on IsFullscreen
         if(isFullScreen == true) {        	
         	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
-        	setSize(ScreenSize.width, ScreenSize.height);        	
-        }
-                     
+        	setSize(ScreenSize.width, ScreenSize.height);             	
+        }                     
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.66),(ScreenSize.getHeight()*0.66));
-        	setSize(ScreenSize.width, ScreenSize.height);        	
-        }            
+        	setSize(ScreenSize.width, ScreenSize.height);    
+        }                     
         
-        //Setting up main JFrame            
+        //Setting up main JFrame           
         setTitle("Menu");
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);      
+        setLocationRelativeTo(null);            
         
         //Creating visual components
         CreateTopBarComponents();
@@ -81,8 +83,8 @@ public class MainWindowNew extends JFrame {
         FillComponentsInTeachersPanel();
         FillComponentsInPhasesPanel();
         FillComponentsInCoursesPanel();
-        FillComponentsInSubjectsPanel();
-              
+        FillComponentsInSubjectsPanel();                              
+        
         }
     
     //TESTING MAIN TODO REVERT MAIN TO LOGINWINDOW
