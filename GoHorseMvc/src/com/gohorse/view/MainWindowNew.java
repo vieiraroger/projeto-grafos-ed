@@ -69,21 +69,19 @@ public class MainWindowNew extends JFrame {
     public MainWindowNew () {
     	        
         //Setting window size depending on IsFullscreen
-        /*if(isFullScreen == true) {        	
+        if(isFullScreen == true) {        	
         	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
         	setSize(ScreenSize.width, ScreenSize.height);             	
         }                     
         else {        	
         	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
         	setSize(ScreenSize.width, ScreenSize.height);    
-<<<<<<< HEAD
         	
         }                     
-=======
-        }*/                     
-    	setSize(750, 500);
->>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
-        
+
+                        
+    	//setSize(750, 500);
+
         //Setting up main JFrame
         setTitle("Menu");
         setLayout(null);
@@ -149,14 +147,14 @@ public class MainWindowNew extends JFrame {
          mPhases    = new JMenu("Fases");
          mCourses   = new JMenu("Cursos");       
          mCities    = new JMenu("Cidades");
-<<<<<<< HEAD
+//<<<<<<< HEAD
          mOptions   = new JMenu("Opções");
          mUsers     = new JMenu("Usuários");  
          mUtilities = new JMenu("Utilidades");
-=======
+//=======
          mOptions   = new JMenu("Opï¿½ï¿½es");
          mUsers     = new JMenu("Usuï¿½rios");         
->>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
+//>>>>>>> a0e3cca25600e37a4166ffa9dba565a399f4d77e
     
          menu.add(mStudents);
          menu.add(mTeachers);
