@@ -67,6 +67,9 @@ public class MainWindowNew extends JFrame {
 	private JTable studentTable;
 	private JTable teacherTable;
 	private JTable subjectTable;
+	private JTable courseTable;
+	private JTable citiesTable;
+	private JTable usersTable;
 
 	// Declaring internal frames
 	private JInternalFrame configInternalFrame;
@@ -1446,7 +1449,28 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
 
-			coursesInternalFrame.setVisible(false);
+			Courses cs;
+			CoursesService css = new CoursesService();
+
+			try {
+				if (txfCourseCode.getText().isEmpty()) {
+					throw new Exception("Campo Código está vazio!");
+				}else if (txfCourseName.getText().isEmpty()) {
+					throw new Exception("Campo Nome está vazio!");
+				}
+				
+				cs = new Courses(Integer.parseInt(txfCourseCode.getText()) , txfCourseName.getText());
+
+				css.save(cs);
+				
+				UpdateRowsCoursesTable();
+				
+				coursesInternalFrame.setVisible(false);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			} 
 
 			}
 		});
@@ -1461,26 +1485,8 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
 			
-			Courses cs;
-			CoursesService css = new CoursesService();
-
-			try {
-				if (txfCourseCode.getText().isEmpty()) {
-					throw new Exception("Campo Código está vazio!");
-				}else if (txfCourseName.getText().isEmpty()) {
-					throw new Exception("Campo Nome está vazio!");
-				}
-				
-				cs = new Courses(Integer.parseInt(txfCourseCode.getText()) , txfCourseName.getText());
-
-				css.save(cs);
-
-				coursesInternalFrame.setVisible(false);
-
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-			} 
+			coursesInternalFrame.setVisible(false);
+			
           }
 		});
 		btnExitCourses.setBounds(23, 150, 60, 20); 
@@ -1561,7 +1567,9 @@ public class MainWindowNew extends JFrame {
 				ct = new Cities(txfCity.getText(), txfState.getText(), txfCountry.getText());
 
 				cts.save(ct);
-
+				
+				UpdateRowsCitiesTable();
+				
 				citiesInternalFrame.setVisible(false);
 
 			} catch (Exception e) {
@@ -1675,7 +1683,9 @@ public class MainWindowNew extends JFrame {
 					us = new Users(txfUser.getText(), txfPassword.getPassword().toString() , type);
 	
 					uss.save(us);
-	
+					
+					UpdateRowsUsersTable();
+					
 					usersInternalFrame.setVisible(false);
 	
 				} catch (Exception e) {
@@ -1825,16 +1835,17 @@ public class MainWindowNew extends JFrame {
 		//Table Configuration
 		studentTable = new JTable();    
 		studentTable.setEnabled(false);
-
+		
 		//Fill Rows in studentModel
 		UpdateRowsStudentsTable();
-
+		
 		//Scroll Pane Configuration
 		studentScrollPane = new JScrollPane(studentTable);        
 		studentScrollPane.setLocation(50, 100); 
 		studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));                     
-
+		
+		
 		studentsPanel.add(studentScrollPane);   
 
 		studentTable.setVisible(true);
@@ -1849,16 +1860,18 @@ public class MainWindowNew extends JFrame {
 		//Table Configuration
 		teacherTable = new JTable();                   
 		teacherTable.setEnabled(false);
-
+		
 		//Fill Rows in studentModel
 		UpdateRowsTeachersTable();
-
+		
 		//Scroll Pane Configuration
 		teacherScrollPane = new JScrollPane(teacherTable);
 		teacherScrollPane.setLocation(50, 100); 
 		teacherScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		teacherScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));    
-
+		
+		
+		
 		teachersPanel.add(teacherScrollPane);
 
 		teacherTable.setVisible(true);
@@ -1873,16 +1886,18 @@ public class MainWindowNew extends JFrame {
 		//Table Configuration
 		subjectTable = new JTable();                   
 		subjectTable.setEnabled(false);
-
+		
 		//Fill Rows in studentModel
 		UpdateRowsSubjectsTable();
-
+		
 		//Scroll Pane Configuration
 		subjectScrollPane = new JScrollPane(subjectTable);
 		subjectScrollPane.setLocation(50, 100); 
 		subjectScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		subjectScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-
+		
+		
+		
 		subjectsPanel.add(subjectScrollPane);
 
 		subjectTable.setVisible(true);
@@ -1897,38 +1912,23 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateCourseTable(){
 
-		//Declaring Table Model
-		DefaultTableModel courseTableModel = new DefaultTableModel() {
-
-
-			String[] courseColumns = {"Cï¿½digo", "Nome"};
-
-			public int getColumnCount() { 
-				return courseColumns.length; 
-			} 
-
-			@Override
-			public String getColumnName(int index) {
-				return courseColumns[index];
-			}
-
-
-		};
-
 		//Declaring Table and Scroll pane
-		JTable courseTable;
 		JScrollPane courseScrollPane;
 
 		//Table Configuration
-		courseTable = new JTable(courseTableModel);                   
+		courseTable = new JTable();                   
 		courseTable.setEnabled(false);
-
+		
+		UpdateRowsCoursesTable();
+		
 		//Scroll Pane Configuration
 		courseScrollPane = new JScrollPane(courseTable);
 		courseScrollPane.setLocation(50, 100); 
 		courseScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		courseScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-
+        
+		
+		
 		coursesPanel.add(courseScrollPane);
 
 		courseTable.setVisible(true);
@@ -1937,40 +1937,21 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateCitiesTable(){
 
-		//Declaring Table Model
-		DefaultTableModel citiesTableModel = new DefaultTableModel() {
-
-			String[] cidade = {"Cidade", "Paï¿½s", "Estado"};
-
-			public int getColumnCount() { 
-
-				return cidade.length; 
-
-			} 
-
-			@Override
-			public String getColumnName(int index) {
-
-				return cidade[index];
-
-			}
-
-		};
-
 		//Declaring Table and Scroll pane
-		JTable citiesTable;
 		JScrollPane citiesScrollPane;
 
 		//Table Configuration
-		citiesTable = new JTable(citiesTableModel);                 
+		citiesTable = new JTable();                 
 		citiesTable.setEnabled(false);
-
+		
+		UpdateRowsCitiesTable();
+		
 		//Scroll Pane Configuration
 		citiesScrollPane = new JScrollPane(citiesTable);
 		citiesScrollPane.setLocation(50, 100); 
 		citiesScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		citiesScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-
+		
 		citiesPanel.add(citiesScrollPane);
 
 		citiesTable.setVisible(true);
@@ -1979,37 +1960,22 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateUsersTable(){
 
-		//Declaring Table Model
-		DefaultTableModel usersTableModel = new DefaultTableModel() {
-
-			String[] usuario = {"Usuï¿½rio", "Senha", "Perfil"};
-
-			@Override 
-			public int getColumnCount() { 
-				return usuario.length; 
-			} 
-
-			@Override
-			public String getColumnName(int index) {
-				return usuario[index];
-			}
-
-		};
-
+		
 		//Declaring Table and Scroll pane
-		JTable usersTable;
 		JScrollPane usersScrollPane;
 
 		//Table Configuration
-		usersTable = new JTable(usersTableModel);                   
+		usersTable = new JTable();                   
 		usersTable.setEnabled(false);
-
+		
+		UpdateRowsUsersTable();
+		
 		//Scroll Pane Configuration
 		usersScrollPane = new JScrollPane(usersTable);
 		usersScrollPane.setLocation(50, 100); 
 		usersScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		usersScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-
+		
 		usersPanel.add(usersScrollPane);
 
 		usersTable.setVisible(true);
@@ -2084,7 +2050,11 @@ public class MainWindowNew extends JFrame {
 			//Initialize TeacherService and pull data object
 			TeacherService tts = new TeacherService(); 
 			Collection<Teacher> TeacherList = tts.findAll();
-
+			
+			if (TeacherList == null) {
+				return;
+			}
+			
 			//ADD ROWS TO TABLE
 			for(Teacher tc : TeacherList) {                         
 
@@ -2126,7 +2096,11 @@ public class MainWindowNew extends JFrame {
 			//Initialize SubjectService and pull data object
 			MathsService mts = new MathsService(); 
 			Collection<Maths> SubjectList = mts.findAll();
-
+			
+			if (SubjectList == null) {
+				return;
+			}
+			
 			//ADD ROWS TO TABLE
 			for(Maths mh : SubjectList) {                         
 
@@ -2138,6 +2112,202 @@ public class MainWindowNew extends JFrame {
 			}
 			
 			subjectTable.setModel(subjectTableModel);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+
+	}
+	
+	public void UpdateRowsPhasesTable() {
+
+		//Declaring Table Model
+		DefaultTableModel phaseTableModel = new DefaultTableModel() {
+
+
+			String[] subjectColumns = {"Código", "Nome"};
+
+			public int getColumnCount() { 
+				return subjectColumns.length; 
+			} 
+
+			@Override
+			public String getColumnName(int index) {
+				return subjectColumns[index];
+			}
+
+
+		};
+
+		try {
+			//Initialize SubjectService and pull data object
+			FaseService fss = new FaseService(); 
+			Collection<Fase> PhaseList = fss.findAll();
+			
+			if (PhaseList == null) {
+				return;
+			}
+			
+			//ADD ROWS TO TABLE
+			for(Fase fs : PhaseList) {                         
+
+				Object[] data = {fs.getCode(), fs.getName()};
+
+				phaseTableModel.addRow(data);
+				
+
+			}
+			
+			//subjectTable.setModel(phaseTableModel);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+
+	}
+	
+	public void UpdateRowsCoursesTable() {
+
+		//Declaring Table Model
+		DefaultTableModel courseTableModel = new DefaultTableModel() {
+
+
+			String[] CoursesColumns = {"Código", "Nome"};
+
+			public int getColumnCount() { 
+				return CoursesColumns.length; 
+			} 
+
+			@Override
+			public String getColumnName(int index) {
+				return CoursesColumns[index];
+			}
+
+
+		};
+
+		try {
+			//Initialize SubjectService and pull data object
+			CoursesService css = new CoursesService(); 
+			Collection<Courses> CourseList = css.findAll();
+			
+			if (CourseList == null) {
+				return;
+			}
+			
+			//ADD ROWS TO TABLE
+			for(Courses cs : CourseList) {                         
+
+				Object[] data = {cs.getCode(), cs.getName()};
+
+				courseTableModel.addRow(data);
+				
+
+			}
+			
+			courseTable.setModel(courseTableModel);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+
+	}
+	
+	public void UpdateRowsCitiesTable() {
+
+		//Declaring Table Model
+		DefaultTableModel citiesTableModel = new DefaultTableModel() {
+
+
+			String[] CitiesColumns = {"Cidade", "Estado", "País"};
+
+			public int getColumnCount() { 
+				return CitiesColumns.length; 
+			} 
+
+			@Override
+			public String getColumnName(int index) {
+				return CitiesColumns[index];
+			}
+
+
+		};
+
+		try {
+			//Initialize SubjectService and pull data object
+			CitiesService cts = new CitiesService(); 
+			Collection<Cities> CityList = cts.findAll();
+			
+			if (CityList == null) {
+				return;
+			}
+			
+			//ADD ROWS TO TABLE
+			for(Cities ct : CityList) {                         
+
+				Object[] data = {ct.getCity(), ct.getState(), ct.getCountry() };
+
+				citiesTableModel.addRow(data);
+				
+
+			}
+			
+			citiesTable.setModel(citiesTableModel);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+
+	}
+	
+	public void UpdateRowsUsersTable() {
+
+		//Declaring Table Model
+		DefaultTableModel usersTableModel = new DefaultTableModel() {
+
+
+			String[] UsersColumns = {"Usuário", "Senha", "Perfil"};
+
+			public int getColumnCount() { 
+				return UsersColumns.length; 
+			} 
+
+			@Override
+			public String getColumnName(int index) {
+				return UsersColumns[index];
+			}
+
+
+		};
+
+		try {
+			//Initialize SubjectService and pull data object
+			UsersService uss = new UsersService(); 
+			Collection<Users> UserList = uss.findAll();
+			
+			if (UserList == null) {
+				return;
+			}
+			
+			//ADD ROWS TO TABLE
+			for(Users us : UserList) {                         
+
+				Object[] data = {us.getUser(), us.getPassword(), us.getPerfil() };
+
+				usersTableModel.addRow(data);
+				
+
+			}
+			
+			usersTable.setModel(usersTableModel);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -7,6 +7,7 @@ public class Courses implements Entity, Serializable{
 	private static final long serialVersionUID = -4430720802186201076L;
 	private int id;
 	private int code;
+	private String name;
 	
 	public Courses() {
 		
@@ -25,9 +26,6 @@ public class Courses implements Entity, Serializable{
 	public void setCode(int code) {
 		this.code = code;
 	}
-
-	private String name;
-	
 	
 	@Override
 	public Integer getId() {

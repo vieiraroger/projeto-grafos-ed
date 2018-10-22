@@ -10,6 +10,7 @@ public class Cities implements Entity, Serializable{
 	private String state;
 	private String country;
 	
+	
 	public Cities(String city, String state, String country) {
 		this.city = city;
 		this.state = state;

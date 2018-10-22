@@ -9,6 +9,7 @@ public class Fase implements Entity, Serializable{
 	private int code;
 	private String name;
 	
+	
 	public Fase(int code, String name) {
 		super();
 		this.code = code;
