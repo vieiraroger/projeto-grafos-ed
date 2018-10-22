@@ -8,7 +8,7 @@ public class Students implements Entity, Serializable {
 	private Integer student_id;
 	private String student;
 	private String birthdate;
-	private String sex;
+	private char sex;
 	private String phone;
 	private String cellphone;
 	private String email;
@@ -22,7 +22,7 @@ public class Students implements Entity, Serializable {
 	private String cep;
 	
 	
-	public Students(String student, String birthdate, String sex, String phone, String cellphone,
+	public Students(String student, String birthdate, char sex, String phone, String cellphone,
 			String email, String note, String address, String number, String complement, String suburb,
 			String city, String estate, String cep) {
 		super();
@@ -67,10 +67,10 @@ public class Students implements Entity, Serializable {
 	}
 	
 	
-	public String getSex() {
+	public char getSex() {
 		return sex;
 	}
-	public void setSex(String sex) {
+	public void setSex(char sex) {
 		this.sex = sex;
 	}
 	

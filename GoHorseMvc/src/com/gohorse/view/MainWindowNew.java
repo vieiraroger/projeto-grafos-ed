@@ -2,7 +2,6 @@ package com.gohorse.view;
 
 import java.math.*;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,14 +38,13 @@ import com.gohorse.database.model.Fase;
 import com.gohorse.database.model.Maths;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
-import com.gohorse.database.service.MathsService;
 import com.gohorse.database.service.StudentsService;
 import com.gohorse.database.service.TeacherService;
 
 public class MainWindowNew extends JFrame {
         
     // Saving screen size in variable
-	public static boolean isFullScreen;
+    public static boolean isFullScreen;
     Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();     
     
     // Declaring Panels
@@ -59,6 +57,12 @@ public class MainWindowNew extends JFrame {
     private JPanel usersPanel;
     private JPanel importerPanel;
 
+    //Declaring TableModels
+    private DefaultTableModel studentTableModel;
+    
+    //Declaring Tables
+    private JTable studentTable;
+    
     // Declaring internal frames
     private JInternalFrame configInternalFrame;
     private JInternalFrame studentsInternalFrame;
@@ -73,27 +77,20 @@ public class MainWindowNew extends JFrame {
     //JFrame constructor
     
     public MainWindowNew () {
-    	        
+                
         //Setting window size depending on IsFullscreen
-        if(isFullScreen == true) {        	
-        	ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
-        	setSize(ScreenSize.width, ScreenSize.height);             	
+        if(isFullScreen == true) {          
+            ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
+            setSize(ScreenSize.width, ScreenSize.height);               
         }                     
-        else {        	
-        	ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
-        	setSize(ScreenSize.width, ScreenSize.height);    
+        else {          
+            ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
+            setSize(ScreenSize.width, ScreenSize.height);    
 
 
 
-        	
-        }                     
-
-                  
-    	setSize(750, 500);
-
-                        
-    	//setSize(750, 500);
-
+            
+        }                                       
 
         //Setting up main JFrame
         setTitle("Menu");
@@ -286,8 +283,8 @@ public class MainWindowNew extends JFrame {
              @Override
              public void actionPerformed(ActionEvent e) {
 
-            	ShowPanel("importer");
-            	importerInternalFrame.setVisible(true);
+                ShowPanel("importer");
+                importerInternalFrame.setVisible(true);
                  
              }
           });
@@ -319,7 +316,7 @@ public class MainWindowNew extends JFrame {
         
         //Adding Internal frame and table to Panel (ORDER IS IMPORTANT)
         studentsPanel.add(studentsInternalFrame);   
-        CreateAndFillStudentsTable();
+        CreateStudentsTable();
         
         //Main Panel Buttons
         JButton btnRegisterStudents = new JButton("Cadastrar Aluno");
@@ -787,7 +784,7 @@ public class MainWindowNew extends JFrame {
     public void FillComponentsInImporterPanel(){
               
         //Importers Panel Declaration
-    	CreateComponentImporterInternalFrame();
+        CreateComponentImporterInternalFrame();
         importerPanel = new JPanel();
         importerPanel.setLayout(null);
         importerPanel.setSize(ScreenSize.width, ScreenSize.height);
@@ -978,62 +975,62 @@ public class MainWindowNew extends JFrame {
             
             @Override
             public void actionPerformed(ActionEvent arg0) {;
-                    
-            	
+                                
                 Students st;
                 StudentsService sts = new StudentsService();
                 try {
-					if(txfStudent.getText().isEmpty()) {
-						throw new Exception("Campo Estudante estÃ¡ vazio!");
-					}else if (txfBirthdate.getText().isEmpty()) {
-						throw new Exception("Campo Data de nascimento estÃ¡ vazio!");
-					}else if (cmbSex.getSelectedIndex() == -1) {
-						throw new Exception("Campo Sexo estÃ¡ vazio!");
-					}else if (txfPhone.getText().isEmpty()) {
-						throw new Exception("Campo Telefone estÃ¡ vazio!");
-					}else if (txfCellphone.getText().isEmpty()) {
-						throw new Exception("Campo Celular estÃ¡ vazio!");
-					}else if (txfEmail.getText().isEmpty()) {
-						throw new Exception("Campo Email estÃ¡ vazio!");
-					}else if (txfNote.getText().isEmpty()) {
-						throw new Exception("Campo ObservaÃ§Ãµes estÃ¡ vazio!");
-					}else if (txfAdress.getText().isEmpty()) {
-						throw new Exception("Campo EndereÃ§o estÃ¡ vazio!");
-					}else if (txfAdressNum.getText().isEmpty()) {
-						throw new Exception("Campo NÂ° estÃ¡ vazio!");
-					}else if (txfComplement.getText().isEmpty()) {
-						throw new Exception("Campo Complemento estÃ¡ vazio!");
-					}else if (txfSuburb.getText().isEmpty()) {
-						throw new Exception("Campo Bairro estÃ¡ vazio!");
-					}else if (txfSCity.getText().isEmpty()) {
-						throw new Exception("Campo Cidade estÃ¡ vazio!");
-					}else if (txfStuEstate.getText().isEmpty()) {
-						throw new Exception("Campo Estado estÃ¡ vazio!");
-					}else if (txfCep.getText().isEmpty()) {
-						throw new Exception("Campo CEP estÃ¡ vazio!");
-					}
-					
+                    if(txfStudent.getText().isEmpty()) {
+                        throw new Exception("Campo Estudante estÃ¡ vazio!");
+                    }else if (txfBirthdate.getText().isEmpty()) {
+                        throw new Exception("Campo Data de nascimento estÃ¡ vazio!");
+                    }else if (cmbSex.getSelectedIndex() == -1) {
+                        throw new Exception("Campo Sexo estÃ¡ vazio!");
+                    }else if (txfPhone.getText().isEmpty()) {
+                        throw new Exception("Campo Telefone estÃ¡ vazio!");
+                    }else if (txfCellphone.getText().isEmpty()) {
+                        throw new Exception("Campo Celular estÃ¡ vazio!");
+                    }else if (txfEmail.getText().isEmpty()) {
+                        throw new Exception("Campo Email estÃ¡ vazio!");
+                    }else if (txfNote.getText().isEmpty()) {
+                        throw new Exception("Campo ObservaÃ§Ãµes estÃ¡ vazio!");
+                    }else if (txfAdress.getText().isEmpty()) {
+                        throw new Exception("Campo EndereÃ§o estÃ¡ vazio!");
+                    }else if (txfAdressNum.getText().isEmpty()) {
+                        throw new Exception("Campo NÂ° estÃ¡ vazio!");
+                    }else if (txfComplement.getText().isEmpty()) {
+                        throw new Exception("Campo Complemento estÃ¡ vazio!");
+                    }else if (txfSuburb.getText().isEmpty()) {
+                        throw new Exception("Campo Bairro estÃ¡ vazio!");
+                    }else if (txfSCity.getText().isEmpty()) {
+                        throw new Exception("Campo Cidade estÃ¡ vazio!");
+                    }else if (txfStuEstate.getText().isEmpty()) {
+                        throw new Exception("Campo Estado estÃ¡ vazio!");
+                    }else if (txfCep.getText().isEmpty()) {
+                        throw new Exception("Campo CEP estÃ¡ vazio!");
+                    }
+                    
+                    char sex;
+                    
+                    if (cmbSex.getSelectedIndex() == 0)                         
+                        sex = 'm';
+                    else                        
+                        sex = 'f';                  
+                    
+                    st = new Students(txfStudent.getText(), txfBirthdate.getText(), sex, txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
 
-					String sex = "";
-					
-					if (cmbSex.getSelectedIndex() == 0) {
-						sex = "Masculino";
-					}else {
-						sex = "Feminino";
-					}
-					
-					st = new Students(txfStudent.getText(), txfBirthdate.getText(), sex , txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());
-
-					
-					sts.save(st);
-					
-					studentsPanel.setVisible(true);
-	                                studentsInternalFrame.setVisible(false);
-	                
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}
+                    
+                    sts.save(st);
+                    
+                    FillRowsStudentsTable();
+                    
+                    studentsPanel.setVisible(true);
+                    studentsInternalFrame.setVisible(false);
+                                        
+                    
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
                 
                 
                 
@@ -1124,39 +1121,39 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
-            	Teacher tc;
-            	TeacherService tcs = new TeacherService();
-            	
-            	try {
-					if (txfTeacherCode.getText().isEmpty()) {
-						throw new Exception("Campo Código está vazio!");
-					}else if (txfTeacherName.getText().isEmpty()) {
-						throw new Exception("Campo Nome está vazio!");
-					}else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
-						throw new Exception("Campo Graduação está vazio!");
-					}
-					String graduation = "";
-					
-					if (cbmTeacherGraduation.getSelectedIndex() == 0) {
-						graduation = "Graduação";
-					}else if (cbmTeacherGraduation.getSelectedIndex() == 1 ) {
-						graduation = "Pós-Graduação";
-					}else if (cbmTeacherGraduation.getSelectedIndex() == 2) {
-						graduation = "Mestrado";
-					}else if (cbmTeacherGraduation.getSelectedIndex() == 3) {
-						graduation = "Doutorado";
-					}
-					
-					tc = new Teacher(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
-					
-					tcs.save(tc);
-					
-					teachersInternalFrame.setVisible(false);
-					
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}                                                
+                Teacher tc;
+                TeacherService tcs = new TeacherService();
+                
+                try {
+                    if (txfTeacherCode.getText().isEmpty()) {
+                        throw new Exception("Campo Código está vazio!");
+                    }else if (txfTeacherName.getText().isEmpty()) {
+                        throw new Exception("Campo Nome está vazio!");
+                    }else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
+                        throw new Exception("Campo Graduação está vazio!");
+                    }
+                    String graduation = "";
+                    
+                    if (cbmTeacherGraduation.getSelectedIndex() == 0) {
+                        graduation = "Graduação";
+                    }else if (cbmTeacherGraduation.getSelectedIndex() == 1 ) {
+                        graduation = "Pós-Graduação";
+                    }else if (cbmTeacherGraduation.getSelectedIndex() == 2) {
+                        graduation = "Mestrado";
+                    }else if (cbmTeacherGraduation.getSelectedIndex() == 3) {
+                        graduation = "Doutorado";
+                    }
+                    
+                    tc = new Teacher(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
+                    
+                    tcs.save(tc);
+                    
+                    teachersInternalFrame.setVisible(false);
+                    
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }                                                
             }
         });
         btnSaveTeachers.setBounds(93, 200, 95, 20);     
@@ -1185,7 +1182,7 @@ public class MainWindowNew extends JFrame {
     
     public void CreateComponentSubjectsInternalFrame(){
         
-        subjectsInternalFrame = new JInternalFrame("Cadastro de Matérias");
+        subjectsInternalFrame = new JInternalFrame("Cadastro de Professores");
         subjectsInternalFrame.setLayout(null);
         subjectsInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
         subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -1249,49 +1246,11 @@ public class MainWindowNew extends JFrame {
         btnSaveSubjects.addActionListener(new ActionListener() {
             
             @Override
-            public void actionPerformed(ActionEvent arg0) {
-            	
-            Maths mh;
-        	MathsService mhs = new MathsService();
-        	
-        	try {
-				if (txfSubjectCode.getText().isEmpty()) {
-					throw new Exception("Campo Código está vazio!");
-				}else if (txfSubjectName.getText().isEmpty()) {
-					throw new Exception("Campo Nome está vazio!");
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == -1) {
-					throw new Exception("Campo Dia da Semana está vazio!");
-				}else if (txfSubjectTeacherAmount.getText().isEmpty()) {
-					throw new Exception("Campo Quantidade de Professores está vazio!");
-				}
-				String weekday = "";
-				
-				if (cmbSubjectWeekdays.getSelectedIndex() == 0) {
-					weekday = "Segunda-feira";
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == 1 ) {
-					weekday = "Terça-feira";
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == 2) {
-					weekday = "Quarta-feira";
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == 3) {
-					weekday = "Quinta-feira";
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == 4) {
-					weekday = "Sexta-feira";
-				}else if (cmbSubjectWeekdays.getSelectedIndex() == 5) {
-					weekday = "Sábado";
-				}
-				
-				mh = new Maths(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
-				
-				mhs.save(mh);
-				
-				  subjectsInternalFrame.setVisible(false);
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-			} 
-            
-         }	
+            public void actionPerformed(ActionEvent arg0) {;
+                
+                subjectsInternalFrame.setVisible(false);
+                
+            }
         });
         btnSaveSubjects.setBounds(93, 230, 95, 20);     
         btnSaveSubjects.setFocusPainted(false);
@@ -1623,163 +1582,130 @@ public class MainWindowNew extends JFrame {
     }
     
     public void CreateComponentImporterInternalFrame(){
-    	  importerInternalFrame = new JInternalFrame("Cadastro de Cidade");
-    	  importerInternalFrame.setLayout(null);
-    	  importerInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
-    	  importerInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL))); 
-    	
-    	 JLabel labelDescricao;
-     	 JTextField txfData;
-     	 JTextField txfFaseInicial;
-     	 JTextField txfFaseFinal;
-     	 JTextField txfCurso;
-     	 JTextField txfImportacao;
-     	 JButton btnSelecionarArquivo;
-     	 JButton btnImportarArquivo;
-     	 
-     	JList<Fase> listFases;
-    	JList<Maths> listDisciplinas;
-    	JList<Teacher> listProfessores;
-    	DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
-    	DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
-    	DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
-     	 
-     	labelDescricao = new JLabel("Arquivo:");
-  		labelDescricao.setBounds(15, 10, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		txfImportacao = new JTextField();
-  		txfImportacao.setBounds(15, 32, 350, 25);
-  		importerInternalFrame.add(txfImportacao);
-  		
-  		btnSelecionarArquivo = new JButton("?");
-  		
-  		
-  		btnSelecionarArquivo.setBounds(370, 32, 20, 25);
-  		importerInternalFrame.add(btnSelecionarArquivo);		
-  		
-  		labelDescricao = new JLabel("Data:");
-  		labelDescricao.setBounds(15, 80, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		txfData = new JTextField();
-  		txfData.setBounds(50, 80, 80, 25);
-  		importerInternalFrame.add(txfData);
-  		
-  		labelDescricao = new JLabel("Fase Inicial:");
-  		labelDescricao.setBounds(145, 80, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		txfFaseInicial = new JTextField();
-  		txfFaseInicial.setBounds(215, 80, 75, 25);
-  		importerInternalFrame.add(txfFaseInicial);	
-  		
-  		labelDescricao = new JLabel("Fase Final:");
-  		labelDescricao.setBounds(305, 80, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		txfFaseFinal = new JTextField();
-  		txfFaseFinal.setBounds(368, 80, 75, 25);
-  		importerInternalFrame.add(txfFaseFinal);
-  		
-  		labelDescricao = new JLabel("Curso:");
-  		labelDescricao.setBounds(460, 80, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		txfCurso = new JTextField();
-  		txfCurso.setBounds(501, 80, 160, 25);
-  		importerInternalFrame.add(txfCurso);
-  		
-  		labelDescricao = new JLabel("FASES:");
-  		labelDescricao.setBounds(20, 145, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		labelDescricao = new JLabel("DISCIPLINAS:");
-  		labelDescricao.setBounds(360, 145, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		labelDescricao = new JLabel("PROFESSORES:");
-  		labelDescricao.setBounds(700, 145, 100, 25);
-  		importerInternalFrame.add(labelDescricao);
-  		
-  		btnImportarArquivo = new JButton("Importar");
-  		btnImportarArquivo.setBounds(395, 32, 90, 25);
-  		importerInternalFrame.add(btnImportarArquivo); 
-  		
-  		listFases = new JList<Fase>(modelFases);
-		JScrollPane scrollFases = new JScrollPane(listFases);
-		scrollFases.setBounds(20, 165, 300, 450);
-		importerInternalFrame.add(scrollFases, BorderLayout.CENTER);
-		listFases.addMouseListener(null);
-		
-		listDisciplinas = new JList<Maths>(modelDisciplinas);
-		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
-		scrollDisciplinas.setBounds(360, 165, 300, 450);
-		importerInternalFrame.add(scrollDisciplinas, BorderLayout.CENTER);
-		listDisciplinas.addMouseListener(null);
-		
-		listProfessores = new JList<Teacher>(modelProfessores);
-		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
-		scrollProfessores.setBounds(700, 165, 300, 450);
-		importerInternalFrame.add(scrollProfessores, BorderLayout.CENTER);
-		listProfessores.addMouseListener(null);
+          importerInternalFrame = new JInternalFrame("Cadastro de Cidade");
+          importerInternalFrame.setLayout(null);
+          importerInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
+          importerInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL))); 
+        
+         JLabel labelDescricao;
+         JTextField txfData;
+         JTextField txfFaseInicial;
+         JTextField txfFaseFinal;
+         JTextField txfCurso;
+         JTextField txfImportacao;
+         JButton btnSelecionarArquivo;
+         JButton btnImportarArquivo;
+         
+        JList<Fase> listFases;
+        JList<Maths> listDisciplinas;
+        JList<Teacher> listProfessores;
+        DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
+        DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
+        DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
+         
+        labelDescricao = new JLabel("Arquivo:");
+        labelDescricao.setBounds(15, 10, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        txfImportacao = new JTextField();
+        txfImportacao.setBounds(15, 32, 350, 25);
+        importerInternalFrame.add(txfImportacao);
+        
+        btnSelecionarArquivo = new JButton("?");
+        
+        
+        btnSelecionarArquivo.setBounds(370, 32, 20, 25);
+        importerInternalFrame.add(btnSelecionarArquivo);        
+        
+        labelDescricao = new JLabel("Data:");
+        labelDescricao.setBounds(15, 80, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        txfData = new JTextField();
+        txfData.setBounds(50, 80, 80, 25);
+        importerInternalFrame.add(txfData);
+        
+        labelDescricao = new JLabel("Fase Inicial:");
+        labelDescricao.setBounds(145, 80, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        txfFaseInicial = new JTextField();
+        txfFaseInicial.setBounds(215, 80, 75, 25);
+        importerInternalFrame.add(txfFaseInicial);  
+        
+        labelDescricao = new JLabel("Fase Final:");
+        labelDescricao.setBounds(305, 80, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        txfFaseFinal = new JTextField();
+        txfFaseFinal.setBounds(368, 80, 75, 25);
+        importerInternalFrame.add(txfFaseFinal);
+        
+        labelDescricao = new JLabel("Curso:");
+        labelDescricao.setBounds(460, 80, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        txfCurso = new JTextField();
+        txfCurso.setBounds(501, 80, 160, 25);
+        importerInternalFrame.add(txfCurso);
+        
+        labelDescricao = new JLabel("FASES:");
+        labelDescricao.setBounds(20, 145, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        labelDescricao = new JLabel("DISCIPLINAS:");
+        labelDescricao.setBounds(360, 145, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        labelDescricao = new JLabel("PROFESSORES:");
+        labelDescricao.setBounds(700, 145, 100, 25);
+        importerInternalFrame.add(labelDescricao);
+        
+        btnImportarArquivo = new JButton("Importar");
+        btnImportarArquivo.setBounds(395, 32, 90, 25);
+        importerInternalFrame.add(btnImportarArquivo); 
+        
+        listFases = new JList<Fase>(modelFases);
+        JScrollPane scrollFases = new JScrollPane(listFases);
+        scrollFases.setBounds(20, 165, 300, 450);
+        importerInternalFrame.add(scrollFases, BorderLayout.CENTER);
+        listFases.addMouseListener(null);
+        
+        listDisciplinas = new JList<Maths>(modelDisciplinas);
+        JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
+        scrollDisciplinas.setBounds(360, 165, 300, 450);
+        importerInternalFrame.add(scrollDisciplinas, BorderLayout.CENTER);
+        listDisciplinas.addMouseListener(null);
+        
+        listProfessores = new JList<Teacher>(modelProfessores);
+        JScrollPane scrollProfessores = new JScrollPane(listProfessores);
+        scrollProfessores.setBounds(700, 165, 300, 450);
+        importerInternalFrame.add(scrollProfessores, BorderLayout.CENTER);
+        listProfessores.addMouseListener(null);
      
-  		importerInternalFrame.setVisible(false);
+        importerInternalFrame.setVisible(false);
     }
     
     //JTables - CREATE   
     
-    public void CreateAndFillStudentsTable(){
+    public void CreateStudentsTable(){
                
-       //Declaring Table Model
-       DefaultTableModel studentTableModel = new DefaultTableModel() {
-            
-           String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-                     "Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
-                     "Observa��o"};
-            
-           public int getColumnCount() { 
-               return studentColumns.length; 
-           } 
-            
-           @Override
-           public String getColumnName(int index) {
-               return studentColumns[index];
-           }            
-            
-       };
-        
-       //Declaring Table and Scroll pane
-       JTable studentTable;
-       JScrollPane studentScrollPane;                                   
+       //Declaring Scroll pane
+       JScrollPane studentScrollPane;                                          
        
-       //Initialize StudentService and pull data object
-       StudentsService sts = new StudentsService(); 
-       ArrayList<Students> StudentsArrayList = new ArrayList<>(sts.findAll());
-       
-       //ADD ROWS TO TABLE
-       for(int index = 0; index < StudentsArrayList.size(); index++) {                         
-                
-           Object[] data = {StudentsArrayList.get(index).getStudent_id(), StudentsArrayList.get(index).getStudent(), StudentsArrayList.get(index).getBirthdate(),
-                   StudentsArrayList.get(index).getEmail(), StudentsArrayList.get(index).getSex(), StudentsArrayList.get(index).getPhone(), StudentsArrayList.get(index).getCellphone(),
-                   StudentsArrayList.get(index).getCep(), StudentsArrayList.get(index).getNumber(), StudentsArrayList.get(index).getAddress(), StudentsArrayList.get(index).getSuburb(),
-                   StudentsArrayList.get(index).getCity(), StudentsArrayList.get(index).getEstate(), StudentsArrayList.get(index).getComplement(), StudentsArrayList.get(index).getNote()};
-            
-           studentTableModel.addRow(data);
-           
-       }
-        
        //Table Configuration
-       studentTable = new JTable(studentTableModel);    
+       studentTable = new JTable();    
        studentTable.setEnabled(false);
         
        //Scroll Pane Configuration
        studentScrollPane = new JScrollPane(studentTable);        
        studentScrollPane.setLocation(50, 100); 
        studentScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
-       studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));
-       //studentScrollPane.setSize(650 , 300);              
+       studentScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));             
         
+       //Fill Rows in studentModel
+       FillRowsStudentsTable();
+       
        studentsPanel.add(studentScrollPane);
                
        studentTable.setVisible(true);
@@ -1866,8 +1792,8 @@ public class MainWindowNew extends JFrame {
 
     public void CreatePhasesTable(){
        
-    	//useless, wont implement
-    	
+        //useless, wont implement
+        
     }
     
     public void CreateCourseTable(){
@@ -1991,16 +1917,57 @@ public class MainWindowNew extends JFrame {
         
     }
     
+    //JTables - FILL
+    
+    public void FillRowsStudentsTable(){
+        
+        //Declaring Table Model
+        DefaultTableModel studentTableModel = new DefaultTableModel() {
+             
+            String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+                      "Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
+                      "Observa��o"};
+             
+            public int getColumnCount() { 
+                return studentColumns.length; 
+            } 
+             
+            @Override
+            public String getColumnName(int index) {
+                return studentColumns[index];
+            }            
+             
+        };
+                
+        //Initialize StudentService and pull data object
+        StudentsService sts = new StudentsService(); 
+        ArrayList<Students> StudentsArrayList = new ArrayList<>(sts.findAll());
+        
+        //ADD ROWS TO TABLE
+        for(int index = 0; index < StudentsArrayList.size(); index++) {                         
+                 
+            Object[] data = {StudentsArrayList.get(index).getStudent_id(), StudentsArrayList.get(index).getStudent(), StudentsArrayList.get(index).getBirthdate(),
+                    StudentsArrayList.get(index).getEmail(), StudentsArrayList.get(index).getSex(), StudentsArrayList.get(index).getPhone(), StudentsArrayList.get(index).getCellphone(),
+                    StudentsArrayList.get(index).getCep(), StudentsArrayList.get(index).getNumber(), StudentsArrayList.get(index).getAddress(), StudentsArrayList.get(index).getSuburb(),
+                    StudentsArrayList.get(index).getCity(), StudentsArrayList.get(index).getEstate(), StudentsArrayList.get(index).getComplement(), StudentsArrayList.get(index).getNote()};
+             
+            studentTableModel.addRow(data);
+            studentTable.setModel(studentTableModel);
+            
+        }
+        
+    }
+    
     //Configuration Internal Frame - CREATE AND FILL
     
     public void CreateConfigInternalFrame() {
-    	  	
+            
         configInternalFrame = new JInternalFrame("Configuraï¿½ï¿½es");
         configInternalFrame.setLayout(null);
         configInternalFrame.setBounds(200, 80, 210, 230);
         configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         getContentPane().add(configInternalFrame);
-    	
+        
         //Configuration button declarations
         JButton btnSaveConfig = new JButton("Salvar");
         JButton btnExitConfig = new JButton("Sair");
@@ -2024,41 +1991,41 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                                          
-            	if(isFullScreenOnOff.isSelected() == true && isFullScreen == true) {
-            		            		
-            		configInternalFrame.setVisible(false);
-            		
-            	}
-            		                	
-            	else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
-            		
-            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
-            		if (DialogResult == JOptionPane.YES_OPTION) {      
-            			
-            			isFullScreen = true;
-                		ResizeWindow();         
-                		
-            		}
-            		            		
-            		
-            	}
-            	else if(isFullScreenOnOff.isSelected() == false && isFullScreen == false) {   
-            		
-            		configInternalFrame.setVisible(false); 
-            		
-            	}
-            	else {      
-            		
-            		int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
-            		if (DialogResult == JOptionPane.YES_OPTION) {          
-            			
-            			isFullScreen = false;            		
-                		ResizeWindow();            	
-                		
-            		}           		
-            		
-            	}            		            	
-            	
+                if(isFullScreenOnOff.isSelected() == true && isFullScreen == true) {
+                                        
+                    configInternalFrame.setVisible(false);
+                    
+                }
+                                        
+                else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
+                    
+                    int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
+                    if (DialogResult == JOptionPane.YES_OPTION) {      
+                        
+                        isFullScreen = true;
+                        ResizeWindow();         
+                        
+                    }
+                                        
+                    
+                }
+                else if(isFullScreenOnOff.isSelected() == false && isFullScreen == false) {   
+                    
+                    configInternalFrame.setVisible(false); 
+                    
+                }
+                else {      
+                    
+                    int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
+                    if (DialogResult == JOptionPane.YES_OPTION) {          
+                        
+                        isFullScreen = false;                   
+                        ResizeWindow();             
+                        
+                    }                   
+                    
+                }                                   
+                
             }
         });
         btnSaveConfig.setBounds(93, 150, 95, 20);       
@@ -2072,8 +2039,8 @@ public class MainWindowNew extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {;
                 
-            	isFullScreenOnOff.setSelected(isFullScreen);
-            	configInternalFrame.setVisible(false);
+                isFullScreenOnOff.setSelected(isFullScreen);
+                configInternalFrame.setVisible(false);
                 
             }
         });
@@ -2261,11 +2228,18 @@ public class MainWindowNew extends JFrame {
     }
     
     public void ResizeWindow() {
-    	     	        
+                        
         dispose();
         MainWindowNew mw = new MainWindowNew();
         mw.setVisible(true);
-    	
+        
+    }
+    
+    public void RecreateJTable(String PanelName) {
+        
+        FillRowsStudentsTable();
+        
+        
     }
     
 }
