@@ -2075,7 +2075,7 @@ public class MainWindowNew extends JFrame {
 		DefaultTableModel subjectTableModel = new DefaultTableModel() {
 
 
-			String[] subjectColumns = {"Cï¿½digo", "Nome", "Dia da Semana", "Nï¿½ de Professores"};
+			String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "N° de Professores"};
 
 			public int getColumnCount() { 
 				return subjectColumns.length; 
@@ -2089,21 +2089,28 @@ public class MainWindowNew extends JFrame {
 
 		};
 
+		try {
+			//Initialize SubjectService and pull data object
+			MathsService mts = new MathsService(); 
+			Collection<Maths> SubjectList = mts.findAll();
 
-		//Initialize SubjectService and pull data object
-		MathsService mts = new MathsService(); 
-		ArrayList<Maths> SubjectArrayList = new ArrayList<>(mts.findAll());
+			//ADD ROWS TO TABLE
+			for(Maths mh : SubjectList) {                         
 
-		//ADD ROWS TO TABLE
-		for(int index = 0; index < SubjectArrayList.size(); index++) {                         
+				Object[] data = {mh.getCode(), mh.getname(), mh.getweek_day(), mh.getDescrition()};
 
-			Object[] data = {SubjectArrayList.get(index).getCode(), SubjectArrayList.get(index).getname(), SubjectArrayList.get(index).getweek_day(), SubjectArrayList.get(index).getDescrition()};
+				subjectTableModel.addRow(data);
+				
 
-			subjectTableModel.addRow(data);
+			}
+			
 			subjectTable.setModel(subjectTableModel);
 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-
+		
 
 	}
 
