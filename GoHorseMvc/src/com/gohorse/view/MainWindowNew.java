@@ -10,6 +10,10 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.AbstractAction;
@@ -352,26 +356,6 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				StudentsService sts = new StudentsService();
-				int lineselected = studentTable.getSelectedRow();
-				try {
-					Collection<Students> StudentList = sts.findAll();
-					
-					if (StudentList == null) {
-						return;
-					}
-					
-					for (Students st : StudentList) {
-						if (st.getStudent_id() == (Integer) studentTable.getValueAt(lineselected, 0)) {
-							
-						}
-					}
-					
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-				
-				
 			}
 		});
 		btnEditStudents.setBounds(210, 30, 150, 40);        
@@ -383,9 +367,38 @@ public class MainWindowNew extends JFrame {
 		btnDeleteStudents.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
-
+				studentTable.setEnabled(true);
+				
+				studentTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == e.VK_TAB) {
+							
+							StudentsService sts = new StudentsService();
+							int lineselected = studentTable.getSelectedRow();
+							
+							try {
+								Collection<Students> StudentList = sts.findAll();
+								
+								if (StudentList == null) {
+									return;
+								}
+								
+								for (Students st : StudentList) {
+									if (st.getId() == (Integer) studentTable.getValueAt(lineselected, 0)) {
+										sts.delete(st.getId());
+										UpdateRowsStudentsTable();
+										studentTable.setEnabled(false);
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								System.out.println(e2.getMessage());
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					}
+				});
 			}
 		});
 		btnDeleteStudents.setBounds(370, 30, 150, 40);  

@@ -22,6 +22,7 @@ public class Students implements Entity, Serializable {
 	private String cep;
 	
 	
+	
 	public Students(String student, String birthdate, char sex, String phone, String cellphone,
 			String email, String note, String address, String number, String complement, String suburb,
 			String city, String estate, String cep) {
@@ -42,14 +43,6 @@ public class Students implements Entity, Serializable {
 		this.cep = cep;
 	}
 	
-	
-	public Integer getStudent_id() {
-		return student_id;
-	}
-
-	public void setStudent_id(Integer id) {
-		this.student_id = id;
-	}
 	
 	public String getStudent() {
 		return student;
