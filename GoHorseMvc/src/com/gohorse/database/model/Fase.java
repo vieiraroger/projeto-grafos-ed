@@ -6,7 +6,14 @@ public class Fase implements Entity, Serializable{
 	
 	private static final long serialVersionUID = -2797531055697167812L;
 	private int id;
-	private String description;
+	private int code;
+	private String name;
+	
+	public Fase(int code, String name) {
+		super();
+		this.code = code;
+		this.name = name;
+	}
 	
 	@Override
 	public Integer getId() {
@@ -18,12 +25,23 @@ public class Fase implements Entity, Serializable{
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getCode() {
+		return code;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCode(int code) {
+		this.code = code;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
+
 
 }

@@ -56,6 +56,17 @@ public class LoginWindow extends JFrame {
     	txfUser.setBounds(40, 40, 125, 20);
     	getContentPane().add(txfUser);
     	
+        txfUser.addKeyListener(new KeyAdapter() {
+    		
+    		public void keyPressed(KeyEvent e) {
+    			
+    			if (e.getKeyCode() == e.VK_ENTER) { 
+    				
+    				btnConfirm.doClick(); 
+			    }
+			}
+    	});
+    	
     	lbPassword = new JLabel();
     	lbPassword.setBounds(40, 60, 125, 20);
     	lbPassword.setText("Senha");

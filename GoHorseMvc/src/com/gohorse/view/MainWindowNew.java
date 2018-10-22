@@ -30,10 +30,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.gohorse.database.model.Courses;
 import com.gohorse.database.model.Fase;
 import com.gohorse.database.model.Maths;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
+import com.gohorse.database.service.CoursesService;
+import com.gohorse.database.service.FaseService;
 import com.gohorse.database.service.MathsService;
 import com.gohorse.database.service.StudentsService;
 import com.gohorse.database.service.TeacherService;
@@ -1346,10 +1349,28 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
+			
+			Fase fs;
+			FaseService fss = new FaseService();
 
-			phasesInternalFrame.setVisible(false);
+			try {
+				if (txfPhaseCode.getText().isEmpty()) {
+					throw new Exception("Campo Código está vazio!");
+				}else if (txfPhaseName.getText().isEmpty()) {
+					throw new Exception("Campo Nome está vazio!");
+				}
+				
+				fs = new Fase(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
 
-			}
+				fss.save(fs);
+
+				phasesInternalFrame.setVisible(false);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			} 
+		  }
 		});
 		btnSavePhases.setBounds(93, 150, 95, 20);   
 		btnSavePhases.setFocusPainted(false);
@@ -1430,10 +1451,28 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
+			
+			Courses cs;
+			CoursesService css = new CoursesService();
 
-			coursesInternalFrame.setVisible(false);
+			try {
+				if (txfCourseCode.getText().isEmpty()) {
+					throw new Exception("Campo Código está vazio!");
+				}else if (txfCourseName.getText().isEmpty()) {
+					throw new Exception("Campo Nome está vazio!");
+				}
+				
+				cs = new Courses(Integer.parseInt(txfCourseCode.getText()) , txfCourseName.getText());
 
-			}
+				css.save(cs);
+
+				coursesInternalFrame.setVisible(false);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			} 
+          }
 		});
 		btnExitCourses.setBounds(23, 150, 60, 20); 
 		btnExitCourses.setFocusPainted(false);
