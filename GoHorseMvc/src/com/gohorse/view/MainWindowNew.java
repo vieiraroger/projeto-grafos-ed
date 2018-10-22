@@ -1019,7 +1019,7 @@ public class MainWindowNew extends JFrame {
 						txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());                    
 				sts.save(st);
 
-				//UpdateRowsStudentsTable();
+				UpdateRowsStudentsTable();
 
 				studentsPanel.setVisible(true);
 				studentsInternalFrame.setVisible(false);
@@ -1228,6 +1228,7 @@ public class MainWindowNew extends JFrame {
 
 		cmbSubjectWeekdays = new JComboBox<>(Weekdays);
 		cmbSubjectWeekdays.setBounds(40, 140, 125, 20);
+		cmbSubjectWeekdays.setSelectedIndex(-1);
 		subjectsInternalFrame.add(cmbSubjectWeekdays);
 
 		lbSubjectTeacherAmount = new JLabel();
@@ -1793,7 +1794,7 @@ public class MainWindowNew extends JFrame {
 		studentTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		//UpdateRowsStudentsTable();
+		UpdateRowsStudentsTable();
 
 		//Scroll Pane Configuration
 		studentScrollPane = new JScrollPane(studentTable);        
@@ -1984,7 +1985,7 @@ public class MainWindowNew extends JFrame {
 
 	//JTables - FILL AND UPDATE
 
-	/*public void UpdateRowsStudentsTable(){
+	public void UpdateRowsStudentsTable(){
 
 		//Declaring Table Model
 		DefaultTableModel studentTableModel = new DefaultTableModel() {
@@ -1993,31 +1994,39 @@ public class MainWindowNew extends JFrame {
 					"Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
 			"Observa��o"};
 
-			/*public int getColumnCount() { 
+			public int getColumnCount() { 
 				return studentColumns.length; 
 			} 
 
 			@Override
 			public String getColumnName(int index) {
 				return studentColumns[index];
-			}            
+			}           
 
 		};
+		try {
+			//Initialize StudentService and pull data object
+			StudentsService sts = new StudentsService(); 
+			Collection<Students> StudentsList = sts.findAll();
+			if (StudentsList == null) {
+				return;
+			}
+			//ADD ROWS TO TABLE
+			for(Students st : StudentsList) {                         
 
-		//Initialize StudentService and pull data object
-		StudentsService sts = new StudentsService(); 
-		Collection<Students> StudentsArrayList = sts.findAll();
+				Object[] data = {st.getId(), st.getStudent(), st.getBirthdate(),st.getEmail(), st.getSex(), st.getPhone(), st.getCellphone(),
+						st.getCep(), st.getNumber(), st.getAddress(), st.getSuburb(),st.getCity(), st.getEstate(), st.getComplement(), st.getNote()};
 
-		//ADD ROWS TO TABLE
-		for(Students st : StudentsArrayList) {                         
-
-			Object[] data = {st.getId(), st.getStudent(), st.getBirthdate(),st.getEmail(), st.getSex(), st.getPhone(), st.getCellphone(),
-					st.getCep(), st.getNumber(), st.getAddress(), st.getSuburb(),st.getCity(), st.getEstate(), st.getComplement(), st.getNote()};
-
-			studentTableModel.addRow(data);
+				studentTableModel.addRow(data);				
+			}
 			studentTable.setModel(studentTableModel);
-
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		
+
+	
 
 	}
 
@@ -2038,21 +2047,25 @@ public class MainWindowNew extends JFrame {
 			}
 
 		};
+		try {
+			//Initialize TeacherService and pull data object
+			TeacherService tts = new TeacherService(); 
+			Collection<Teacher> TeacherList = tts.findAll();
 
-		//Initialize TeacherService and pull data object
-		TeacherService tts = new TeacherService(); 
-		ArrayList<Teacher> TeacherArrayList = new ArrayList<>(tts.findAll());
+			//ADD ROWS TO TABLE
+			for(Teacher tc : TeacherList) {                         
 
-		//ADD ROWS TO TABLE
-		for(int index = 0; index < TeacherArrayList.size(); index++) {                         
+				Object[] data = {tc.getCode(), tc.getName(), tc.getGraduation()};
 
-			Object[] data = {TeacherArrayList.get(index).getCode(), TeacherArrayList.get(index).getName(), TeacherArrayList.get(index).getGraduation()};
-
-			teacherTableModel.addRow(data);
+				teacherTableModel.addRow(data);
+			}
+			
 			teacherTable.setModel(teacherTableModel);
-
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-
 
 	}
 
@@ -2092,7 +2105,7 @@ public class MainWindowNew extends JFrame {
 		}
 
 
-	}*/
+	}
 
 	//Configuration Internal Frame - CREATE AND FILL
 
