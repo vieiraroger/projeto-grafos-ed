@@ -33,7 +33,7 @@ public class LoginWindow extends JFrame {
     private JLabel lbPassword;
 
     public LoginWindow() {
-
+    	
         setSize(210,200);
         setTitle("Sistema");
         setLayout(null);
@@ -98,7 +98,7 @@ public class LoginWindow extends JFrame {
 					Collection<Users> list = us.findAll();
 					
 					if(list == null) {						
-						us.save(new Users("admin","admin","Admin"));
+						us.save(new Users("admin","admin","Administrador"));
 						throw new Exception("Nenhum usuário encontrado! Usuário padrão cadastrado!");
 					}
 					
@@ -107,7 +107,7 @@ public class LoginWindow extends JFrame {
 					for (Users user : list) {
 						if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
 							
-							MainWindowNew mw = new MainWindowNew();
+							MainWindowNew mw = new MainWindowNew(user.getPerfil());
 							mw.setVisible(true);
 							entrou = false;
 							LoginWindow.this.dispose();

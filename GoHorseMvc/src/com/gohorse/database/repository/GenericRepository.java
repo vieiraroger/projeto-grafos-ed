@@ -12,6 +12,7 @@ public class GenericRepository<T extends Entity> implements CrudInterface<T> {
 
 	private final StoreData<T> storeData;
 
+	
 	public GenericRepository(Class<T> type) {
 		this.storeData = new StoreData<T>(type);
 	}

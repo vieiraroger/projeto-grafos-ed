@@ -81,11 +81,16 @@ public class MainWindowNew extends JFrame {
 	private JInternalFrame citiesInternalFrame;
 	private JInternalFrame usersInternalFrame;
 	private JInternalFrame importerInternalFrame;
-
+	
+	
+	private String perfil; 
+	
 	//JFrame constructor
 
-	public MainWindowNew () {
-
+	public MainWindowNew (String perfil) {
+		
+		this.perfil = perfil;
+		
 		//Setting window size depending on IsFullscreen
 		if(isFullScreen == true) {          
 			ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
@@ -182,7 +187,9 @@ public class MainWindowNew extends JFrame {
 		menu.add(mCourses);
 		menu.add(mCities);
 		menu.add(mOptions);
-		menu.add(mUsers);
+		if (perfil.equals("Administrador")) {
+			menu.add(mUsers);
+		}
 		menu.add(mUtilities);
 
 		smListStudents = new JMenuItem(new AbstractAction("Listar") {
@@ -1615,7 +1622,7 @@ public class MainWindowNew extends JFrame {
 
 		//Registering Panel Fields declarations
 
-		String UserType[] = { "Usuï¿½rio", "Administrador" };
+		String UserType[] = { "Usuário", "Administrador" };
 
 		JLabel lbUser;
 		JTextField txfUser;
@@ -1680,7 +1687,7 @@ public class MainWindowNew extends JFrame {
 						type = "Administrador";
 					}
 					
-					us = new Users(txfUser.getText(), txfPassword.getPassword().toString() , type);
+					us = new Users(txfUser.getText(), String.copyValueOf(txfPassword.getPassword()) , type);
 	
 					uss.save(us);
 					
@@ -2589,7 +2596,7 @@ public class MainWindowNew extends JFrame {
 	public void ResizeWindow() {
 
 		dispose();
-		MainWindowNew mw = new MainWindowNew();
+		MainWindowNew mw = new MainWindowNew(perfil);
 		mw.setVisible(true);
 
 	}
