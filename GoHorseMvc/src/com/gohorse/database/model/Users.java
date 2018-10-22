@@ -10,6 +10,7 @@ public class Users implements Entity, Serializable {
 	private String password;
 	private String perfil;
 
+	
 	public Users(String user, String password, String perfil) {
 		this.user = user;
 		this.password = password;

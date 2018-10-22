@@ -45,6 +45,7 @@ import com.gohorse.database.service.FaseService;
 import com.gohorse.database.service.MathsService;
 import com.gohorse.database.service.StudentsService;
 import com.gohorse.database.service.TeacherService;
+import com.gohorse.database.service.UsersService;
 
 public class MainWindowNew extends JFrame {
 
@@ -1146,7 +1147,7 @@ public class MainWindowNew extends JFrame {
 
 				tcs.save(tc);
 
-				//UpdateRowsTeachersTable();
+				UpdateRowsTeachersTable();
 
 				teachersInternalFrame.setVisible(false);
 
@@ -1281,7 +1282,9 @@ public class MainWindowNew extends JFrame {
 				mh = new Maths(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
 
 				mhs.save(mh);
-
+				
+				UpdateRowsSubjectsTable();
+				
 				subjectsInternalFrame.setVisible(false);
 
 			} catch (Exception e) {
@@ -1638,6 +1641,7 @@ public class MainWindowNew extends JFrame {
 
 		cmbType = new JComboBox<>(UserType);
 		cmbType.setBounds(50, 150, 125, 20);
+		cmbType.setSelectedIndex(-1);
 		usersInternalFrame.add(cmbType);
 		////Registering Panel Fields declarations
 
@@ -1647,8 +1651,37 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
-
-			usersInternalFrame.setVisible(false);
+			  
+				Users us;
+				UsersService uss = new UsersService();
+	
+				try {
+					if (txfUser.getText().isEmpty()) {
+						throw new Exception("Campo Usuário está vazio!");
+					}else if (txfPassword.getPassword().toString().isEmpty()) {
+						throw new Exception("Campo Senha está vazio!");
+					}else if (cmbType.getSelectedIndex() == -1) {
+						throw new Exception("Campo Perfil está vazio!");
+					}
+					
+					String type;
+					
+					if (cmbType.getSelectedIndex() == 0) {
+						type = "Usuário";
+					}else {
+						type = "Administrador";
+					}
+					
+					us = new Users(txfUser.getText(), txfPassword.getPassword().toString() , type);
+	
+					uss.save(us);
+	
+					usersInternalFrame.setVisible(false);
+	
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} 
 
 			}
 		});
@@ -1818,7 +1851,7 @@ public class MainWindowNew extends JFrame {
 		teacherTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		//UpdateRowsTeachersTable();
+		UpdateRowsTeachersTable();
 
 		//Scroll Pane Configuration
 		teacherScrollPane = new JScrollPane(teacherTable);
@@ -1842,7 +1875,7 @@ public class MainWindowNew extends JFrame {
 		subjectTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		//UpdateRowsSubjectsTable();
+		UpdateRowsSubjectsTable();
 
 		//Scroll Pane Configuration
 		subjectScrollPane = new JScrollPane(subjectTable);
