@@ -351,9 +351,27 @@ public class MainWindowNew extends JFrame {
 		btnEditStudents.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
-
+				
+				StudentsService sts = new StudentsService();
+				int lineselected = studentTable.getSelectedRow();
+				try {
+					Collection<Students> StudentList = sts.findAll();
+					
+					if (StudentList == null) {
+						return;
+					}
+					
+					for (Students st : StudentList) {
+						if (st.getStudent_id() == (Integer) studentTable.getValueAt(lineselected, 0)) {
+							
+						}
+					}
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+				
 			}
 		});
 		btnEditStudents.setBounds(210, 30, 150, 40);        
