@@ -1,6 +1,8 @@
 package com.gohorse.view;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -30,11 +32,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Courses;
 import com.gohorse.database.model.Fase;
 import com.gohorse.database.model.Maths;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.model.Teacher;
+import com.gohorse.database.model.Users;
+import com.gohorse.database.service.CitiesService;
 import com.gohorse.database.service.CoursesService;
 import com.gohorse.database.service.FaseService;
 import com.gohorse.database.service.MathsService;
@@ -1014,7 +1019,7 @@ public class MainWindowNew extends JFrame {
 						txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());                    
 				sts.save(st);
 
-				UpdateRowsStudentsTable();
+				//UpdateRowsStudentsTable();
 
 				studentsPanel.setVisible(true);
 				studentsInternalFrame.setVisible(false);
@@ -1141,7 +1146,7 @@ public class MainWindowNew extends JFrame {
 
 				tcs.save(tc);
 
-				UpdateRowsTeachersTable();
+				//UpdateRowsTeachersTable();
 
 				teachersInternalFrame.setVisible(false);
 
@@ -1536,10 +1541,30 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
+			
+			Cities ct;
+			CitiesService cts = new CitiesService();
 
-			citiesInternalFrame.setVisible(false);
+			try {
+				if (txfCity.getText().isEmpty()) {
+					throw new Exception("Campo Cidade está vazio!");
+				}else if (txfState.getText().isEmpty()) {
+					throw new Exception("Campo Estado está vazio!");
+				}else if (txfCountry.getText().isEmpty()) {
+					throw new Exception("Campo País está vazio!");
+				}
+				
+				ct = new Cities(txfCity.getText(), txfState.getText(), txfCountry.getText());
 
-			}
+				cts.save(ct);
+
+				citiesInternalFrame.setVisible(false);
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			} 
+         }
 		});
 		btnSaveCities.setBounds(93, 230, 95, 20);       
 		btnSaveCities.setFocusPainted(false);
@@ -1768,7 +1793,7 @@ public class MainWindowNew extends JFrame {
 		studentTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		UpdateRowsStudentsTable();
+		//UpdateRowsStudentsTable();
 
 		//Scroll Pane Configuration
 		studentScrollPane = new JScrollPane(studentTable);        
@@ -1792,7 +1817,7 @@ public class MainWindowNew extends JFrame {
 		teacherTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		UpdateRowsTeachersTable();
+		//UpdateRowsTeachersTable();
 
 		//Scroll Pane Configuration
 		teacherScrollPane = new JScrollPane(teacherTable);
@@ -1816,7 +1841,7 @@ public class MainWindowNew extends JFrame {
 		subjectTable.setEnabled(false);
 
 		//Fill Rows in studentModel
-		UpdateRowsSubjectsTable();
+		//UpdateRowsSubjectsTable();
 
 		//Scroll Pane Configuration
 		subjectScrollPane = new JScrollPane(subjectTable);
@@ -1959,7 +1984,7 @@ public class MainWindowNew extends JFrame {
 
 	//JTables - FILL AND UPDATE
 
-	public void UpdateRowsStudentsTable(){
+	/*public void UpdateRowsStudentsTable(){
 
 		//Declaring Table Model
 		DefaultTableModel studentTableModel = new DefaultTableModel() {
@@ -1968,7 +1993,7 @@ public class MainWindowNew extends JFrame {
 					"Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
 			"Observa��o"};
 
-			public int getColumnCount() { 
+			/*public int getColumnCount() { 
 				return studentColumns.length; 
 			} 
 
@@ -1981,15 +2006,13 @@ public class MainWindowNew extends JFrame {
 
 		//Initialize StudentService and pull data object
 		StudentsService sts = new StudentsService(); 
-		ArrayList<Students> StudentsArrayList = new ArrayList<>(sts.findAll());
+		Collection<Students> StudentsArrayList = sts.findAll();
 
 		//ADD ROWS TO TABLE
-		for(int index = 0; index < StudentsArrayList.size(); index++) {                         
+		for(Students st : StudentsArrayList) {                         
 
-			Object[] data = {StudentsArrayList.get(index).getStudent_id(), StudentsArrayList.get(index).getStudent(), StudentsArrayList.get(index).getBirthdate(),
-					StudentsArrayList.get(index).getEmail(), StudentsArrayList.get(index).getSex(), StudentsArrayList.get(index).getPhone(), StudentsArrayList.get(index).getCellphone(),
-					StudentsArrayList.get(index).getCep(), StudentsArrayList.get(index).getNumber(), StudentsArrayList.get(index).getAddress(), StudentsArrayList.get(index).getSuburb(),
-					StudentsArrayList.get(index).getCity(), StudentsArrayList.get(index).getEstate(), StudentsArrayList.get(index).getComplement(), StudentsArrayList.get(index).getNote()};
+			Object[] data = {st.getId(), st.getStudent(), st.getBirthdate(),st.getEmail(), st.getSex(), st.getPhone(), st.getCellphone(),
+					st.getCep(), st.getNumber(), st.getAddress(), st.getSuburb(),st.getCity(), st.getEstate(), st.getComplement(), st.getNote()};
 
 			studentTableModel.addRow(data);
 			studentTable.setModel(studentTableModel);
@@ -2069,7 +2092,7 @@ public class MainWindowNew extends JFrame {
 		}
 
 
-	}
+	}*/
 
 	//Configuration Internal Frame - CREATE AND FILL
 

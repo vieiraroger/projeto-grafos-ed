@@ -8,6 +8,10 @@ public class Courses implements Entity, Serializable{
 	private int id;
 	private int code;
 	
+	public Courses() {
+		
+	}
+	
 	public Courses(int code, String name) {
 		super();
 		this.code = code;

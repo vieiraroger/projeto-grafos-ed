@@ -120,11 +120,13 @@ public class LoginWindow extends JFrame {
 						throw new Exception("Usu�rio ou senha inv�lidos!");
 						
 					}
-					
-					
+								
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
+					System.out.println(ex.getCause());
+					System.out.println(ex.getStackTrace());
 					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,ex.getStackTrace(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}		
 			}
 		});
