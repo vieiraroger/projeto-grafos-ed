@@ -2,7 +2,7 @@ package com.gohorse.database.model;
 
 import java.io.Serializable;
 
-public class Maths implements Entity,Serializable{
+public class Subjects implements Entity,Serializable{
 	
 	private static final long serialVersionUID = -3221559531431991317L;
 	private int id;
@@ -11,7 +11,7 @@ public class Maths implements Entity,Serializable{
 	private String week_day; 
 	private String teacher_amount;
 	
-	public Maths(int code, String name, String week_day, String teacher_amount) {
+	public Subjects(int code, String name, String week_day, String teacher_amount) {
 		super();
 		this.code = code;
 		this.name = name;

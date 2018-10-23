@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Students;
-import com.gohorse.database.model.Teacher;
+import com.gohorse.database.model.Teachers;
 import com.gohorse.database.model.Users;
 import com.gohorse.lib.FileManipulation;
 
@@ -1299,7 +1299,7 @@ public class MainWindow extends JFrame {
     			
     			@Override
     				public void actionPerformed(ActionEvent arg0) {
-    				Teacher teacher = new Teacher(txfTeacherCOde.getText(),txfTeacherGraduation.getText(),txfTeachername.getText());
+    				Teachers teacher = new Teachers(txfTeacherCOde.getText(),txfTeacherGraduation.getText(),txfTeachername.getText());
     				/*try {
     					//FileManipulation.insert(teacher);
     					ClearTable("Cities.txt");

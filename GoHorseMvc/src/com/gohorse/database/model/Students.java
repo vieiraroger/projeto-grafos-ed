@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Students implements Entity, Serializable {
 	
 	private static final long serialVersionUID = 7940068363349065718L;
-	private Integer student_id;
-	private String student;
+	private Integer id;
+	private String name;
 	private String birthdate;
 	private char sex;
 	private String phone;
@@ -23,11 +23,11 @@ public class Students implements Entity, Serializable {
 	
 	
 	
-	public Students(String student, String birthdate, char sex, String phone, String cellphone,
+	public Students(String name, String birthdate, char sex, String phone, String cellphone,
 			String email, String note, String address, String number, String complement, String suburb,
 			String city, String estate, String cep) {
 		super();
-		this.student = student;
+		this.name = name;
 		this.birthdate = birthdate;
 		this.sex = sex;
 		this.phone = phone;
@@ -44,11 +44,11 @@ public class Students implements Entity, Serializable {
 	}
 	
 	
-	public String getStudent() {
-		return student;
+	public String getName() {
+		return name;
 	}
-	public void setStudent(String student) {
-		this.student = student;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
@@ -158,13 +158,13 @@ public class Students implements Entity, Serializable {
 
 	@Override
 	public Integer getId() {
-		return student_id;
+		return id;
 	}
 
 
 	@Override
 	public void setId(Integer id) {
-		this.student_id = id;
+		this.id = id;
 	}
 }
 

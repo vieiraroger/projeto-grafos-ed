@@ -37,17 +37,17 @@ import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Courses;
-import com.gohorse.database.model.Fase;
-import com.gohorse.database.model.Maths;
+import com.gohorse.database.model.Phases;
+import com.gohorse.database.model.Subjects;
 import com.gohorse.database.model.Students;
-import com.gohorse.database.model.Teacher;
+import com.gohorse.database.model.Teachers;
 import com.gohorse.database.model.Users;
 import com.gohorse.database.service.CitiesService;
 import com.gohorse.database.service.CoursesService;
-import com.gohorse.database.service.FaseService;
-import com.gohorse.database.service.MathsService;
+import com.gohorse.database.service.PhasesService;
+import com.gohorse.database.service.SubjectsService;
 import com.gohorse.database.service.StudentsService;
-import com.gohorse.database.service.TeacherService;
+import com.gohorse.database.service.TeachersService;
 import com.gohorse.database.service.UsersService;
 
 public class MainWindowNew extends JFrame {
@@ -165,8 +165,8 @@ public class MainWindowNew extends JFrame {
 		mCourses   = new JMenu("Cursos");       
 		mCities    = new JMenu("Cidades");
 
-		mOptions   = new JMenu("Opções");
-		mUsers     = new JMenu("Usuários");  
+		mOptions   = new JMenu("Opï¿½ï¿½es");
+		mUsers     = new JMenu("Usuï¿½rios");  
 		mUtilities = new JMenu("Utilidades");
         
 		menu.add(mOptions);
@@ -269,7 +269,7 @@ public class MainWindowNew extends JFrame {
 			}
 		});
 
-		smConfig = new JMenuItem(new AbstractAction("Configurações") {
+		smConfig = new JMenuItem(new AbstractAction("Configuraï¿½ï¿½es") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -861,12 +861,12 @@ public class MainWindowNew extends JFrame {
 		JButton btnSelecionarArquivo;
 		JButton btnImportarArquivo;
 
-		JList<Fase> listFases;
-		JList<Maths> listDisciplinas;
-		JList<Teacher> listProfessores;
-		DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
-		DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
-		DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
+		JList<Phases> listFases;
+		JList<Subjects> listDisciplinas;
+		JList<Teachers> listProfessores;
+		DefaultListModel<Phases> modelFases = new DefaultListModel<Phases>();
+		DefaultListModel<Subjects> modelDisciplinas = new DefaultListModel<Subjects>();
+		DefaultListModel<Teachers> modelProfessores = new DefaultListModel<Teachers>();
 
 		
 		//Select and import buttons
@@ -932,19 +932,19 @@ public class MainWindowNew extends JFrame {
 		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.17), 100, 25);
 		importerPanel.add(labelDescricao);
 
-		listFases = new JList<Fase>(modelFases);
+		listFases = new JList<Phases>(modelFases);
 		JScrollPane scrollFases = new JScrollPane(listFases);
 		scrollFases.setBounds((int) Math.round(ScreenSize.width*0.07), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollFases, BorderLayout.CENTER);
 		listFases.addMouseListener(null);
 
-		listDisciplinas = new JList<Maths>(modelDisciplinas);
+		listDisciplinas = new JList<Subjects>(modelDisciplinas);
 		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
 		scrollDisciplinas.setBounds((int) Math.round(ScreenSize.width*0.37), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollDisciplinas, BorderLayout.CENTER);
 		listDisciplinas.addMouseListener(null);
 
-		listProfessores = new JList<Teacher>(modelProfessores);
+		listProfessores = new JList<Teachers>(modelProfessores);
 		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
 		scrollProfessores.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollProfessores, BorderLayout.CENTER);
@@ -1279,8 +1279,8 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
 
-			Teacher tc;
-			TeacherService tcs = new TeacherService();
+			Teachers tc;
+			TeachersService tcs = new TeachersService();
 
 			try {
 				if (txfTeacherCode.getText().isEmpty()) {
@@ -1302,7 +1302,7 @@ public class MainWindowNew extends JFrame {
 					graduation = "Doutorado";
 				}
 
-				tc = new Teacher(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
+				tc = new Teachers(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
 
 				tcs.save(tc);
 
@@ -1409,8 +1409,8 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
 
-			Maths mh;
-			MathsService mhs = new MathsService();
+			Subjects mh;
+			SubjectsService mhs = new SubjectsService();
 
 			try {
 				if (txfSubjectCode.getText().isEmpty()) {
@@ -1438,7 +1438,7 @@ public class MainWindowNew extends JFrame {
 					weekday = "SÃ¡bado";
 				}
 
-				mh = new Maths(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
+				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
 
 				mhs.save(mh);
 				
@@ -1518,8 +1518,8 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {;
 			
-			Fase fs;
-			FaseService fss = new FaseService();
+			Phases fs;
+			PhasesService fss = new PhasesService();
 
 			try {
 				if (txfPhaseCode.getText().isEmpty()) {
@@ -1528,7 +1528,7 @@ public class MainWindowNew extends JFrame {
 					throw new Exception("Campo Nome estÃ¡ vazio!");
 				}
 				
-				fs = new Fase(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
+				fs = new Phases(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
 
 				fss.save(fs);
 
@@ -2062,7 +2062,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Students st : StudentsList) {                         
 
-				Object[] data = {st.getId(), st.getStudent(), st.getBirthdate(),st.getEmail(), st.getSex(), st.getPhone(), st.getCellphone(),
+				Object[] data = {st.getId(), st.getName(), st.getBirthdate(),st.getEmail(), st.getSex(), st.getPhone(), st.getCellphone(),
 						st.getCep(), st.getNumber(), st.getAddress(), st.getSuburb(),st.getCity(), st.getEstate(), st.getComplement(), st.getNote()};
 
 				studentTableModel.addRow(data);				
@@ -2097,15 +2097,15 @@ public class MainWindowNew extends JFrame {
 		};
 		try {
 			//Initialize TeacherService and pull data object
-			TeacherService tts = new TeacherService(); 
-			Collection<Teacher> TeacherList = tts.findAll();
+			TeachersService tts = new TeachersService(); 
+			Collection<Teachers> TeacherList = tts.findAll();
 			
 			if (TeacherList == null) {
 				return;
 			}
 			
 			//ADD ROWS TO TABLE
-			for(Teacher tc : TeacherList) {                         
+			for(Teachers tc : TeacherList) {                         
 
 				Object[] data = {tc.getCode(), tc.getName(), tc.getGraduation()};
 
@@ -2143,15 +2143,15 @@ public class MainWindowNew extends JFrame {
 
 		try {
 			//Initialize SubjectService and pull data object
-			MathsService mts = new MathsService(); 
-			Collection<Maths> SubjectList = mts.findAll();
+			SubjectsService mts = new SubjectsService(); 
+			Collection<Subjects> SubjectList = mts.findAll();
 			
 			if (SubjectList == null) {
 				return;
 			}
 			
 			//ADD ROWS TO TABLE
-			for(Maths mh : SubjectList) {                         
+			for(Subjects mh : SubjectList) {                         
 
 				Object[] data = {mh.getCode(), mh.getname(), mh.getweek_day(), mh.getDescrition()};
 
@@ -2192,15 +2192,15 @@ public class MainWindowNew extends JFrame {
 
 		try {
 			//Initialize SubjectService and pull data object
-			FaseService fss = new FaseService(); 
-			Collection<Fase> PhaseList = fss.findAll();
+			PhasesService fss = new PhasesService(); 
+			Collection<Phases> PhaseList = fss.findAll();
 			
 			if (PhaseList == null) {
 				return;
 			}
 			
 			//ADD ROWS TO TABLE
-			for(Fase fs : PhaseList) {                         
+			for(Phases fs : PhaseList) {                         
 
 				Object[] data = {fs.getCode(), fs.getName()};
 
@@ -2300,7 +2300,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Cities ct : CityList) {                         
 
-				Object[] data = {ct.getCity(), ct.getState(), ct.getCountry() };
+				Object[] data = {ct.getName(), ct.getState(), ct.getCountry() };
 
 				citiesTableModel.addRow(data);
 				
@@ -2370,7 +2370,7 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateConfigInternalFrame() {
 
-		configInternalFrame = new JInternalFrame("Configurações");
+		configInternalFrame = new JInternalFrame("Configuraï¿½ï¿½es");
 		configInternalFrame.setLayout(null);
 		configInternalFrame.setBounds(200, 80, 210, 230);
 		configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -2407,7 +2407,7 @@ public class MainWindowNew extends JFrame {
 
 			else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
 
-				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
 				if (DialogResult == JOptionPane.YES_OPTION) {      
 
 					isFullScreen = true;
@@ -2424,7 +2424,7 @@ public class MainWindowNew extends JFrame {
 			}
 			else {      
 
-				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteração irá reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
 				if (DialogResult == JOptionPane.YES_OPTION) {          
 
 					isFullScreen = false;                   

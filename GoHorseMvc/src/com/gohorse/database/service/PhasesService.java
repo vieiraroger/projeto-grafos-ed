@@ -2,30 +2,30 @@ package com.gohorse.database.service;
 
 import java.util.Collection;
 
-import com.gohorse.database.model.Courses;
 import com.gohorse.database.model.Phases;
+import com.gohorse.database.model.Subjects;
 import com.gohorse.database.repository.GenericRepository;
 
-public class CoursesService implements CrudInterface<Courses>{
+public class PhasesService implements CrudInterface<Phases> {
 	
-	GenericRepository<Courses> repository;
+	GenericRepository<Phases> repository;
 	
-	public CoursesService() {
-		this.repository = new GenericRepository<>(Courses.class);
+	public PhasesService() {
+		this.repository = new GenericRepository<>(Phases.class);
 	}
 	
 	@Override
-	public Courses find(Integer id) {
+	public Phases find(Integer id) {
 		return repository.find(id);
 	}
 
 	@Override
-	public Courses save(Courses obj) {
+	public Phases save(Phases obj) {
 		return repository.save(obj);
 	}
 
 	@Override
-	public Courses update(Courses obj) {
+	public Phases update(Phases obj) {
 		return repository.update(obj);
 	}
 
@@ -35,8 +35,9 @@ public class CoursesService implements CrudInterface<Courses>{
 	}
 
 	@Override
-	public Collection<Courses> findAll() {
+	public Collection<Phases> findAll() {
 		return repository.findAll();
 	}
+	
 
 }

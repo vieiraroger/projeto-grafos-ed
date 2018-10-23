@@ -6,19 +6,35 @@ public class Cities implements Entity, Serializable{
 	
 	private static final long serialVersionUID = -5718169470825373489L;
 	private int id;
-	private String city;
+	private String name;
 	private String state;
 	private String country;
 	
 	
-	public Cities(String city, String state, String country) {
-		this.city = city;
+	public Cities(String name, String state, String country) {
+		this.name = name;
 		this.state = state;
 		this.country = country;
 	}
 
-	public String getCity() {
-		return city;
+	public String getName() {
+		return name;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getState() {

@@ -2,30 +2,30 @@ package com.gohorse.database.service;
 
 import java.util.Collection;
 
-import com.gohorse.database.model.Teacher;
+import com.gohorse.database.model.Teachers;
 import com.gohorse.database.repository.GenericRepository;
 
 
-public class TeacherService implements CrudInterface<Teacher> {
+public class TeachersService implements CrudInterface<Teachers> {
 
-	GenericRepository<Teacher> repository;
+	GenericRepository<Teachers> repository;
 	
-	public TeacherService() {
-		this.repository = new GenericRepository<>(Teacher.class);
+	public TeachersService() {
+		this.repository = new GenericRepository<>(Teachers.class);
 	}
 	
 	@Override
-	public Teacher find(Integer id) {
+	public Teachers find(Integer id) {
 		return repository.find(id);
 	}
 
 	@Override
-	public Teacher save(Teacher obj) {
+	public Teachers save(Teachers obj) {
 		return repository.save(obj);
 	}
 
 	@Override
-	public Teacher update(Teacher obj) {
+	public Teachers update(Teachers obj) {
 		return repository.update(obj);
 	}
 
@@ -35,7 +35,7 @@ public class TeacherService implements CrudInterface<Teacher> {
 	}
 
 	@Override
-	public Collection<Teacher> findAll() {
+	public Collection<Teachers> findAll() {
 		return repository.findAll();
 	}
 

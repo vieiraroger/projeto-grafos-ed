@@ -2,30 +2,30 @@ package com.gohorse.database.service;
 
 import java.util.Collection;
 
-import com.gohorse.database.model.Maths;
+import com.gohorse.database.model.Subjects;
 import com.gohorse.database.model.Students;
 import com.gohorse.database.repository.GenericRepository;
 
-public class MathsService implements CrudInterface<Maths>{
+public class SubjectsService implements CrudInterface<Subjects>{
 	
-	GenericRepository<Maths> repository;
+	GenericRepository<Subjects> repository;
 	
-	public MathsService() {
-		this.repository = new GenericRepository<>(Maths.class);
+	public SubjectsService() {
+		this.repository = new GenericRepository<>(Subjects.class);
 	}
 	
 	@Override
-	public Maths find(Integer id) {
+	public Subjects find(Integer id) {
 		return repository.find(id);
 	}
 
 	@Override
-	public Maths save(Maths obj) {
+	public Subjects save(Subjects obj) {
 		return repository.save(obj);
 	}
 
 	@Override
-	public Maths update(Maths obj) {
+	public Subjects update(Subjects obj) {
 		return repository.update(obj);
 	}
 
@@ -35,7 +35,7 @@ public class MathsService implements CrudInterface<Maths>{
 	}
 
 	@Override
-	public Collection<Maths> findAll() {
+	public Collection<Subjects> findAll() {
 		return repository.findAll();
 	}
 
