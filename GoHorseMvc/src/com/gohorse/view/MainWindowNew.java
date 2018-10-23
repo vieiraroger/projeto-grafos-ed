@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
@@ -34,6 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
@@ -97,8 +99,7 @@ public class MainWindowNew extends JFrame {
 		
 		//Setting window size depending on IsFullscreen
 		if(isFullScreen == true) {          
-			ScreenSize.setSize(ScreenSize.getWidth(),ScreenSize.getHeight());  
-			setSize(ScreenSize.width, ScreenSize.height);               
+			setExtendedState(Frame.MAXIMIZED_BOTH);               
 		}                     
 		else {          
 			ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
@@ -111,7 +112,10 @@ public class MainWindowNew extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);    
-		setExtendedState(Frame.MAXIMIZED_BOTH);
+		
+		setUndecorated(true);
+		Color color = UIManager.getColor("activeCaptionBorder");
+		getRootPane().setBorder(BorderFactory.createLineBorder(color, 6));
 
 		//Creating visual components
 		CreateTopBarComponents();
@@ -152,6 +156,7 @@ public class MainWindowNew extends JFrame {
 		JMenuItem smSoftwareInfo;
 		JMenuItem smConfig;
 		JMenuItem smImporter;
+		JMenuItem smEndProgram;
 
 		menu = new JMenuBar();
 		setJMenuBar(menu);
@@ -163,38 +168,22 @@ public class MainWindowNew extends JFrame {
 		mCourses   = new JMenu("Cursos");       
 		mCities    = new JMenu("Cidades");
 
-
-		mOptions   = new JMenu("Op��es");
-		mUsers     = new JMenu("Usu�rios");  
-
+		mOptions   = new JMenu("Op��es");
+		mUsers     = new JMenu("Usu�rios");  
 		mUtilities = new JMenu("Utilidades");
-
-		mOptions   = new JMenu("Opï¿½ï¿½es");
-		mUsers     = new JMenu("Usuï¿½rios");         
-
-
-
-		mOptions   = new JMenu("Op��es");
-		mUsers     = new JMenu("Usu�rios");  
-		mUtilities = new JMenu("Utilidades");
-
-		mOptions   = new JMenu("Op��es");
-		mUsers     = new JMenu("Usu�rios");         
-
-
-
-
+        
+		menu.add(mOptions);
 		menu.add(mStudents);
 		menu.add(mTeachers);
 		menu.add(mSubjects);
-		menu.add(mPhases);
+		//menu.add(mPhases);
 		menu.add(mCourses);
 		menu.add(mCities);
-		menu.add(mOptions);
+		menu.add(mUtilities);
+
 		if (perfil.equals("Administrador")) {
 			menu.add(mUsers);
 		}
-		menu.add(mUtilities);
 
 		smListStudents = new JMenuItem(new AbstractAction("Listar") {
 
@@ -282,7 +271,7 @@ public class MainWindowNew extends JFrame {
 			}
 		});
 
-		smConfig = new JMenuItem(new AbstractAction("Configuraï¿½ï¿½es") {
+		smConfig = new JMenuItem(new AbstractAction("Configura��es") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -303,6 +292,23 @@ public class MainWindowNew extends JFrame {
 			}
 		});
 
+		smEndProgram = new JMenuItem(new AbstractAction("Encerrar") {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Encerrar mesmo o programa?", "Aww", JOptionPane.YES_NO_OPTION);
+				if (DialogResult == JOptionPane.YES_OPTION) {      
+
+					dispose(); 					
+
+				}
+				
+			}
+		
+			
+		});
+		
 		mStudents.add(smListStudents);
 		mCities.add(smListCities);
 		mCourses.add(smListCourses);
@@ -312,6 +318,7 @@ public class MainWindowNew extends JFrame {
 		mUsers.add(smListUsers);
 		mOptions.add(smConfig);
 		mOptions.add(smSoftwareInfo);
+		mOptions.add(smEndProgram);
 		mUtilities.add(smImporter);
 
 	}
@@ -372,11 +379,10 @@ public class MainWindowNew extends JFrame {
 				studentTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == e.VK_TAB) {
+						if (e.getKeyCode() == KeyEvent.VK_TAB) {
 							
 							StudentsService sts = new StudentsService();
-							int lineselected = studentTable.getSelectedRow();
-							
+							 							
 							try {
 								Collection<Students> StudentList = sts.findAll();
 								
@@ -385,7 +391,7 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Students st : StudentList) {
-									if (st.getId() == (Integer) studentTable.getValueAt(lineselected, 0)) {
+									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {
 										sts.delete(st.getId());
 										UpdateRowsStudentsTable();
 										studentTable.setEnabled(false);
@@ -396,6 +402,8 @@ public class MainWindowNew extends JFrame {
 								System.out.println(e2.getMessage());
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
+							
+							
 						}
 					}
 				});
@@ -1872,7 +1880,6 @@ public class MainWindowNew extends JFrame {
 
 		//Table Configuration
 		studentTable = new JTable();    
-		studentTable.setEnabled(false);
 		
 		//Fill Rows in studentModel
 		UpdateRowsStudentsTable();
@@ -2396,7 +2403,7 @@ public class MainWindowNew extends JFrame {
 
 			else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
 
-				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta altera��o ir� reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
 				if (DialogResult == JOptionPane.YES_OPTION) {      
 
 					isFullScreen = true;
@@ -2413,7 +2420,7 @@ public class MainWindowNew extends JFrame {
 			}
 			else {      
 
-				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteraï¿½ï¿½o irï¿½ reiniciar o programa, deseja prosseguir?");
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta altera��o ir� reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
 				if (DialogResult == JOptionPane.YES_OPTION) {          
 
 					isFullScreen = false;                   

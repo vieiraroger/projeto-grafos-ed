@@ -28,7 +28,7 @@ public class LoginWindow extends JFrame {
     private JTextField txfUser;
     private JPasswordField txfPassword;
     private JButton btnConfirm;
-    private JButton btnSair;
+
     private JLabel lbUser;
     private JLabel lbPassword;
 
@@ -49,7 +49,7 @@ public class LoginWindow extends JFrame {
     	
     	lbUser = new JLabel();
     	lbUser.setBounds(40, 20, 125, 20);
-    	lbUser.setText("Usuï¿½rio");
+    	lbUser.setText("Usuário");
     	getContentPane().add(lbUser);
     	
     	txfUser = new JTextField();
