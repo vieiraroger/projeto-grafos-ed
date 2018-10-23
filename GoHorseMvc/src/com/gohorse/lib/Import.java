@@ -3,13 +3,18 @@ package com.gohorse.lib;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.gohorse.database.model.Courses;
+import com.gohorse.database.model.Phases;
+import com.gohorse.database.model.Subjects;
+import com.gohorse.database.model.Teachers;
 
 public class Import {
 	
 	public Courses importFile(String file_uri) {
 		//file_uri importacao.txt
+		Map<Courses, Map<Phases, Map<Subjects,Teachers>>> map;
 		
 		try {
 			BufferedReader buffRead = new BufferedReader(new FileReader(file_uri));

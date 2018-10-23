@@ -1,6 +1,7 @@
 package com.gohorse.database.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 
 public class Subjects implements Entity,Serializable{
 	
@@ -9,32 +10,31 @@ public class Subjects implements Entity,Serializable{
 	private int code;
 	private String name;
 	private String week_day; 
-	private String teacher_amount;
+	private LinkedHashSet<Teachers> teachers;
 	
-	public Subjects(int code, String name, String week_day, String teacher_amount) {
+	public Subjects(int code, String name, String week_day) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.week_day = week_day;
-		this.teacher_amount = teacher_amount;
 	}
-
+	
 	@Override
 	public Integer getId() {
 		return id;
+	}
+	
+	public LinkedHashSet<Teachers> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(LinkedHashSet<Teachers> teachers) {
+		this.teachers = teachers;
 	}
 
 	@Override
 	public void setId(Integer id) {
 		this.id = id;	
-	}
-
-	public String getDescrition() {
-		return teacher_amount;
-	}
-
-	public void setDescrition(String teacher_amount) {
-		this.teacher_amount = teacher_amount;
 	}
 
 	public String getname() {

@@ -1,6 +1,8 @@
 package com.gohorse.database.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 public class Phases implements Entity, Serializable{
 	
@@ -8,8 +10,16 @@ public class Phases implements Entity, Serializable{
 	private int id;
 	private int code;
 	private String name;
+	private LinkedHashSet<Subjects> subjects;
 	
-	
+	public LinkedHashSet<Subjects> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(LinkedHashSet<Subjects> subjects) {
+		this.subjects = subjects;
+	}
+
 	public Phases(int code, String name) {
 		super();
 		this.code = code;
