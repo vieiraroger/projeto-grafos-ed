@@ -387,9 +387,62 @@ public class MainWindowNew extends JFrame {
 		//Students Editing 
 		btnEditStudents.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {			
+				try {
 				
+				StudentsService sts = new StudentsService();
+				Collection<Students> StudentList = sts.findAll();
+				
+				if (StudentList == null) {
+					
+					return;
+				
+				}else {
+					studentTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsStudentsTable();			
+				
+				
+					studentTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							StudentsService sts = new StudentsService();
+							 							
+							try {
+								Collection<Students> StudentList = sts.findAll();
+								
+								if (StudentList == null) {
+									return;
+								}
+								
+								for (Students st : StudentList) {
+									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {
+										
+										sts.update(st);
+										
+										editable = false;
+										UpdateRowsStudentsTable();
+										studentTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								System.out.println(e2.getStackTrace());
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}
+					}
+				});
+			   }
+		      }	catch (Exception e1) {
+		    	System.out.println(e1.getStackTrace());
+				JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
+		  }		
 		});
 		btnEditStudents.setBounds(210, 30, 150, 40);        
 		btnEditStudents.setFocusPainted(false);
@@ -425,7 +478,7 @@ public class MainWindowNew extends JFrame {
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getMessage());
+								System.out.println(e2.getStackTrace());
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
@@ -500,7 +553,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 teacherTable.setEnabled(true);				
-				
+                UpdateRowsTeachersTable();
 				teacherTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {										
@@ -524,7 +577,7 @@ public class MainWindowNew extends JFrame {
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getMessage());
+								System.out.println(e2.getStackTrace());
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							

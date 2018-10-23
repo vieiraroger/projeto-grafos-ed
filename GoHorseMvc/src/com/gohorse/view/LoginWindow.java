@@ -49,7 +49,7 @@ public class LoginWindow extends JFrame {
     	
     	lbUser = new JLabel();
     	lbUser.setBounds(40, 20, 125, 20);
-    	lbUser.setText("Usuário");
+    	lbUser.setText("Usuï¿½rio");
     	getContentPane().add(lbUser);
     	
     	txfUser = new JTextField();
@@ -99,7 +99,7 @@ public class LoginWindow extends JFrame {
 					
 					if(list == null) {						
 						us.save(new Users("admin","admin","Administrador"));
-						throw new Exception("Nenhum usuário encontrado! Usuário padrão cadastrado!");
+						throw new Exception("Nenhum usuï¿½rio encontrado! Usuï¿½rio padrï¿½o cadastrado!");
 					}
 					
 					
@@ -122,11 +122,8 @@ public class LoginWindow extends JFrame {
 					}
 								
 				} catch (Exception ex) {
-					System.out.println(ex.getMessage());
-					System.out.println(ex.getCause());
-					System.out.println(ex.getStackTrace());
-					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-					JOptionPane.showMessageDialog(null,ex.getStackTrace(), "Erro", JOptionPane.ERROR_MESSAGE);
+					System.out.println(ex.getMessage());					
+					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);					
 				}		
 			}
 		});
