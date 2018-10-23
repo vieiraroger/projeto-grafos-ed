@@ -99,7 +99,7 @@ public class LoginWindow extends JFrame {
 					
 					if(list == null) {						
 						us.save(new Users("admin","admin","Administrador"));
-						throw new Exception("Nenhum usu√°rio encontrado! Usu√°rio padr√£o cadastrado!");
+						throw new Exception("Nenhum usu·rio encontrado! Usu·rio padr„o cadastrado!");
 					}
 					
 					

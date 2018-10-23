@@ -1,8 +1,6 @@
 package com.gohorse.view;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -85,9 +82,7 @@ public class MainWindowNew extends JFrame {
 	private JInternalFrame phasesInternalFrame;
 	private JInternalFrame coursesInternalFrame;
 	private JInternalFrame citiesInternalFrame;
-	private JInternalFrame usersInternalFrame;
-	private JInternalFrame importerInternalFrame;
-	
+	private JInternalFrame usersInternalFrame;	
 	
 	private String perfil; 
 	
@@ -102,7 +97,7 @@ public class MainWindowNew extends JFrame {
 			setExtendedState(Frame.MAXIMIZED_BOTH);               
 		}                     
 		else {          
-			ScreenSize.setSize((ScreenSize.getWidth()*0.8),(ScreenSize.getHeight()*0.8));
+			ScreenSize.setSize((ScreenSize.getWidth()*0.7),(ScreenSize.getHeight()*0.7));
 			setSize(ScreenSize.width, ScreenSize.height);               
 		}                                       
 
@@ -156,7 +151,9 @@ public class MainWindowNew extends JFrame {
 		JMenuItem smSoftwareInfo;
 		JMenuItem smConfig;
 		JMenuItem smImporter;
+		JMenuItem smLogoff;
 		JMenuItem smEndProgram;
+		
 
 		menu = new JMenuBar();
 		setJMenuBar(menu);
@@ -184,7 +181,8 @@ public class MainWindowNew extends JFrame {
 		if (perfil.equals("Administrador")) {
 			menu.add(mUsers);
 		}
-
+		
+		//setting menu option actions
 		smListStudents = new JMenuItem(new AbstractAction("Listar") {
 
 			@Override
@@ -260,7 +258,7 @@ public class MainWindowNew extends JFrame {
 
 			}
 		});
-
+		
 		smSoftwareInfo = new JMenuItem(new AbstractAction("Sobre") {
 
 			@Override
@@ -287,11 +285,24 @@ public class MainWindowNew extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				ShowPanel("importer");
-				importerInternalFrame.setVisible(true);
+				importerPanel.setVisible(true);
 
 			}
 		});
 
+		smLogoff = new JMenuItem(new AbstractAction("Logoff") {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dispose();
+				new LoginWindow().setVisible(true);
+				
+			}
+			
+			
+		});
+		
 		smEndProgram = new JMenuItem(new AbstractAction("Encerrar") {
 
 			@Override
@@ -309,6 +320,7 @@ public class MainWindowNew extends JFrame {
 			
 		});
 		
+		//adding options to menus on bar
 		mStudents.add(smListStudents);
 		mCities.add(smListCities);
 		mCourses.add(smListCourses);
@@ -318,6 +330,7 @@ public class MainWindowNew extends JFrame {
 		mUsers.add(smListUsers);
 		mOptions.add(smConfig);
 		mOptions.add(smSoftwareInfo);
+		mOptions.add(smLogoff);
 		mOptions.add(smEndProgram);
 		mUtilities.add(smImporter);
 
@@ -833,16 +846,113 @@ public class MainWindowNew extends JFrame {
 	public void FillComponentsInImporterPanel(){
 
 		//Importers Panel Declaration
-		CreateComponentImporterInternalFrame();
 		importerPanel = new JPanel();
 		importerPanel.setLayout(null);
-		importerPanel.setSize(ScreenSize.width, ScreenSize.height);
-		getContentPane().add(importerPanel);
-		importerPanel.add(importerInternalFrame); 
+		importerPanel.setBounds(0, 0, ScreenSize.width, ScreenSize.height);
+		getContentPane().add(importerPanel); 
 
-		//Adding Internal frame and Table to Panel
+		//Declarations
+		JLabel labelDescricao;
+		JTextField txfData;
+		JTextField txfFaseInicial;
+		JTextField txfFaseFinal;
+		JTextField txfCurso;
+		JTextField txfImportacao;
+		JButton btnSelecionarArquivo;
+		JButton btnImportarArquivo;
 
+		JList<Fase> listFases;
+		JList<Maths> listDisciplinas;
+		JList<Teacher> listProfessores;
+		DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
+		DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
+		DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
+
+		
+		//Select and import buttons
+		btnSelecionarArquivo = new JButton("?");
+		btnSelecionarArquivo.setBounds((int) Math.round(ScreenSize.width*0.44), (int) Math.round(ScreenSize.height*0.03), 25, 25);
+		importerPanel.add(btnSelecionarArquivo);    
+		
+		btnImportarArquivo = new JButton("Importar");
+		btnImportarArquivo.setBounds((int) Math.round(ScreenSize.width*0.46), (int) Math.round(ScreenSize.height*0.03), 90, 25);
+		importerPanel.add(btnImportarArquivo); 
+		
+		
+		//Importing Panel Fields declarations
+		labelDescricao = new JLabel("Arquivo:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.07), (int) Math.round(ScreenSize.height*0.03), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		txfImportacao = new JTextField();
+		txfImportacao.setBounds((int) Math.round(ScreenSize.width*0.11), (int) Math.round(ScreenSize.height*0.03), (int) Math.round(ScreenSize.width*0.32), 25);
+		importerPanel.add(txfImportacao);
+
+		labelDescricao = new JLabel(" Data:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.08), (int) Math.round(ScreenSize.height*0.08), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		txfData = new JTextField();
+		txfData.setBounds((int) Math.round(ScreenSize.width*0.11), (int) Math.round(ScreenSize.height*0.08), 80, 25);
+		importerPanel.add(txfData);
+
+		labelDescricao = new JLabel("Fase Inicial:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.17), (int) Math.round(ScreenSize.height*0.08), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		txfFaseInicial = new JTextField();
+		txfFaseInicial.setBounds((int) Math.round(ScreenSize.width*0.22), (int) Math.round(ScreenSize.height*0.08), 75, 25);
+		importerPanel.add(txfFaseInicial);  
+
+		labelDescricao = new JLabel("Fase Final:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.28), (int) Math.round(ScreenSize.height*0.08), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		txfFaseFinal = new JTextField();
+		txfFaseFinal.setBounds((int) Math.round(ScreenSize.width*0.33), (int) Math.round(ScreenSize.height*0.08), 75, 25);
+		importerPanel.add(txfFaseFinal);
+
+		labelDescricao = new JLabel("Curso:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.39), (int) Math.round(ScreenSize.height*0.08), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		txfCurso = new JTextField();
+		txfCurso.setBounds((int) Math.round(ScreenSize.width*0.42), (int) Math.round(ScreenSize.height*0.08), 145, 25);
+		importerPanel.add(txfCurso);
+
+		labelDescricao = new JLabel("FASES:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.07), (int) Math.round(ScreenSize.height*0.17), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		labelDescricao = new JLabel("DISCIPLINAS:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.37), (int) Math.round(ScreenSize.height*0.17), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		labelDescricao = new JLabel("PROFESSORES:");
+		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.17), 100, 25);
+		importerPanel.add(labelDescricao);
+
+		listFases = new JList<Fase>(modelFases);
+		JScrollPane scrollFases = new JScrollPane(listFases);
+		scrollFases.setBounds((int) Math.round(ScreenSize.width*0.07), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
+		importerPanel.add(scrollFases, BorderLayout.CENTER);
+		listFases.addMouseListener(null);
+
+		listDisciplinas = new JList<Maths>(modelDisciplinas);
+		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
+		scrollDisciplinas.setBounds((int) Math.round(ScreenSize.width*0.37), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
+		importerPanel.add(scrollDisciplinas, BorderLayout.CENTER);
+		listDisciplinas.addMouseListener(null);
+
+		listProfessores = new JList<Teacher>(modelProfessores);
+		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
+		scrollProfessores.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
+		importerPanel.add(scrollProfessores, BorderLayout.CENTER);
+		listProfessores.addMouseListener(null);
+		//Importing Panel Fields declarations
+		
 		importerPanel.setVisible(false);
+		
 	}
 
 	//Internal Frames - CREATE AND FILL   
@@ -1765,112 +1875,6 @@ public class MainWindowNew extends JFrame {
 
 	}
 
-	public void CreateComponentImporterInternalFrame(){
-
-		importerInternalFrame = new JInternalFrame("Cadastro de Cidade");
-		importerInternalFrame.setLayout(null);
-		importerInternalFrame.setBounds(0, 0, Integer.valueOf((int) ScreenSize.getWidth()),Integer.valueOf((int) ScreenSize.getHeight()));
-		importerInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL))); 
-
-		JLabel labelDescricao;
-		JTextField txfData;
-		JTextField txfFaseInicial;
-		JTextField txfFaseFinal;
-		JTextField txfCurso;
-		JTextField txfImportacao;
-		JButton btnSelecionarArquivo;
-		JButton btnImportarArquivo;
-
-		JList<Fase> listFases;
-		JList<Maths> listDisciplinas;
-		JList<Teacher> listProfessores;
-		DefaultListModel<Fase> modelFases = new DefaultListModel<Fase>();
-		DefaultListModel<Maths> modelDisciplinas = new DefaultListModel<Maths>();
-		DefaultListModel<Teacher> modelProfessores = new DefaultListModel<Teacher>();
-
-		labelDescricao = new JLabel("Arquivo:");
-		labelDescricao.setBounds(15, 10, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		txfImportacao = new JTextField();
-		txfImportacao.setBounds(15, 32, 350, 25);
-		importerInternalFrame.add(txfImportacao);
-
-		btnSelecionarArquivo = new JButton("?");
-
-
-		btnSelecionarArquivo.setBounds(370, 32, 20, 25);
-		importerInternalFrame.add(btnSelecionarArquivo);        
-
-		labelDescricao = new JLabel("Data:");
-		labelDescricao.setBounds(15, 80, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		txfData = new JTextField();
-		txfData.setBounds(50, 80, 80, 25);
-		importerInternalFrame.add(txfData);
-
-		labelDescricao = new JLabel("Fase Inicial:");
-		labelDescricao.setBounds(145, 80, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		txfFaseInicial = new JTextField();
-		txfFaseInicial.setBounds(215, 80, 75, 25);
-		importerInternalFrame.add(txfFaseInicial);  
-
-		labelDescricao = new JLabel("Fase Final:");
-		labelDescricao.setBounds(305, 80, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		txfFaseFinal = new JTextField();
-		txfFaseFinal.setBounds(368, 80, 75, 25);
-		importerInternalFrame.add(txfFaseFinal);
-
-		labelDescricao = new JLabel("Curso:");
-		labelDescricao.setBounds(460, 80, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		txfCurso = new JTextField();
-		txfCurso.setBounds(501, 80, 160, 25);
-		importerInternalFrame.add(txfCurso);
-
-		labelDescricao = new JLabel("FASES:");
-		labelDescricao.setBounds(20, 145, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		labelDescricao = new JLabel("DISCIPLINAS:");
-		labelDescricao.setBounds(360, 145, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		labelDescricao = new JLabel("PROFESSORES:");
-		labelDescricao.setBounds(700, 145, 100, 25);
-		importerInternalFrame.add(labelDescricao);
-
-		btnImportarArquivo = new JButton("Importar");
-		btnImportarArquivo.setBounds(395, 32, 90, 25);
-		importerInternalFrame.add(btnImportarArquivo); 
-
-		listFases = new JList<Fase>(modelFases);
-		JScrollPane scrollFases = new JScrollPane(listFases);
-		scrollFases.setBounds(20, 165, 300, 450);
-		importerInternalFrame.add(scrollFases, BorderLayout.CENTER);
-		listFases.addMouseListener(null);
-
-		listDisciplinas = new JList<Maths>(modelDisciplinas);
-		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
-		scrollDisciplinas.setBounds(360, 165, 300, 450);
-		importerInternalFrame.add(scrollDisciplinas, BorderLayout.CENTER);
-		listDisciplinas.addMouseListener(null);
-
-		listProfessores = new JList<Teacher>(modelProfessores);
-		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
-		scrollProfessores.setBounds(700, 165, 300, 450);
-		importerInternalFrame.add(scrollProfessores, BorderLayout.CENTER);
-		listProfessores.addMouseListener(null);
-
-		importerInternalFrame.setVisible(false);
-	}
-
 	//JTables - CREATE   
 
 	public void CreateStudentsTable(){
@@ -1879,7 +1883,8 @@ public class MainWindowNew extends JFrame {
 		JScrollPane studentScrollPane;                                          
 
 		//Table Configuration
-		studentTable = new JTable();    
+		studentTable = new JTable();
+		studentTable.setEnabled(false);
 		
 		//Fill Rows in studentModel
 		UpdateRowsStudentsTable();
@@ -1904,7 +1909,6 @@ public class MainWindowNew extends JFrame {
 
 		//Table Configuration
 		teacherTable = new JTable();                   
-		teacherTable.setEnabled(false);
 		
 		//Fill Rows in studentModel
 		UpdateRowsTeachersTable();
@@ -2366,7 +2370,7 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateConfigInternalFrame() {
 
-		configInternalFrame = new JInternalFrame("Configuraï¿½ï¿½es");
+		configInternalFrame = new JInternalFrame("Configura��es");
 		configInternalFrame.setLayout(null);
 		configInternalFrame.setBounds(200, 80, 210, 230);
 		configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
