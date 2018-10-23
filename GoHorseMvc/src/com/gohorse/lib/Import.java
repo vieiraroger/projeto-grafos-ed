@@ -58,13 +58,16 @@ public class Import {
 	            									Integer.parseInt(subjectLine.substring(7,8)));
 	            	
 	            	Integer subject_teacher = Integer.parseInt(subjectLine.substring(9, 11));
-	            	System.out.println(subject_teacher);
+
 	            	LinkedHashSet<Teachers> teachers_hash_set = new LinkedHashSet<Teachers>();
 	            	for(int j=0;j<subject_teacher;j++) {
 	    	            
 	            		String teacherLine = buffRead.readLine();
 	            		verifyTeacher(teacherLine);
-	            		
+	            		System.out.println(teacherLine.length());
+	            		if(teacherLine.length() != 43) {
+	            			System.out.println(teacherLine);
+	            		}
 	            		Teachers local_teacher = new Teachers(teacherLine.substring(1, 41),
 	            												Integer.parseInt(teacherLine.substring(41, 43)));
 	            		
@@ -87,6 +90,7 @@ public class Import {
 	        
 	        return course;
 		} catch(Exception ex) {
+			ex.printStackTrace();
 			System.out.println(ex.getMessage());
 		}
 		
@@ -98,7 +102,7 @@ public class Import {
 	private void verifyHeader(String header) throws Exception {
 		//TODO SEQUENCIAL
 		if(header.length() != 43) {
-			System.out.println(header.length());
+			System.out.println(header);
         	throw new Exception("ERRO HEADER 001: Tamanho de header invalido.");
         }
         

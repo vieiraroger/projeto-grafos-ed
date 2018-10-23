@@ -8,7 +8,6 @@ public class Phases implements Entity, Serializable{
 	
 	private static final long serialVersionUID = -2797531055697167812L;
 	private int id;
-	private int code;
 	private String name;
 	private LinkedHashSet<Subjects> subjects;
 	
@@ -20,9 +19,8 @@ public class Phases implements Entity, Serializable{
 		this.subjects = subjects;
 	}
 
-	public Phases(int code, String name) {
+	public Phases(String name) {
 		super();
-		this.code = code;
 		this.name = name;
 	}
 	
@@ -36,13 +34,6 @@ public class Phases implements Entity, Serializable{
 		this.id = id;
 	}
 
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
 
 	public String getName() {
 		return name;
