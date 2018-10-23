@@ -458,7 +458,7 @@ public class MainWindowNew extends JFrame {
 				studentTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 							
 							StudentsService sts = new StudentsService();
 							 							
@@ -557,7 +557,7 @@ public class MainWindowNew extends JFrame {
 				teacherTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {										
-						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 							
 							TeachersService tcs = new TeachersService();
 							 							
@@ -2005,19 +2005,17 @@ public class MainWindowNew extends JFrame {
 		JScrollPane teacherScrollPane;
 
 		//Table Configuration
-		teacherTable = new JTable();                   
+		teacherTable = new JTable(); 
+		teacherTable.setEnabled(false);
 		
 		//Fill Rows in studentModel
 		UpdateRowsTeachersTable();
 		
 		//Scroll Pane Configuration
-		teacherTable.setEnabled(false);
 		teacherScrollPane = new JScrollPane(teacherTable);
 		teacherScrollPane.setLocation(50, 100); 
 		teacherScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 		teacherScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));    
-		
-		
 		
 		teachersPanel.add(teacherScrollPane);
 
