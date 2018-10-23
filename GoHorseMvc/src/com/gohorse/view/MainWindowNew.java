@@ -499,8 +499,39 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
+                teacherTable.setEnabled(true);				
+				
+				teacherTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {										
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							TeachersService tcs = new TeachersService();
+							 							
+							try {
+								Collection<Teachers> TeacherList = tcs.findAll();
+								
+								if (TeacherList == null) {
+									return;
+								}
+								
+								for (Teachers tc : TeacherList) {
+									if (tc.getCode() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
+										tcs.delete(tc.getId());
+										UpdateRowsTeachersTable();
+										studentTable.setEnabled(false);
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								System.out.println(e2.getMessage());
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}						
+					}
+				});
 			}
 
 		});
@@ -1315,7 +1346,7 @@ public class MainWindowNew extends JFrame {
 					graduation = "Doutorado";
 				}
 
-				tc = new Teachers(txfTeacherCode.getText(), txfTeacherName.getText(), graduation);
+				tc = new Teachers(Integer.parseInt(txfTeacherCode.getText()), txfTeacherName.getText(), graduation);
 
 				tcs.save(tc);
 
@@ -1435,23 +1466,23 @@ public class MainWindowNew extends JFrame {
 				}else if (txfSubjectTeacherAmount.getText().isEmpty()) {
 					throw new Exception("Campo Quantidade de Professores está vazio!");
 				}
-				String weekday = "";
+				Integer weekday = 0;
 
 				if (cmbSubjectWeekdays.getSelectedIndex() == 0) {
-					weekday = "Segunda-feira";
+					weekday = 02;
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 1 ) {
-					weekday = "Terça-feira";
+					weekday = 03;
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 2) {
-					weekday = "Quarta-feira";
+					weekday = 04;
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 3) {
-					weekday = "Quinta-feira";
+					weekday = 05;
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 4) {
-					weekday = "Sexta-feira";
+					weekday = 06;
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 5) {
-					weekday = "Sábado";
+					weekday = 07;
 				}
 
-				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, Integer.parseInt(txfSubjectTeacherAmount.getText()));
+				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday);
 
 				mhs.save(mh);
 				
@@ -1927,6 +1958,7 @@ public class MainWindowNew extends JFrame {
 		UpdateRowsTeachersTable();
 		
 		//Scroll Pane Configuration
+		teacherTable.setEnabled(false);
 		teacherScrollPane = new JScrollPane(teacherTable);
 		teacherScrollPane.setLocation(50, 100); 
 		teacherScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -2110,6 +2142,10 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return teacherColumns[index];
 			}
+			
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
 
 		};
 		try {
@@ -2154,7 +2190,11 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return subjectColumns[index];
 			}
-
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
 
 		};
 
@@ -2203,7 +2243,11 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return subjectColumns[index];
 			}
-
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
 
 		};
 
@@ -2252,8 +2296,12 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return CoursesColumns[index];
 			}
-
-
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
+			
 		};
 
 		try {
@@ -2301,8 +2349,12 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return CitiesColumns[index];
 			}
-
-
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
+			
 		};
 
 		try {
@@ -2350,8 +2402,12 @@ public class MainWindowNew extends JFrame {
 			public String getColumnName(int index) {
 				return UsersColumns[index];
 			}
-
-
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
+			
 		};
 
 		try {

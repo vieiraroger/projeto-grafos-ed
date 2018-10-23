@@ -6,11 +6,11 @@ public class Teachers implements Entity, Serializable {
 	
 	private static final long serialVersionUID = -8982355266862975723L;
 	private Integer id;
-	private String code;
+	private int code;
 	private String name;
 	private String graduation;
 	
-	public Teachers(String code, String name, String graduation) {
+	public Teachers(int code, String name, String graduation) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -23,10 +23,10 @@ public class Teachers implements Entity, Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getCode() {
+	public Integer getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 	public String getName() {
