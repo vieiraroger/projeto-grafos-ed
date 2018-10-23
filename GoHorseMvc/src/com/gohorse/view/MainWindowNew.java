@@ -51,7 +51,10 @@ import com.gohorse.database.service.TeachersService;
 import com.gohorse.database.service.UsersService;
 
 public class MainWindowNew extends JFrame {
-
+	
+	//Define if table is editable or not
+	private boolean editable = false;
+	
 	// Saving screen size in variable
 	public static boolean isFullScreen;
 	Dimension ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();     
@@ -73,6 +76,15 @@ public class MainWindowNew extends JFrame {
 	private JTable courseTable;
 	private JTable citiesTable;
 	private JTable usersTable;
+	
+	//Declaring Tables Models
+	private DefaultTableModel studentTableModel;
+	private DefaultTableModel teacherTableModel;
+	private DefaultTableModel subjectTableModel;
+	private DefaultTableModel phaseTableModel;
+	private DefaultTableModel courseTableModel;
+	private DefaultTableModel citiesTableModel;
+	private DefaultTableModel usersTableModel;
 
 	// Declaring internal frames
 	private JInternalFrame configInternalFrame;
@@ -388,13 +400,12 @@ public class MainWindowNew extends JFrame {
 		btnDeleteStudents.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				studentTable.setEnabled(true);
-				
+				studentTable.setEnabled(true);				
 				
 				studentTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_TAB) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 							
 							StudentsService sts = new StudentsService();
 							 							
@@ -1180,7 +1191,7 @@ public class MainWindowNew extends JFrame {
 				st = new Students(txfStudent.getText(), txfBirthdate.getText(), sex, txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), 
 						txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());                    
 				sts.save(st);
-
+				JOptionPane.showMessageDialog(null,"Aluno cadastrado com sucesso!","Sucesso", JOptionPane.PLAIN_MESSAGE);
 				UpdateRowsStudentsTable();
 
 				studentsPanel.setVisible(true);
@@ -2038,7 +2049,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsStudentsTable(){
 
 		//Declaring Table Model
-		DefaultTableModel studentTableModel = new DefaultTableModel() {
+		studentTableModel = new DefaultTableModel() {
 
 			String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
 					"Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
@@ -2051,7 +2062,11 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public String getColumnName(int index) {
 				return studentColumns[index];
-			}           
+			}
+			
+			public boolean isCellEditable(int rowIndex, int mColIndex){ 
+		         return editable; 
+		    } 
 
 		};
 		try {
@@ -2082,8 +2097,8 @@ public class MainWindowNew extends JFrame {
 
 	public void UpdateRowsTeachersTable() {
 
-		//Declaring Table Model
-		DefaultTableModel teacherTableModel = new DefaultTableModel() {
+		//Set Table Model
+		teacherTableModel = new DefaultTableModel() {
 
 			String[] teacherColumns = {"Cï¿½digo", "Nome", "Graduaï¿½ï¿½o"};
 
@@ -2126,7 +2141,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsSubjectsTable() {
 
 		//Declaring Table Model
-		DefaultTableModel subjectTableModel = new DefaultTableModel() {
+		subjectTableModel = new DefaultTableModel() {
 
 
 			String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "N° de Professores"};
@@ -2175,7 +2190,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsPhasesTable() {
 
 		//Declaring Table Model
-		DefaultTableModel phaseTableModel = new DefaultTableModel() {
+		phaseTableModel = new DefaultTableModel() {
 
 
 			String[] subjectColumns = {"Código", "Nome"};
@@ -2224,7 +2239,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsCoursesTable() {
 
 		//Declaring Table Model
-		DefaultTableModel courseTableModel = new DefaultTableModel() {
+		courseTableModel = new DefaultTableModel() {
 
 
 			String[] CoursesColumns = {"Código", "Nome"};
@@ -2273,7 +2288,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsCitiesTable() {
 
 		//Declaring Table Model
-		DefaultTableModel citiesTableModel = new DefaultTableModel() {
+		citiesTableModel = new DefaultTableModel() {
 
 
 			String[] CitiesColumns = {"Cidade", "Estado", "País"};
@@ -2322,7 +2337,7 @@ public class MainWindowNew extends JFrame {
 	public void UpdateRowsUsersTable() {
 
 		//Declaring Table Model
-		DefaultTableModel usersTableModel = new DefaultTableModel() {
+		usersTableModel = new DefaultTableModel() {
 
 
 			String[] UsersColumns = {"Usuário", "Senha", "Perfil"};
