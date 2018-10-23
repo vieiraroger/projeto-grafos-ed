@@ -90,6 +90,7 @@ public class MainWindowNew extends JFrame {
 
 	public MainWindowNew (String perfil) {
 		
+		
 		this.perfil = perfil;
 		
 		//Setting window size depending on IsFullscreen
@@ -388,6 +389,7 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				studentTable.setEnabled(true);
+				
 				
 				studentTable.addKeyListener(new KeyAdapter() {
 				
@@ -1438,7 +1440,7 @@ public class MainWindowNew extends JFrame {
 					weekday = "Sábado";
 				}
 
-				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, txfSubjectTeacherAmount.getText());
+				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday, Integer.parseInt(txfSubjectTeacherAmount.getText()));
 
 				mhs.save(mh);
 				
@@ -2153,7 +2155,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Subjects mh : SubjectList) {                         
 
-				Object[] data = {mh.getCode(), mh.getname(), mh.getweek_day(), mh.getDescrition()};
+				Object[] data = {mh.getCode(), mh.getname(), mh.getweek_day(), mh.getTeacher_amount()};
 
 				subjectTableModel.addRow(data);
 				

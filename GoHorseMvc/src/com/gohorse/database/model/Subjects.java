@@ -9,16 +9,26 @@ public class Subjects implements Entity,Serializable{
 	private int id;
 	private int code;
 	private String name;
-	private String week_day; 
+	private String week_day;
+	private int teacher_amount;
 	private LinkedHashSet<Teachers> teachers;
 	
-	public Subjects(int code, String name, String week_day) {
+	public Subjects(int code, String name, String week_day, int teacher_amount) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.week_day = week_day;
+		this.teacher_amount = teacher_amount;
 	}
 	
+	public int getTeacher_amount() {
+		return teacher_amount;
+	}
+
+	public void setTeacher_amount(int teacher_amount) {
+		this.teacher_amount = teacher_amount;
+	}
+
 	@Override
 	public Integer getId() {
 		return id;
