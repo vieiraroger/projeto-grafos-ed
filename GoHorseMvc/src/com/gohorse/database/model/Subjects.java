@@ -9,24 +9,18 @@ public class Subjects implements Entity,Serializable{
 	private int id;
 	private int code;
 	private String name;
-	private String week_day;
-	private int teacher_amount;
+	private Integer week_day; 
 	private LinkedHashSet<Teachers> teachers;
 	
-	public Subjects(int code, String name, String week_day, int teacher_amount) {
+	
+	public Subjects(int code, String name, Integer week_day) {
 		super();
 		this.code = code;
 		this.name = name;
-		this.week_day = week_day;
-		this.teacher_amount = teacher_amount;
 	}
 	
 	public int getTeacher_amount() {
-		return teacher_amount;
-	}
-
-	public void setTeacher_amount(int teacher_amount) {
-		this.teacher_amount = teacher_amount;
+		return teachers.size();
 	}
 
 	@Override
@@ -55,11 +49,11 @@ public class Subjects implements Entity,Serializable{
 		this.name = name;
 	}
 
-	public String getweek_day() {
+	public Integer getweek_day() {
 		return week_day;
 	}
 
-	public void setweek_day(String week_day) {
+	public void setweek_day(Integer week_day) {
 		this.week_day = week_day;
 	}
 	public int getCode() {
