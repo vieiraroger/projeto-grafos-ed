@@ -3,6 +3,7 @@ package com.gohorse.lib;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 import com.gohorse.database.model.Courses;
@@ -14,7 +15,6 @@ public class Import {
 	
 	public Courses importFile(String file_uri) {
 		//file_uri importacao.txt
-		Map<Courses, Map<Phases, Map<Subjects,Teachers>>> map;
 		
 		try {
 			BufferedReader buffRead = new BufferedReader(new FileReader(file_uri));
@@ -33,32 +33,59 @@ public class Import {
 	        course.setName(line.substring(1, 11));
 	        
 	        line = buffRead.readLine();
+	        
+	        LinkedHashSet<Phases> phases_hash_set = new LinkedHashSet<Phases>();
+	        Integer in = 0;
 	        while (line != null) {
 	        	//RESUMO OPERACAO
-	        	
+	        	in++;
 	        	verifySummaryOperation(line);
+	        	
+	        	Phases local_phase = new Phases(line.substring(1, 8));
+	        	
 	        	Integer subjects_defined = Integer.parseInt(line.substring(8,10));
 	        	Integer teachers_defined = Integer.parseInt(line.substring(10,12));
 	        	Integer teachers_total = 0;
+	        	
+	        	LinkedHashSet<Subjects> subjects_hash_set = new LinkedHashSet<Subjects>();
 	            for(int i=0;i<subjects_defined;i++) {
-	            	String subject = buffRead.readLine();
-	            	verifySubject(subject);
-	            	//Math m = new Math();
 	            	
-	            	Integer subject_teacher = Integer.parseInt(subject.substring(9, 11));
+	            	String subjectLine = buffRead.readLine();
+	            	
+	            	verifySubject(subjectLine);
+	            	Subjects local_subjects = new Subjects(Integer.parseInt(subjectLine.substring(1,7)),
+	            									null,
+	            									Integer.parseInt(subjectLine.substring(7,8)));
+	            	
+	            	Integer subject_teacher = Integer.parseInt(subjectLine.substring(9, 11));
+	            	System.out.println(subject_teacher);
+	            	LinkedHashSet<Teachers> teachers_hash_set = new LinkedHashSet<Teachers>();
 	            	for(int j=0;j<subject_teacher;j++) {
-	            		String teacher = buffRead.readLine();
-	            		verifyTeacher(teacher);
+	    	            
+	            		String teacherLine = buffRead.readLine();
+	            		verifyTeacher(teacherLine);
 	            		
+	            		Teachers local_teacher = new Teachers(teacherLine.substring(1, 41),
+	            												Integer.parseInt(teacherLine.substring(41, 43)));
 	            		
+	            		teachers_hash_set.add(local_teacher);
 	            	}
 	            	
-	            }
-	        	
+	            	local_subjects.setTeachers(teachers_hash_set);
+	            	subjects_hash_set.add(local_subjects);
+	            }     	
+	            
+	            local_phase.setSubjects(subjects_hash_set);
+	            
+	            phases_hash_set.add(local_phase);
+
 	            line = buffRead.readLine();
-	        	break;
 	        }
 	        buffRead.close();
+	        
+	        course.setPhases(phases_hash_set);
+	        
+	        return course;
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -66,11 +93,12 @@ public class Import {
 		return null;
 	}
 	
-	//TODO um for para verificar onde é para ter numero
+	//TODO um for para verificar onde Ã© para ter numero
 	
 	private void verifyHeader(String header) throws Exception {
 		//TODO SEQUENCIAL
 		if(header.length() != 43) {
+			System.out.println(header.length());
         	throw new Exception("ERRO HEADER 001: Tamanho de header invalido.");
         }
         
@@ -81,7 +109,7 @@ public class Import {
         verifyDate(header.substring(11,19));
         
         if(!header.substring(40,43).equals("001")) {
-        	throw new Exception("ERRO HEADER 003: Versão do Layout Invalido.");
+        	throw new Exception("ERRO HEADER 003: VersÃ£o do Layout Invalido.");
         }
         
         
