@@ -76,11 +76,12 @@ public class Import {
 
 	            	LinkedHashSet<Teachers> teachers_hash_set = new LinkedHashSet<Teachers>();
 	            	for(int j=0;j<subject_teacher;j++) {
-	    	            
+	            		
 	            		String teacherLine = buffRead.readLine();
+	            		teachers_total++;
 	            		totalOfLines++;
 	            		verifyTeacher(teacherLine);
-	            		System.out.println(teacherLine.length());
+
 	            		if(teacherLine.length() != 43) {
 	            			System.out.println(teacherLine);
 	            		}
@@ -93,6 +94,10 @@ public class Import {
 	            	local_subjects.setTeachers(teachers_hash_set);
 	            	subjects_hash_set.add(local_subjects);
 	            }     	
+	            
+	            if(teachers_total != teachers_defined) {
+	            	throw new Exception("ERRO R. OPERACAO 302: Quantidade informada incorreta.");
+	            }
 	            
 	            local_phase.setSubjects(subjects_hash_set);
 	            
