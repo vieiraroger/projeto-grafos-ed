@@ -1082,6 +1082,15 @@ public class MainWindowNew extends JFrame {
 					
 				}  
 				
+				modelFases.clear();
+				modelDisciplinas.clear();
+				modelProfessores.clear();
+				txfImportacao.setText("");
+				txfCurso.setText("");
+				txfData.setText("");
+				txfFaseFinal.setText("");
+				txfFaseInicial.setText("");				
+				
 				UpdateRowsCoursesTable();
 				UpdateRowsPhasesTable();
 				UpdateRowsSubjectsTable();
