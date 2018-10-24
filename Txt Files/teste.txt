@@ -1,0 +1,108 @@
+﻿0CIENCICOMP20180919FASE-01FASE-090000001001
+1FASE-010610
+20108500202
+3Luciano Antunes                         02
+3Gustavo Bisognin                        02
+20108540301
+3Adriane Brogni Uggioni                  02
+20108510201
+3Rogério Antônio Casadrande              03                     
+20108520503
+3Guiomar da Rosa Bortot                  02
+3Cibele Berith Figueiredo Freitas        03
+3Rosemari de Oliveira Duarte             03
+20108530401
+3Cibele Berith Figueiredo Freitas        03
+20108500602
+3Luciano Antunes                         02
+3Gustavo Bisognin                        02
+1FASE-020505
+20108580401
+3Louise Miron Roloff                     01
+20108570601
+3Alex Sander da Silva                    03
+20108560201
+3Ênio José Peruchi                       01
+20108550501
+3Ana Cláudia Garcia Barbosa              02
+20108590301                              
+3Luciano Antunes                         02
+1FASE-030606
+20108600201
+3Louise Miron Roloff                     01
+20108620601
+3Ênio José Peruchi                       01
+20108630401
+3Kristian Madeira                        03
+20108640301
+3Sergio Coral                            01
+20108610501
+3Gilberto Vieira da Silva                01
+20108650701
+3Leila Laís Gonçalves                    02
+1FASE-040606
+20108680501
+3Paulo João Martins                      02
+20108690601
+3Sergio Coral                            01
+20108700201
+3Kristian Madeira                        03
+20108660401
+3Matheus Leandro Ferreira                01
+20108670701
+3Leila Laís Gonçalves                    02
+20108710301
+3Matheus Leandro Ferreira                01
+1FASE-050505
+20108750501
+3Marcel Campos Inocencio                 01
+20108760301
+3Ana Cláudia Garcia Barbosa              02
+20108730401
+3Gilberto Vieira da Silva                01
+20108720201
+3Sergio Coral                            01
+20108740601
+3Gilberto Vieira da Silva                01
+1FASE-060505
+20108770501
+3Gustavo Bisognin                        02
+20108790201
+3Gilberto Vieira da Silva                01
+20108800301
+3Paulo João Martins                      02
+20108780601
+3Ana Cláudia Garcia Barbosa              02
+20108810401
+3Sergio Coral                            01
+1FASE-070606
+20108860201
+3Elenice Padoin Juliani Engel            02
+20108840601
+3Giácomo Antônio Althoff Bolan           01
+20108830401
+3Paulo João Martins                      02
+20108850501
+3Merisandra Côrtes de Mattos Garcia      03
+20108820301
+3Rogério Antônio Casadrande              03
+20108870201
+3Rogério Antônio Casadrande              03
+1FASE-080505
+20108910601
+3Volmar Madeira                          01
+20108900301
+3Leila Laís Gonçalves                    02
+20108920501
+3A definir                               01
+20108880401
+3Fabricio Giordani                       01
+20108890201
+3Merisandra Côrtes de Mattos Garcia      03
+1FASE-090303
+20108950201
+3A definir                               01
+20108930401
+3Leila Laís Gonçalves                    02
+20108940301
+3Merisandra Côrtes de Mattos Garcia      03
