@@ -33,16 +33,30 @@ public class Import {
 	        course.setName(line.substring(1, 11));
 	        
 	        line = buffRead.readLine();
-	        
+	        Integer totalOfLines = 1;
 	        LinkedHashSet<Phases> phases_hash_set = new LinkedHashSet<Phases>();
 	        Integer in = 0;
 	        while (line != null) {
+	        	
 	        	//RESUMO OPERACAO
+	        	if(line.charAt(0) == '9') {
+	        		
+	        		if(Integer.parseInt(line.substring(1, line.length())) != totalOfLines - 1) {
+	        			System.out.println(totalOfLines);
+	        			throw new Exception ("Trilho incorreto.");
+	        		}
+	        		else {
+	        			break;
+	        		}
+	        		
+	        	}
+	        	
 	        	in++;
 	        	verifySummaryOperation(line);
 	        	
 	        	Phases local_phase = new Phases(line.substring(1, 8));
 	        	
+	        	/* TO DOVERIFICAR */
 	        	Integer subjects_defined = Integer.parseInt(line.substring(8,10));
 	        	Integer teachers_defined = Integer.parseInt(line.substring(10,12));
 	        	Integer teachers_total = 0;
@@ -51,6 +65,7 @@ public class Import {
 	            for(int i=0;i<subjects_defined;i++) {
 	            	
 	            	String subjectLine = buffRead.readLine();
+	            	totalOfLines++;
 	            	
 	            	verifySubject(subjectLine);
 	            	Subjects local_subjects = new Subjects(Integer.parseInt(subjectLine.substring(1,7)),
@@ -63,6 +78,7 @@ public class Import {
 	            	for(int j=0;j<subject_teacher;j++) {
 	    	            
 	            		String teacherLine = buffRead.readLine();
+	            		totalOfLines++;
 	            		verifyTeacher(teacherLine);
 	            		System.out.println(teacherLine.length());
 	            		if(teacherLine.length() != 43) {
@@ -83,6 +99,7 @@ public class Import {
 	            phases_hash_set.add(local_phase);
 
 	            line = buffRead.readLine();
+	            totalOfLines++;
 	        }
 	        buffRead.close();
 	        
@@ -90,14 +107,13 @@ public class Import {
 	        
 	        return course;
 		} catch(Exception ex) {
-			ex.printStackTrace();
 			System.out.println(ex.getMessage());
 		}
 		
 		return null;
 	}
 	
-	//TODO um for para verificar onde é para ter numero
+	//TODO um for para verificar onde Ã© para ter numero
 	
 	private void verifyHeader(String header) throws Exception {
 		//TODO SEQUENCIAL
@@ -113,7 +129,7 @@ public class Import {
         verifyDate(header.substring(11,19));
         
         if(!header.substring(40,43).equals("001")) {
-        	throw new Exception("ERRO HEADER 003: Versão do Layout Invalido.");
+        	throw new Exception("ERRO HEADER 003: VersÃ£o do Layout Invalido.");
         }
         
         
