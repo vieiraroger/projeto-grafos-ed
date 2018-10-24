@@ -41,6 +41,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
 import com.gohorse.database.model.Courses;
+import com.gohorse.database.model.FileImported;
 import com.gohorse.database.model.Phases;
 import com.gohorse.database.model.Subjects;
 import com.gohorse.database.model.Students;
@@ -1005,9 +1006,19 @@ public class MainWindowNew extends JFrame {
 				
 				
 				Import imp = new Import();
-				Courses cs = new Courses();				
+				FileImported filed = new FileImported();
+				Courses cs = new Courses();		
 				
-				cs = imp.importFile(caminho);
+				filed = imp.importFile(caminho);
+				if(filed == null) {
+					return;
+				}
+				cs = filed.getCourse();
+				
+				txfData.setText(filed.getDate());
+				txfFaseInicial.setText(filed.getPhaseStart());
+				txfFaseFinal.setText(filed.getPhaseFinish());
+				txfCurso.setText(cs.getName());
 				
 				LinkedHashSet<Phases> lp = cs.getPhases();
 				
@@ -1035,15 +1046,22 @@ public class MainWindowNew extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Import imp = new Import();
+				FileImported filed = new FileImported();
 				Courses cs = new Courses();	
 				CoursesService css = new CoursesService();
 				SubjectsService sbs = new SubjectsService();
 				PhasesService phs = new PhasesService();
 				TeachersService tcs = new TeachersService();
 				
-				cs = imp.importFile(caminho);
+				filed = imp.importFile(caminho);
+				if(filed == null) {
+					return;
+				}
+				cs = filed.getCourse();
 				css.save(cs);
 				LinkedHashSet<Phases> lp = cs.getPhases();
+				
+
 				
 				for(Phases ph : lp) {
 					

@@ -9,14 +9,17 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import com.gohorse.database.model.Courses;
+import com.gohorse.database.model.FileImported;
 import com.gohorse.database.model.Phases;
 import com.gohorse.database.model.Subjects;
 import com.gohorse.database.model.Teachers;
 
 public class Import {
 	
-	public Courses importFile(String file_uri) {
+	public FileImported importFile(String file_uri) {
 		//file_uri importacao.txt
+		
+		FileImported fileimp = new FileImported();
 		
 		try {
 			BufferedReader buffRead = new BufferedReader(new FileReader(file_uri));
@@ -31,6 +34,9 @@ public class Import {
 	        
 	        //HEADER
 	        verifyHeader(line);
+	        fileimp.setPhaseStart(line.substring(19, 26));
+	        fileimp.setPhaseFinish(line.substring(26, 33));
+	        fileimp.setDate(line.substring(11,19));
 	        Courses course = new Courses();
 	        course.setName(line.substring(1, 11));
 	        
@@ -112,7 +118,8 @@ public class Import {
 	        
 	        course.setPhases(phases_hash_set);
 	        
-	        return course;
+	        fileimp.setCourse(course);
+	        return fileimp;
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
