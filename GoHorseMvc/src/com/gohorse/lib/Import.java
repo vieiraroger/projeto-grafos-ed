@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.gohorse.database.model.Courses;
 import com.gohorse.database.model.Phases;
 import com.gohorse.database.model.Subjects;
@@ -113,6 +115,7 @@ public class Import {
 	        return course;
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
+			JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
 		return null;

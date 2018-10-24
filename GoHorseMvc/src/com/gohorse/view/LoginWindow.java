@@ -122,7 +122,7 @@ public class LoginWindow extends JFrame {
 					}
 								
 				} catch (Exception ex) {
-					System.out.println(ex.getMessage());					
+					System.out.println(ex.getMessage());
 					JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);					
 				}		
 			}

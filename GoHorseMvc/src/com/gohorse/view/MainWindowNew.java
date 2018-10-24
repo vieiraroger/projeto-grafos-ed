@@ -123,7 +123,7 @@ public class MainWindowNew extends JFrame {
 	private DefaultListModel modelDisciplinas = new DefaultListModel();
 	private DefaultListModel modelProfessores = new DefaultListModel();
 	
-	
+	private String caminho = "";
 	
 	
 	//JFrame constructor
@@ -991,8 +991,7 @@ public class MainWindowNew extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				String caminho = "";
+								
 				
 				JFileChooser abrir = new JFileChooser(); 
 				abrir.setFileFilter(new FileNameExtensionFilter("text files", "txt"));
@@ -1013,13 +1012,12 @@ public class MainWindowNew extends JFrame {
 				LinkedHashSet<Phases> lp = cs.getPhases();
 				
 				for(Phases ph : lp) {
-					int i = 0;
 					modelFases.addElement(ph.getName());
 					
 					LinkedHashSet<Subjects> ls = ph.getSubjects();
 					
 					for (Subjects sb : ls) {
-						modelDisciplinas.addElement(sb.getname());
+						modelDisciplinas.addElement(sb.getCode());
 						
 						LinkedHashSet<Teachers> lt = sb.getTeachers();
 						
@@ -1028,13 +1026,49 @@ public class MainWindowNew extends JFrame {
 						}
 					}
 					
-					i++;
-				}
+				}          
+			}
+		});
+		
+		btnImportarArquivo.addActionListener(new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Import imp = new Import();
+				Courses cs = new Courses();	
+				CoursesService css = new CoursesService();
+				SubjectsService sbs = new SubjectsService();
+				PhasesService phs = new PhasesService();
+				TeachersService tcs = new TeachersService();
 				
+				cs = imp.importFile(caminho);
+				css.save(cs);
+				LinkedHashSet<Phases> lp = cs.getPhases();
 				
-				//modelDisciplinas.addElement(sb);
-				//modelProfessores.addElement(tc);
-				           
+				for(Phases ph : lp) {
+					
+					phs.save(ph);
+					
+					LinkedHashSet<Subjects> ls = ph.getSubjects();
+					
+					for (Subjects sb : ls) {
+						
+						sbs.save(sb);
+						
+						LinkedHashSet<Teachers> lt = sb.getTeachers();
+						
+						for (Teachers tc : lt) {
+							tcs.save(tc);
+						}
+					}
+					
+				}  
+				
+				UpdateRowsCoursesTable();
+				UpdateRowsPhasesTable();
+				UpdateRowsSubjectsTable();
+				UpdateRowsTeachersTable();
+				
 			}
 		});
 		
