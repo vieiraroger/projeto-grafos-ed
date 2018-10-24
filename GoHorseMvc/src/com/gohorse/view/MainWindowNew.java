@@ -115,13 +115,13 @@ public class MainWindowNew extends JFrame {
 	private JButton btnSelecionarArquivo;
 	private JButton btnImportarArquivo;
 
-	private JList<Phases> listFases;
-	private JList<Subjects> listDisciplinas;
-	private JList<Teachers> listProfessores;
+	private JList listFases;
+	private JList listDisciplinas;
+	private JList listProfessores;
 	
-	private DefaultListModel<Phases> modelFases = new DefaultListModel<Phases>();
-	private DefaultListModel<Subjects> modelDisciplinas = new DefaultListModel<Subjects>();
-	private DefaultListModel<Teachers> modelProfessores = new DefaultListModel<Teachers>();
+	private DefaultListModel modelFases = new DefaultListModel();
+	private DefaultListModel modelDisciplinas = new DefaultListModel();
+	private DefaultListModel modelProfessores = new DefaultListModel();
 	
 	
 	
@@ -1007,23 +1007,33 @@ public class MainWindowNew extends JFrame {
 				
 				Import imp = new Import();
 				Courses cs = new Courses();				
-				Subjects sb = new Subjects();
-				Teachers tc = new Teachers();
 				
 				cs = imp.importFile(caminho);
 				
-				Collection<Phases> lp = cs.getPhases();
+				LinkedHashSet<Phases> lp = cs.getPhases();
 				
 				for(Phases ph : lp) {
 					int i = 0;
-					modelFases.addElement(ph);
+					modelFases.addElement(ph.getName());
+					
+					LinkedHashSet<Subjects> ls = ph.getSubjects();
+					
+					for (Subjects sb : ls) {
+						modelDisciplinas.addElement(sb.getname());
+						
+						LinkedHashSet<Teachers> lt = sb.getTeachers();
+						
+						for (Teachers tc : lt) {
+							modelProfessores.addElement(tc.getName());
+						}
+					}
 					
 					i++;
 				}
 				
 				
-				modelDisciplinas.addElement(sb);
-				modelProfessores.addElement(tc);
+				//modelDisciplinas.addElement(sb);
+				//modelProfessores.addElement(tc);
 				           
 			}
 		});
@@ -1082,19 +1092,19 @@ public class MainWindowNew extends JFrame {
 		labelDescricao.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.17), 100, 25);
 		importerPanel.add(labelDescricao);
 
-		listFases = new JList<Phases>(modelFases);
+		listFases = new JList(modelFases);
 		JScrollPane scrollFases = new JScrollPane(listFases);
 		scrollFases.setBounds((int) Math.round(ScreenSize.width*0.07), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollFases, BorderLayout.CENTER);
 		listFases.addMouseListener(null);
 
-		listDisciplinas = new JList<Subjects>(modelDisciplinas);
+		listDisciplinas = new JList(modelDisciplinas);
 		JScrollPane scrollDisciplinas = new JScrollPane(listDisciplinas);
 		scrollDisciplinas.setBounds((int) Math.round(ScreenSize.width*0.37), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollDisciplinas, BorderLayout.CENTER);
 		listDisciplinas.addMouseListener(null);
 
-		listProfessores = new JList<Teachers>(modelProfessores);
+		listProfessores = new JList(modelProfessores);
 		JScrollPane scrollProfessores = new JScrollPane(listProfessores);
 		scrollProfessores.setBounds((int) Math.round(ScreenSize.width*0.67), (int) Math.round(ScreenSize.height*0.2), (int) Math.round(ScreenSize.width*0.25), (int) Math.round(ScreenSize.height*0.6));
 		importerPanel.add(scrollProfessores, BorderLayout.CENTER);
