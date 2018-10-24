@@ -9,6 +9,10 @@ public class Teachers implements Entity, Serializable {
 	private String name;
 	private Integer graduation;
 	
+	public Teachers () {
+		
+	}
+	
 	public Teachers(String name, Integer graduation) {
 		super();
 		this.name = name;

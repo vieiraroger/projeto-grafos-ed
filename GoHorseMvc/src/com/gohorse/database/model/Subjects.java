@@ -12,6 +12,9 @@ public class Subjects implements Entity,Serializable{
 	private Integer week_day; 
 	private LinkedHashSet<Teachers> teachers;
 	
+	public Subjects() {
+		
+	}
 	
 	public Subjects(int code, String name, Integer week_day) {
 		super();

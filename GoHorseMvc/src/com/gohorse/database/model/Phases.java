@@ -11,6 +11,10 @@ public class Phases implements Entity, Serializable{
 	private String name;
 	private LinkedHashSet<Subjects> subjects;
 	
+	public Phases() {
+		
+	}
+	
 	public LinkedHashSet<Subjects> getSubjects() {
 		return subjects;
 	}

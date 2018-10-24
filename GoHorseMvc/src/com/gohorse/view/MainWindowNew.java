@@ -1,6 +1,7 @@
 package com.gohorse.view;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -18,6 +20,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -33,6 +36,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import com.gohorse.database.model.Cities;
@@ -49,6 +53,7 @@ import com.gohorse.database.service.SubjectsService;
 import com.gohorse.database.service.StudentsService;
 import com.gohorse.database.service.TeachersService;
 import com.gohorse.database.service.UsersService;
+import com.gohorse.lib.Import;
 
 public class MainWindowNew extends JFrame {
 	
@@ -96,7 +101,30 @@ public class MainWindowNew extends JFrame {
 	private JInternalFrame citiesInternalFrame;
 	private JInternalFrame usersInternalFrame;	
 	
+	//Define perfil of user
 	private String perfil; 
+	
+	
+	//Declaring Importer components
+	private JLabel labelDescricao;
+	private JTextField txfData;
+	private JTextField txfFaseInicial;
+	private JTextField txfFaseFinal;
+	private JTextField txfCurso;
+	private JTextField txfImportacao;
+	private JButton btnSelecionarArquivo;
+	private JButton btnImportarArquivo;
+
+	private JList<Phases> listFases;
+	private JList<Subjects> listDisciplinas;
+	private JList<Teachers> listProfessores;
+	
+	private DefaultListModel<Phases> modelFases = new DefaultListModel<Phases>();
+	private DefaultListModel<Subjects> modelDisciplinas = new DefaultListModel<Subjects>();
+	private DefaultListModel<Teachers> modelProfessores = new DefaultListModel<Teachers>();
+	
+	
+	
 	
 	//JFrame constructor
 
@@ -569,7 +597,7 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Teachers tc : TeacherList) {
-									if (tc.getCode() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
+									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
 										tcs.delete(tc.getId());
 										UpdateRowsTeachersTable();
 										studentTable.setEnabled(false);
@@ -948,23 +976,6 @@ public class MainWindowNew extends JFrame {
 		importerPanel.setBounds(0, 0, ScreenSize.width, ScreenSize.height);
 		getContentPane().add(importerPanel); 
 
-		//Declarations
-		JLabel labelDescricao;
-		JTextField txfData;
-		JTextField txfFaseInicial;
-		JTextField txfFaseFinal;
-		JTextField txfCurso;
-		JTextField txfImportacao;
-		JButton btnSelecionarArquivo;
-		JButton btnImportarArquivo;
-
-		JList<Phases> listFases;
-		JList<Subjects> listDisciplinas;
-		JList<Teachers> listProfessores;
-		DefaultListModel<Phases> modelFases = new DefaultListModel<Phases>();
-		DefaultListModel<Subjects> modelDisciplinas = new DefaultListModel<Subjects>();
-		DefaultListModel<Teachers> modelProfessores = new DefaultListModel<Teachers>();
-
 		
 		//Select and import buttons
 		btnSelecionarArquivo = new JButton("?");
@@ -974,6 +985,48 @@ public class MainWindowNew extends JFrame {
 		btnImportarArquivo = new JButton("Importar");
 		btnImportarArquivo.setBounds((int) Math.round(ScreenSize.width*0.46), (int) Math.round(ScreenSize.height*0.03), 90, 25);
 		importerPanel.add(btnImportarArquivo); 
+		
+		
+		btnSelecionarArquivo.addActionListener(new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String caminho = "";
+				
+				JFileChooser abrir = new JFileChooser(); 
+				abrir.setFileFilter(new FileNameExtensionFilter("text files", "txt"));
+				abrir.setAcceptAllFileFilterUsed(false);
+				int retorno = abrir.showOpenDialog(null);  
+				           if (retorno==JFileChooser.APPROVE_OPTION)  {
+				             caminho = abrir.getSelectedFile().getAbsolutePath();  
+				           }
+				          
+				txfImportacao.setText(caminho);
+				
+				
+				Import imp = new Import();
+				Courses cs = new Courses();				
+				Subjects sb = new Subjects();
+				Teachers tc = new Teachers();
+				
+				cs = imp.importFile(caminho);
+				
+				Collection<Phases> lp = cs.getPhases();
+				
+				for(Phases ph : lp) {
+					int i = 0;
+					modelFases.addElement(ph);
+					
+					i++;
+				}
+				
+				
+				modelDisciplinas.addElement(sb);
+				modelProfessores.addElement(tc);
+				           
+			}
+		});
 		
 		
 		//Importing Panel Fields declarations
@@ -1047,6 +1100,10 @@ public class MainWindowNew extends JFrame {
 		importerPanel.add(scrollProfessores, BorderLayout.CENTER);
 		listProfessores.addMouseListener(null);
 		//Importing Panel Fields declarations
+		
+		
+		
+		
 		
 		importerPanel.setVisible(false);
 		
@@ -1387,19 +1444,19 @@ public class MainWindowNew extends JFrame {
 				}else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
 					throw new Exception("Campo Graduação está vazio!");
 				}
-				String graduation = "";
+				int graduation = 0;
 
 				if (cbmTeacherGraduation.getSelectedIndex() == 0) {
-					graduation = "Graduação";
+					graduation = 01;
 				}else if (cbmTeacherGraduation.getSelectedIndex() == 1 ) {
-					graduation = "Pós-Graduação";
+					graduation = 02;
 				}else if (cbmTeacherGraduation.getSelectedIndex() == 2) {
-					graduation = "Mestrado";
+					graduation = 03;
 				}else if (cbmTeacherGraduation.getSelectedIndex() == 3) {
-					graduation = "Doutorado";
+					graduation = 04;
 				}
 
-				tc = new Teachers(Integer.parseInt(txfTeacherCode.getText()), txfTeacherName.getText(), graduation);
+				tc = new Teachers(txfTeacherName.getText(), graduation);
 
 				tcs.save(tc);
 
@@ -1625,9 +1682,9 @@ public class MainWindowNew extends JFrame {
 					throw new Exception("Campo Nome está vazio!");
 				}
 				
-				fs = new Phases(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
+				//fs = new Phases(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
 
-				fss.save(fs);
+				//fss.save(fs);
 
 				phasesInternalFrame.setVisible(false);
 
@@ -2211,7 +2268,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Teachers tc : TeacherList) {                         
 
-				Object[] data = {tc.getCode(), tc.getName(), tc.getGraduation()};
+				Object[] data = {tc.getId(), tc.getName(), tc.getGraduation()};
 
 				teacherTableModel.addRow(data);
 			}
@@ -2314,7 +2371,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Phases fs : PhaseList) {                         
 
-				Object[] data = {fs.getCode(), fs.getName()};
+      			Object[] data = {fs.getId(), fs.getName()};
 
 				phaseTableModel.addRow(data);
 				
@@ -2766,5 +2823,5 @@ public class MainWindowNew extends JFrame {
 		mw.setVisible(true);
 
 	}
-
+	
 }
