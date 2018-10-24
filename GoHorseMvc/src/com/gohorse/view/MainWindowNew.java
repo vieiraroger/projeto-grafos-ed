@@ -417,16 +417,16 @@ public class MainWindowNew extends JFrame {
 		btnEditStudents.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {			
-				try {
 				
-				StudentsService sts = new StudentsService();
-				Collection<Students> StudentList = sts.findAll();
-				
-				if (StudentList == null) {
+				if (studentTable.getRowCount() == 0) {
 					
 					return;
 				
-				}else {
+				}
+					
+					btnDeleteStudents.setEnabled(false);
+					btnRegisterStudents.setEnabled(false);
+					
 					studentTable.setEnabled(true);				
 					editable = true;
 					UpdateRowsStudentsTable();			
@@ -453,24 +453,31 @@ public class MainWindowNew extends JFrame {
 										
 										editable = false;
 										UpdateRowsStudentsTable();
+										
+										btnDeleteStudents.setEnabled(true);
+										btnRegisterStudents.setEnabled(true);
 										studentTable.setEnabled(false);										
 										continue;
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getStackTrace());
+								e2.printStackTrace();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
 							
+							editable = false;							
+							UpdateRowsStudentsTable();
+							
+							btnDeleteStudents.setEnabled(true);
+							btnRegisterStudents.setEnabled(true);
+							studentTable.setEnabled(false);
+							
+							return;
 						}
 					}
 				});
-			   }
-		      }	catch (Exception e1) {
-		    	System.out.println(e1.getStackTrace());
-				JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
-			}
 		  }		
 		});
 		btnEditStudents.setBounds(210, 30, 150, 40);        
@@ -482,6 +489,14 @@ public class MainWindowNew extends JFrame {
 		btnDeleteStudents.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if (studentTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnEditStudents.setEnabled(false);
+				btnRegisterStudents.setEnabled(false);
+				
 				studentTable.setEnabled(true);				
 				
 				studentTable.addKeyListener(new KeyAdapter() {
@@ -499,9 +514,11 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Students st : StudentList) {
-									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {
+									if (st.getId() == (Integer) studentTableModel.getValueAt(studentTable.getSelectedRow(), 0)) {
 										sts.delete(st.getId());
 										UpdateRowsStudentsTable();
+										btnEditStudents.setEnabled(true);
+										btnRegisterStudents.setEnabled(true);
 										studentTable.setEnabled(false);
 										continue;
 									}
@@ -512,6 +529,11 @@ public class MainWindowNew extends JFrame {
 							}
 							
 							
+						}else if (e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnEditStudents.setEnabled(true);
+							btnRegisterStudents.setEnabled(true);
+							studentTable.setEnabled(false);
+							return;
 						}
 					}
 				});
@@ -581,8 +603,15 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                teacherTable.setEnabled(true);				
-                UpdateRowsTeachersTable();
+                
+				if (teacherTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnEditTeachers.setEnabled(false);
+				btnRegisterTeachers.setEnabled(false);
+				teacherTable.setEnabled(true);	
+                
 				teacherTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {										
@@ -601,7 +630,7 @@ public class MainWindowNew extends JFrame {
 									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
 										tcs.delete(tc.getId());
 										UpdateRowsTeachersTable();
-										studentTable.setEnabled(false);
+										teacherTable.setEnabled(false);
 										continue;
 									}
 								}
@@ -611,7 +640,12 @@ public class MainWindowNew extends JFrame {
 							}
 							
 							
-						}						
+						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnEditTeachers.setEnabled(false);
+							btnRegisterTeachers.setEnabled(false);
+							teacherTable.setEnabled(false);
+							return;
+						}
 					}
 				});
 			}
