@@ -49,7 +49,7 @@ public class LoginWindow extends JFrame {
     	
     	lbUser = new JLabel();
     	lbUser.setBounds(40, 20, 125, 20);
-    	lbUser.setText("Usu�rio");
+    	lbUser.setText("Usuario");
     	getContentPane().add(lbUser);
     	
     	txfUser = new JTextField();
@@ -99,7 +99,7 @@ public class LoginWindow extends JFrame {
 					
 					if(list == null) {						
 						us.save(new Users("admin","admin","Administrador"));
-						throw new Exception("Nenhum usu�rio encontrado! Usu�rio padr�o cadastrado!");
+						throw new Exception("Nenhum usuario encontrado! Usuario padrao cadastrado!");
 					}
 					
 					
@@ -117,7 +117,7 @@ public class LoginWindow extends JFrame {
 					
 					 if(entrou) {
 						
-						throw new Exception("Usu�rio ou senha inv�lidos!");
+						throw new Exception("Usuario ou senha invalidos!");
 						
 					}
 								

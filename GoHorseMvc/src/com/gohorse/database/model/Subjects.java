@@ -20,6 +20,7 @@ public class Subjects implements Entity,Serializable{
 		super();
 		this.code = code;
 		this.name = name;
+		this.week_day = week_day;
 	}
 	
 	public int getTeacher_amount() {

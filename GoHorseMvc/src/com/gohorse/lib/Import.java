@@ -74,11 +74,11 @@ public class Import {
 	            	
 	            	String subjectLine = buffRead.readLine();
 	            	totalOfLines++;
-	            	
+
 	            	verifySubject(subjectLine);
 	            	Subjects local_subjects = new Subjects(Integer.parseInt(subjectLine.substring(1,7)),
 	            									null,
-	            									Integer.parseInt(subjectLine.substring(7,8)));
+	            									Integer.parseInt(subjectLine.substring(7,9)));
 	            	
 	            	Integer subject_teacher = Integer.parseInt(subjectLine.substring(9, 11));
 

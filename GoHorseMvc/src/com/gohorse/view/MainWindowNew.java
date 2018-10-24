@@ -136,6 +136,7 @@ public class MainWindowNew extends JFrame {
 		
 		//Setting window size depending on IsFullscreen
 		if(isFullScreen == true) {          
+			ScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
 			setExtendedState(Frame.MAXIMIZED_BOTH);               
 		}                     
 		else {          
@@ -207,8 +208,8 @@ public class MainWindowNew extends JFrame {
 		mCourses   = new JMenu("Cursos");       
 		mCities    = new JMenu("Cidades");
 
-		mOptions   = new JMenu("Op��es");
-		mUsers     = new JMenu("Usu�rios");  
+		mOptions   = new JMenu("Opcoes");
+		mUsers     = new JMenu("Usuarios");  
 		mUtilities = new JMenu("Utilidades");
         
 		menu.add(mOptions);
@@ -311,7 +312,7 @@ public class MainWindowNew extends JFrame {
 			}
 		});
 
-		smConfig = new JMenuItem(new AbstractAction("Configura��es") {
+		smConfig = new JMenuItem(new AbstractAction("Configuracoes") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -447,7 +448,24 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Students st : StudentList) {
-									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {
+									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {									
+										
+										st.setId((Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0));
+										st.setName((String) studentTable.getValueAt(studentTable.getSelectedRow(), 1));
+										st.setBirthdate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 2));
+										st.setEmail((String) studentTable.getValueAt(studentTable.getSelectedRow(), 3));
+										st.setSex((char) studentTable.getValueAt(studentTable.getSelectedRow(), 4));
+										st.setPhone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 5));
+										st.setCellphone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 6));
+										st.setCep((String) studentTable.getValueAt(studentTable.getSelectedRow(), 7));
+										st.setNumber((String) studentTable.getValueAt(studentTable.getSelectedRow(), 8));
+										st.setAddress((String) studentTable.getValueAt(studentTable.getSelectedRow(), 9));
+										st.setSuburb((String) studentTable.getValueAt(studentTable.getSelectedRow(), 10));
+										st.setCity((String) studentTable.getValueAt(studentTable.getSelectedRow(), 11));
+										st.setEstate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 12));
+										st.setComplement((String) studentTable.getValueAt(studentTable.getSelectedRow(), 13));
+										st.setNote((String) studentTable.getValueAt(studentTable.getSelectedRow(), 14));
+										
 										
 										sts.update(st);
 										
@@ -467,7 +485,7 @@ public class MainWindowNew extends JFrame {
 							
 						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
 							
-							editable = false;							
+							editable = false;					
 							UpdateRowsStudentsTable();
 							
 							btnDeleteStudents.setEnabled(true);
@@ -505,7 +523,7 @@ public class MainWindowNew extends JFrame {
 						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 							
 							StudentsService sts = new StudentsService();
-							 							
+							
 							try {
 								Collection<Students> StudentList = sts.findAll();
 								
@@ -530,6 +548,7 @@ public class MainWindowNew extends JFrame {
 							
 							
 						}else if (e.getKeyCode() != KeyEvent.VK_DELETE) {
+							System.out.println("FUDEO");
 							btnEditStudents.setEnabled(true);
 							btnRegisterStudents.setEnabled(true);
 							studentTable.setEnabled(false);
@@ -588,7 +607,83 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+               /*if (studentTable.getRowCount() == 0) {
+					
+					return;
+				
+				}
+					
+					btnDeleteTeachers.setEnabled(false);
+					btnRegisterTeachers.setEnabled(false);
+					
+					studentTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsStudentsTable();			
+				
+				
+					studentTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							StudentsService sts = new StudentsService();
+							 							
+							try {
+								Collection<Students> StudentList = sts.findAll();
+								
+								if (StudentList == null) {
+									return;
+								}
+								
+								for (Students st : StudentList) {
+									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {									
+										
+										st.setId((Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0));
+										st.setName((String) studentTable.getValueAt(studentTable.getSelectedRow(), 1));
+										st.setBirthdate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 2));
+										st.setEmail((String) studentTable.getValueAt(studentTable.getSelectedRow(), 3));
+										st.setSex((char) studentTable.getValueAt(studentTable.getSelectedRow(), 4));
+										st.setPhone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 5));
+										st.setCellphone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 6));
+										st.setCep((String) studentTable.getValueAt(studentTable.getSelectedRow(), 7));
+										st.setNumber((String) studentTable.getValueAt(studentTable.getSelectedRow(), 8));
+										st.setAddress((String) studentTable.getValueAt(studentTable.getSelectedRow(), 9));
+										st.setSuburb((String) studentTable.getValueAt(studentTable.getSelectedRow(), 10));
+										st.setCity((String) studentTable.getValueAt(studentTable.getSelectedRow(), 11));
+										st.setEstate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 12));
+										st.setComplement((String) studentTable.getValueAt(studentTable.getSelectedRow(), 13));
+										st.setNote((String) studentTable.getValueAt(studentTable.getSelectedRow(), 14));
+										
+										
+										sts.update(st);
+										
+										editable = false;
+										UpdateRowsStudentsTable();
+										
+										btnDeleteStudents.setEnabled(true);
+										btnRegisterStudents.setEnabled(true);
+										studentTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+							
+							editable = false;					
+							UpdateRowsStudentsTable();
+							
+							btnDeleteStudents.setEnabled(true);
+							btnRegisterStudents.setEnabled(true);
+							studentTable.setEnabled(false);
+							
+							return;
+						}
+					}
+				});*/
 
 			}
 
@@ -613,13 +708,15 @@ public class MainWindowNew extends JFrame {
 				teacherTable.setEnabled(true);	
                 
 				teacherTable.addKeyListener(new KeyAdapter() {
-				
-					public void keyPressed(KeyEvent e) {										
+					
+					public void keyPressed(KeyEvent e) {
+						
 						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 							
 							TeachersService tcs = new TeachersService();
 							 							
 							try {
+								
 								Collection<Teachers> TeacherList = tcs.findAll();
 								
 								if (TeacherList == null) {
@@ -627,11 +724,15 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Teachers tc : TeacherList) {
+
 									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
+										
 										tcs.delete(tc.getId());
 										UpdateRowsTeachersTable();
+										btnEditTeachers.setEnabled(true);
+										btnRegisterTeachers.setEnabled(true);
 										teacherTable.setEnabled(false);
-										continue;
+										break;
 									}
 								}
 							} catch (Exception e2) {
@@ -675,12 +776,12 @@ public class MainWindowNew extends JFrame {
 		CreateSubjectTable();
 
 		//Main Panel Buttons
-		JButton btnRegisterSubjects;
-		JButton btnEditSubjects;
-		JButton btnDeleteSubjects;
+		JButton btnRegisterSubjects = new JButton("Cadastrar Disciplina");
+		JButton btnEditSubjects = new JButton("Editar Disciplina");
+		JButton btnDeleteSubjects = new JButton("Deletar Disciplina");
 
 		//Subjects Registering
-		btnRegisterSubjects = new JButton(new AbstractAction("Cadastrar Disciplina") {
+		btnRegisterSubjects.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -696,11 +797,75 @@ public class MainWindowNew extends JFrame {
 		subjectsPanel.add(btnRegisterSubjects);
 
 		//Subjects Editing 
-		btnEditSubjects = new JButton(new AbstractAction("Editar Disciplina") {
+		btnEditSubjects.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				if (subjectTable.getRowCount() == 0) {
+					
+					return;
+				
+				}
+					
+					btnDeleteSubjects.setEnabled(false);
+					btnRegisterSubjects.setEnabled(false);
+					
+					subjectTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsSubjectsTable();			
+				
+				
+					subjectTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							SubjectsService sbs = new SubjectsService();
+							 							
+							try {
+								Collection<Subjects> SubjectList = sbs.findAll();
+								
+								if (SubjectList == null) {
+									return;
+								}
+								
+								for (Subjects sb : SubjectList) {
+									if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {									
+										
+										sb.setCode((Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0));
+										sb.setname((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 1));
+										sb.setweek_day(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 2)));									
+										
+										
+										sbs.update(sb);
+										
+										editable = false;
+										UpdateRowsStudentsTable();
+										
+										btnDeleteSubjects.setEnabled(true);
+										btnRegisterSubjects.setEnabled(true);
+										subjectTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+							
+							editable = false;					
+							UpdateRowsStudentsTable();
+							
+							btnDeleteSubjects.setEnabled(true);
+							btnRegisterSubjects.setEnabled(true);
+							subjectTable.setEnabled(false);
+							
+							return;
+						}
+					}
+				});
 
 			}
 
@@ -711,11 +876,60 @@ public class MainWindowNew extends JFrame {
 		subjectsPanel.add(btnEditSubjects);
 
 		//Subjects deleting
-		btnDeleteSubjects = new JButton(new AbstractAction("Deletar Disciplina") {
+		btnDeleteSubjects.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (teacherTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnEditSubjects.setEnabled(false);
+				btnRegisterSubjects.setEnabled(false);
+				subjectTable.setEnabled(true);	
+                
+				subjectTable.addKeyListener(new KeyAdapter() {
+					
+					public void keyPressed(KeyEvent e) {
+						
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+							
+							SubjectsService sbs = new SubjectsService();
+							 							
+							try {
+								
+								Collection<Subjects> SubjectList = sbs.findAll();
+								
+								if (SubjectList == null) {
+									return;
+								}
+								
+								for (Subjects sb : SubjectList) {
 
+									if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {
+										
+										sbs.delete(sb.getId());
+										UpdateRowsSubjectsTable();
+										btnEditSubjects.setEnabled(true);
+										btnRegisterSubjects.setEnabled(true);
+										subjectTable.setEnabled(false);
+										break;
+									}
+								}
+							} catch (Exception e2) {
+								System.out.println(e2.getStackTrace());
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnEditSubjects.setEnabled(true);
+							btnRegisterSubjects.setEnabled(true);
+							subjectTable.setEnabled(false);
+							return;
+						}
+					}
+				});
 
 			}
 
@@ -811,12 +1025,12 @@ public class MainWindowNew extends JFrame {
 		CreateCourseTable();
 
 		//Main Panel Buttons
-		JButton btnRegisterCourses;
-		JButton btnEditCourses;
-		JButton btnDeleteCourses;
+		JButton btnRegisterCourses = new JButton("Cadastrar Curso");
+		JButton btnEditCourses = new JButton("Editar Curso");
+		JButton btnDeleteCourses = new JButton("Deletar Curso");
 
 		//Courses Registering
-		btnRegisterCourses = new JButton(new AbstractAction("Cadastrar Curso") {
+		btnRegisterCourses.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -832,12 +1046,76 @@ public class MainWindowNew extends JFrame {
 		coursesPanel.add(btnRegisterCourses);
 
 		//Courses Editing 
-		btnEditCourses = new JButton(new AbstractAction("Editar Curso") {
+		btnEditCourses.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-
+				if (courseTable.getRowCount() == 0) {
+					
+					return;
+				
+				}
+					
+					btnDeleteCourses.setEnabled(false);
+					btnRegisterCourses.setEnabled(false);
+					
+					courseTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsCoursesTable();			
+				
+				
+					courseTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							CoursesService crs = new CoursesService();
+							 							
+							try {
+								Collection<Courses> CourseList = crs.findAll();
+								
+								if (CourseList == null) {
+									return;
+								}
+								
+								for (Courses cr : CourseList) {
+									if (cr.getId() == (Integer) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {									
+										
+										cr.setCode((Integer) courseTable.getValueAt(courseTable.getSelectedRow(), 0));
+										cr.setName((String) courseTable.getValueAt(courseTable.getSelectedRow(), 1));
+																			
+										
+										
+										crs.update(cr);
+										
+										editable = false;
+										UpdateRowsCoursesTable();
+										
+										btnDeleteCourses.setEnabled(true);
+										btnRegisterCourses.setEnabled(true);
+										courseTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+							
+							editable = false;					
+							UpdateRowsCoursesTable();
+							
+							btnDeleteCourses.setEnabled(true);
+							btnRegisterCourses.setEnabled(true);
+							courseTable.setEnabled(false);
+							
+							return;
+						}
+					}
+				});
 			}
 
 		});
@@ -847,11 +1125,60 @@ public class MainWindowNew extends JFrame {
 		coursesPanel.add(btnEditCourses);
 
 		//Courses deleting
-		btnDeleteCourses = new JButton(new AbstractAction("Deletar Curso") {
+		btnDeleteCourses.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (courseTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnEditCourses.setEnabled(false);
+				btnRegisterCourses.setEnabled(false);
+				courseTable.setEnabled(true);	
+                
+				courseTable.addKeyListener(new KeyAdapter() {
+					
+					public void keyPressed(KeyEvent e) {
+						
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+							
+							CoursesService crs = new CoursesService();
+							 							
+							try {
+								
+								Collection<Courses> CoursesList = crs.findAll();
+								
+								if (CoursesList == null) {
+									return;
+								}
+								
+								for (Courses cr : CoursesList) {
 
+									if (cr.getId() == (Integer) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {
+										
+										crs.delete(cr.getId());
+										UpdateRowsCoursesTable();
+										btnEditCourses.setEnabled(true);
+										btnRegisterCourses.setEnabled(true);
+										courseTable.setEnabled(false);
+										break;
+									}
+								}
+							} catch (Exception e2) {
+								System.out.println(e2.getStackTrace());
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnEditCourses.setEnabled(true);
+							btnRegisterCourses.setEnabled(true);
+							courseTable.setEnabled(false);
+							return;
+						}
+					}
+				});
 
 			}
 
@@ -954,7 +1281,7 @@ public class MainWindowNew extends JFrame {
 		JButton btnDeleteUsers;
 
 		//Users Registering
-		btnRegisterUsers = new JButton(new AbstractAction("Cadastrar Usuï¿½rio") {
+		btnRegisterUsers = new JButton(new AbstractAction("Cadastrar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -970,7 +1297,7 @@ public class MainWindowNew extends JFrame {
 		usersPanel.add(btnRegisterUsers);
 
 		//Users Editing 
-		btnEditUsers = new JButton(new AbstractAction("Editar Usuï¿½rio") {
+		btnEditUsers = new JButton(new AbstractAction("Editar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -985,7 +1312,7 @@ public class MainWindowNew extends JFrame {
 		usersPanel.add(btnEditUsers);
 
 		//Users deleting
-		btnDeleteUsers = new JButton(new AbstractAction("Deletar Usuï¿½rio") {
+		btnDeleteUsers = new JButton(new AbstractAction("Deletar Usuario") {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1104,7 +1431,7 @@ public class MainWindowNew extends JFrame {
 					LinkedHashSet<Subjects> ls = ph.getSubjects();
 					
 					for (Subjects sb : ls) {
-						
+
 						sbs.save(sb);
 						
 						LinkedHashSet<Teachers> lt = sb.getTeachers();
@@ -1288,7 +1615,7 @@ public class MainWindowNew extends JFrame {
 		studentsInternalFrame.add(txfBirthdate);   
 
 		lbAdress = new JLabel();
-		lbAdress.setText("Endereï¿½o:");
+		lbAdress.setText("Endereco:");
 		lbAdress.setBounds(270, 40, 125, 20);
 		studentsInternalFrame.add(lbAdress);
 
@@ -1297,7 +1624,7 @@ public class MainWindowNew extends JFrame {
 		studentsInternalFrame.add(txfAdress);
 
 		lbAdressNum = new JLabel();
-		lbAdressNum.setText("Nï¿½:");
+		lbAdressNum.setText("N�:");
 		lbAdressNum.setBounds(270, 85, 40, 20);
 		studentsInternalFrame.add(lbAdressNum);
 
@@ -1378,7 +1705,7 @@ public class MainWindowNew extends JFrame {
 		studentsInternalFrame.add(txfEmail); 
 
 		lbNote = new JLabel();
-		lbNote.setText("Observaï¿½ï¿½es:");
+		lbNote.setText("Observacao:");
 		lbNote.setBounds(40, 355, 125, 20);
 		studentsInternalFrame.add(lbNote);
 
@@ -1492,7 +1819,7 @@ public class MainWindowNew extends JFrame {
 
 		//Registering Panel Fields declarations
 
-		String TeacherGraduationType[] = { "Gradua��o", "Pós-Gradua��o","Mestrado","Doutorado"};
+		String TeacherGraduationType[] = { "Graduacao", "Pos-graduacao","Mestrado","Doutorado"};
 
 		JLabel lbTeacherName;
 		JTextField txfTeacherName; 
@@ -1611,7 +1938,7 @@ public class MainWindowNew extends JFrame {
 		JButton btnExitSubjects = new JButton("Sair");
 
 		//Registering Panel Fields declarations
-		String Weekdays[] = {"Segunda-feira", "Terï¿½a-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sï¿½bado" };
+		String Weekdays[] = {"Segunda-feira", "Terca-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sabado" };
 		JLabel lbSubjectWeekday;
 		JComboBox<?> cmbSubjectWeekdays;
 
@@ -1754,7 +2081,7 @@ public class MainWindowNew extends JFrame {
 		JTextField txfPhaseCode;
 
 		lbPhaseCode= new JLabel();
-		lbPhaseCode.setText("Cï¿½digo:");
+		lbPhaseCode.setText("Codigo:");
 		lbPhaseCode.setBounds(40, 30, 125, 20);
 		phasesInternalFrame.add(lbPhaseCode);
 
@@ -1841,7 +2168,7 @@ public class MainWindowNew extends JFrame {
 		JTextField txfCourseCode;
 
 		lbCourseCode= new JLabel();
-		lbCourseCode.setText("Cï¿½digo:");
+		lbCourseCode.setText("Codigo:");
 		lbCourseCode.setBounds(40, 30, 125, 20);
 		coursesInternalFrame.add(lbCourseCode);
 
@@ -1951,7 +2278,7 @@ public class MainWindowNew extends JFrame {
 		citiesInternalFrame.add(txfState);
 
 		lbCountry = new JLabel();
-		lbCountry.setText("Paï¿½s:");
+		lbCountry.setText("Pais:");
 		lbCountry.setBounds(40, 160, 125, 20);
 		citiesInternalFrame.add(lbCountry);
 
@@ -2019,7 +2346,7 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateComponentUsersInternalFrame(){
 
-		usersInternalFrame = new JInternalFrame("Cadastro de Usuï¿½rio");
+		usersInternalFrame = new JInternalFrame("Cadastro de Usuario");
 		usersInternalFrame.setLayout(null);
 		usersInternalFrame.setBounds(180, 150, 228, 290);
 		usersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -2030,7 +2357,7 @@ public class MainWindowNew extends JFrame {
 
 		//Registering Panel Fields declarations
 
-		String UserType[] = { "Usuário", "Administrador" };
+		String UserType[] = { "Usuario", "Administrador" };
 
 		JLabel lbUser;
 		JTextField txfUser;
@@ -2040,7 +2367,7 @@ public class MainWindowNew extends JFrame {
 		JComboBox<?> cmbType;
 
 		lbUser = new JLabel();
-		lbUser.setText("Usuï¿½rio:");
+		lbUser.setText("Usuario:");
 		lbUser.setBounds(50, 40, 125, 20);
 		usersInternalFrame.add(lbUser);
 
@@ -2296,9 +2623,9 @@ public class MainWindowNew extends JFrame {
 		//Declaring Table Model
 		studentTableModel = new DefaultTableModel() {
 
-			String[] studentColumns = {"C�digo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
-					"Celular","CEP","Numero", "Endere�o", "Bairro", "Cidade","Estado","Complemento",
-			"Observa��o"};
+			String[] studentColumns = {"Codigo","Estudante","Data de Nascimento","E-Mail","Sexo","Telefone",
+					"Celular","CEP","Numero", "Endereco", "Bairro", "Cidade","Estado","Complemento",
+			"Observacao"};
 
 			public int getColumnCount() { 
 				return studentColumns.length; 
@@ -2345,7 +2672,7 @@ public class MainWindowNew extends JFrame {
 		//Set Table Model
 		teacherTableModel = new DefaultTableModel() {
 
-			String[] teacherColumns = {"Cï¿½digo", "Nome", "Graduaï¿½ï¿½o"};
+			String[] teacherColumns = {"Codigo", "Nome", "Graduacao"};
 
 			public int getColumnCount() { 
 				return teacherColumns.length; 
@@ -2393,7 +2720,7 @@ public class MainWindowNew extends JFrame {
 		subjectTableModel = new DefaultTableModel() {
 
 
-			String[] subjectColumns = {"Código", "Nome", "Dia da Semana", "N° de Professores"};
+			String[] subjectColumns = {"Codigo", "Nome", "Dia da Semana", "N° de Professores"};
 
 			public int getColumnCount() { 
 				return subjectColumns.length; 
@@ -2446,7 +2773,7 @@ public class MainWindowNew extends JFrame {
 		phaseTableModel = new DefaultTableModel() {
 
 
-			String[] subjectColumns = {"Código", "Nome"};
+			String[] subjectColumns = {"Codigo", "Nome"};
 
 			public int getColumnCount() { 
 				return subjectColumns.length; 
@@ -2499,7 +2826,7 @@ public class MainWindowNew extends JFrame {
 		courseTableModel = new DefaultTableModel() {
 
 
-			String[] CoursesColumns = {"Código", "Nome"};
+			String[] CoursesColumns = {"Codigo", "Nome"};
 
 			public int getColumnCount() { 
 				return CoursesColumns.length; 
@@ -2529,7 +2856,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Courses cs : CourseList) {                         
 
-				Object[] data = {cs.getCode(), cs.getName()};
+				Object[] data = {cs.getId(), cs.getName()};
 
 				courseTableModel.addRow(data);
 				
@@ -2552,7 +2879,7 @@ public class MainWindowNew extends JFrame {
 		citiesTableModel = new DefaultTableModel() {
 
 
-			String[] CitiesColumns = {"Cidade", "Estado", "País"};
+			String[] CitiesColumns = {"Cidade", "Estado", "Pais"};
 
 			public int getColumnCount() { 
 				return CitiesColumns.length; 
@@ -2605,7 +2932,7 @@ public class MainWindowNew extends JFrame {
 		usersTableModel = new DefaultTableModel() {
 
 
-			String[] UsersColumns = {"Usuário", "Senha", "Perfil"};
+			String[] UsersColumns = {"Usuario", "Senha", "Perfil"};
 
 			public int getColumnCount() { 
 				return UsersColumns.length; 
@@ -2656,7 +2983,7 @@ public class MainWindowNew extends JFrame {
 
 	public void CreateConfigInternalFrame() {
 
-		configInternalFrame = new JInternalFrame("Configura��es");
+		configInternalFrame = new JInternalFrame("Configuracoes");
 		configInternalFrame.setLayout(null);
 		configInternalFrame.setBounds(200, 80, 210, 230);
 		configInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
@@ -2693,7 +3020,7 @@ public class MainWindowNew extends JFrame {
 
 			else if(isFullScreenOnOff.isSelected() == true && isFullScreen == false) {
 
-				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta altera��o ir� reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
+				int DialogResult = JOptionPane.showConfirmDialog(configInternalFrame, "Esta alteracao ira reiniciar o programa, deseja prosseguir?", "", JOptionPane.YES_NO_OPTION);
 				if (DialogResult == JOptionPane.YES_OPTION) {      
 
 					isFullScreen = true;
