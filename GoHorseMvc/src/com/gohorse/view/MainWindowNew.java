@@ -533,22 +533,25 @@ public class MainWindowNew extends JFrame {
 								
 								for (Students st : StudentList) {
 									if (st.getId() == (Integer) studentTableModel.getValueAt(studentTable.getSelectedRow(), 0)) {
+										
 										sts.delete(st.getId());
-										UpdateRowsStudentsTable();
+										
 										btnEditStudents.setEnabled(true);
 										btnRegisterStudents.setEnabled(true);
 										studentTable.setEnabled(false);
+										
+										UpdateRowsStudentsTable();
+
 										continue;
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getStackTrace());
+								e2.printStackTrace();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
 							
 						}else if (e.getKeyCode() != KeyEvent.VK_DELETE) {
-							System.out.println("FUDEO");
 							btnEditStudents.setEnabled(true);
 							btnRegisterStudents.setEnabled(true);
 							studentTable.setEnabled(false);
@@ -1624,7 +1627,7 @@ public class MainWindowNew extends JFrame {
 		studentsInternalFrame.add(txfAdress);
 
 		lbAdressNum = new JLabel();
-		lbAdressNum.setText("N�:");
+		lbAdressNum.setText("N�:");
 		lbAdressNum.setBounds(270, 85, 40, 20);
 		studentsInternalFrame.add(lbAdressNum);
 
@@ -1764,7 +1767,24 @@ public class MainWindowNew extends JFrame {
 				st = new Students(txfStudent.getText(), txfBirthdate.getText(), sex, txfPhone.getText() , txfCellphone.getText(), txfEmail.getText(), txfNote.getText(), 
 						txfAdress.getText(), txfAdressNum.getText() , txfComplement.getText(), txfSuburb.getText() , txfSCity.getText(), txfStuEstate.getText(), txfCep.getText());                    
 				sts.save(st);
+				
+				txfStudent.setText(""); 
+				txfBirthdate.setText(""); 
+				cmbSex.setSelectedIndex(-1);
+				txfPhone.setText(""); 
+				txfCellphone.setText(""); 
+				txfEmail.setText(""); 
+				txfNote.setText(""); 
+				txfAdress.setText(""); 
+				txfAdressNum.setText(""); 
+				txfComplement.setText(""); 
+				txfSuburb.setText(""); 
+				txfSCity.setText(""); 
+				txfStuEstate.setText(""); 
+				txfCep.setText("");
+				
 				JOptionPane.showMessageDialog(null,"Aluno cadastrado com sucesso!","Sucesso", JOptionPane.PLAIN_MESSAGE);
+				
 				UpdateRowsStudentsTable();
 
 				studentsPanel.setVisible(true);
@@ -1823,19 +1843,8 @@ public class MainWindowNew extends JFrame {
 
 		JLabel lbTeacherName;
 		JTextField txfTeacherName; 
-		JLabel lbTeacherCode;
-		JTextField txfTeacherCode;
 		JLabel lbTeacherGraduation;
 		JComboBox<?> cbmTeacherGraduation;
-
-		lbTeacherCode= new JLabel();
-		lbTeacherCode.setText("Cï¿½digo:");
-		lbTeacherCode.setBounds(40, 30, 125, 20);
-		teachersInternalFrame.add(lbTeacherCode);
-
-		txfTeacherCode= new JTextField();
-		txfTeacherCode.setBounds(40, 50, 125, 20);
-		teachersInternalFrame.add(txfTeacherCode);
 
 		lbTeacherGraduation= new JLabel();
 		lbTeacherGraduation.setText("Graduaï¿½ï¿½o");
@@ -1869,9 +1878,7 @@ public class MainWindowNew extends JFrame {
 			TeachersService tcs = new TeachersService();
 
 			try {
-				if (txfTeacherCode.getText().isEmpty()) {
-					throw new Exception("Campo Código está vazio!");
-				}else if (txfTeacherName.getText().isEmpty()) {
+				if (txfTeacherName.getText().isEmpty()) {
 					throw new Exception("Campo Nome está vazio!");
 				}else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
 					throw new Exception("Campo Graduação está vazio!");
@@ -1891,7 +1898,10 @@ public class MainWindowNew extends JFrame {
 				tc = new Teachers(txfTeacherName.getText(), graduation);
 
 				tcs.save(tc);
-
+				
+				txfTeacherName.setText("");
+				cbmTeacherGraduation.setSelectedIndex(-1);
+				
 				UpdateRowsTeachersTable();
 
 				teachersInternalFrame.setVisible(false);
@@ -2028,6 +2038,11 @@ public class MainWindowNew extends JFrame {
 
 				mhs.save(mh);
 				
+				txfSubjectCode.setText("");
+				txfSubjectName.setText("");
+				txfSubjectTeacherAmount.setText("");
+				cmbSubjectWeekdays.setSelectedIndex(-1);
+				
 				UpdateRowsSubjectsTable();
 				
 				subjectsInternalFrame.setVisible(false);
@@ -2117,6 +2132,9 @@ public class MainWindowNew extends JFrame {
 				//fs = new Phases(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
 
 				//fss.save(fs);
+				
+				txfPhaseCode.setText("");
+				txfPhaseName.setText("");
 
 				phasesInternalFrame.setVisible(false);
 
@@ -2204,6 +2222,9 @@ public class MainWindowNew extends JFrame {
 				cs = new Courses(Integer.parseInt(txfCourseCode.getText()) , txfCourseName.getText());
 
 				css.save(cs);
+				
+				txfCourseCode.setText("");
+				txfCourseName.setText("");
 				
 				UpdateRowsCoursesTable();
 				
@@ -2309,6 +2330,10 @@ public class MainWindowNew extends JFrame {
 				ct = new Cities(txfCity.getText(), txfState.getText(), txfCountry.getText());
 
 				cts.save(ct);
+				
+				txfCity.setText("");
+				txfCountry.setText("");
+				txfState.setText("");
 				
 				UpdateRowsCitiesTable();
 				
@@ -2425,6 +2450,10 @@ public class MainWindowNew extends JFrame {
 					us = new Users(txfUser.getText(), String.copyValueOf(txfPassword.getPassword()) , type);
 	
 					uss.save(us);
+					
+					txfUser.setText("");
+					txfPassword.setText("");
+					cmbType.setSelectedIndex(-1);
 					
 					UpdateRowsUsersTable();
 					
