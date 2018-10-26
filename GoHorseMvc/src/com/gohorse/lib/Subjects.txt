@@ -1,25 +1,24 @@
-//OBSEVACAO: COLOCAR ESSE ARQUIVO NO PASTA USERS DO SEU SISTEMA E EXCLUIR ESSA LINHA
-10850@Algoritmos e Programação
-10854@Fundamentos Matematicos para Computação
-10851@Introdução À Ciência da Computação
-10852@Metodologia Científica e da Pesquisa
-10853@Produção e Interpretação de Textos
+10850@Algoritmos e Programaï¿½ï¿½o
+10854@Fundamentos Matematicos para Computaï¿½ï¿½o
+10851@Introduï¿½ï¿½o ï¿½ Ciï¿½ncia da Computaï¿½ï¿½o
+10852@Metodologia Cientï¿½fica e da Pesquisa
+10853@Produï¿½ï¿½o e Interpretaï¿½ï¿½o de Textos
 10858@Calculo I
 10857@Filosofia
-10856@Física Aplicada
-10855@Logica para Computação
-10859@Programação I
+10856@Fï¿½sica Aplicada
+10855@Logica para Computaï¿½ï¿½o
+10859@Programaï¿½ï¿½o I
 10860@Calculo II
 10862@Circuitos Digitais
-10863@Estatística e Probabilidade
+10863@Estatï¿½stica e Probabilidade
 10864@Estrutura de Dados I
-10861@Programação II
-10865@Projeto Interdisciplinar da Computação I
+10861@Programaï¿½ï¿½o II
+10865@Projeto Interdisciplinar da Computaï¿½ï¿½o I
 10868@Analise de Algoritmos
-10869@Arquitetura e Organização de Computadores
+10869@Arquitetura e Organizaï¿½ï¿½o de Computadores
 10870@Calculo Numerico
 10866@Estrutura de Dados II
-10867@Projeto Interdisciplinar da Computação II
+10867@Projeto Interdisciplinar da Computaï¿½ï¿½o II
 10871@Teoria dos Grafos
 10875@Banco de Dados I
 10876@Engenharia de Software I
@@ -28,48 +27,48 @@
 10874@Topicos Especiais I
 10877@Banco de Dados II
 10879@Compiladores
-10880@Comunicação de Dados
+10880@Comunicaï¿½ï¿½o de Dados
 10878@Engenharia de Software II
-10881@Teoria da Computação
-10886@Administração Empresarial
-10884@Computação Grafica
-10883@Computação Paralela e Distribuída
-10885@Inteligência Artificial
+10881@Teoria da Computaï¿½ï¿½o
+10886@Administraï¿½ï¿½o Empresarial
+10884@Computaï¿½ï¿½o Grafica
+10883@Computaï¿½ï¿½o Paralela e Distribuï¿½da
+10885@Inteligï¿½ncia Artificial
 10882@Redes de Computadores
-10887@Trabalho de Conclusão de Curso - TCC I
+10887@Trabalho de Conclusï¿½o de Curso - TCC I
 10891@Empreendedorismo
-10890@Gestão de Sistemas de Informação
+10890@Gestï¿½o de Sistemas de Informaï¿½ï¿½o
 10892@Optativa I
 10888@Topicos Especiais II
-10889@Trabalho de Conclusão de Curso - TCC II
+10889@Trabalho de Conclusï¿½o de Curso - TCC II
 10895@Optativa II
 10893@Topicos Especiais III
-10894@Trabalho de Conclusão de Curso - TCC III
-10916@Administração de Sistemas de Informação
+10894@Trabalho de Conclusï¿½o de Curso - TCC III
+10916@Administraï¿½ï¿½o de Sistemas de Informaï¿½ï¿½o
 10914@Analise Organizacional
 10920@Artes Graficas
-10922@Atividade Física e Qualidade de Vida I
-10923@Atividade Física e Qualidade de Vida II
-10917@Computação Arte
-10896@Criptografia para Segurança de Dados
+10922@Atividade Fï¿½sica e Qualidade de Vida I
+10923@Atividade Fï¿½sica e Qualidade de Vida II
+10917@Computaï¿½ï¿½o Arte
+10896@Criptografia para Seguranï¿½a de Dados
 10919@Desenho Digital
-10915@Gestão Ambiental e da Qualidade
+10915@Gestï¿½o Ambiental e da Qualidade
 10918@Imagens Digitais
 10913@Interface Humano Computador
 10901@Java para Web
 10921@Libras
-10904@Língua Espanhola
-10905@Língua Espanhola Avançada
-10906@Língua Inglesa
-10907@Língua Inglesa Avançada
+10904@Lï¿½ngua Espanhola
+10905@Lï¿½ngua Espanhola Avanï¿½ada
+10906@Lï¿½ngua Inglesa
+10907@Lï¿½ngua Inglesa Avanï¿½ada
 10910@O Computador e a Sociedade
-10897@Objetos Distribuídos e Serviços Web
+10897@Objetos Distribuï¿½dos e Serviï¿½os Web
 10912@Plano de Negocios
-10911@Programação em Logica
-10898@Programação Java Avançada
-10900@Programação Orientada À Aspectos
-10899@Programação para Dispositivos Moveis
-10902@Programação para Web
+10911@Programaï¿½ï¿½o em Logica
+10898@Programaï¿½ï¿½o Java Avanï¿½ada
+10900@Programaï¿½ï¿½o Orientada ï¿½ Aspectos
+10899@Programaï¿½ï¿½o para Dispositivos Moveis
+10902@Programaï¿½ï¿½o para Web
 10909@Psicologia
-10903@Sistemas Operacionais Avançados
+10903@Sistemas Operacionais Avanï¿½ados
 10908@Sociologia

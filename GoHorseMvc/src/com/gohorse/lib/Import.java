@@ -69,7 +69,7 @@ public class Import {
 	        	Integer teachers_defined = Integer.parseInt(line.substring(10,12));
 	        	Integer teachers_total = 0;
 	        	
-	        	HasherSubjects hashersubjects = new HasherSubjects(System.getProperty("user.home") + "//subjects.txt");
+	        	HasherSubjects hashersubjects = new HasherSubjects(System.getProperty("user.home") + "//Subjects.txt");
 	        	
 	        	LinkedHashSet<Subjects> subjects_hash_set = new LinkedHashSet<Subjects>();
 	            for(int i=0;i<subjects_defined;i++) {
