@@ -3397,7 +3397,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3410,7 +3410,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(true);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3423,7 +3423,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(true);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3436,7 +3436,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(true);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3449,7 +3449,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(true);
+			//phasesPanel.setVisible(true);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3462,7 +3462,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(true);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(false);
@@ -3475,7 +3475,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(true);
 			importerPanel.setVisible(false);
@@ -3488,7 +3488,7 @@ public class MainWindowNew extends JFrame {
 			citiesPanel.setVisible(false);
 			usersPanel.setVisible(false);
 			teachersPanel.setVisible(false);
-			phasesPanel.setVisible(false);
+			//phasesPanel.setVisible(false);
 			coursesPanel.setVisible(false);
 			subjectsPanel.setVisible(false);
 			importerPanel.setVisible(true);
