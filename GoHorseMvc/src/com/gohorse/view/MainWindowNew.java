@@ -739,14 +739,15 @@ public class MainWindowNew extends JFrame {
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getStackTrace());
+								e2.printStackTrace();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
 							
 						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
-							btnEditTeachers.setEnabled(false);
-							btnRegisterTeachers.setEnabled(false);
+							btnEditTeachers.setEnabled(true);
+							btnRegisterTeachers.setEnabled(true);
+							teacherTable.setRowSelectionAllowed(false);
 							teacherTable.setEnabled(false);
 							return;
 						}
@@ -847,6 +848,7 @@ public class MainWindowNew extends JFrame {
 										
 										btnDeleteSubjects.setEnabled(true);
 										btnRegisterSubjects.setEnabled(true);
+										subjectTable.setRowSelectionAllowed(false);
 										subjectTable.setEnabled(false);										
 										continue;
 									}
@@ -863,6 +865,7 @@ public class MainWindowNew extends JFrame {
 							
 							btnDeleteSubjects.setEnabled(true);
 							btnRegisterSubjects.setEnabled(true);
+							subjectTable.setRowSelectionAllowed(false);
 							subjectTable.setEnabled(false);
 							
 							return;
@@ -920,7 +923,7 @@ public class MainWindowNew extends JFrame {
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getStackTrace());
+								e2.printStackTrace();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
@@ -928,6 +931,7 @@ public class MainWindowNew extends JFrame {
 						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
 							btnEditSubjects.setEnabled(true);
 							btnRegisterSubjects.setEnabled(true);
+							subjectTable.setRowSelectionAllowed(false);
 							subjectTable.setEnabled(false);
 							return;
 						}
@@ -1169,7 +1173,7 @@ public class MainWindowNew extends JFrame {
 									}
 								}
 							} catch (Exception e2) {
-								System.out.println(e2.getStackTrace());
+								e2.printStackTrace();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
@@ -1210,12 +1214,12 @@ public class MainWindowNew extends JFrame {
 		CreateCitiesTable();
 
 		//Main Panel Buttons
-		JButton btnRegisterCities;
-		JButton btnEditCities;
-		JButton btnDeleteCities;
+		JButton btnRegisterCities = new JButton("Cadastrar Cidade");
+		JButton btnEditCities = new JButton("Editar Cidade");
+		JButton btnDeleteCities = new JButton("Deletar Cidade");
 
 		//Cities Registering
-		btnRegisterCities = new JButton(new AbstractAction("Cadastrar Cidade") {
+		btnRegisterCities.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -1231,12 +1235,81 @@ public class MainWindowNew extends JFrame {
 		citiesPanel.add(btnRegisterCities);
 
 		//Cities Editing 
-		btnEditCities = new JButton(new AbstractAction("Editar Cidade") {
+		btnEditCities.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
+				
+				if (citiesTable.getRowCount() == 0) {
+					
+					return;
+				
+				}
+					
+					btnDeleteCities.setEnabled(false);
+					btnRegisterCities.setEnabled(false);
+					
+					citiesTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsCitiesTable();			
+				
+				
+					citiesTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							CitiesService cts = new CitiesService();
+							 							
+							try {
+								Collection<Cities> CitiesList = cts.findAll();
+								
+								if (CitiesList == null) {
+									return;
+								}
+								
+								for (Cities ct : CitiesList) {
+									if (ct.getId() == (Integer) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0)) {									
+										
+										ct.setName((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0));
+										ct.setState((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 1));
+										ct.setCountry((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 2));
+																			
+										
+										
+										cts.update(ct);
+										
+										editable = false;
+										UpdateRowsCoursesTable();
+										
+										citiesTable.setRowSelectionAllowed(false);
+										
+										btnDeleteCities.setEnabled(true);
+										btnRegisterCities.setEnabled(true);
+										citiesTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+							
+							editable = false;					
+							UpdateRowsCitiesTable();
+																				
+							btnDeleteCities.setEnabled(true);
+							btnRegisterCities.setEnabled(true);
+							citiesTable.setRowSelectionAllowed(false);
+							citiesTable.setEnabled(false);
+							
+							return;
+						}
+					}
+				});
+				
 			}
 
 		});
@@ -1246,12 +1319,65 @@ public class MainWindowNew extends JFrame {
 		citiesPanel.add(btnEditCities);
 
 		//Cities deleting
-		btnDeleteCities = new JButton(new AbstractAction("Deletar Cidade") {
+		btnDeleteCities.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (citiesTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnDeleteCities.setEnabled(false);
+				btnRegisterCities.setEnabled(false);
+				citiesTable.setEnabled(true);	
+                
+				citiesTable.addKeyListener(new KeyAdapter() {
+					
+					public void keyPressed(KeyEvent e) {
+						
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+							
+							CitiesService cts = new CitiesService();
+							 							
+							try {
+								
+								Collection<Cities> CitiesList = cts.findAll();
+								
+								if (CitiesList == null) {
+									return;
+								}
+								
+								for (Cities ct : CitiesList) {
 
-
+									if (ct.getId() == (Integer) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0)) {
+										
+										cts.delete(ct.getId());
+										
+										UpdateRowsCoursesTable();
+										
+										btnDeleteCities.setEnabled(true);
+										btnRegisterCities.setEnabled(true);
+										citiesTable.setRowSelectionAllowed(false);
+										citiesTable.setEnabled(false);
+										break;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnDeleteCities.setEnabled(true);
+							btnRegisterCities.setEnabled(true);
+							citiesTable.setRowSelectionAllowed(false);
+							citiesTable.setEnabled(false);
+							return;
+						}
+					}
+				});
+				
 			}
 
 		});
@@ -1279,12 +1405,12 @@ public class MainWindowNew extends JFrame {
 		CreateUsersTable();
 
 		//Main Panel Buttons
-		JButton btnRegisterUsers;
-		JButton btnEditUsers;
-		JButton btnDeleteUsers;
+		JButton btnRegisterUsers = new JButton("Cadastrar Usuario");
+		JButton btnEditUsers = new JButton("Editar Usuario");
+		JButton btnDeleteUsers = new JButton("Deletar Usuario");
 
 		//Users Registering
-		btnRegisterUsers = new JButton(new AbstractAction("Cadastrar Usuario") {
+		btnRegisterUsers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -1300,12 +1426,80 @@ public class MainWindowNew extends JFrame {
 		usersPanel.add(btnRegisterUsers);
 
 		//Users Editing 
-		btnEditUsers = new JButton(new AbstractAction("Editar Usuario") {
+		btnEditUsers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
+				if (usersTable.getRowCount() == 0) {
+					
+					return;
+				
+				}
+					
+					btnDeleteUsers.setEnabled(false);
+					btnRegisterUsers.setEnabled(false);
+					
+					usersTable.setEnabled(true);				
+					editable = true;
+					UpdateRowsUsersTable();			
+				
+				
+					usersTable.addKeyListener(new KeyAdapter() {
+				
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							
+							UsersService uss = new UsersService();
+							 							
+							try {
+								Collection<Users> UsersList = uss.findAll();
+								
+								if (UsersList == null) {
+									return;
+								}
+								
+								for (Users us : UsersList) {
+									if (us.getId() == (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0)) {									
+										
+										us.setUser((String) usersTable.getValueAt(usersTable.getSelectedRow(), 0));
+										us.setPassword((String) usersTable.getValueAt(usersTable.getSelectedRow(), 1));
+										us.setPerfil((String) usersTable.getValueAt(usersTable.getSelectedRow(), 2));
+																			
+										
+										
+										uss.update(us);
+										
+										editable = false;
+										UpdateRowsUsersTable();
+										
+										usersTable.setRowSelectionAllowed(false);
+										
+										btnDeleteUsers.setEnabled(true);
+										btnRegisterUsers.setEnabled(true);
+										usersTable.setEnabled(false);										
+										continue;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
+							
+							editable = false;					
+							UpdateRowsUsersTable();
+																				
+							btnDeleteUsers.setEnabled(true);
+							btnRegisterUsers.setEnabled(true);
+							usersTable.setRowSelectionAllowed(false);
+							usersTable.setEnabled(false);
+							
+							return;
+						}
+					}
+				});
+				
 			}
 
 		});
@@ -1315,11 +1509,64 @@ public class MainWindowNew extends JFrame {
 		usersPanel.add(btnEditUsers);
 
 		//Users deleting
-		btnDeleteUsers = new JButton(new AbstractAction("Deletar Usuario") {
+		btnDeleteUsers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (usersTable.getRowCount() == 0) {
+					return;
+				}
+				
+				btnDeleteUsers.setEnabled(false);
+				btnRegisterUsers.setEnabled(false);
+				usersTable.setEnabled(true);	
+                
+				usersTable.addKeyListener(new KeyAdapter() {
+					
+					public void keyPressed(KeyEvent e) {
+						
+						if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+							
+							UsersService uss = new UsersService();
+							 							
+							try {
+								
+								Collection<Users> UsersList = uss.findAll();
+								
+								if (UsersList == null) {
+									return;
+								}
+								
+								for (Users us : UsersList) {
 
+									if (us.getId() == (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0)) {
+										
+										uss.delete(us.getId());
+										
+										UpdateRowsUsersTable();
+										
+										btnDeleteUsers.setEnabled(true);
+										btnRegisterUsers.setEnabled(true);
+										usersTable.setRowSelectionAllowed(false);
+										usersTable.setEnabled(false);
+										break;
+									}
+								}
+							} catch (Exception e2) {
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
+							}
+							
+							
+						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
+							btnDeleteUsers.setEnabled(true);
+							btnRegisterUsers.setEnabled(true);
+							usersTable.setRowSelectionAllowed(false);
+							usersTable.setEnabled(false);							
+							return;
+						}
+					}
+				});
 
 			}
 
@@ -2908,7 +3155,7 @@ public class MainWindowNew extends JFrame {
 		citiesTableModel = new DefaultTableModel() {
 
 
-			String[] CitiesColumns = {"Cidade", "Estado", "Pais"};
+			String[] CitiesColumns = {"Codigo", "Cidade", "Estado", "Pais"};
 
 			public int getColumnCount() { 
 				return CitiesColumns.length; 
@@ -2938,7 +3185,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Cities ct : CityList) {                         
 
-				Object[] data = {ct.getName(), ct.getState(), ct.getCountry() };
+				Object[] data = {ct.getId(), ct.getName(), ct.getState(), ct.getCountry() };
 
 				citiesTableModel.addRow(data);
 				
@@ -2961,7 +3208,7 @@ public class MainWindowNew extends JFrame {
 		usersTableModel = new DefaultTableModel() {
 
 
-			String[] UsersColumns = {"Usuario", "Senha", "Perfil"};
+			String[] UsersColumns = {"Codigo", "Usuario", "Senha", "Perfil"};
 
 			public int getColumnCount() { 
 				return UsersColumns.length; 
