@@ -69,6 +69,8 @@ public class Import {
 	        	Integer teachers_defined = Integer.parseInt(line.substring(10,12));
 	        	Integer teachers_total = 0;
 	        	
+	        	HasherSubjects hashersubjects = new HasherSubjects(System.getProperty("user.home") + "//subjects.txt");
+	        	
 	        	LinkedHashSet<Subjects> subjects_hash_set = new LinkedHashSet<Subjects>();
 	            for(int i=0;i<subjects_defined;i++) {
 	            	
@@ -89,7 +91,7 @@ public class Import {
 	            		teachers_total++;
 	            		totalOfLines++;
 	            		verifyTeacher(teacherLine);
-
+	            		
 	            		if(teacherLine.length() != 43) {
 	            			System.out.println(teacherLine);
 	            		}
@@ -98,7 +100,7 @@ public class Import {
 	            		
 	            		teachers_hash_set.add(local_teacher);
 	            	}
-	            	
+	            	local_subjects.setname(hashersubjects.getSubjectName(local_subjects.getCode()));
 	            	local_subjects.setTeachers(teachers_hash_set);
 	            	subjects_hash_set.add(local_subjects);
 	            }     	
