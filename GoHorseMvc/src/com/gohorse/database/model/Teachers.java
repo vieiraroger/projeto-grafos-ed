@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Teachers implements Entity, Serializable {
 	
 	private static final long serialVersionUID = -8982355266862975723L;
-	private Integer id;
+	private int id;
 	private String name;
 	private Integer graduation;
 	

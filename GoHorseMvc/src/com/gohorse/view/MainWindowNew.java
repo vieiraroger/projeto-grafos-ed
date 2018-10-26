@@ -585,12 +585,12 @@ public class MainWindowNew extends JFrame {
 		CreateTeacherTable();
 
 		//Main Panel Buttons
-		JButton btnRegisterTeachers;
-		JButton btnEditTeachers;
-		JButton btnDeleteTeachers;
+		JButton btnRegisterTeachers = new JButton("Cadastrar Professores");
+		JButton btnEditTeachers = new JButton("Editar Professores");
+		JButton btnDeleteTeachers = new JButton("Deletar Professores");
 
 		//Teachers Registering
-		btnRegisterTeachers = new JButton(new AbstractAction("Cadastrar Professores") {
+		btnRegisterTeachers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {                            
@@ -606,11 +606,11 @@ public class MainWindowNew extends JFrame {
 		teachersPanel.add(btnRegisterTeachers);
 
 		//Teachers Editing 
-		btnEditTeachers = new JButton(new AbstractAction("Editar Professores") {
+		btnEditTeachers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-               /*if (studentTable.getRowCount() == 0) {
+               if (teacherTable.getRowCount() == 0) {
 					
 					return;
 				
@@ -619,74 +619,63 @@ public class MainWindowNew extends JFrame {
 					btnDeleteTeachers.setEnabled(false);
 					btnRegisterTeachers.setEnabled(false);
 					
-					studentTable.setEnabled(true);				
+					teacherTable.setEnabled(true);				
 					editable = true;
-					UpdateRowsStudentsTable();			
+					UpdateRowsTeachersTable();			
 				
 				
-					studentTable.addKeyListener(new KeyAdapter() {
+					teacherTable.addKeyListener(new KeyAdapter() {
 				
 					public void keyPressed(KeyEvent e) {
 						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 							
-							StudentsService sts = new StudentsService();
+							TeachersService tcs = new TeachersService();
 							 							
 							try {
-								Collection<Students> StudentList = sts.findAll();
+								Collection<Teachers> TeacherList = tcs.findAll();
 								
-								if (StudentList == null) {
+								if (TeacherList == null) {
 									return;
 								}
 								
-								for (Students st : StudentList) {
-									if (st.getId() == (Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0)) {									
+								for (Teachers tc : TeacherList) {
+									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {									
 										
-										st.setId((Integer) studentTable.getValueAt(studentTable.getSelectedRow(), 0));
-										st.setName((String) studentTable.getValueAt(studentTable.getSelectedRow(), 1));
-										st.setBirthdate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 2));
-										st.setEmail((String) studentTable.getValueAt(studentTable.getSelectedRow(), 3));
-										st.setSex((char) studentTable.getValueAt(studentTable.getSelectedRow(), 4));
-										st.setPhone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 5));
-										st.setCellphone((String) studentTable.getValueAt(studentTable.getSelectedRow(), 6));
-										st.setCep((String) studentTable.getValueAt(studentTable.getSelectedRow(), 7));
-										st.setNumber((String) studentTable.getValueAt(studentTable.getSelectedRow(), 8));
-										st.setAddress((String) studentTable.getValueAt(studentTable.getSelectedRow(), 9));
-										st.setSuburb((String) studentTable.getValueAt(studentTable.getSelectedRow(), 10));
-										st.setCity((String) studentTable.getValueAt(studentTable.getSelectedRow(), 11));
-										st.setEstate((String) studentTable.getValueAt(studentTable.getSelectedRow(), 12));
-										st.setComplement((String) studentTable.getValueAt(studentTable.getSelectedRow(), 13));
-										st.setNote((String) studentTable.getValueAt(studentTable.getSelectedRow(), 14));
+										tc.setId((Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0));
+										tc.setName((String) teacherTable.getValueAt(teacherTable.getSelectedRow(), 1));						
+										tc.setGraduation((Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 2));										
 										
-										
-										sts.update(st);
+										tcs.update(tc);
 										
 										editable = false;
-										UpdateRowsStudentsTable();
 										
-										btnDeleteStudents.setEnabled(true);
-										btnRegisterStudents.setEnabled(true);
-										studentTable.setEnabled(false);										
+										UpdateRowsTeachersTable();
+										btnDeleteTeachers.setEnabled(true);
+										btnRegisterTeachers.setEnabled(true);
+										teacherTable.setEnabled(false);										
 										continue;
 									}
 								}
 							} catch (Exception e2) {
 								e2.printStackTrace();
+								System.out.println("Aqui");
+								UpdateRowsTeachersTable();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
 						}else if (e.getKeyCode() != KeyEvent.VK_ENTER) {
 							
 							editable = false;					
-							UpdateRowsStudentsTable();
+							UpdateRowsTeachersTable();
 							
-							btnDeleteStudents.setEnabled(true);
-							btnRegisterStudents.setEnabled(true);
-							studentTable.setEnabled(false);
+							btnDeleteTeachers.setEnabled(true);
+							btnRegisterTeachers.setEnabled(true);
+							teacherTable.setEnabled(false);
 							
 							return;
 						}
 					}
-				});*/
+				});
 
 			}
 
@@ -697,7 +686,7 @@ public class MainWindowNew extends JFrame {
 		teachersPanel.add(btnEditTeachers);
 
 		//Teachers deleting
-		btnDeleteTeachers = new JButton(new AbstractAction("Deletar Professores") {
+		btnDeleteTeachers.addActionListener(new AbstractAction() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -731,7 +720,9 @@ public class MainWindowNew extends JFrame {
 									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
 										
 										tcs.delete(tc.getId());
+										
 										UpdateRowsTeachersTable();
+																			
 										btnEditTeachers.setEnabled(true);
 										btnRegisterTeachers.setEnabled(true);
 										teacherTable.setEnabled(false);
@@ -836,7 +827,7 @@ public class MainWindowNew extends JFrame {
 								for (Subjects sb : SubjectList) {
 									if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {									
 										
-										sb.setCode((Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0));
+										sb.setCode(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)));
 										sb.setname((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 1));
 										sb.setweek_day(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 2)));									
 										
@@ -2985,6 +2976,7 @@ public class MainWindowNew extends JFrame {
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			System.out.println("Ou Aqui");
 			JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 
