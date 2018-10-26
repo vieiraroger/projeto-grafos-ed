@@ -19,7 +19,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.gohorse.database.model.Phases;
 import com.gohorse.database.model.Users;
+import com.gohorse.database.service.PhasesService;
 import com.gohorse.database.service.UsersService;
 import com.gohorse.lib.FileManipulation;
 
@@ -137,6 +139,30 @@ public class LoginWindow extends JFrame {
     
     public static void main(String[] args) {
         
+    	Phases ph = new Phases();
+    	PhasesService phs = new PhasesService();
+    	
+    	ph.setName("Fase 01");
+    	phs.save(ph);
+    	ph.setName("Fase 02");
+    	phs.save(ph);
+    	ph.setName("Fase 03");
+    	phs.save(ph);
+    	ph.setName("Fase 04");
+    	phs.save(ph);
+    	ph.setName("Fase 05");
+    	phs.save(ph);
+    	ph.setName("Fase 06");
+    	phs.save(ph);
+    	ph.setName("Fase 07");
+    	phs.save(ph);
+    	ph.setName("Fase 08");
+    	phs.save(ph);
+    	ph.setName("Fase 09");
+    	phs.save(ph);
+    	ph.setName("Fase 10");
+    	phs.save(ph);
+    	
     	/*Users u = new Users("admin","admin","admin" );
     	MainWindow mw = new MainWindow(u);
     	mw.setVisible(true);*/

@@ -418,13 +418,15 @@ public class MainWindowNew extends JFrame {
 		//Students Editing 
 		btnEditStudents.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {				
 				
 				if (studentTable.getRowCount() == 0) {
 					
 					return;
 				
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 					
 					btnDeleteStudents.setEnabled(false);
 					btnRegisterStudents.setEnabled(false);
@@ -512,6 +514,8 @@ public class MainWindowNew extends JFrame {
 				if (studentTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditStudents.setEnabled(false);
 				btnRegisterStudents.setEnabled(false);
@@ -616,7 +620,9 @@ public class MainWindowNew extends JFrame {
 					return;
 				
 				}
-					
+				
+               JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+               
 					btnDeleteTeachers.setEnabled(false);
 					btnRegisterTeachers.setEnabled(false);
 					
@@ -694,6 +700,8 @@ public class MainWindowNew extends JFrame {
 				if (teacherTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditTeachers.setEnabled(false);
 				btnRegisterTeachers.setEnabled(false);
@@ -802,6 +810,8 @@ public class MainWindowNew extends JFrame {
 				
 				}
 					
+				JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+				
 					btnDeleteSubjects.setEnabled(false);
 					btnRegisterSubjects.setEnabled(false);
 					
@@ -877,9 +887,11 @@ public class MainWindowNew extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (teacherTable.getRowCount() == 0) {
+				if (subjectTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditSubjects.setEnabled(false);
 				btnRegisterSubjects.setEnabled(false);
@@ -1055,6 +1067,8 @@ public class MainWindowNew extends JFrame {
 				
 				}
 					
+				JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+				
 					btnDeleteCourses.setEnabled(false);
 					btnRegisterCourses.setEnabled(false);
 					
@@ -1130,6 +1144,8 @@ public class MainWindowNew extends JFrame {
 				if (courseTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditCourses.setEnabled(false);
 				btnRegisterCourses.setEnabled(false);
@@ -1236,6 +1252,8 @@ public class MainWindowNew extends JFrame {
 					return;
 				
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 					
 					btnDeleteCities.setEnabled(false);
 					btnRegisterCities.setEnabled(false);
@@ -1316,6 +1334,8 @@ public class MainWindowNew extends JFrame {
 				if (citiesTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditCities.setEnabled(false);
 				btnRegisterCities.setEnabled(false);
@@ -1425,6 +1445,8 @@ public class MainWindowNew extends JFrame {
 				
 				}
 					
+				JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+				
 					btnDeleteUsers.setEnabled(false);
 					btnRegisterUsers.setEnabled(false);
 					
@@ -1506,6 +1528,8 @@ public class MainWindowNew extends JFrame {
 				if (usersTable.getRowCount() == 0) {
 					return;
 				}
+				
+				JOptionPane.showMessageDialog(null, "Para deletar um dado selecione a linha dele na tabela! \n Depois precione Delete! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
 				
 				btnEditUsers.setEnabled(false);
 				btnRegisterUsers.setEnabled(false);
@@ -2195,6 +2219,8 @@ public class MainWindowNew extends JFrame {
 		JTextField txfSubjectCode;
 		JLabel lbSubjectTeacherAmount;
 		JTextField txfSubjectTeacherAmount;
+		JLabel lbSubjectPhases;
+		JComboBox cmbSubjectPhases;
 
 		lbSubjectCode= new JLabel();
 		lbSubjectCode.setText("CÃ¯Â¿Â½digo:");
@@ -2224,14 +2250,26 @@ public class MainWindowNew extends JFrame {
 		cmbSubjectWeekdays.setSelectedIndex(-1);
 		subjectsInternalFrame.add(cmbSubjectWeekdays);
 
-		lbSubjectTeacherAmount = new JLabel();
-		lbSubjectTeacherAmount.setText("Quantidade de Professores:");
-		lbSubjectTeacherAmount.setBounds(40, 165, 125, 20);
-		subjectsInternalFrame.add(lbSubjectTeacherAmount);
+		lbSubjectPhases = new JLabel();
+		lbSubjectPhases.setText("Fase");
+		lbSubjectPhases.setBounds(40, 165, 125, 20);
+		subjectsInternalFrame.add(lbSubjectPhases);
 
-		txfSubjectTeacherAmount= new JTextField();
-		txfSubjectTeacherAmount.setBounds(40, 185, 125, 20);
-		subjectsInternalFrame.add(txfSubjectTeacherAmount);
+
+		cmbSubjectPhases= new JComboBox();
+		cmbSubjectPhases.setBounds(40, 185, 125, 20);
+		
+		PhasesService phs = new PhasesService();
+		Collection<Phases> cph = phs.findAll();
+		
+		for (Phases ph : cph) {
+			
+			cmbSubjectPhases.addItem(ph.getName());
+			
+		}
+		
+		subjectsInternalFrame.add(cmbSubjectPhases);
+		
 
 		//Registering Panel Fields declarations
 
@@ -2252,8 +2290,8 @@ public class MainWindowNew extends JFrame {
 					throw new Exception("Campo Nome estÃ¡ vazio!");
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == -1) {
 					throw new Exception("Campo Dia da Semana estÃ¡ vazio!");
-				}else if (txfSubjectTeacherAmount.getText().isEmpty()) {
-					throw new Exception("Campo Quantidade de Professores estÃ¡ vazio!");
+				}else if (cmbSubjectPhases.getSelectedIndex() == -1) {
+					throw new Exception("Campo Fase esta vazio!");
 				}
 				Integer weekday = 0;
 
@@ -2270,7 +2308,9 @@ public class MainWindowNew extends JFrame {
 				}else if (cmbSubjectWeekdays.getSelectedIndex() == 5) {
 					weekday = 07;
 				}
-
+				
+				
+				
 				mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday);
 
 				mhs.save(mh);
