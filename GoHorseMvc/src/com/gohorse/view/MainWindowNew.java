@@ -79,6 +79,7 @@ public class MainWindowNew extends JFrame {
 	private JTable studentTable;
 	private JTable teacherTable;
 	private JTable subjectTable;
+	private JTable phaseTable;
 	private JTable courseTable;
 	private JTable citiesTable;
 	private JTable usersTable;
@@ -162,7 +163,7 @@ public class MainWindowNew extends JFrame {
 		FillComponentsInCitiesPanel();
 		FillComponentsInUsersPanel();
 		FillComponentsInTeachersPanel();
-		FillComponentsInPhasesPanel();
+		//FillComponentsInPhasesPanel();
 		FillComponentsInCoursesPanel();
 		FillComponentsInSubjectsPanel();                              
 		FillComponentsInImporterPanel();
@@ -639,9 +640,9 @@ public class MainWindowNew extends JFrame {
 								}
 								
 								for (Teachers tc : TeacherList) {
-									if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {									
+									if (tc.getId() == (int) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {									
 										
-										tc.setId((Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0));
+										tc.setId((int) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0));
 										tc.setName((String) teacherTable.getValueAt(teacherTable.getSelectedRow(), 1));						
 										tc.setGraduation((Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 2));										
 										
@@ -658,7 +659,6 @@ public class MainWindowNew extends JFrame {
 								}
 							} catch (Exception e2) {
 								e2.printStackTrace();
-								System.out.println("Aqui");
 								UpdateRowsTeachersTable();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
@@ -826,8 +826,8 @@ public class MainWindowNew extends JFrame {
 								
 								for (Subjects sb : SubjectList) {
 									if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {									
-										
-										sb.setCode(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)));
+										System.out.println("Passou aqui");
+										sb.setCode((Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0));
 										sb.setname((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 1));
 										sb.setweek_day(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 2)));									
 										
@@ -941,7 +941,7 @@ public class MainWindowNew extends JFrame {
 
 	}
 
-	public void FillComponentsInPhasesPanel(){ 
+	/*public void FillComponentsInPhasesPanel(){ 
 
 		CreateComponentPhasesInternalFrame();
 
@@ -1006,7 +1006,7 @@ public class MainWindowNew extends JFrame {
 
 		phasesPanel.setVisible(false);
 
-	}
+	}*/
 
 	public void FillComponentsInCoursesPanel(){
 
@@ -1153,7 +1153,7 @@ public class MainWindowNew extends JFrame {
 								
 								for (Courses cr : CoursesList) {
 
-									if (cr.getId() == (Integer) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {
+									if (cr.getId() == (int) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {
 										
 										crs.delete(cr.getId());
 										UpdateRowsCoursesTable();
@@ -1262,9 +1262,10 @@ public class MainWindowNew extends JFrame {
 								for (Cities ct : CitiesList) {
 									if (ct.getId() == (Integer) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0)) {									
 										
-										ct.setName((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0));
-										ct.setState((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 1));
-										ct.setCountry((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 2));
+										ct.setId((int) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0));
+										ct.setName((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 1));
+										ct.setState((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 2));
+										ct.setCountry((String) citiesTable.getValueAt(citiesTable.getSelectedRow(), 3));
 																			
 										
 										
@@ -1273,7 +1274,6 @@ public class MainWindowNew extends JFrame {
 										editable = false;
 										UpdateRowsCoursesTable();
 										
-										citiesTable.setRowSelectionAllowed(false);
 										
 										btnDeleteCities.setEnabled(true);
 										btnRegisterCities.setEnabled(true);
@@ -1293,7 +1293,6 @@ public class MainWindowNew extends JFrame {
 																				
 							btnDeleteCities.setEnabled(true);
 							btnRegisterCities.setEnabled(true);
-							citiesTable.setRowSelectionAllowed(false);
 							citiesTable.setEnabled(false);
 							
 							return;
@@ -1318,7 +1317,7 @@ public class MainWindowNew extends JFrame {
 					return;
 				}
 				
-				btnDeleteCities.setEnabled(false);
+				btnEditCities.setEnabled(false);
 				btnRegisterCities.setEnabled(false);
 				citiesTable.setEnabled(true);	
                 
@@ -1340,29 +1339,28 @@ public class MainWindowNew extends JFrame {
 								
 								for (Cities ct : CitiesList) {
 
-									if (ct.getId() == (Integer) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0)) {
+									if (ct.getId() == (int) citiesTable.getValueAt(citiesTable.getSelectedRow(), 0)) {
 										
 										cts.delete(ct.getId());
 										
-										UpdateRowsCoursesTable();
-										
-										btnDeleteCities.setEnabled(true);
+										UpdateRowsCitiesTable();
+										System.out.println("entrou");
+										btnEditCities.setEnabled(true);
 										btnRegisterCities.setEnabled(true);
-										citiesTable.setRowSelectionAllowed(false);
 										citiesTable.setEnabled(false);
 										break;
 									}
 								}
 							} catch (Exception e2) {
 								e2.printStackTrace();
+								UpdateRowsCitiesTable();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
 							
 						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
-							btnDeleteCities.setEnabled(true);
+							btnEditCities.setEnabled(true);
 							btnRegisterCities.setEnabled(true);
-							citiesTable.setRowSelectionAllowed(false);
 							citiesTable.setEnabled(false);
 							return;
 						}
@@ -1452,9 +1450,10 @@ public class MainWindowNew extends JFrame {
 								for (Users us : UsersList) {
 									if (us.getId() == (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0)) {									
 										
-										us.setUser((String) usersTable.getValueAt(usersTable.getSelectedRow(), 0));
-										us.setPassword((String) usersTable.getValueAt(usersTable.getSelectedRow(), 1));
-										us.setPerfil((String) usersTable.getValueAt(usersTable.getSelectedRow(), 2));
+										us.setId((int) usersTable.getValueAt(usersTable.getSelectedRow(), 0));
+										us.setUser((String) usersTable.getValueAt(usersTable.getSelectedRow(), 1));
+										us.setPassword((String) usersTable.getValueAt(usersTable.getSelectedRow(), 2));
+										us.setPerfil((String) usersTable.getValueAt(usersTable.getSelectedRow(), 3));
 																			
 										
 										
@@ -1508,7 +1507,7 @@ public class MainWindowNew extends JFrame {
 					return;
 				}
 				
-				btnDeleteUsers.setEnabled(false);
+				btnEditUsers.setEnabled(false);
 				btnRegisterUsers.setEnabled(false);
 				usersTable.setEnabled(true);	
                 
@@ -1536,7 +1535,7 @@ public class MainWindowNew extends JFrame {
 										
 										UpdateRowsUsersTable();
 										
-										btnDeleteUsers.setEnabled(true);
+										btnEditUsers.setEnabled(true);
 										btnRegisterUsers.setEnabled(true);
 										usersTable.setRowSelectionAllowed(false);
 										usersTable.setEnabled(false);
@@ -1545,12 +1544,13 @@ public class MainWindowNew extends JFrame {
 								}
 							} catch (Exception e2) {
 								e2.printStackTrace();
+								UpdateRowsUsersTable();
 								JOptionPane.showMessageDialog(null,"Opa..., um erro inesperado aconteceu, contate o suporte!", "Erro", JOptionPane.ERROR_MESSAGE);
 							}
 							
 							
 						}else if(e.getKeyCode() != KeyEvent.VK_DELETE) {
-							btnDeleteUsers.setEnabled(true);
+							btnEditUsers.setEnabled(true);
 							btnRegisterUsers.setEnabled(true);
 							usersTable.setRowSelectionAllowed(false);
 							usersTable.setEnabled(false);							
@@ -1694,7 +1694,6 @@ public class MainWindowNew extends JFrame {
 				txfFaseInicial.setText("");				
 				
 				UpdateRowsCoursesTable();
-				UpdateRowsPhasesTable();
 				UpdateRowsSubjectsTable();
 				UpdateRowsTeachersTable();
 				
@@ -2316,7 +2315,7 @@ public class MainWindowNew extends JFrame {
 
 	}
 
-	public void CreateComponentPhasesInternalFrame(){
+	/*public void CreateComponentPhasesInternalFrame(){
 
 		phasesInternalFrame = new JInternalFrame("Cadastro de Fases");
 		phasesInternalFrame.setLayout(null);
@@ -2367,9 +2366,9 @@ public class MainWindowNew extends JFrame {
 					throw new Exception("Campo Nome está vazio!");
 				}
 				
-				//fs = new Phases(Integer.parseInt(txfPhaseCode.getText()) , txfPhaseName.getText());
+				fs = new Phases(txfPhaseName.getText());
 
-				//fss.save(fs);
+				fss.save(fs);
 				
 				txfPhaseCode.setText("");
 				txfPhaseName.setText("");
@@ -2404,7 +2403,7 @@ public class MainWindowNew extends JFrame {
 
 		phasesInternalFrame.setVisible(false);
 
-	}
+	}*/
 
 	public void CreateComponentCoursesInternalFrame(){
 
@@ -2458,7 +2457,31 @@ public class MainWindowNew extends JFrame {
 				}
 				
 				cs = new Courses(Integer.parseInt(txfCourseCode.getText()) , txfCourseName.getText());
-
+				
+				LinkedHashSet<Phases> cph = new LinkedHashSet<Phases>();
+				Phases ph = new Phases();
+				
+				ph.setName("Fase 01");
+				cph.add(ph);
+				ph.setName("Fase 02");
+				cph.add(ph);
+				ph.setName("Fase 03");
+				cph.add(ph);
+				ph.setName("Fase 04");
+				cph.add(ph);
+				ph.setName("Fase 05");
+				cph.add(ph);
+				ph.setName("Fase 06");
+				cph.add(ph);
+				ph.setName("Fase 08");
+				cph.add(ph);
+				ph.setName("Fase 09");
+				cph.add(ph);
+				ph.setName("Fase 10");
+				cph.add(ph);
+				
+				cs.setPhases(cph);
+				
 				css.save(cs);
 				
 				txfCourseCode.setText("");
@@ -2805,11 +2828,31 @@ public class MainWindowNew extends JFrame {
 
 	}
 
-	public void CreatePhasesTable(){
+	/*public void CreatePhasesTable(){
+		//Declaring Scroll pane
+		JScrollPane phaseScrollPane;
 
-		//useless, wont implement
+		//Table Configuration
+		phaseTable = new JTable();                   
+		phaseTable.setEnabled(false);
+		
+		//Fill Rows in studentModel
+		UpdateRowsPhasesTable();
+		
+		//Scroll Pane Configuration
+		phaseScrollPane = new JScrollPane(phaseTable);
+		phaseScrollPane.setLocation(50, 100); 
+		phaseScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
+		phaseScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
+		
+		
+		
+		phasesPanel.add(phaseScrollPane);
 
-	}
+		phaseTable.setVisible(true);
+		
+
+	}*/
 
 	public void CreateCourseTable(){
 
@@ -3035,7 +3078,7 @@ public class MainWindowNew extends JFrame {
 
 	}
 	
-	public void UpdateRowsPhasesTable() {
+	/*public void UpdateRowsPhasesTable() {
 
 		//Declaring Table Model
 		phaseTableModel = new DefaultTableModel() {
@@ -3078,7 +3121,7 @@ public class MainWindowNew extends JFrame {
 
 			}
 			
-			//subjectTable.setModel(phaseTableModel);
+			phaseTable.setModel(phaseTableModel);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -3086,7 +3129,7 @@ public class MainWindowNew extends JFrame {
 		}
 		
 
-	}
+	}*/
 	
 	public void UpdateRowsCoursesTable() {
 
@@ -3230,7 +3273,7 @@ public class MainWindowNew extends JFrame {
 			//ADD ROWS TO TABLE
 			for(Users us : UserList) {                         
 
-				Object[] data = {us.getUser(), us.getPassword(), us.getPerfil() };
+				Object[] data = {us.getId(), us.getUser(), us.getPassword(), us.getPerfil() };
 
 				usersTableModel.addRow(data);
 				

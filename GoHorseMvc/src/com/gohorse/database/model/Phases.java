@@ -14,6 +14,11 @@ public class Phases implements Entity, Serializable{
 	public Phases() {
 		
 	}
+
+	public Phases(String name) {
+		super();
+		this.name = name;
+	}
 	
 	public LinkedHashSet<Subjects> getSubjects() {
 		return subjects;
@@ -23,10 +28,6 @@ public class Phases implements Entity, Serializable{
 		this.subjects = subjects;
 	}
 
-	public Phases(String name) {
-		super();
-		this.name = name;
-	}
 	
 	@Override
 	public Integer getId() {
