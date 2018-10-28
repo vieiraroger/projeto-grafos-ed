@@ -10,8 +10,6 @@ public class Courses implements Entity, Serializable{
 	private int code;
 	private String name;
 	private LinkedHashSet<Phases> phases;
-	
-
 
 	public Courses() {
 		
