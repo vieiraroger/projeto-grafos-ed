@@ -2054,6 +2054,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfTeacherName; 
         JLabel lbTeacherGraduation;
         JComboBox<?> cbmTeacherGraduation;
+        JComboBox cbmTeacherSubjects;
 
         lbTeacherGraduation= new JLabel();
         lbTeacherGraduation.setText("Graduacao");
@@ -2073,7 +2074,22 @@ public class MainWindowNew extends JFrame {
         txfTeacherName= new JTextField();
         txfTeacherName.setBounds(40, 55, 125, 20);
         teachersInternalFrame.add(txfTeacherName);
+        
+        cbmTeacherSubjects= new JComboBox();
+        cbmTeacherSubjects.setBounds(40, 220, 125, 20);
+        
+        SubjectsService phss = new SubjectsService();
+        Collection<Subjects> cphs = phss.findAll();
+        
+        for (Subjects sub : cphs) {
+            
+        	cbmTeacherSubjects.addItem(sub.getCode());;
+            
+        }
+        teachersInternalFrame.add(cbmTeacherSubjects);
+        
 
+      
         //Registering Panel Fields declarations
 
 
@@ -2092,25 +2108,32 @@ public class MainWindowNew extends JFrame {
                 }else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
                     throw new Exception("Campo Graduação está vazio!");
                 }
-                int graduation = 0;
-
-                if (cbmTeacherGraduation.getSelectedIndex() == 0) {
-                    graduation = 01;
-                }else if (cbmTeacherGraduation.getSelectedIndex() == 1 ) {
-                    graduation = 02;
-                }else if (cbmTeacherGraduation.getSelectedIndex() == 2) {
-                    graduation = 03;
-                }else if (cbmTeacherGraduation.getSelectedIndex() == 3) {
-                    graduation = 04;
-                }
+                int graduation = cbmTeacherGraduation.getSelectedIndex() +1;
 
                 tc = new Teachers(txfTeacherName.getText(), graduation);
 
                 tcs.save(tc);
                 
+                SubjectsService sss = new SubjectsService();
+                Collection<Subjects> colsub = sss.findAll();
+                System.out.println(cbmTeacherSubjects.getSelectedItem() + " as");
+                for(Subjects suss : colsub) {
+
+                	if(suss.getCode() == (Integer) cbmTeacherSubjects.getSelectedItem()) {
+                		sss.delete(suss.getId());
+                		System.out.println(suss.getId());
+                		LinkedHashSet<Teachers> lhst = suss.getTeachers();
+                		lhst.add(tc);
+                		suss.setTeachers(lhst);
+                		suss.getTeacher_amount();
+                		sss.save(suss);
+                		break;
+                	}
+                }
+                
                 txfTeacherName.setText("");
                 cbmTeacherGraduation.setSelectedIndex(-1);
-                
+                UpdateRowsSubjectsTable();
                 UpdateRowsTeachersTable();
 
                 teachersInternalFrame.setVisible(false);
