@@ -157,11 +157,15 @@ public class MainWindowNew extends JFrame {
         FillComponentsInStudentsPanel();
         FillComponentsInCitiesPanel();
         FillComponentsInUsersPanel();
+        System.out.println("aq");
         FillComponentsInTeachersPanel();
+        
         FillComponentsInCoursesPanel();
-        FillComponentsInSubjectsPanel();                              
+        
+        FillComponentsInSubjectsPanel();      
+        System.out.println("aq");
         FillComponentsInImporterPanel();
-
+        
     }
 
     //Top bar - CREATE AND FILL
@@ -572,7 +576,7 @@ public class MainWindowNew extends JFrame {
     public void FillComponentsInTeachersPanel() {
 
         CreateComponentTeachersInternalFrame();
-
+       
         //Teachers Panel Declaration
         teachersPanel = new JPanel();
         teachersPanel.setLayout(null);
@@ -603,7 +607,7 @@ public class MainWindowNew extends JFrame {
         btnRegisterTeachers.setFocusPainted(false);
         btnRegisterTeachers.setContentAreaFilled(false);
         teachersPanel.add(btnRegisterTeachers);
-
+        
         //Teachers Editing 
         btnEditTeachers.addActionListener(new AbstractAction() {
 
@@ -683,6 +687,7 @@ public class MainWindowNew extends JFrame {
             }
 
         });
+        
         btnEditTeachers.setBounds(230, 30, 170, 40);        
         btnEditTeachers.setFocusPainted(false);
         btnEditTeachers.setContentAreaFilled(false);
@@ -762,7 +767,7 @@ public class MainWindowNew extends JFrame {
         teachersPanel.add(btnDeleteTeachers);
 
         teachersPanel.setVisible(false);
-
+        
     }
 
     public void FillComponentsInSubjectsPanel() {
@@ -2041,7 +2046,7 @@ public class MainWindowNew extends JFrame {
         teachersInternalFrame.setLayout(null);
         teachersInternalFrame.setBounds(200, 80, 210, 280);
         teachersInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
-
+        
         //Registering Panel Buttons declarations
         JButton btnSaveTeachers = new JButton("Salvar");
         JButton btnExitTeachers = new JButton("Sair");
@@ -2080,12 +2085,14 @@ public class MainWindowNew extends JFrame {
         
         SubjectsService phss = new SubjectsService();
         Collection<Subjects> cphs = phss.findAll();
-        
-        for (Subjects sub : cphs) {
-            
-        	cbmTeacherSubjects.addItem(sub.getCode());;
-            
+        if(cphs != null) {
+        	for (Subjects sub : cphs) {
+        		
+            	cbmTeacherSubjects.addItem(sub.getCode());;
+                
+            }
         }
+        
         teachersInternalFrame.add(cbmTeacherSubjects);
         
 
@@ -2250,12 +2257,14 @@ public class MainWindowNew extends JFrame {
         
         CoursesService cos = new CoursesService();
         Collection<Courses> coph = cos.findAll();
-        
-        for (Courses cs : coph) {
-        	
-        	cmbSubjectCourse.addItem(cs.getName());
-            
+        if(coph != null) {
+        	for (Courses cs : coph) {
+            	
+            	cmbSubjectCourse.addItem(cs.getName());
+                
+            }
         }
+        
         
         subjectsInternalFrame.add(cmbSubjectCourse);
 
@@ -2297,19 +2306,27 @@ public class MainWindowNew extends JFrame {
                     weekday = 07;
                 }
                 
-                CoursesService css = new CoursesService();
-                Collection<Courses> allCourses = css.findAll();
-                Courses course = null;
+                //CoursesService css = new CoursesService();
+                //Collection<Courses> allCourses = css.findAll();
+               // Courses course = null;
+                /*
                 for(Courses ccc : allCourses) {
-                	if(ccc.getName() == cmbSubjectCourse.getName()) {
+
+                	if(ccc.getName().equals(cmbSubjectCourse.getSelectedItem())) {
+                		System.out.println( cmbSubjectCourse.getSelectedItem());
                 		course = ccc;
                 		break;
                 	}
                 }
                 Phases thePhase = null;
                 boolean nopes = false;
-                for (Phases phases : course.getPhases()) {
-					if(phases.getName() == cmbSubjectPhases.getName()) {
+                if(course == null) {
+                	return;
+                }
+                LinkedHashSet<Phases> ppp = course.getPhases();
+               
+                for (Phases phases : ppp) {
+					if(phases.getName().equals(cmbSubjectPhases.getName())) {
 						thePhase = phases;
 						nopes = true;
 						break;
@@ -2322,16 +2339,28 @@ public class MainWindowNew extends JFrame {
                 	thePhase = ppph;
                 }
                 
-               
+               if(thePhase == null) {
+            	   System.out.println("test");
+            	   return;
+               }*/
                 
                 mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday);
-                LinkedHashSet<Subjects> sss =thePhase.getSubjects();
-                sss.add(mh);
-                thePhase.setSubjects(sss);
-                mhs.save(mh);
+                /*
+                LinkedHashSet<Subjects> sss = thePhase.getSubjects();
+                if(sss == null) {
+                	LinkedHashSet<Subjects> kkk = new LinkedHashSet<Subjects>();
+                	kkk.add(mh);
+                	thePhase.setSubjects(kkk);
+                }
+                else {
+                	sss.add(mh);
+                	thePhase.setSubjects(sss);
+                }
+                thePhase.setSubjects(sss);*/
+                mhs.update(mh);
                 
-                CoursesService csss = new CoursesService();
-                csss.save(course);
+                //CoursesService csss = new CoursesService();
+                //csss.update(course);
                 
                 txfSubjectCode.setText("");
                 txfSubjectName.setText("");
@@ -2342,6 +2371,7 @@ public class MainWindowNew extends JFrame {
                 subjectsInternalFrame.setVisible(false);
 
             } catch (Exception e) {
+            	e.printStackTrace();
                 System.out.println(e.getMessage());
                 JOptionPane.showMessageDialog(null,e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             } 

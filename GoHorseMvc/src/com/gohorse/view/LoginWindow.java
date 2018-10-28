@@ -107,13 +107,15 @@ public class LoginWindow extends JFrame {
 					
 					boolean entrou = true;
 					for (Users user : list) {
+						
+
 						if (user.getPassword().equals(String.copyValueOf(txfPassword.getPassword()))) {
 							
 							MainWindowNew mw = new MainWindowNew(user.getPerfil());
 							mw.setVisible(true);
 							entrou = false;
 							LoginWindow.this.dispose();
-							
+
 						}
 					}
 					
