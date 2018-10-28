@@ -102,7 +102,6 @@ public class MainWindowNew extends JFrame {
     //Define perfil of user
     private String perfil; 
     
-    
     //Declaring Importer components
     private JLabel labelDescricao;
     private JTextField txfData;
@@ -159,7 +158,6 @@ public class MainWindowNew extends JFrame {
         FillComponentsInCitiesPanel();
         FillComponentsInUsersPanel();
         FillComponentsInTeachersPanel();
-        //FillComponentsInPhasesPanel();
         FillComponentsInCoursesPanel();
         FillComponentsInSubjectsPanel();                              
         FillComponentsInImporterPanel();
@@ -2037,22 +2035,22 @@ public class MainWindowNew extends JFrame {
         JComboBox<?> cbmTeacherGraduation;
 
         lbTeacherGraduation= new JLabel();
-        lbTeacherGraduation.setText("Graduaï¿½ï¿½o");
-        lbTeacherGraduation.setBounds(40, 120, 125, 20);
+        lbTeacherGraduation.setText("Graduacao");
+        lbTeacherGraduation.setBounds(40, 100, 125, 20);
         teachersInternalFrame.add(lbTeacherGraduation);
 
         cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
-        cbmTeacherGraduation.setBounds(40, 140, 125, 20);
+        cbmTeacherGraduation.setBounds(40, 120, 125, 20);
         cbmTeacherGraduation.setSelectedIndex(-1);
         teachersInternalFrame.add(cbmTeacherGraduation);
 
         lbTeacherName= new JLabel();
         lbTeacherName.setText("Nome:");
-        lbTeacherName.setBounds(40, 75, 125, 20);
+        lbTeacherName.setBounds(40, 35, 125, 20);
         teachersInternalFrame.add(lbTeacherName);
 
         txfTeacherName= new JTextField();
-        txfTeacherName.setBounds(40, 95, 125, 20);
+        txfTeacherName.setBounds(40, 55, 125, 20);
         teachersInternalFrame.add(txfTeacherName);
 
         //Registering Panel Fields declarations
@@ -2150,7 +2148,7 @@ public class MainWindowNew extends JFrame {
         JComboBox cmbSubjectPhases;
 
         lbSubjectCode= new JLabel();
-        lbSubjectCode.setText("Cï¿½digo:");
+        lbSubjectCode.setText("Codigo:");
         lbSubjectCode.setBounds(40, 30, 125, 20);
         subjectsInternalFrame.add(lbSubjectCode);
 
@@ -2695,9 +2693,7 @@ public class MainWindowNew extends JFrame {
         subjectScrollPane.setLocation(50, 100); 
         subjectScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         subjectScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-        
-        
-        
+          
         subjectsPanel.add(subjectScrollPane);
 
         subjectTable.setVisible(true);
@@ -2720,7 +2716,6 @@ public class MainWindowNew extends JFrame {
         courseScrollPane.setLocation(50, 100); 
         courseScrollPane.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
         courseScrollPane.setSize((int)Math.round(ScreenSize.width*0.916), (int)Math.round(ScreenSize.height*0.76));        
-        
         
         
         coursesPanel.add(courseScrollPane);
@@ -2753,8 +2748,7 @@ public class MainWindowNew extends JFrame {
     }
 
     public void CreateUsersTable(){
-
-        
+       
         //Declaring Table and Scroll pane
         JScrollPane usersScrollPane;
 
