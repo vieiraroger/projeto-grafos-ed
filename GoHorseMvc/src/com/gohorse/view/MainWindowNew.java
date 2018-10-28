@@ -638,9 +638,12 @@ public class MainWindowNew extends JFrame {
                                 if (TeacherList == null) {
                                     return;
                                 }
-                                
+                                if (teacherTable.getSelectedRow() == -1) {
+                                	return;
+                                }
+                                int tableValue = (int) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0);
                                 for (Teachers tc : TeacherList) {
-                                    if (tc.getId() == (int) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {                                    
+                                    if (tc.getId() == tableValue) {                                    
                                         
                                         tc.setId((int) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0));
                                         tc.setName((String) teacherTable.getValueAt(teacherTable.getSelectedRow(), 1));                     
@@ -717,6 +720,10 @@ public class MainWindowNew extends JFrame {
                                     return;
                                 }
                                 
+                                if (teacherTable.getSelectedRow() == -1) {
+                                	return;
+                                }
+                                
                                 for (Teachers tc : TeacherList) {
 
                                     if (tc.getId() == (Integer) teacherTable.getValueAt(teacherTable.getSelectedRow(), 0)) {
@@ -761,7 +768,7 @@ public class MainWindowNew extends JFrame {
     public void FillComponentsInSubjectsPanel() {
 
         CreateComponentSubjectsInternalFrame();
-
+        //roger
         //Subjects Panel Declaration
         subjectsPanel = new JPanel();
         subjectsPanel.setLayout(null);
@@ -828,6 +835,9 @@ public class MainWindowNew extends JFrame {
                                     return;
                                 }
                                 
+                                if (subjectTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Subjects sb : SubjectList) {
                                     if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {                                  
                                         System.out.println("Passou aqui");
@@ -906,7 +916,9 @@ public class MainWindowNew extends JFrame {
                                 if (SubjectList == null) {
                                     return;
                                 }
-                                
+                                if (subjectTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Subjects sb : SubjectList) {
 
                                     if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {
@@ -1018,6 +1030,9 @@ public class MainWindowNew extends JFrame {
                                     return;
                                 }
                                 
+                                if (courseTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Courses cr : CourseList) {
                                     if (cr.getId() == (Integer) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {                                  
                                         
@@ -1093,7 +1108,9 @@ public class MainWindowNew extends JFrame {
                                 if (CoursesList == null) {
                                     return;
                                 }
-                                
+                                if (courseTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Courses cr : CoursesList) {
 
                                     if (cr.getId() == (int) courseTable.getValueAt(courseTable.getSelectedRow(), 0)) {
@@ -1395,7 +1412,9 @@ public class MainWindowNew extends JFrame {
                                 if (UsersList == null) {
                                     return;
                                 }
-                                
+                                if (usersTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Users us : UsersList) {
                                     if (us.getId() == (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0)) {                                    
                                         
@@ -1477,7 +1496,9 @@ public class MainWindowNew extends JFrame {
                                 if (UsersList == null) {
                                     return;
                                 }
-                                
+                                if (usersTable.getSelectedRow() == -1) {
+                                	return;
+                                }
                                 for (Users us : UsersList) {
 
                                     if (us.getId() == (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0)) {
@@ -2146,6 +2167,7 @@ public class MainWindowNew extends JFrame {
         JTextField txfSubjectCode;
         JLabel lbSubjectPhases;
         JComboBox cmbSubjectPhases;
+        JComboBox cmbSubjectCourse;
 
         lbSubjectCode= new JLabel();
         lbSubjectCode.setText("Codigo:");
@@ -2187,14 +2209,32 @@ public class MainWindowNew extends JFrame {
         PhasesService phs = new PhasesService();
         Collection<Phases> cph = phs.findAll();
         
-        for (Phases ph : cph) {
-            
-            cmbSubjectPhases.addItem(ph.getName());
+        for (int i=1;i<11;i++) {
+            if(i < 10) {
+            	cmbSubjectPhases.addItem("FASE-0" + i);
+            }
+            else {
+            	cmbSubjectPhases.addItem("FASE-" + i);
+            }
+        	
             
         }
         
         subjectsInternalFrame.add(cmbSubjectPhases);
         
+        cmbSubjectCourse= new JComboBox();
+        cmbSubjectCourse.setBounds(40, 220, 125, 20);
+        
+        CoursesService cos = new CoursesService();
+        Collection<Courses> coph = cos.findAll();
+        
+        for (Courses cs : coph) {
+        	
+        	cmbSubjectCourse.addItem(cs.getName());
+            
+        }
+        
+        subjectsInternalFrame.add(cmbSubjectCourse);
 
         //Registering Panel Fields declarations
 
@@ -2234,11 +2274,41 @@ public class MainWindowNew extends JFrame {
                     weekday = 07;
                 }
                 
+                CoursesService css = new CoursesService();
+                Collection<Courses> allCourses = css.findAll();
+                Courses course = null;
+                for(Courses ccc : allCourses) {
+                	if(ccc.getName() == cmbSubjectCourse.getName()) {
+                		course = ccc;
+                		break;
+                	}
+                }
+                Phases thePhase = null;
+                boolean nopes = false;
+                for (Phases phases : course.getPhases()) {
+					if(phases.getName() == cmbSubjectPhases.getName()) {
+						thePhase = phases;
+						nopes = true;
+						break;
+					}
+				}
                 
+                if(!nopes) {
+                	Phases ppph = new Phases(cmbSubjectPhases.getName());
+                	course.getPhases().add(ppph);
+                	thePhase = ppph;
+                }
+                
+               
                 
                 mh = new Subjects(Integer.parseInt(txfSubjectCode.getText()) , txfSubjectName.getText(), weekday);
-
+                LinkedHashSet<Subjects> sss =thePhase.getSubjects();
+                sss.add(mh);
+                thePhase.setSubjects(sss);
                 mhs.save(mh);
+                
+                CoursesService csss = new CoursesService();
+                csss.save(course);
                 
                 txfSubjectCode.setText("");
                 txfSubjectName.setText("");
