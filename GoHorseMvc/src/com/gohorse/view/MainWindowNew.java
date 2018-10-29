@@ -2063,11 +2063,11 @@ public class MainWindowNew extends JFrame {
 
         lbTeacherGraduation= new JLabel();
         lbTeacherGraduation.setText("Graduacao");
-        lbTeacherGraduation.setBounds(40, 100, 125, 20);
+        lbTeacherGraduation.setBounds(40, 85, 125, 20);
         teachersInternalFrame.add(lbTeacherGraduation);
 
         cbmTeacherGraduation = new JComboBox<>(TeacherGraduationType);
-        cbmTeacherGraduation.setBounds(40, 120, 125, 20);
+        cbmTeacherGraduation.setBounds(40, 105, 125, 20);
         cbmTeacherGraduation.setSelectedIndex(-1);
         teachersInternalFrame.add(cbmTeacherGraduation);
 
@@ -2080,8 +2080,13 @@ public class MainWindowNew extends JFrame {
         txfTeacherName.setBounds(40, 55, 125, 20);
         teachersInternalFrame.add(txfTeacherName);
         
+        lbTeacherName= new JLabel();
+        lbTeacherName.setText("Disciplina:");
+        lbTeacherName.setBounds(40, 135, 125, 20);
+        teachersInternalFrame.add(lbTeacherName);
+        
         cbmTeacherSubjects= new JComboBox();
-        cbmTeacherSubjects.setBounds(40, 220, 125, 20);
+        cbmTeacherSubjects.setBounds(40, 155, 125, 20);
         
         SubjectsService phss = new SubjectsService();
         Collection<Subjects> cphs = phss.findAll();
@@ -2179,7 +2184,7 @@ public class MainWindowNew extends JFrame {
 
         subjectsInternalFrame = new JInternalFrame("Cadastro de Disciplina");
         subjectsInternalFrame.setLayout(null);
-        subjectsInternalFrame.setBounds(200, 80, 210, 310);
+        subjectsInternalFrame.setBounds(200, 80, 210, 340);
         subjectsInternalFrame.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL)));
 
         //Registering Panel Buttons declarations
@@ -2245,15 +2250,20 @@ public class MainWindowNew extends JFrame {
             }
             else {
             	cmbSubjectPhases.addItem("FASE-" + i);
-            }
-        	
-            
+            }	
         }
+        
+        cmbSubjectPhases.setSelectedIndex(-1);
         
         subjectsInternalFrame.add(cmbSubjectPhases);
         
+        lbSubjectPhases = new JLabel();
+        lbSubjectPhases.setText("Curso");
+        lbSubjectPhases.setBounds(40, 210, 125, 20);
+        subjectsInternalFrame.add(lbSubjectPhases);
+        
         cmbSubjectCourse= new JComboBox();
-        cmbSubjectCourse.setBounds(40, 220, 125, 20);
+        cmbSubjectCourse.setBounds(40, 230, 125, 20);
         
         CoursesService cos = new CoursesService();
         Collection<Courses> coph = cos.findAll();
@@ -2265,6 +2275,7 @@ public class MainWindowNew extends JFrame {
             }
         }
         
+        cmbSubjectCourse.setSelectedIndex(-1);
         
         subjectsInternalFrame.add(cmbSubjectCourse);
 
@@ -2289,6 +2300,8 @@ public class MainWindowNew extends JFrame {
                     throw new Exception("Campo Dia da Semana está vazio!");
                 }else if (cmbSubjectPhases.getSelectedIndex() == -1) {
                     throw new Exception("Campo Fase esta vazio!");
+                }else if (cmbSubjectCourse.getSelectedIndex() == -1) {
+                	throw new Exception("Campo Curso esta vazio!");
                 }
                 Integer weekday = 0;
 
@@ -2365,6 +2378,8 @@ public class MainWindowNew extends JFrame {
                 txfSubjectCode.setText("");
                 txfSubjectName.setText("");
                 cmbSubjectWeekdays.setSelectedIndex(-1);
+                cmbSubjectPhases.setSelectedIndex(-1);
+                cmbSubjectCourse.setSelectedIndex(-1);
                 
                 UpdateRowsSubjectsTable();
                 
@@ -2378,7 +2393,7 @@ public class MainWindowNew extends JFrame {
 
             }
         });
-        btnSaveSubjects.setBounds(93, 230, 95, 20);     
+        btnSaveSubjects.setBounds(93, 270, 95, 20);     
         btnSaveSubjects.setFocusPainted(false);
         btnSaveSubjects.setContentAreaFilled(false);
         subjectsInternalFrame.add(btnSaveSubjects);
@@ -2393,7 +2408,7 @@ public class MainWindowNew extends JFrame {
 
             }
         });
-        btnExitSubjects.setBounds(23, 230, 60, 20); 
+        btnExitSubjects.setBounds(23, 270, 60, 20); 
         btnExitSubjects.setFocusPainted(false);
         btnExitSubjects.setContentAreaFilled(false);
         subjectsInternalFrame.add(btnExitSubjects);
