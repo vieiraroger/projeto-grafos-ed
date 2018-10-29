@@ -2119,7 +2119,11 @@ public class MainWindowNew extends JFrame {
                     throw new Exception("Campo Nome está vazio!");
                 }else if (cbmTeacherGraduation.getSelectedIndex() == -1) {
                     throw new Exception("Campo Graduação está vazio!");
+                }else if (cbmTeacherSubjects.getSelectedIndex() == -1) {
+                	throw new Exception("Campo Disciplina está vazio!");
                 }
+                
+                
                 int graduation = cbmTeacherGraduation.getSelectedIndex() +1;
 
                 tc = new Teachers(txfTeacherName.getText(), graduation);
