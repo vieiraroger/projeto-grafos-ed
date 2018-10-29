@@ -424,7 +424,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                 
-                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                     
                     btnDeleteStudents.setEnabled(false);
                     btnRegisterStudents.setEnabled(false);
@@ -619,7 +619,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                 
-               JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                
                     btnDeleteTeachers.setEnabled(false);
                     btnRegisterTeachers.setEnabled(false);
@@ -816,7 +816,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                     
-                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                 
                     btnDeleteSubjects.setEnabled(false);
                     btnRegisterSubjects.setEnabled(false);
@@ -844,11 +844,11 @@ public class MainWindowNew extends JFrame {
                                 	return;
                                 }
                                 for (Subjects sb : SubjectList) {
-                                    if (sb.getCode() == (Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {                                  
+                                    if (sb.getCode() == (int) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0)) {                                  
                                         System.out.println("Passou aqui");
                                         sb.setCode((Integer) subjectTable.getValueAt(subjectTable.getSelectedRow(), 0));
                                         sb.setname((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 1));
-                                        sb.setweek_day(Integer.parseInt((String) subjectTable.getValueAt(subjectTable.getSelectedRow(), 2)));                                   
+                                        sb.setweek_day((int) subjectTable.getValueAt(subjectTable.getSelectedRow(), 2));                                   
                                         
                                         
                                         sbs.update(sb);
@@ -1011,7 +1011,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                     
-                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                 
                     btnDeleteCourses.setEnabled(false);
                     btnRegisterCourses.setEnabled(false);
@@ -1202,7 +1202,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                 
-                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                     
                     btnDeleteCities.setEnabled(false);
                     btnRegisterCities.setEnabled(false);
@@ -1394,7 +1394,7 @@ public class MainWindowNew extends JFrame {
                 
                 }
                     
-                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a célula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Para editar um dado clique duas vezes sobre a cï¿½lula dele na tabela! \n Depois de editado precione enter duas vezes! \n Pressione qualquer tecla para sair!", null, JOptionPane.WARNING_MESSAGE);
                 
                     btnDeleteUsers.setEnabled(false);
                     btnRegisterUsers.setEnabled(false);
